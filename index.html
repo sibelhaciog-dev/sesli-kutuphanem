@@ -393,7 +393,7 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
 
 <!-- FILTERS -->
 <div class="filters-wrap">
-  <div class="filters">
+  <div class="filters" style="display:flex;align-items:center;gap:8px;flex-wrap:nowrap">
     <span class="filter-label">Dil:</span>
     <button class="chip active" onclick="setFilter('dil','tumu',this)">Tümü</button>
     <button class="chip" onclick="setFilter('dil','tr',this)">🇹🇷 Türkçe</button>
@@ -404,6 +404,9 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
     <button class="chip" onclick="setFilter('sirala','begeni',this)">En Beğenilen</button>
     <button class="chip" onclick="setFilter('sirala','fav',this)">❤️ Favoriler</button>
     <button class="chip" onclick="setFilter('sirala','okundu',this)">✅ Okundu</button>
+    <div class="fdivider"></div>
+    <button onclick="bagisOverlayAc()" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;background:#27ae60;color:white;border:none;border-radius:50px;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0">📚 Kitap Bağışla</button>
+    <button onclick="takasOverlayAc()" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border:none;border-radius:50px;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0">🔄 Takas</button>
   </div>
 </div>
 
@@ -430,6 +433,115 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
   </div>
   <div class="grid" id="grid"></div>
 </main>
+
+<!-- BAĞIŞ OVERLAY -->
+<div id="bagisOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;backdrop-filter:blur(4px);overflow-y:auto;padding:20px">
+  <div style="max-width:500px;margin:40px auto;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.2)">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #eee">
+      <div style="font-family:'DM Serif Display',serif;font-size:20px">📚 Kitap Bağışı</div>
+      <button onclick="document.getElementById('bagisOverlay').style.display='none';document.body.style.overflow=''" style="background:none;border:none;font-size:22px;cursor:pointer;color:#999;line-height:1">✕</button>
+    </div>
+    <div style="padding:24px">
+      <p style="font-size:13px;color:#7a7a8a;margin-bottom:20px;line-height:1.6">Evindeki kitapları bağışlamak mı istiyorsun? Seçtiğin kurum seni arayıp kitaplarını almaya gelsin.</p>
+      <div style="margin-bottom:16px">
+        <label style="display:block;font-size:11px;font-weight:700;color:#7a7a8a;text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">Kurum Seç *</label>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <label style="display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid #e8e0d8;border-radius:10px;cursor:pointer">
+            <input type="radio" name="bkurum" value="LÖSEV" style="accent-color:#27ae60;width:15px;height:15px;flex-shrink:0" onchange="document.getElementById('bDigerAlan').style.display='none'">
+            <div><div style="font-size:13px;font-weight:600;color:#1a1a2e">LÖSEV</div><div style="font-size:11px;color:#999">Lösemili Çocuklar Vakfı</div></div>
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid #e8e0d8;border-radius:10px;cursor:pointer">
+            <input type="radio" name="bkurum" value="Çocuk Vakfı" style="accent-color:#27ae60;width:15px;height:15px;flex-shrink:0" onchange="document.getElementById('bDigerAlan').style.display='none'">
+            <div><div style="font-size:13px;font-weight:600;color:#1a1a2e">Çocuk Vakfı</div><div style="font-size:11px;color:#999">Türkiye Çocuk Vakfı</div></div>
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid #e8e0d8;border-radius:10px;cursor:pointer">
+            <input type="radio" name="bkurum" value="Darüşşafaka" style="accent-color:#27ae60;width:15px;height:15px;flex-shrink:0" onchange="document.getElementById('bDigerAlan').style.display='none'">
+            <div><div style="font-size:13px;font-weight:600;color:#1a1a2e">Darüşşafaka</div><div style="font-size:11px;color:#999">Darüşşafaka Cemiyeti</div></div>
+          </label>
+          <label style="display:flex;align-items:center;gap:10px;padding:12px 14px;border:1.5px solid #e8e0d8;border-radius:10px;cursor:pointer">
+            <input type="radio" name="bkurum" value="Diğer" style="accent-color:#27ae60;width:15px;height:15px;flex-shrink:0" onchange="document.getElementById('bDigerAlan').style.display='block'">
+            <div><div style="font-size:13px;font-weight:600;color:#1a1a2e">Diğer</div><div style="font-size:11px;color:#999">Başka bir kurum belirtirim</div></div>
+          </label>
+        </div>
+      </div>
+      <div id="bDigerAlan" style="display:none;margin-bottom:14px">
+        <input type="text" id="bDigerAd" placeholder="Kurum adını yazın..." style="width:100%;border:1.5px solid #764ba2;border-radius:10px;padding:9px 12px;font-size:13px;font-family:DM Sans,sans-serif;outline:none">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+        <div>
+          <label style="display:block;font-size:11px;font-weight:600;color:#7a7a8a;margin-bottom:5px">Ad Soyad *</label>
+          <input type="text" id="bad" placeholder="Ada Yılmaz" style="width:100%;border:1.5px solid #e8e0d8;border-radius:10px;padding:9px 12px;font-size:13px;font-family:DM Sans,sans-serif;outline:none">
+        </div>
+        <div>
+          <label style="display:block;font-size:11px;font-weight:600;color:#7a7a8a;margin-bottom:5px">Telefon *</label>
+          <input type="tel" id="btel" placeholder="05XX XXX XX XX" style="width:100%;border:1.5px solid #e8e0d8;border-radius:10px;padding:9px 12px;font-size:13px;font-family:DM Sans,sans-serif;outline:none">
+        </div>
+      </div>
+      <div style="margin-bottom:10px">
+        <label style="display:block;font-size:11px;font-weight:600;color:#7a7a8a;margin-bottom:5px">Şehir *</label>
+        <input type="text" id="bsehir" placeholder="İstanbul" style="width:100%;border:1.5px solid #e8e0d8;border-radius:10px;padding:9px 12px;font-size:13px;font-family:DM Sans,sans-serif;outline:none">
+      </div>
+      <div style="margin-bottom:10px">
+        <label style="display:block;font-size:11px;font-weight:600;color:#7a7a8a;margin-bottom:5px">Adres *</label>
+        <input type="text" id="badres" placeholder="Mahalle, sokak, bina no..." style="width:100%;border:1.5px solid #e8e0d8;border-radius:10px;padding:9px 12px;font-size:13px;font-family:DM Sans,sans-serif;outline:none">
+      </div>
+      <div style="margin-bottom:20px">
+        <label style="display:block;font-size:11px;font-weight:600;color:#7a7a8a;margin-bottom:5px">Kitap sayısı / Açıklama</label>
+        <textarea id="baciklama" rows="2" placeholder="Yaklaşık kaç kitap, yaş grubu..." style="width:100%;border:1.5px solid #e8e0d8;border-radius:10px;padding:9px 12px;font-size:13px;font-family:DM Sans,sans-serif;outline:none;resize:none"></textarea>
+      </div>
+      <button onclick="bagisTalebiGonder()" id="bagisGonderBtn" style="width:100%;padding:13px;background:#27ae60;color:white;border:none;border-radius:12px;font-family:DM Sans,sans-serif;font-size:14px;font-weight:700;cursor:pointer">📚 Bağış Talebini Gönder</button>
+      <div id="bagisBasari" style="display:none;margin-top:12px;padding:12px;background:#f0faf4;border:1.5px solid #6fcf97;border-radius:10px;text-align:center;font-size:13px;color:#27ae60;font-weight:600">🎉 Talebiniz alındı! Kurum en kısa sürede sizi arayacak.</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAKAS OVERLAY -->
+<div id="takasOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:300;backdrop-filter:blur(4px);overflow-y:auto;padding:20px">
+  <div style="max-width:520px;margin:40px auto;background:#fff;border-radius:24px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,.2)">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #eee">
+      <div style="font-family:'DM Serif Display',serif;font-size:20px">🔄 Kitap Takas</div>
+      <button onclick="document.getElementById('takasOverlay').style.display='none';document.body.style.overflow=''" style="background:none;border:none;font-size:22px;cursor:pointer;color:#999;line-height:1">✕</button>
+    </div>
+    <div style="display:flex;border-bottom:1px solid #eee">
+      <button id="takasTab1" onclick="takasSekmeDegis(1)" style="flex:1;padding:12px;border:none;border-bottom:2px solid #764ba2;background:none;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;color:#764ba2;cursor:pointer">Takas Listesi</button>
+      <button id="takasTab2" onclick="takasSekmeDegis(2)" style="flex:1;padding:12px;border:none;border-bottom:2px solid transparent;background:none;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;color:#999;cursor:pointer">+ Kitap Ekle</button>
+    </div>
+    <div id="takasListe" style="padding:20px;min-height:120px">
+      <div id="takasListeIcerik" style="display:flex;flex-direction:column;gap:10px"></div>
+      <div id="takasListeEmpty" style="text-align:center;padding:32px;color:#aaa;font-size:13px">Henüz takas listesinde kitap yok.<br>İlk kitabı sen ekle! 🎉</div>
+    </div>
+    <div id="takasEkle" style="display:none;padding:20px">
+      <p style="font-size:13px;color:#7a7a8a;margin-bottom:16px;line-height:1.6">Takas etmek istediğin kitabı ekle. İlgilenen kişi seninle iletişime geçecek.</p>
+      <div style="margin-bottom:10px">
+        <label style="display:block;font-size:11px;font-weight:600;color:#7a7a8a;margin-bottom:5px">Kitap Adı *</label>
+        <input type="text" id="tkitap" placeholder="Kitap adı" style="width:100%;border:1.5px solid #e8e0d8;border-radius:10px;padding:9px 12px;font-size:13px;font-family:DM Sans,sans-serif;outline:none">
+      </div>
+      <div style="margin-bottom:10px">
+        <label style="display:block;font-size:11px;font-weight:600;color:#7a7a8a;margin-bottom:5px">Yaş Grubu</label>
+        <select id="tyas" style="width:100%;border:1.5px solid #e8e0d8;border-radius:10px;padding:9px 12px;font-size:13px;font-family:DM Sans,sans-serif;outline:none;background:#fff;color:#1a1a2e">
+          <option value="">Seç...</option>
+          <option>0-6 yaş</option><option>2+ yaş</option><option>4+ yaş</option><option>7+ yaş</option>
+        </select>
+      </div>
+      <div style="margin-bottom:10px">
+        <label style="display:block;font-size:11px;font-weight:600;color:#7a7a8a;margin-bottom:5px">Ne ile takas edersin?</label>
+        <input type="text" id="tteklif" placeholder="Örn: Herhangi bir çocuk kitabı..." style="width:100%;border:1.5px solid #e8e0d8;border-radius:10px;padding:9px 12px;font-size:13px;font-family:DM Sans,sans-serif;outline:none">
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:20px">
+        <div>
+          <label style="display:block;font-size:11px;font-weight:600;color:#7a7a8a;margin-bottom:5px">Adın *</label>
+          <input type="text" id="tad" placeholder="Ada" style="width:100%;border:1.5px solid #e8e0d8;border-radius:10px;padding:9px 12px;font-size:13px;font-family:DM Sans,sans-serif;outline:none">
+        </div>
+        <div>
+          <label style="display:block;font-size:11px;font-weight:600;color:#7a7a8a;margin-bottom:5px">Şehir *</label>
+          <input type="text" id="tsehir" placeholder="İstanbul" style="width:100%;border:1.5px solid #e8e0d8;border-radius:10px;padding:9px 12px;font-size:13px;font-family:DM Sans,sans-serif;outline:none">
+        </div>
+      </div>
+      <button onclick="takasKitapEkle()" style="width:100%;padding:13px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border:none;border-radius:12px;font-family:DM Sans,sans-serif;font-size:14px;font-weight:700;cursor:pointer">🔄 Listeye Ekle</button>
+      <div id="takasEkleBasari" style="display:none;margin-top:10px;padding:10px;background:#f5f0ff;border:1.5px solid #764ba2;border-radius:10px;text-align:center;font-size:13px;color:#764ba2;font-weight:600">✅ Kitabın takas listesine eklendi!</div>
+    </div>
+  </div>
+</div>
 
 <!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
@@ -469,8 +581,8 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
           </div>
         </div>
         <!-- Öneri Bölümü -->
-        <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:12px 16px;margin-top:8px">
-          <button class="oneri-acik-btn" onclick="oneriPanelToggle()" style="border-radius:10px;width:auto;padding:8px 16px;font-size:13px">✨ Bu kitaba göre öneri al</button>
+        <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:16px;margin-top:8px">
+          <button class="oneri-acik-btn" onclick="oneriPanelToggle()" style="border-radius:10px">✨ Bu kitaba göre öneri al</button>
           <div class="oneri-panel" id="oneriPanel" style="margin-top:12px">
             <button class="oneri-uret-btn" id="modalOneriBtn" onclick="modalOneriUret()">✨ Öneri Üret</button>
             <div class="oneri-metin" id="modalOneriMetin"></div>
@@ -483,7 +595,7 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
             Sesli Okuma Videosu
           </div>
           <div class="video-frame-wrap" style="border-radius:12px;overflow:hidden">
-            <iframe id="mVideo" src="" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture" style="width:100%;height:200px;border:none;display:block"></iframe>
+            <iframe id="mVideo" src="" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture" style="width:100%;height:260px;border:none;display:block"></iframe>
           </div>
         </div>
       </div>
@@ -1434,6 +1546,79 @@ if (profiles.length === 0) {
 } else {
   closeOnboard();
   buildUI();
+}
+// ── BAĞIŞ ──
+function bagisOverlayAc() {
+  document.getElementById('bagisOverlay').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+}
+function bagisTalebiGonder() {
+  const kurum = document.querySelector('input[name="bkurum"]:checked');
+  const ad = document.getElementById('bad').value.trim();
+  const tel = document.getElementById('btel').value.trim();
+  const sehir = document.getElementById('bsehir').value.trim();
+  const adres = document.getElementById('badres').value.trim();
+  if (!kurum) { alert('Lütfen bir kurum seçin.'); return; }
+  if (!ad || !tel || !sehir || !adres) { alert('Lütfen zorunlu alanları doldurun.'); return; }
+  document.getElementById('bagisGonderBtn').style.display = 'none';
+  document.getElementById('bagisBasari').style.display = 'block';
+}
+
+// ── TAKAS ──
+let takasListesi = [];
+function takasOverlayAc() {
+  document.getElementById('takasOverlay').style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  takasListesiGoster();
+}
+function takasSekmeDegis(n) {
+  document.getElementById('takasListe').style.display = n === 1 ? 'block' : 'none';
+  document.getElementById('takasEkle').style.display = n === 2 ? 'block' : 'none';
+  document.getElementById('takasTab1').style.cssText = n===1 ? 'flex:1;padding:12px;border:none;border-bottom:2px solid #764ba2;background:none;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;color:#764ba2;cursor:pointer' : 'flex:1;padding:12px;border:none;border-bottom:2px solid transparent;background:none;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;color:#999;cursor:pointer';
+  document.getElementById('takasTab2').style.cssText = n===2 ? 'flex:1;padding:12px;border:none;border-bottom:2px solid #764ba2;background:none;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;color:#764ba2;cursor:pointer' : 'flex:1;padding:12px;border:none;border-bottom:2px solid transparent;background:none;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;color:#999;cursor:pointer';
+}
+function takasListesiGoster() {
+  const el = document.getElementById('takasListeIcerik');
+  const empty = document.getElementById('takasListeEmpty');
+  if (takasListesi.length === 0) { el.innerHTML = ''; empty.style.display = 'block'; return; }
+  empty.style.display = 'none';
+  el.innerHTML = takasListesi.map((t,i) => `
+    <div style="padding:14px 16px;border:1.5px solid #e8e0d8;border-radius:12px;background:#faf9f7">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:8px">
+        <div>
+          <div style="font-size:14px;font-weight:600;color:#1a1a2e;margin-bottom:2px">📖 ${t.kitap}</div>
+          ${t.yas ? `<div style="font-size:11px;color:#7a7a8a;margin-bottom:4px">${t.yas}</div>` : ''}
+          ${t.teklif ? `<div style="font-size:12px;color:#764ba2">🔄 <em>${t.teklif}</em></div>` : ''}
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-size:12px;font-weight:600;color:#1a1a2e">${t.ad}</div>
+          <div style="font-size:11px;color:#7a7a8a">${t.sehir}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+function takasKitapEkle() {
+  const kitap = document.getElementById('tkitap').value.trim();
+  const ad = document.getElementById('tad').value.trim();
+  const sehir = document.getElementById('tsehir').value.trim();
+  if (!kitap || !ad || !sehir) { alert('Kitap adı, adın ve şehir zorunlu.'); return; }
+  takasListesi.unshift({
+    kitap, ad, sehir,
+    yas: document.getElementById('tyas').value,
+    teklif: document.getElementById('tteklif').value.trim()
+  });
+  document.getElementById('takasEkleBasari').style.display = 'block';
+  document.getElementById('tkitap').value = '';
+  document.getElementById('tad').value = '';
+  document.getElementById('tsehir').value = '';
+  document.getElementById('tteklif').value = '';
+  document.getElementById('tyas').value = '';
+  setTimeout(() => {
+    document.getElementById('takasEkleBasari').style.display = 'none';
+    takasSekmeDegis(1);
+    takasListesiGoster();
+  }, 1200);
 }
 </script>
 </body>
