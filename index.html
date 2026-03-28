@@ -172,20 +172,17 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
 /* ── RESPONSIVE ── */
 @media (max-width:768px) {
   .main { flex-direction:column; padding:16px 12px 80px; gap:12px; }
-  .sol-panel { width:100%; position:static; display:none; }
-  .sol-panel.mobil-acik { display:block; }
+  .sol-panel { width:100%; position:static; display:block; }
   .icerik { width:100%; }
-  .mobil-rehber-btn { display:flex !important; }
+  .mobil-rehber-btn { display:none !important; }
   .header-inner { height:56px; padding:0 14px; }
   .logo-sub { display:none; }
-  .profiles-btn span { display:none; }
   .filters { gap:6px; padding:8px 12px; }
   .chip { font-size:11px; padding:5px 10px; }
   .greeting { flex-direction:column; gap:10px; align-items:flex-start; }
   .greeting-search { width:100%; }
   .greeting-search input { width:100%; }
   .grid { grid-template-columns:repeat(2,1fr); gap:10px; }
-  .insta-btn span { display:none; }
 }
 @media (max-width:480px) {
   .grid { grid-template-columns:repeat(2,1fr); gap:8px; }
@@ -195,7 +192,7 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
 @media (max-width:380px) {
   .grid { grid-template-columns:repeat(2,1fr); gap:6px; }
 }
-.mobil-rehber-btn { display:none; width:100%; padding:10px 16px; background:var(--white); border:1px solid var(--border); border-radius:12px; font-family:DM Sans,sans-serif; font-size:13px; font-weight:600; color:var(--ink); cursor:pointer; text-align:left; margin-bottom:4px; }
+.mobil-rehber-btn { display:none; }
 
 
 .gorsel-ekle-btn {
@@ -349,7 +346,7 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
       </div>
     </a>
     <div class="header-right">
-      <button class="profiles-btn" onclick="gorselCacheTemizle()" style="color:#ff3b30;border-color:#ff3b30;display:none" class="mobil-gizle" title="Yanlış görselleri temizle">🗑️ <span>Görselleri Sıfırla</span></button>
+      <button class="profiles-btn" onclick="gorselCacheTemizle()" style="color:#ff3b30;border-color:#ff3b30;display:none" title="Yanlış görselleri temizle">🗑️ Görselleri Sıfırla</button>
       <button class="profiles-btn" onclick="dunyaPopupAc()" style="gap:6px;background:#E6F1FB;border-color:#378ADD;color:#185FA5">🌍 Haritam</button>
       <button class="profiles-btn" onclick="kutuphanAc()" style="gap:6px">📚 Kütüphanem</button>
       <button class="profiles-btn" onclick="openOnboard()">
@@ -534,9 +531,6 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
 
   <!-- SAĞ İÇERİK -->
   <div class="icerik">
-    <button class="mobil-rehber-btn" id="mobilRehberBtn" onclick="mobilRehberToggle()">
-      📚 Rehberler <span id="mobilRehberOk" style="float:right">›</span>
-    </button>
     <div class="greeting" id="greetingBox">
       <div>
         <h2 id="greetingTitle">Kitapları Keşfet</h2>
