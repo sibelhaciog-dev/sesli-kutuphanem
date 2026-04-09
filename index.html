@@ -327,10 +327,54 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
 
 
   #modal > div:nth-child(2) > div:first-child { border-right: none !important; border-bottom: 1px solid var(--border); }
-}
+
 
 @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
 .kart { animation:fadeUp .3s ease both; }
+
+/* Instagram Butonu ve Görsel Alanı Tasarımı */
+.modal-preview-area {
+    position: relative;
+    width: 100%;
+    height: 300px; 
+    background: #f1f1f1;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.large-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.85);
+}
+
+.btn-insta-overlay {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+    color: white !important;
+    padding: 10px 22px;
+    border-radius: 25px;
+    font-weight: bold;
+    text-decoration: none !important;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    z-index: 10;
+    font-size: 14px;
+}
+
+.btn-insta-overlay:hover {
+    transform: translateX(-50%) scale(1.05);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.4);
+}
 </style>
 </head>
 <body>
@@ -442,41 +486,9 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
 </div>
 
 
-<!-- ÖNERİ MODAL -->
-<div class="modal-overlay" id="oneriOverlay" onclick="if(event.target===this){this.classList.remove('open');document.body.style.overflow=''}">
-  <div class="modal" style="max-width:540px">
-    <div class="modal-close"><button class="close-btn" onclick="document.getElementById('oneriOverlay').classList.remove('open');document.body.style.overflow=''">✕</button></div>
-    <div style="padding:24px">
-      <h2 style="font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:8px">✨ Genel Öneri</h2>
-      <p style="color:var(--muted);font-size:13px;margin-bottom:16px">Okuduğunuz kitaplara göre öneri.</p>
-      <div id="oneriOzetBox" style="margin-bottom:16px;padding:12px;background:var(--cream);border-radius:12px;font-size:13px;display:none"></div>
-      <button class="oneri-btn" id="oneriBtn2" onclick="genelOneriUret()">✨ Öneri Üret</button>
-      <div id="oneriSonuc" style="margin-top:12px;display:none;padding:14px;background:var(--cream);border-radius:12px;font-size:13px;line-height:1.7"></div>
-    </div>
-  </div>
-</div>
-
 <!-- CHILD TABS -->
 <div class="child-tabs-wrap" id="childTabsWrap" style="display:none">
   <div class="child-tabs" id="childTabs"></div>
-</div>
-
-<!-- FILTERS -->
-<div class="filters-wrap">
-  <div class="filters" style="display:flex;align-items:center;gap:8px;flex-wrap:nowrap">
-    <span class="filter-label">Dil:</span>
-    <button class="chip active" onclick="setFilter('dil','tumu',this)">Tümü</button>
-    <button class="chip" onclick="setFilter('dil','tr',this)">🇹🇷 Türkçe</button>
-    <button class="chip" onclick="setFilter('dil','en',this)">🇬🇧 İngilizce</button>
-    <div class="fdivider"></div>
-    <span class="filter-label">Sırala:</span>
-    <button class="chip active" onclick="setFilter('sirala','yeni',this)">En Yeni</button>
-    <button class="chip" onclick="setFilter('sirala','fav',this)">❤️ Favoriler</button>
-    <button class="chip" onclick="setFilter('sirala','okundu',this)">✅ Okundu</button>
-    <div class="fdivider"></div>
-    <button onclick="bagisOverlayAc()" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;background:#27ae60;color:white;border:none;border-radius:50px;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0">📚 Kitap Bağışla</button>
-    <button onclick="takasOverlayAc()" style="display:inline-flex;align-items:center;gap:5px;padding:7px 14px;background:linear-gradient(135deg,#667eea,#764ba2);color:white;border:none;border-radius:50px;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0">🔄 Takas</button>
-  </div>
 </div>
 
 <!-- MAIN -->
@@ -876,15 +888,11 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
         </div>
 
         <div style="margin-top:8px">
-          <div class="video-label">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-            Sesli Okuma Videosu
-          </div>
-          <div class="video-frame-wrap" style="border-radius:12px;overflow:hidden">
-            <iframe id="mVideo" src="" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture" style="width:100%;height:260px;border:none;display:block"></iframe>
-          </div>
-        </div>
-      </div>
+          <div id="videoContainer">
+    <a id="mVideoBtn" href="#" target="_blank" style="display:block;width:100%;padding:12px;background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);color:white;border-radius:12px;text-decoration:none;font-weight:700;font-size:14px;text-align:center;box-shadow:0 4px 15px rgba(220,39,67,0.3);">
+        ▶ Kitabın tanıtımını izle
+    </a>
+</div>
       <!-- Yorum Bölümü (kompakt) -->
       <div style="background:var(--white);border:1px solid var(--border);border-radius:16px;padding:12px 16px">
         <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px">💬 Yorum</div>
@@ -896,10 +904,6 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
         <div class="yorumlar-listesi" id="yorumlarListesi" style="margin-top:8px"></div>
       </div>
 
-      <!-- Instagram Butonu -->
-      <a class="btn-insta" id="mInstaLink" href="#" target="_blank" style="display:inline-flex;align-items:center;padding:10px 18px;border-radius:12px;text-decoration:none;font-size:14px;align-self:flex-start;margin-bottom:8px">
-        Instagram'da İzle
-      </a>
     </div><!-- içerik sonu -->
   </div>
 </div>
@@ -946,12 +950,12 @@ function saveState() {
 
 // ── ONBOARDING ──
 function openOnboard() {
-  document.getElementById('onboardOverlay').style.display = 'flex';
+  const _oo1 = document.getElementById('onboardOverlay'); if (_oo1) _oo1.style.display = 'flex';
   renderChildRows();
 }
 
 function closeOnboard() {
-  document.getElementById('onboardOverlay').style.display = 'none';
+  const _oo2 = document.getElementById('onboardOverlay'); if (_oo2) _oo2.style.display = 'none';
 }
 
 function renderChildRows() {
@@ -1016,7 +1020,7 @@ function buildUI() {
   const wrap = document.getElementById('childTabsWrap');
   const tabs = document.getElementById('childTabs');
   if (profiles.length > 0) {
-    wrap.style.display = 'block';
+    if (wrap) wrap.style.display = 'block';
     tabs.innerHTML = profiles.map((p,i) =>
       `<button class="ctab ${i===activeChild?'active':''}" onclick="switchChild(${i})">
         <span class="ctab-avatar">${p.avatar}</span>${p.name}
@@ -1024,11 +1028,11 @@ function buildUI() {
       </button>`
     ).join('');
   } else {
-    wrap.style.display = 'none';
+    if (wrap) wrap.style.display = 'none';
   }
 
   // Header label
-  document.getElementById('headerProfileLabel').textContent =
+  const _hpl = document.getElementById('headerProfileLabel'); if (_hpl) _hpl.textContent =
     profiles.length > 0 ? `${profiles.map(p=>p.avatar).join('')} Profiller` : '👶 Profiller';
 
   updateGreeting();
@@ -1064,6 +1068,15 @@ function setFilter(key, val, el) {
   });
   el.classList.add('active');
   render();
+}
+
+// ── GÖRSEL YÜKLEME YARDIMCISI ──
+function guvenliGorsel(src, ad, onSuccess, onFail) {
+  if (!src || src === '-' || src === '') { onFail(); return; }
+  const img = new Image();
+  img.onload = () => onSuccess(src);
+  img.onerror = () => onFail();
+  img.src = src;
 }
 
 // ── RENDER ──
@@ -1110,7 +1123,7 @@ function render() {
 
   if (filters.sirala === 'begeni') liste.sort((a,b) => b.likes - a.likes);
 
-  document.getElementById('sayiEl').textContent = liste.length;
+  const _se = document.getElementById('sayiEl'); if (_se) _se.textContent = liste.length;
   const grid = document.getElementById('grid');
 
   if (liste.length === 0) {
@@ -1123,7 +1136,7 @@ function render() {
     const cachedImg = imgCache[k.ad];
     let imgHtml;
     if (cachedImg) {
-      imgHtml = `<img src="${cachedImg}" alt="${k.ad}" loading="lazy">`;
+      imgHtml = `<img src="${cachedImg}" alt="${k.ad}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=\"kart-placeholder\" style=\"cursor:default\"><div class=\"kart-placeholder-icon\">📚</div><div class=\"kart-placeholder-text\">' + '${k.ad.replace(/'/g,"\'")}' + '</div></div>'">`;
     } else {
       const safeAd = encodeURIComponent(k.ad);
       imgHtml = `<div class="kart-placeholder" onclick="gorselSec(event,'${safeAd}')" style="cursor:pointer">
@@ -1135,8 +1148,8 @@ function render() {
     const yasLabel = k.yas_grup && k.yas_grup !== 'belirsiz' ? `<div class="kart-age">${k.yas_grup}</div>` : '';
     const langClass = k.dil === 'en' ? 'lang-en' : 'lang-tr';
     const langTxt   = k.dil === 'en' ? 'EN' : 'TR';
-    const kData = encodeURIComponent(JSON.stringify({ad:k.ad, link:k.link, embed:k.embed, yas_grup:k.yas_grup, dil:k.dil, likes:k.likes, ozet:k.ozet}));
-    return `<div class="kart" style="animation-delay:${i*25}ms" onclick="openModal(${i}, '${kData}')">
+    const _kIdx = KITAPLAR.indexOf(k);
+    return `<div class="kart" style="animation-delay:${i*25}ms" onclick="openModal(KITAPLAR[${_kIdx}])">
       <div class="kart-img-wrap">
         ${imgHtml}
         <span class="lang-badge ${langClass}">${langTxt}</span>
@@ -1167,45 +1180,52 @@ async function fetchBookCover(k) {
 }
 
 // ── MODAL ──
-function openModal(idx, encoded) {
-  let k;
-  try { k = JSON.parse(decodeURIComponent(encoded)); } catch(e) { return; }
+function openModal(k) {
   activeKitap = k;
-  const childId = activeChild !== null ? activeChild : 'global';
-  const isFav = (favs[childId] || []).includes(k.link);
+  
+  // Başlık ve Özet
+  const _mt = document.getElementById('mTitle'); if (_mt) _mt.textContent = k.ad;
+  const _moz = document.getElementById('mOzet'); if (_moz) _moz.textContent = k.ozet || '';
 
-  // Görsel
-  const mImg = document.getElementById('mImg');
-  const cached = imgCache[k.ad];
-  if (cached) {
-    mImg.innerHTML = `<img src="${cached}" alt="${k.ad}">`;
-  } else {
-    mImg.innerHTML = '📚';
-    mImg.style.fontSize = '48px';
-    fetchBookCover(k);
-  }
-
-  document.getElementById('mTitle').textContent = k.ad;
-  var hdr = document.getElementById('mHeaderTitle'); if(hdr) hdr.textContent = k.ad;
-  document.getElementById('mOzet').textContent = k.ozet || 'Bu kitabı sesli okuma videosuyla Instagram&#39;da keşfedin.';
-  document.getElementById('mInstaLink').href = k.link;
-
-  const yasB = k.yas_grup && k.yas_grup !== 'belirsiz' ? `<span class="mbadge mbadge-age">👶 ${k.yas_grup}</span>` : '';
+  // Bilgi Rozetleri (Yaş, Dil, Beğeni)
+  const yasB = k.yas_grup ? `<span class="mbadge mbadge-age">${k.yas_grup}</span>` : '';
   const dilB = `<span class="mbadge mbadge-lang">${k.dil==='en'?'🇬🇧 İngilizce':'🇹🇷 Türkçe'}</span>`;
   const likB = `<span class="mbadge mbadge-likes">❤️ ${k.likes}</span>`;
-  document.getElementById('mMeta').innerHTML = yasB + dilB + likB;
+  const _mm = document.getElementById('mMeta'); if (_mm) _mm.innerHTML = yasB + dilB + likB;
 
-  const favBtn = document.getElementById('mFavBtn');
-  favBtn.textContent = isFav ? '❤️' : '🤍';
-  favBtn.className = 'btn-fav-modal' + (isFav ? ' on' : '');
-
-  // Video embed
-  if (k.embed) {
-    document.getElementById('mVideo').src = k.embed;
+  // Büyük Görseli Yerleştir
+  const imgArea = document.getElementById('mImg');
+  if (k.resim && k.resim !== '-' && k.resim !== '') {
+    imgArea.innerHTML = `<img src="${k.resim}" alt="${k.ad}" style="width:100%;height:100%;object-fit:cover" onerror="this.parentElement.innerHTML='<div style=\"display:flex;height:100%;align-items:center;justify-content:center;font-size:48px;\">📖</div>'">`;
   } else {
-    document.querySelector('.video-section').style.display = 'none';
+    imgArea.innerHTML = `<div style="display:flex;height:100%;align-items:center;justify-content:center;font-size:48px;">📖</div>`;
   }
 
+  // Favori Butonu
+  const childId = activeChild !== null ? activeChild : 'global';
+  const isFav = (favs[childId] || []).includes(k.link);
+  const favBtn = document.getElementById('mFavBtn');
+  if (favBtn) {
+    favBtn.textContent = isFav ? '❤️' : '🤍';
+    favBtn.className = 'btn-fav-modal' + (isFav ? ' on' : '');
+  }
+
+  // Instagram Linkini Butona Bağla
+  const vBtn = document.getElementById('mVideoBtn');
+  if (vBtn) {
+    if (k.link) {
+      vBtn.href = k.link;
+      vBtn.style.display = 'block';
+    } else {
+      vBtn.style.display = 'none';
+    }
+  }
+
+  // Okuma takibi & yorumları güncelle
+  gunceleModalOkuma();
+  if (typeof gunceleYorumlar === 'function') gunceleYorumlar();
+
+  // Modalı Aç
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
@@ -1213,18 +1233,13 @@ function openModal(idx, encoded) {
 function closeModal() {
   document.getElementById('modalOverlay').classList.remove('open');
   document.body.style.overflow = '';
-  document.getElementById('mVideo').src = '';
-  document.querySelector('.video-section').style.display = 'block';
   activeKitap = null;
-  filtreleriSifirla();
+  if(typeof filtreleriSifirla === 'function') filtreleriSifirla();
 }
 
 function closeModalOutside(e) {
   if (e.target === document.getElementById('modalOverlay')) closeModal();
 }
-
-document.addEventListener('keydown', e => { if(e.key==='Escape') closeModal(); });
-
 // ── FAV ──
 function toggleFav(e, link) {
   e.stopPropagation();
@@ -1244,16 +1259,15 @@ function toggleFavModal() {
   if (i >= 0) favs[childId].splice(i,1); else favs[childId].push(activeKitap.link);
   saveState();
   const isFav = favs[childId].includes(activeKitap.link);
-  document.getElementById('mFavBtn').textContent = isFav ? '❤️' : '🤍';
-  document.getElementById('mFavBtn').className = 'btn-fav-modal' + (isFav ? ' on' : '');
+  const _mfb3 = document.getElementById('mFavBtn'); if (_mfb3) { _mfb3.textContent = isFav ? '❤️' : '🤍'; _mfb3.className = 'btn-fav-modal' + (isFav ? ' on' : ''); }
   gunceleModalOkuma();
   gunceleYorumlar();
-  document.getElementById('yorumInput').value = '';
+  const _yi = document.getElementById('yorumInput'); if (_yi) _yi.value = '';
   yorumGizli = false;
-  document.getElementById('gizlilikBtn').className = 'gizlilik-btn acik';
-  document.getElementById('gizlilikBtn').textContent = '🌍 Herkese açık';
-  document.getElementById('oneriPanel').className = 'oneri-panel';
-  document.getElementById('modalOneriMetin').textContent = '';
+  const _gb = document.getElementById('gizlilikBtn'); if (_gb) _gb.className = 'gizlilik-btn acik';
+  if (_gb) _gb.textContent = '🌍 Herkese açık';
+  const _op = document.getElementById('oneriPanel'); if (_op) _op.className = 'oneri-panel';
+  const _mom = document.getElementById('modalOneriMetin'); if (_mom) _mom.textContent = '';
   render();
 }
 
@@ -1273,7 +1287,7 @@ document.addEventListener('DOMContentLoaded', function() {
     inp.addEventListener('change', function() {
       if (!this.files[0] || !_gorselHedef) return;
       const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext('2d', {willReadFrequently: false});
       const img = new Image();
       const file = this.files[0];
       img.onload = function() {
@@ -1819,7 +1833,7 @@ function araModDegistir(mod) {
     btnAd.style.background='none'; btnAd.style.borderColor='var(--border)'; btnAd.style.color='var(--muted)';
     document.getElementById('searchInput').placeholder = 'Konu ara... (arkadaşlık, doğa, cesaret...)';
   }
-  document.getElementById('searchInput').value = '';
+  const _si = document.getElementById('searchInput'); if (_si) _si.value = '';
   render();
 }
 
@@ -1857,7 +1871,7 @@ if (profiles.length === 0) {
 }
 // ── BAĞIŞ ──
 function bagisOverlayAc() {
-  document.getElementById('bagisOverlay').style.display = 'block';
+  const _ba = document.getElementById('bagisOverlay'); if (_ba) _ba.style.display = 'block';
   document.body.style.overflow = 'hidden';
 }
 function bagisTalebiGonder() {
@@ -1868,22 +1882,22 @@ function bagisTalebiGonder() {
   const adres = document.getElementById('badres').value.trim();
   if (!kurum) { alert('Lütfen bir kurum seçin.'); return; }
   if (!ad || !tel || !sehir || !adres) { alert('Lütfen zorunlu alanları doldurun.'); return; }
-  document.getElementById('bagisGonderBtn').style.display = 'none';
-  document.getElementById('bagisBasari').style.display = 'block';
+  const _bgb = document.getElementById('bagisGonderBtn'); if (_bgb) _bgb.style.display = 'none';
+  const _bbs = document.getElementById('bagisBasari'); if (_bbs) _bbs.style.display = 'block';
 }
 
 // ── TAKAS ──
 let takasListesi = [];
 function takasOverlayAc() {
-  document.getElementById('takasOverlay').style.display = 'block';
+  const _to = document.getElementById('takasOverlay'); if (_to) _to.style.display = 'block';
   document.body.style.overflow = 'hidden';
   takasListesiGoster();
 }
 function takasSekmeDegis(n) {
-  document.getElementById('takasListe').style.display = n === 1 ? 'block' : 'none';
-  document.getElementById('takasEkle').style.display = n === 2 ? 'block' : 'none';
-  document.getElementById('takasTab1').style.cssText = n===1 ? 'flex:1;padding:12px;border:none;border-bottom:2px solid #764ba2;background:none;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;color:#764ba2;cursor:pointer' : 'flex:1;padding:12px;border:none;border-bottom:2px solid transparent;background:none;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;color:#999;cursor:pointer';
-  document.getElementById('takasTab2').style.cssText = n===2 ? 'flex:1;padding:12px;border:none;border-bottom:2px solid #764ba2;background:none;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;color:#764ba2;cursor:pointer' : 'flex:1;padding:12px;border:none;border-bottom:2px solid transparent;background:none;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;color:#999;cursor:pointer';
+  const _tl = document.getElementById('takasListe'); if (_tl) _tl.style.display = n === 1 ? 'block' : 'none';
+  const _te = document.getElementById('takasEkle'); if (_te) _te.style.display = n === 2 ? 'block' : 'none';
+  const _tt1 = document.getElementById('takasTab1'); if (_tt1) _tt1.style.cssText = n===1 ? 'flex:1;padding:12px;border:none;border-bottom:2px solid #764ba2;background:none;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;color:#764ba2;cursor:pointer' : 'flex:1;padding:12px;border:none;border-bottom:2px solid transparent;background:none;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;color:#999;cursor:pointer';
+  const _tt2 = document.getElementById('takasTab2'); if (_tt2) _tt2.style.cssText = n===2 ? 'flex:1;padding:12px;border:none;border-bottom:2px solid #764ba2;background:none;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;color:#764ba2;cursor:pointer' : 'flex:1;padding:12px;border:none;border-bottom:2px solid transparent;background:none;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;color:#999;cursor:pointer';
 }
 function takasListesiGoster() {
   const el = document.getElementById('takasListeIcerik');
@@ -1916,14 +1930,14 @@ function takasKitapEkle() {
     yas: document.getElementById('tyas').value,
     teklif: document.getElementById('tteklif').value.trim()
   });
-  document.getElementById('takasEkleBasari').style.display = 'block';
+  const _teb1 = document.getElementById('takasEkleBasari'); if (_teb1) _teb1.style.display = 'block';
   document.getElementById('tkitap').value = '';
   document.getElementById('tad').value = '';
   document.getElementById('tsehir').value = '';
   document.getElementById('tteklif').value = '';
   document.getElementById('tyas').value = '';
   setTimeout(() => {
-    document.getElementById('takasEkleBasari').style.display = 'none';
+    const _teb2 = document.getElementById('takasEkleBasari'); if (_teb2) _teb2.style.display = 'none';
     takasSekmeDegis(1);
     takasListesiGoster();
   }, 1200);
@@ -2048,18 +2062,18 @@ function gelisimFiltrele(alan, alt) {
   aktifGelisimFiltre = {alan, alt};
   document.querySelectorAll('.gelisim-alt-btn').forEach(b => b.classList.remove('secili'));
   event.target.classList.add('secili');
-  document.getElementById('gelisimTemizleBtn').style.display = 'block';
-  document.getElementById('greetingTitle').textContent = alt;
-  document.getElementById('greetingDesc').textContent = 'Gelişim alanına göre filtreleniyor';
+  const _gtb1 = document.getElementById('gelisimTemizleBtn'); if (_gtb1) _gtb1.style.display = 'block';
+  const _gt1 = document.getElementById('greetingTitle'); if (_gt1) _gt1.textContent = alt;
+  const _gd1 = document.getElementById('greetingDesc'); if (_gd1) _gd1.textContent = 'Gelişim alanına göre filtreleniyor';
   render();
 }
 
 function gelisimTemizle() {
   aktifGelisimFiltre = null;
   document.querySelectorAll('.gelisim-alt-btn').forEach(b => b.classList.remove('secili'));
-  document.getElementById('gelisimTemizleBtn').style.display = 'none';
-  document.getElementById('greetingTitle').textContent = 'Kitapları Keşfet';
-  document.getElementById('greetingDesc').textContent = 'Tüm kitaplar gösteriliyor';
+  const _gtb2 = document.getElementById('gelisimTemizleBtn'); if (_gtb2) _gtb2.style.display = 'none';
+  const _gt2 = document.getElementById('greetingTitle'); if (_gt2) _gt2.textContent = 'Kitapları Keşfet';
+  const _gd2 = document.getElementById('greetingDesc'); if (_gd2) _gd2.textContent = 'Tüm kitaplar gösteriliyor';
   render();
 }
 
@@ -2094,13 +2108,13 @@ function scratchAc(kitapAdi) {
   const info = KITA_INFO[kita];
 
   scOdulVerildi = false;
-  document.getElementById('scratchKitapAd').textContent = kitapAdi || 'Tebrikler!';
-  document.getElementById('scratchIpucu').textContent = 'Kazı ve ' + info.isim + '\'ı keşfet!';
-  document.getElementById('scratchOdul').style.display = 'none';
-  document.getElementById('scratchBar').style.width = '0%';
-  document.getElementById('scratchKitaEmoji').textContent = info.emoji;
-  document.getElementById('scratchOdulBaslik').textContent = info.isim + ' keşfedildi!';
-  document.getElementById('scratchOdulAlt').textContent = 'Dünya haritanda ' + info.isim + ' açıldı!';
+  const _ska = document.getElementById('scratchKitapAd'); if (_ska) _ska.textContent = kitapAdi || 'Tebrikler!';
+  const _sip1 = document.getElementById('scratchIpucu'); if (_sip1) _sip1.textContent = 'Kazı ve ' + info.isim + '\'ı keşfet!';
+  const _so = document.getElementById('scratchOdul'); if (_so) _so.style.display = 'none';
+  const _sb = document.getElementById('scratchBar'); if (_sb) _sb.style.width = '0%';
+  const _ske = document.getElementById('scratchKitaEmoji'); if (_ske) _ske.textContent = info.emoji;
+  const _sob = document.getElementById('scratchOdulBaslik'); if (_sob) _sob.textContent = info.isim + ' keşfedildi!';
+  const _soa = document.getElementById('scratchOdulAlt'); if (_soa) _soa.textContent = 'Dünya haritanda ' + info.isim + ' açıldı!';
 
   const popup = document.getElementById('scratchPopup');
   popup.style.display = 'flex';
@@ -2111,8 +2125,8 @@ function scratchAc(kitapAdi) {
     const ustC = document.getElementById('scratchUst');
     altC.width = SC_W; altC.height = SC_H;
     ustC.width = SC_W; ustC.height = SC_H;
-    const ax = altC.getContext('2d');
-    const ux = ustC.getContext('2d');
+    const ax = altC.getContext('2d', {willReadFrequently: true});
+    const ux = ustC.getContext('2d', {willReadFrequently: true});
 
     // Alt canvas: kıta görseli
     cizKitaSahnesi(ax, kita, info);
@@ -2215,7 +2229,7 @@ function hesaplaYuzde(ctx, kita) {
   let seffaf=0;
   for(let i=3;i<data.length;i+=4) if(data[i]<128) seffaf++;
   const yuzde = Math.round((seffaf/(SC_W*SC_H))*100);
-  document.getElementById('scratchBar').style.width = yuzde+'%';
+  const _sbw = document.getElementById('scratchBar'); if (_sbw) _sbw.style.width = yuzde+'%';
   if(yuzde >= 65 && !scOdulVerildi) {
     scOdulVerildi = true;
     // Kıtayı aç
@@ -2223,8 +2237,8 @@ function hesaplaYuzde(ctx, kita) {
     localStorage.setItem('acikKitalar', JSON.stringify(acikKitalar));
     // Haritayı güncelle
     kitayiHaritadaAc(kita);
-    document.getElementById('scratchOdul').style.display = 'block';
-    document.getElementById('scratchIpucu').textContent = 'Harita güncellendi!';
+    const _sod = document.getElementById('scratchOdul'); if (_sod) _sod.style.display = 'block';
+    const _sip2 = document.getElementById('scratchIpucu'); if (_sip2) _sip2.textContent = 'Harita güncellendi!';
   }
 }
 
@@ -2252,7 +2266,7 @@ function dunyaBadgeGuncelle() {
 }
 
 function scratchKapat() {
-  document.getElementById('scratchPopup').style.display = 'none';
+  const _sp = document.getElementById('scratchPopup'); if (_sp) _sp.style.display = 'none';
   document.body.style.overflow = '';
   // Haritayı göster
   dunyaPopupAc();
@@ -2267,7 +2281,7 @@ function dunyaPopupAc() {
 }
 
 function dunyaKapat() {
-  document.getElementById('dunyaPopup').style.display = 'none';
+  const _dp = document.getElementById('dunyaPopup'); if (_dp) _dp.style.display = 'none';
   document.body.style.overflow = '';
 }
 
@@ -2277,7 +2291,7 @@ function mobilRehberToggle() {
   const ok = document.getElementById('mobilRehberOk');
   if (!panel) return;
   const acik = panel.classList.toggle('mobil-acik');
-  ok.textContent = acik ? '⌄' : '›';
+  if (ok) ok.textContent = acik ? '⌄' : '›';
 }
 // ── AYLIK RAPOR ──
 function raporAc() {
@@ -2288,7 +2302,7 @@ function raporAc() {
 }
 
 function raporKapat() {
-  document.getElementById('raporPopup').style.display = 'none';
+  const _rp = document.getElementById('raporPopup'); if (_rp) _rp.style.display = 'none';
   document.body.style.overflow = '';
 }
 
@@ -2339,7 +2353,7 @@ function raporOlustur() {
   // Ay adı
   const simdi = new Date();
   const ayAd = simdi.toLocaleDateString('tr-TR', { month: 'long', year: 'numeric' });
-  document.getElementById('raporAy').textContent = ayAd;
+  const _ra = document.getElementById('raporAy'); if (_ra) _ra.textContent = ayAd;
 
   // Rapor HTML
   const ic = document.getElementById('raporIcerik');
@@ -2642,8 +2656,8 @@ function avatarAc(profilIdx) {
   const okunan = KITAPLAR.filter(k => okumalar[k.link]?.okundu).length;
   const sonrakiHak = (Math.floor(okunan/10)+1)*10;
 
-  document.getElementById('avatarPopupBaslik').textContent = (p.name||'Çocuk') + ' için Avatar';
-  document.getElementById('susHakInfo').textContent =
+  const _apb = document.getElementById('avatarPopupBaslik'); if (_apb) _apb.textContent = (p.name||'Çocuk') + ' için Avatar';
+  const _shi = document.getElementById('susHakInfo'); if (_shi) _shi.textContent =
     hak > 0 ? `${hak} süs hakkın var` : `${sonrakiHak - okunan} kitap sonra ilk hak`;
 
   const tGrid = document.getElementById('avatarTemelGrid');
@@ -2657,7 +2671,7 @@ function avatarAc(profilIdx) {
 
   avatarSusGridGuncelle(hak);
   avatarSVGGuncelle();
-  document.getElementById('avatarPopup').style.display = 'flex';
+  const _ap1 = document.getElementById('avatarPopup'); if (_ap1) _ap1.style.display = 'flex';
   document.body.style.overflow = 'hidden';
 }
 
@@ -2731,7 +2745,7 @@ function avatarKaydet() {
 }
 
 function avatarKapat() {
-  document.getElementById('avatarPopup').style.display = 'none';
+  const _ap2 = document.getElementById('avatarPopup'); if (_ap2) _ap2.style.display = 'none';
   document.body.style.overflow = '';
 }
 
@@ -2742,13 +2756,13 @@ let takvimAy = new Date().getMonth();
 function takvimAc() {
   takvimYil = new Date().getFullYear();
   takvimAy = new Date().getMonth();
-  document.getElementById('takvimPopup').style.display = 'flex';
+  const _tp1 = document.getElementById('takvimPopup'); if (_tp1) _tp1.style.display = 'flex';
   document.body.style.overflow = 'hidden';
   takvimCiz();
 }
 
 function takvimKapat() {
-  document.getElementById('takvimPopup').style.display = 'none';
+  const _tp2 = document.getElementById('takvimPopup'); if (_tp2) _tp2.style.display = 'none';
   document.body.style.overflow = '';
 }
 
@@ -2756,14 +2770,14 @@ function takvimAyDegistir(yon) {
   takvimAy += yon;
   if (takvimAy < 0) { takvimAy = 11; takvimYil--; }
   if (takvimAy > 11) { takvimAy = 0; takvimYil++; }
-  document.getElementById('takvimSeciliGun').style.display = 'none';
+  const _tsg = document.getElementById('takvimSeciliGun'); if (_tsg) _tsg.style.display = 'none';
   takvimCiz();
 }
 
 function takvimCiz() {
   const aylar = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
   const gunler = ['Pt','Sa','Ça','Pe','Cu','Ct','Pz'];
-  document.getElementById('takvimAyBaslik').textContent = aylar[takvimAy] + ' ' + takvimYil;
+  const _tab = document.getElementById('takvimAyBaslik'); if (_tab) _tab.textContent = aylar[takvimAy] + ' ' + takvimYil;
 
   // Gün başlıkları
   const baslikEl = document.getElementById('takvimGunBasliklari');
@@ -2809,7 +2823,7 @@ function takvimCiz() {
       ${sayi > 0 ? `<span style="font-size:8px;line-height:1;margin-top:1px">${sayi > 1 ? sayi+'📚' : '📖'}</span>` : ''}
     </div>`;
   }
-  document.getElementById('takvimGrid').innerHTML = html;
+  const _tg = document.getElementById('takvimGrid'); if (_tg) _tg.innerHTML = html;
 
   // Özet istatistikler
   const tumOkumalar = Object.values(okumalar).filter(o => o.okundu && o.tarih);
@@ -2832,9 +2846,9 @@ function takvimCiz() {
     oncekiGun = gun;
   });
 
-  document.getElementById('takvimToplamGun').textContent = gunSayisi;
-  document.getElementById('takvimToplamKitap').textContent = kitapSayisi;
-  document.getElementById('takvimStreak').textContent = enUzunSeri;
+  const _ttg = document.getElementById('takvimToplamGun'); if (_ttg) _ttg.textContent = gunSayisi;
+  const _ttk = document.getElementById('takvimToplamKitap'); if (_ttk) _ttk.textContent = kitapSayisi;
+  const _ts = document.getElementById('takvimStreak'); if (_ts) _ts.textContent = enUzunSeri;
 }
 
 function takvimGunSec(tarih, kitaplar) {
@@ -2842,8 +2856,8 @@ function takvimGunSec(tarih, kitaplar) {
   const aylar = ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran','Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'];
   const t = new Date(tarih + 'T12:00:00');
   const baslik = t.getDate() + ' ' + aylar[t.getMonth()] + ' ' + t.getFullYear();
-  document.getElementById('takvimSeciliGunBaslik').textContent = baslik;
-  document.getElementById('takvimSeciliGunKitaplar').innerHTML = kitaplar.map(ad => {
+  const _tsgb = document.getElementById('takvimSeciliGunBaslik'); if (_tsgb) _tsgb.textContent = baslik;
+  const _tsgk = document.getElementById('takvimSeciliGunKitaplar'); if (_tsgk) _tsgk.innerHTML = kitaplar.map(ad => {
     const k = KITAPLAR.find(x => x.ad === ad);
     const resim = k && k.resim && k.resim !== '-' ? k.resim : '';
     const yildiz = k && okumalar[k.link] ? '★'.repeat(okumalar[k.link].yildiz || 0) : '';
@@ -2855,7 +2869,7 @@ function takvimGunSec(tarih, kitaplar) {
       </div>
     </div>`;
   }).join('');
-  document.getElementById('takvimSeciliGun').style.display = 'block';
+  const _tsg2 = document.getElementById('takvimSeciliGun'); if (_tsg2) _tsg2.style.display = 'block';
 }
 </script>
 </body>
