@@ -171,27 +171,109 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
 
 /* ── RESPONSIVE ── */
 @media (max-width:768px) {
-  .main { flex-direction:column; padding:16px 12px 80px; gap:12px; }
-  .sol-panel { width:100%; position:static; display:block; }
-  .icerik { width:100%; }
-  .mobil-rehber-btn { display:none !important; }
-  .header-inner { height:56px; padding:0 14px; }
+
+  /* Header */
+  .header { padding:0 !important; }
+  .header-inner {
+    height:auto !important;
+    flex-direction:column !important;
+    align-items:stretch !important;
+    padding:10px 12px 8px !important;
+    gap:8px !important;
+    max-width:100% !important;
+  }
+
+  /* Logo satırı */
+  .logo { align-self:flex-start; }
   .logo-sub { display:none; }
-  .filters { gap:6px; padding:8px 12px; }
+  .logo-name { font-size:15px; }
+
+  /* Butonlar: 3'lü grid */
+  .header-right {
+    display:grid !important;
+    grid-template-columns:repeat(3,1fr) !important;
+    gap:6px !important;
+    width:100% !important;
+  }
+
+  .profiles-btn {
+    padding:8px 4px !important;
+    font-size:11px !important;
+    white-space:nowrap !important;
+    justify-content:center !important;
+    text-align:center !important;
+    width:100% !important;
+    overflow:hidden !important;
+    text-overflow:ellipsis !important;
+    border-radius:10px !important;
+  }
+
+  .insta-btn {
+    padding:8px 4px !important;
+    font-size:11px !important;
+    justify-content:center !important;
+    text-align:center !important;
+    border-radius:10px !important;
+  }
+
+  /* Filtreler */
+  .filters-wrap { position:sticky; top:0; z-index:10; }
+  .filters { gap:6px; padding:8px 12px; height:auto; min-height:44px; }
   .chip { font-size:11px; padding:5px 10px; }
-  .greeting { flex-direction:column; gap:10px; align-items:flex-start; }
+
+  /* Ana içerik */
+  .main { flex-direction:column; padding:12px 10px 80px; gap:10px; }
+
+  /* Sol panel */
+  .sol-panel { width:100%; position:static; display:none; }
+  .sol-panel.mobil-acik { display:block; }
+
+  /* Mobil rehber toggle */
+  .mobil-rehber-btn {
+    display:flex !important;
+    width:100%;
+    padding:10px 16px;
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:12px;
+    font-family:DM Sans,sans-serif;
+    font-size:13px;
+    font-weight:600;
+    color:var(--ink2);
+    cursor:pointer;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:4px;
+  }
+
+  .icerik { width:100%; }
+
+  /* Greeting */
+  .greeting { flex-direction:column; gap:10px; align-items:flex-start; padding:16px; }
+  .greeting h2 { font-size:18px; }
   .greeting-search { width:100%; }
   .greeting-search input { width:100%; }
+
+  /* Grid */
   .grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+
+  /* Modal */
+  .modal { border-radius:0; }
 }
-@media (max-width:480px) {
-  .grid { grid-template-columns:repeat(2,1fr); gap:8px; }
-  .header-right { gap:6px; }
-  .profiles-btn { padding:6px 10px; font-size:12px; }
+
+@media (max-width:400px) {
+  .header-right {
+    grid-template-columns:repeat(3,1fr) !important;
+    gap:5px !important;
+  }
+  .profiles-btn {
+    font-size:10px !important;
+    padding:7px 3px !important;
+  }
+  .grid { gap:8px; }
+  .main { padding:10px 8px 80px; }
 }
-@media (max-width:380px) {
-  .grid { grid-template-columns:repeat(2,1fr); gap:6px; }
-}
+
 .mobil-rehber-btn { display:none; }
 
 
@@ -229,7 +311,7 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
 
 /* ── ÖNERİ BUTONU ── */
 .oneri-wrap { padding:20px 24px; border-top:1px solid var(--border); }
-.oneri-btn { width:100%; padding:14px; background:linear-gradient(135deg, #667eea, #764ba2); color:white; border:none; border-radius:14px; font-family:DM Serif Display,serif; font-size:16px; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:8px; transition:opacity .2s; }
+.oneri-btn { width:auto; padding:10px 20px; background:linear-gradient(135deg, #667eea, #764ba2); color:white; border:none; border-radius:50px; font-family:DM Sans,sans-serif; font-size:14px; font-weight:600; cursor:pointer; display:inline-flex; align-items:center; justify-content:center; gap:6px; transition:opacity .2s; }
 .oneri-btn:hover { opacity:.88; }
 .oneri-btn:disabled { opacity:.5; cursor:not-allowed; }
 .oneri-sonuc { margin-top:14px; padding:16px; background:var(--cream); border-radius:14px; border:1px solid var(--border); font-size:14px; line-height:1.7; color:var(--ink2); white-space:pre-wrap; }
@@ -391,10 +473,10 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
     </a>
     <div class="header-right">
       <button class="profiles-btn" onclick="gorselCacheTemizle()" style="color:#ff3b30;border-color:#ff3b30;display:none" title="Yanlış görselleri temizle">🗑️ Görselleri Sıfırla</button>
-      <button class="profiles-btn" onclick="raporAc()" style="gap:6px;background:#FFF8E6;border-color:#E8902C;color:#E8902C">📊 Raporum</button>
-      <button class="profiles-btn" onclick="takvimAc()" style="gap:6px;background:#E8F5E9;border-color:#4CAF50;color:#2E7D32">📅 Takvim</button>
-      <button class="profiles-btn" onclick="dunyaPopupAc()" style="gap:6px;background:#E6F1FB;border-color:#378ADD;color:#185FA5">🌍 Haritam</button>
-      <button class="profiles-btn" onclick="kutuphanAc()" style="gap:6px">📚 Kütüphanem</button>
+      <button class="profiles-btn" onclick="raporAc()" style="background:#FFF8E6;border-color:#E8902C;color:#E8902C">📊 Rapor</button>
+      <button class="profiles-btn" onclick="takvimAc()" style="background:#E8F5E9;border-color:#4CAF50;color:#2E7D32">📅 Takvim</button>
+      <button class="profiles-btn" onclick="dunyaPopupAc()" style="background:#E6F1FB;border-color:#378ADD;color:#185FA5">🌍 Harita</button>
+      <button class="profiles-btn" onclick="kutuphanAc()">📚 Kitaplık</button>
       <button class="profiles-btn" onclick="openOnboard()">
         <span id="headerProfileLabel">👶 Profiller</span>
       </button>
@@ -493,6 +575,12 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
 
 <!-- MAIN -->
 <main class="main">
+  <!-- MOBİL REHBER TOGGLE -->
+  <button class="mobil-rehber-btn" onclick="mobilRehberToggle()">
+    <span>📖 Rehberler</span>
+    <span id="mobilRehberOk">›</span>
+  </button>
+
   <!-- SOL GELİŞİM PANELİ -->
   <aside class="sol-panel">
     <div class="sol-panel-baslik">Rehberler</div>
