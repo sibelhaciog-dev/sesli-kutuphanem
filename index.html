@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sesli Kütüphanem — Çocuğunuz için kitap keşfedin</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
@@ -475,9 +476,95 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
 /* ── DROPDOWN MENÜ ── */
 .menu-item { display:flex; align-items:center; gap:10px; width:100%; padding:11px 16px; background:none; border:none; font-family:DM Sans,sans-serif; font-size:14px; font-weight:500; color:var(--ink); cursor:pointer; text-align:left; transition:background .12s; }
 .menu-item:hover { background:var(--cream); }
+
+/* ── AUTH EKRANI ── */
+#authEkran { position:fixed;inset:0;background:var(--cream);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px; }
+.auth-kart { background:#fff;border-radius:28px;width:100%;max-width:420px;padding:36px;box-shadow:0 24px 80px rgba(0,0,0,.12);border:1px solid var(--border); }
+.auth-logo { text-align:center;margin-bottom:24px; }
+.auth-logo-icon { width:56px;height:56px;background:var(--accent);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;margin:0 auto 10px; }
+.auth-logo-name { font-family:'DM Serif Display',serif;font-size:22px;color:var(--ink); }
+.auth-logo-sub { font-size:12px;color:var(--muted);margin-top:2px; }
+.auth-tabs { display:flex;gap:4px;background:var(--cream);border-radius:12px;padding:4px;margin-bottom:24px; }
+.auth-tab { flex:1;padding:9px;border:none;border-radius:9px;font-family:DM Sans,sans-serif;font-size:13px;font-weight:600;cursor:pointer;background:none;color:var(--muted);transition:all .2s; }
+.auth-tab.aktif { background:#fff;color:var(--ink);box-shadow:0 1px 4px rgba(0,0,0,.08); }
+.auth-input-wrap { margin-bottom:14px; }
+.auth-input-wrap label { display:block;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px; }
+.auth-input { width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:12px;font-family:DM Sans,sans-serif;font-size:14px;color:var(--ink);outline:none;transition:border-color .2s;box-sizing:border-box; }
+.auth-input:focus { border-color:var(--accent); }
+.auth-btn { width:100%;padding:13px;background:var(--accent);color:#fff;border:none;border-radius:14px;font-family:'DM Serif Display',serif;font-size:16px;cursor:pointer;transition:background .2s;margin-top:4px; }
+.auth-btn:hover { background:#d4511f; }
+.auth-btn:disabled { opacity:.6;cursor:not-allowed; }
+.auth-ayirac { text-align:center;font-size:12px;color:var(--muted);margin:16px 0; }
+.auth-hata { background:#fff0f0;border:1.5px solid #ffb0b0;border-radius:10px;padding:10px 14px;font-size:13px;color:#c04040;margin-bottom:14px;display:none; }
+.auth-basari { background:#f0fff4;border:1.5px solid #86efac;border-radius:10px;padding:10px 14px;font-size:13px;color:#16a34a;margin-bottom:14px;display:none; }
 </style>
 </head>
 <body>
+
+<!-- AUTH EKRANI -->
+<div id="authEkran">
+  <div class="auth-kart">
+    <div class="auth-logo">
+      <div class="auth-logo-icon">📚</div>
+      <div class="auth-logo-name">Sesli Kütüphanem</div>
+      <div class="auth-logo-sub">Çocuğunuz için kitap rehberi</div>
+    </div>
+
+    <div class="auth-tabs">
+      <button class="auth-tab aktif" id="authTabGiris" onclick="authSekme('giris')">Giriş Yap</button>
+      <button class="auth-tab" id="authTabKayit" onclick="authSekme('kayit')">Kayıt Ol</button>
+    </div>
+
+    <div id="authHata" class="auth-hata"></div>
+    <div id="authBasari" class="auth-basari"></div>
+
+    <!-- Giriş formu -->
+    <div id="authFormGiris">
+      <div class="auth-input-wrap">
+        <label>E-posta</label>
+        <input class="auth-input" type="email" id="girisEmail" placeholder="ornek@mail.com"/>
+      </div>
+      <div class="auth-input-wrap">
+        <label>Şifre</label>
+        <input class="auth-input" type="password" id="girisŞifre" placeholder="••••••••" onkeydown="if(event.key==='Enter')girisYap()"/>
+      </div>
+      <button class="auth-btn" onclick="girisYap()" id="girisBtnEl">Giriş Yap →</button>
+      <div class="auth-ayirac">Şifreni mi unuttun? <a href="#" onclick="sifreSifirla()" style="color:var(--accent)">Sıfırla</a></div>
+    </div>
+
+    <!-- Kayıt formu -->
+    <div id="authFormKayit" style="display:none">
+      <div class="auth-input-wrap">
+        <label>Ad Soyad</label>
+        <input class="auth-input" type="text" id="kayitAd" placeholder="Sibel Hacıoğlu"/>
+      </div>
+      <div class="auth-input-wrap">
+        <label>E-posta</label>
+        <input class="auth-input" type="email" id="kayitEmail" placeholder="ornek@mail.com"/>
+      </div>
+      <div class="auth-input-wrap">
+        <label>Şifre</label>
+        <input class="auth-input" type="password" id="kayitŞifre" placeholder="En az 6 karakter" onkeydown="if(event.key==='Enter')kayitOl()"/>
+      </div>
+      <button class="auth-btn" onclick="kayitOl()" id="kayitBtnEl">Kayıt Ol →</button>
+    </div>
+  </div>
+</div>
+
+<!-- E-POSTA DOĞRULAMA BEKLENİYOR -->
+<div id="dogrulamaEkran" style="display:none;position:fixed;inset:0;background:var(--cream);z-index:1000;align-items:center;justify-content:center;padding:20px">
+  <div class="auth-kart" style="text-align:center">
+    <div style="font-size:56px;margin-bottom:16px">📧</div>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:22px;margin-bottom:8px">E-postanı Doğrula</h2>
+    <p style="font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:24px">
+      <strong id="dogrulamaEmail"></strong> adresine bir doğrulama e-postası gönderdik.<br>
+      E-postadaki linke tıkladıktan sonra buraya dön.
+    </p>
+    <button class="auth-btn" onclick="dogrulamaKontrol()" style="margin-bottom:12px">✓ Doğruladım, devam et</button>
+    <div style="font-size:12px;color:var(--muted)">E-posta gelmedi mi? <a href="#" onclick="tekrarGonder()" style="color:var(--accent)">Tekrar gönder</a></div>
+  </div>
+</div>
+
 
 <!-- HEADER -->
 <header class="header">
@@ -1230,6 +1317,148 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
 </div>
 
 <script>
+// ── SUPABASE ──
+const SUPABASE_URL = 'https://zjyhwovdxtjxljvwbtfz.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_FWNINv7BPlrY-wlncORr5A_3LI3_lEj';
+const _sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+let currentUser = null;
+
+// Sayfa yüklenince oturumu kontrol et
+async function authKontrol() {
+  const { data: { session } } = await _sb.auth.getSession();
+  if (session) {
+    currentUser = session.user;
+    authEkraniGizle();
+  } else {
+    authEkraniGoster();
+  }
+}
+
+function authEkraniGoster() {
+  document.getElementById('authEkran').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function authEkraniGizle() {
+  document.getElementById('authEkran').style.display = 'none';
+  document.getElementById('dogrulamaEkran').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function authSekme(sekme) {
+  document.getElementById('authFormGiris').style.display = sekme === 'giris' ? 'block' : 'none';
+  document.getElementById('authFormKayit').style.display = sekme === 'kayit' ? 'block' : 'none';
+  document.getElementById('authTabGiris').classList.toggle('aktif', sekme === 'giris');
+  document.getElementById('authTabKayit').classList.toggle('aktif', sekme === 'kayit');
+  authHataTemizle();
+}
+
+function authHataGoster(msg) {
+  const el = document.getElementById('authHata');
+  el.textContent = msg;
+  el.style.display = 'block';
+  document.getElementById('authBasari').style.display = 'none';
+}
+
+function authBasariGoster(msg) {
+  const el = document.getElementById('authBasari');
+  el.textContent = msg;
+  el.style.display = 'block';
+  document.getElementById('authHata').style.display = 'none';
+}
+
+function authHataTemizle() {
+  document.getElementById('authHata').style.display = 'none';
+  document.getElementById('authBasari').style.display = 'none';
+}
+
+async function girisYap() {
+  const email = document.getElementById('girisEmail').value.trim();
+  const sifre = document.getElementById('girisŞifre').value;
+  if (!email || !sifre) { authHataGoster('E-posta ve şifre gerekli.'); return; }
+  
+  const btn = document.getElementById('girisBtnEl');
+  btn.disabled = true; btn.textContent = 'Giriş yapılıyor...';
+  
+  const { data, error } = await _sb.auth.signInWithPassword({ email, password: sifre });
+  btn.disabled = false; btn.textContent = 'Giriş Yap →';
+  
+  if (error) { authHataGoster('Hata: ' + (error.message === 'Invalid login credentials' ? 'E-posta veya şifre hatalı.' : error.message)); return; }
+  
+  currentUser = data.user;
+  authEkraniGizle();
+}
+
+async function kayitOl() {
+  const ad = document.getElementById('kayitAd').value.trim();
+  const email = document.getElementById('kayitEmail').value.trim();
+  const sifre = document.getElementById('kayitŞifre').value;
+  if (!ad || !email || !sifre) { authHataGoster('Tüm alanları doldur.'); return; }
+  if (sifre.length < 6) { authHataGoster('Şifre en az 6 karakter olmalı.'); return; }
+  
+  const btn = document.getElementById('kayitBtnEl');
+  btn.disabled = true; btn.textContent = 'Kayıt olunuyor...';
+  
+  const { data, error } = await _sb.auth.signUp({
+    email, password: sifre,
+    options: { data: { full_name: ad } }
+  });
+  btn.disabled = false; btn.textContent = 'Kayıt Ol →';
+  
+  if (error) { authHataGoster('Hata: ' + error.message); return; }
+  
+  // Profiles tablosuna kaydet
+  if (data.user) {
+    await _sb.from('profiles').upsert({ id: data.user.id, email, full_name: ad });
+  }
+  
+  document.getElementById('dogrulamaEmail').textContent = email;
+  document.getElementById('authEkran').style.display = 'none';
+  document.getElementById('dogrulamaEkran').style.display = 'flex';
+}
+
+async function dogrulamaKontrol() {
+  const { data: { session } } = await _sb.auth.getSession();
+  if (session) {
+    currentUser = session.user;
+    authEkraniGizle();
+  } else {
+    authHataGoster('Henüz doğrulanmadı. E-postanı kontrol et.');
+    document.getElementById('dogrulamaEkran').style.display = 'none';
+    document.getElementById('authEkran').style.display = 'flex';
+  }
+}
+
+async function tekrarGonder() {
+  const email = document.getElementById('kayitEmail').value.trim();
+  if (!email) return;
+  await _sb.auth.resend({ type: 'signup', email });
+  alert('E-posta tekrar gönderildi!');
+}
+
+async function sifreSifirla() {
+  const email = document.getElementById('girisEmail').value.trim();
+  if (!email) { authHataGoster('Önce e-posta adresini gir.'); return; }
+  const { error } = await _sb.auth.resetPasswordForEmail(email);
+  if (error) { authHataGoster(error.message); return; }
+  authBasariGoster('Şifre sıfırlama e-postası gönderildi!');
+}
+
+// Auth state değişikliğini dinle
+_sb.auth.onAuthStateChange((event, session) => {
+  if (event === 'SIGNED_IN' && session) {
+    currentUser = session.user;
+    authEkraniGizle();
+  } else if (event === 'SIGNED_OUT') {
+    currentUser = null;
+    authEkraniGoster();
+  }
+});
+
+// Sayfa yüklenince kontrol et
+authKontrol();
+
 function _normYazar(s) {
   return (s||'').toLowerCase()
     .replace(/ğ/g,'g').replace(/ü/g,'u').replace(/ş/g,'s')
