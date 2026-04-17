@@ -497,6 +497,34 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
 .auth-ayirac { text-align:center;font-size:12px;color:var(--muted);margin:16px 0; }
 .auth-hata { background:#fff0f0;border:1.5px solid #ffb0b0;border-radius:10px;padding:10px 14px;font-size:13px;color:#c04040;margin-bottom:14px;display:none; }
 .auth-basari { background:#f0fff4;border:1.5px solid #86efac;border-radius:10px;padding:10px 14px;font-size:13px;color:#16a34a;margin-bottom:14px;display:none; }
+
+/* ── ONBOARDING ── */
+#onboardingEkran { position:fixed;inset:0;background:var(--cream);z-index:999;display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto; }
+.ob-kart { background:#fff;border-radius:28px;width:100%;max-width:480px;padding:36px;box-shadow:0 24px 80px rgba(0,0,0,.12);border:1px solid var(--border); }
+.ob-adim { display:none; }
+.ob-adim.aktif { display:block; }
+.ob-baslik { font-family:'DM Serif Display',serif;font-size:24px;color:var(--ink);margin-bottom:8px; }
+.ob-alt { font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:28px; }
+.ob-sayi-grid { display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:24px; }
+.ob-sayi-btn { padding:16px 8px;border:2px solid var(--border);border-radius:14px;background:none;font-family:DM Sans,sans-serif;font-size:20px;font-weight:700;color:var(--ink);cursor:pointer;transition:all .2s;text-align:center; }
+.ob-sayi-btn:hover { border-color:var(--accent);color:var(--accent); }
+.ob-sayi-btn.secili { border-color:var(--accent);background:var(--accent-light);color:var(--accent); }
+.ob-ileri { width:100%;padding:13px;background:var(--accent);color:#fff;border:none;border-radius:14px;font-family:'DM Serif Display',serif;font-size:16px;cursor:pointer;transition:background .2s; }
+.ob-ileri:hover { background:#d4511f; }
+.ob-ileri:disabled { opacity:.5;cursor:not-allowed; }
+.ob-input-wrap { margin-bottom:14px; }
+.ob-input-wrap label { display:block;font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:5px; }
+.ob-input { width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:12px;font-family:DM Sans,sans-serif;font-size:14px;color:var(--ink);outline:none;transition:border-color .2s;box-sizing:border-box; }
+.ob-input:focus { border-color:var(--accent); }
+.ob-cinsiyet { display:flex;gap:10px;margin-bottom:14px; }
+.ob-c-btn { flex:1;padding:10px;border:2px solid var(--border);border-radius:12px;background:none;font-family:DM Sans,sans-serif;font-size:14px;cursor:pointer;transition:all .2s; }
+.ob-c-btn.secili { border-color:var(--accent);background:var(--accent-light);color:var(--accent);font-weight:600; }
+.ob-ilerleme { display:flex;gap:6px;margin-bottom:24px; }
+.ob-ilerleme-dot { height:4px;flex:1;border-radius:2px;background:var(--border);transition:background .3s; }
+.ob-ilerleme-dot.aktif { background:var(--accent); }
+.ob-profil-onizleme { display:flex;flex-direction:column;gap:10px;margin-bottom:20px; }
+.ob-profil-kart { display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--cream);border-radius:12px;border:1px solid var(--border); }
+.ob-profil-avatar { width:40px;height:40px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:20px; }
 </style>
 </head>
 <body>
@@ -548,6 +576,66 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
       </div>
       <button class="auth-btn" onclick="kayitOl()" id="kayitBtnEl">Kayıt Ol →</button>
     </div>
+  </div>
+</div>
+
+
+<!-- ONBOARDING EKRANI -->
+<div id="onboardingEkran">
+  <div class="ob-kart">
+
+    <!-- Adım 1: Kaç çocuk? -->
+    <div class="ob-adim aktif" id="obAdim1">
+      <div style="font-size:48px;margin-bottom:16px;text-align:center">👨‍👩‍👧‍👦</div>
+      <div class="ob-baslik" style="text-align:center">Hoş Geldiniz!</div>
+      <div class="ob-alt" style="text-align:center">Kaç çocuğunuz için profil oluşturmak istersiniz?</div>
+      <div class="ob-sayi-grid" id="obSayiGrid">
+        <button class="ob-sayi-btn" onclick="obSayiSec(1)">1</button>
+        <button class="ob-sayi-btn" onclick="obSayiSec(2)">2</button>
+        <button class="ob-sayi-btn" onclick="obSayiSec(3)">3</button>
+        <button class="ob-sayi-btn" onclick="obSayiSec(4)">4</button>
+      </div>
+      <button class="ob-ileri" id="obIleri1" disabled onclick="obAdimGec(2)">Devam Et →</button>
+    </div>
+
+    <!-- Adım 2+: Çocuk profilleri (dinamik) -->
+    <div class="ob-adim" id="obAdim2">
+      <div class="ob-ilerleme" id="obIlerleme"></div>
+      <div style="font-size:36px;margin-bottom:12px;text-align:center" id="obCocukNo">👶</div>
+      <div class="ob-baslik" id="obCocukBaslik">1. Çocuğunuzun Bilgileri</div>
+      <div class="ob-alt">Bu bilgiler kitap önerilerini kişiselleştirmek için kullanılır.</div>
+
+      <div class="ob-input-wrap">
+        <label>Çocuğunuzun Adı *</label>
+        <input class="ob-input" type="text" id="obCocukAd" placeholder="Örn: Elif"/>
+      </div>
+
+      <div class="ob-input-wrap">
+        <label>Doğum Yılı *</label>
+        <input class="ob-input" type="number" id="obDogumYili" placeholder="Örn: 2019" min="2000" max="2024"/>
+      </div>
+
+      <div class="ob-input-wrap">
+        <label>Cinsiyet</label>
+        <div class="ob-cinsiyet">
+          <button class="ob-c-btn" id="obKiz" onclick="obCinsiyetSec('kiz')">👧 Kız</button>
+          <button class="ob-c-btn" id="obErkek" onclick="obCinsiyetSec('erkek')">👦 Erkek</button>
+        </div>
+      </div>
+
+      <div id="obHata" style="color:#c04040;font-size:13px;margin-bottom:10px;display:none"></div>
+      <button class="ob-ileri" id="obCocukIleri" onclick="obCocukKaydet()">Devam Et →</button>
+    </div>
+
+    <!-- Son adım: Özet -->
+    <div class="ob-adim" id="obAdim3">
+      <div style="font-size:48px;margin-bottom:16px;text-align:center">🎉</div>
+      <div class="ob-baslik" style="text-align:center">Harika!</div>
+      <div class="ob-alt" style="text-align:center">Profilleri oluşturdunuz. Hadi kitap keşfetmeye başlayalım!</div>
+      <div class="ob-profil-onizleme" id="obProfilOnizleme"></div>
+      <button class="ob-ileri" onclick="obTamamla()">📚 Uygulamaya Gir →</button>
+    </div>
+
   </div>
 </div>
 
@@ -3776,6 +3864,161 @@ function okuyacakUygulamadenEkle(kitapAd) {
 document.getElementById('okuyacakSecPopup').addEventListener('click', function(e) {
   if (e.target === this) okuyacakUygulamaSecKapat();
 });
+
+
+// ── ONBOARDING ──
+let obToplamCocuk = 0;
+let obMevcutCocuk = 0;
+let obCocuklar = [];
+let obSecilenCinsiyet = '';
+
+async function onboardingKontrol() {
+  if (!currentUser) return;
+  // Daha önce çocuk eklemiş mi?
+  const { data } = await _sb.from('children').select('id').eq('user_id', currentUser.id);
+  if (data && data.length > 0) {
+    // Çocuklar var, direkt uygulamaya gir
+    obTamamla();
+  } else {
+    // İlk kez giriş, onboarding göster
+    document.getElementById('onboardingEkran').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function obSayiSec(n) {
+  obToplamCocuk = n;
+  document.querySelectorAll('.ob-sayi-btn').forEach(b => b.classList.remove('secili'));
+  document.querySelectorAll('.ob-sayi-btn')[n-1].classList.add('secili');
+  document.getElementById('obIleri1').disabled = false;
+}
+
+function obAdimGec(adim) {
+  document.querySelectorAll('.ob-adim').forEach(a => a.classList.remove('aktif'));
+  document.getElementById('obAdim' + adim).classList.add('aktif');
+
+  if (adim === 2) {
+    obMevcutCocuk = 1;
+    obCocuklar = [];
+    obCocukFormuGuncelle();
+  }
+}
+
+function obCocukFormuGuncelle() {
+  // İlerleme çubukları
+  const prog = document.getElementById('obIlerleme');
+  prog.innerHTML = Array.from({length: obToplamCocuk}, (_, i) =>
+    `<div class="ob-ilerleme-dot ${i < obMevcutCocuk ? 'aktif' : ''}"></div>`
+  ).join('');
+
+  // Başlık
+  document.getElementById('obCocukBaslik').textContent = obMevcutCocuk + '. Çocuğunuzun Bilgileri';
+  document.getElementById('obCocukNo').textContent = obMevcutCocuk === 1 ? '👶' : obMevcutCocuk === 2 ? '🧒' : '👦';
+
+  // Formu sıfırla
+  document.getElementById('obCocukAd').value = '';
+  document.getElementById('obDogumYili').value = '';
+  obSecilenCinsiyet = '';
+  document.getElementById('obKiz').classList.remove('secili');
+  document.getElementById('obErkek').classList.remove('secili');
+  document.getElementById('obHata').style.display = 'none';
+
+  // Buton metni
+  document.getElementById('obCocukIleri').textContent =
+    obMevcutCocuk < obToplamCocuk ? 'Sonraki Çocuk →' : 'Tamamla →';
+}
+
+function obCinsiyetSec(c) {
+  obSecilenCinsiyet = c;
+  document.getElementById('obKiz').classList.toggle('secili', c === 'kiz');
+  document.getElementById('obErkek').classList.toggle('secili', c === 'erkek');
+}
+
+async function obCocukKaydet() {
+  const ad = document.getElementById('obCocukAd').value.trim();
+  const dogumYili = document.getElementById('obDogumYili').value;
+
+  if (!ad) { obHataGoster('Çocuğun adını gir.'); return; }
+  if (!dogumYili || dogumYili < 2000 || dogumYili > 2025) {
+    obHataGoster('Geçerli bir doğum yılı gir (2000-2025)'); return;
+  }
+
+  const btn = document.getElementById('obCocukIleri');
+  btn.disabled = true; btn.textContent = 'Kaydediliyor...';
+
+  const yas = new Date().getFullYear() - parseInt(dogumYili);
+  const yasGrup = yas <= 2 ? '0' : yas <= 4 ? '2' : yas <= 6 ? '4' : yas <= 9 ? '7' : '10';
+  const avatar = obSecilenCinsiyet === 'kiz' ? '👧' : obSecilenCinsiyet === 'erkek' ? '👦' : '🧒';
+
+  // Supabase'e kaydet
+  const { error } = await _sb.from('children').insert({
+    user_id: currentUser.id,
+    name: ad,
+    birth_year: parseInt(dogumYili),
+    gender: obSecilenCinsiyet || 'belirtilmedi',
+    avatar: avatar
+  });
+
+  btn.disabled = false;
+
+  if (error) { obHataGoster('Hata: ' + error.message); return; }
+
+  // localStorage'a da ekle (mevcut sistem için)
+  obCocuklar.push({ name: ad, age: yasGrup, avatar });
+
+  if (obMevcutCocuk < obToplamCocuk) {
+    obMevcutCocuk++;
+    obCocukFormuGuncelle();
+  } else {
+    // Tüm çocuklar eklendi, özet göster
+    obOzetGoster();
+  }
+}
+
+function obOzetGoster() {
+  document.querySelectorAll('.ob-adim').forEach(a => a.classList.remove('aktif'));
+  document.getElementById('obAdim3').classList.add('aktif');
+
+  const el = document.getElementById('obProfilOnizleme');
+  el.innerHTML = obCocuklar.map(c => {
+    const yas = new Date().getFullYear() - (c.age === '0' ? new Date().getFullYear() - 1 : 0);
+    return `<div class="ob-profil-kart">
+      <div class="ob-profil-avatar">${c.avatar}</div>
+      <div>
+        <div style="font-weight:600;font-size:14px">${c.name}</div>
+        <div style="font-size:12px;color:var(--muted)">${c.age}+ yaş grubu</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function obHataGoster(msg) {
+  const el = document.getElementById('obHata');
+  el.textContent = msg;
+  el.style.display = 'block';
+}
+
+function obTamamla() {
+  // localStorage'a profilleri yükle
+  if (obCocuklar.length > 0) {
+    localStorage.setItem('sk_profiles', JSON.stringify(obCocuklar));
+    localStorage.setItem('sk_active', '0');
+  }
+
+  document.getElementById('onboardingEkran').style.display = 'none';
+  document.body.style.overflow = '';
+
+  // Mevcut sistemi başlat
+  if (typeof loadState === 'function') loadState();
+  if (typeof buildUI === 'function') buildUI();
+}
+
+// authEkraniGizle'yi override et - gizleyince onboarding kontrol et
+const _origAuthGizle = authEkraniGizle;
+authEkraniGizle = async function() {
+  _origAuthGizle();
+  await onboardingKontrol();
+};
 
 </script>
 </body>
