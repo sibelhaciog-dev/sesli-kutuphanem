@@ -255,8 +255,20 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
   .greeting-search { width:100%; }
   .greeting-search input { width:100%; }
 
-  /* Grid */
-  .grid { grid-template-columns:repeat(2,1fr); gap:10px; }
+  /* Grid - 3 sütun */
+  .grid { grid-template-columns:repeat(3,1fr); gap:6px; }
+  .kart-body { padding:7px 8px; }
+  .kart-title { font-size:11px; margin-bottom:4px; -webkit-line-clamp:2; }
+  .kart-age { font-size:9px; margin-bottom:2px; }
+  .kart-footer { display:none; }
+  .kart-placeholder-icon { font-size:28px; }
+  .kart-placeholder-text { font-size:10px; }
+  .kart-status { margin-bottom:3px; }
+  .okundu-badge { font-size:9px; padding:1px 5px; }
+  .stars-mini { gap:0; }
+  .star-mini { font-size:10px; }
+  .gorsel-ekle-btn { font-size:9px; padding:3px 8px; margin-top:4px; }
+  .dil-badge { font-size:9px; padding:2px 5px; }
 
   /* Modal */
   .modal { border-radius:0; }
@@ -271,8 +283,10 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
     font-size:10px !important;
     padding:7px 3px !important;
   }
-  .grid { gap:8px; }
-  .main { padding:10px 8px 80px; }
+  .grid { grid-template-columns:repeat(3,1fr); gap:4px; }
+  .main { padding:10px 6px 80px; }
+  .kart-body { padding:5px 6px; }
+  .kart-title { font-size:10px; }
 }
 
 .mobil-rehber-btn { display:none; }
