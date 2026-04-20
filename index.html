@@ -1533,29 +1533,11 @@ let currentUser = null;
 
 // Sayfa yüklenince oturumu kontrol et
 async function authKontrol() {
-  try {
-    const { data: { session } } = await _sb.auth.getSession();
-    window._supabaseAktif = true;
-    // Eski onboardOverlay'i kapat
-    const oo = document.getElementById('onboardOverlay');
-    if (oo) oo.style.display = 'none';
-    if (session) {
-      currentUser = session.user;
-      authEkraniGizle();
-    } else {
-      authEkraniGoster();
-    }
-  } catch(e) {
-    // Supabase erişilemiyorsa eski sistemi çalıştır
-    window._supabaseAktif = false;
-    loadState();
-    if (profiles.length === 0) {
-      openOnboard();
-    } else {
-      closeOnboard();
-      buildUI();
-    }
-  }
+  // onAuthStateChange INITIAL_SESSION eventi her şeyi hallediyor
+  // Bu fonksiyon artık sadece eski overlay'i kapatmak için
+  window._supabaseAktif = true;
+  const oo = document.getElementById('onboardOverlay');
+  if (oo) oo.style.display = 'none';
 }
 
 function authEkraniGoster() {
@@ -1671,19 +1653,26 @@ async function sifreSifirla() {
   authBasariGoster('Şifre sıfırlama e-postası gönderildi!');
 }
 
-// Auth state değişikliğini dinle
+// Auth state değişikliğini dinle - INITIAL_SESSION dahil tüm olayları yakala
 _sb.auth.onAuthStateChange((event, session) => {
-  if (event === 'SIGNED_IN' && session) {
+  if (event === 'INITIAL_SESSION') {
+    // Sayfa ilk yüklendiğinde mevcut oturumu kontrol et
+    if (session) {
+      currentUser = session.user;
+      authEkraniGizle();
+    } else {
+      authEkraniGoster();
+    }
+  } else if (event === 'SIGNED_IN' && session) {
     currentUser = session.user;
     authEkraniGizle();
   } else if (event === 'SIGNED_OUT') {
     currentUser = null;
     authEkraniGoster();
+  } else if (event === 'TOKEN_REFRESHED' && session) {
+    currentUser = session.user;
   }
 });
-
-// Sayfa yüklenince kontrol et
-authKontrol();
 
 function _normYazar(s) {
   return (s||'').toLowerCase()
@@ -4302,10 +4291,6 @@ authEkraniGizle = async function() {
   _origAuthGizle();
   await onboardingKontrol();
 };
-
-// Supabase auth kontrolü - sayfa yüklenince
-authKontrol();
-
 
 // ── PROFİL PANELİ ──
 function profilPaneliAc() {
