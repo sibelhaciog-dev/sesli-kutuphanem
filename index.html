@@ -542,6 +542,20 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
 .ob-ilgi-btn:hover { border-color:var(--accent);color:var(--accent); }
 .ob-ilgi-btn.secili { background:var(--accent-light);border-color:var(--accent);color:var(--accent);font-weight:600; }
 .ob-profil-avatar { width:40px;height:40px;border-radius:50%;background:var(--accent);display:flex;align-items:center;justify-content:center;font-size:20px; }
+
+.ob-sira-item {
+  display:flex;align-items:center;gap:10px;
+  padding:9px 14px;background:var(--white);
+  border:1.5px solid var(--border);border-radius:10px;
+  font-family:DM Sans,sans-serif;font-size:13px;color:var(--ink);
+  cursor:grab;user-select:none;transition:all .15s;
+  position:relative;
+}
+.ob-sira-item::before { content:'⠿';color:#ccc;font-size:15px;flex-shrink:0; }
+.ob-sira-item:hover { border-color:var(--accent);background:var(--accent-light); }
+.ob-sira-item.dragging { opacity:.35;border-style:dashed;cursor:grabbing; }
+.ob-sira-item.drag-over { border-color:var(--accent);background:var(--accent-light); }
+.ob-sira-num { background:var(--accent);color:#fff;border-radius:50%;width:22px;height:22px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;margin-left:auto; }
 </style>
 </head>
 <body>
@@ -641,18 +655,19 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
       </div>
 
       <div class="ob-input-wrap">
-        <label>Öncelikli Rehberlik Alanı *</label>
-        <select class="ob-input" id="obRehberlik">
-          <option value="">Seçiniz...</option>
-          <option value="duygu">❤️ Duygu Yönetimi</option>
-          <option value="ozguven">⭐ Özgüven Gelişimi</option>
-          <option value="sosyal">🤝 Sosyal Beceriler</option>
-          <option value="okul">📚 Okul Uyumu</option>
-          <option value="kardes">👶 Kardeş İlişkileri</option>
-          <option value="kaygi">🌿 Kaygı ve Korku</option>
-          <option value="farklilik">🌈 Farklılıklara Saygı</option>
-          <option value="yaraticilik">🎨 Yaratıcılık</option>
-        </select>
+        <label>Gelişim Öncelikleri *</label>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">En çok ihtiyaç duyulandan aza doğru sürükleyerek sıralayın</div>
+        <div id="obRehberlikSira" style="display:flex;flex-direction:column;gap:6px">
+          <div class="ob-sira-item" data-val="duygu" draggable="true">❤️ Duygu Yönetimi</div>
+          <div class="ob-sira-item" data-val="ozguven" draggable="true">⭐ Özgüven Gelişimi</div>
+          <div class="ob-sira-item" data-val="sosyal" draggable="true">🤝 Sosyal Beceriler</div>
+          <div class="ob-sira-item" data-val="okul" draggable="true">📚 Okul Uyumu</div>
+          <div class="ob-sira-item" data-val="kardes" draggable="true">👶 Kardeş İlişkileri</div>
+          <div class="ob-sira-item" data-val="kaygi" draggable="true">🌿 Kaygı ve Korku</div>
+          <div class="ob-sira-item" data-val="farklilik" draggable="true">🌈 Farklılıklara Saygı</div>
+          <div class="ob-sira-item" data-val="yaraticilik" draggable="true">🎨 Yaratıcılık</div>
+        </div>
+        <input type="hidden" id="obRehberlik" value="duygu"/>
       </div>
 
       <div class="ob-input-wrap">
@@ -1004,18 +1019,19 @@ body { background:var(--cream); font-family:DM Sans,sans-serif; color:var(--ink)
         </div>
       </div>
       <div class="ob-input-wrap">
-        <label>Öncelikli Rehberlik Alanı *</label>
-        <select class="ob-input" id="pdRehberlik">
-          <option value="">Seçiniz...</option>
-          <option value="duygu">❤️ Duygu Yönetimi</option>
-          <option value="ozguven">⭐ Özgüven Gelişimi</option>
-          <option value="sosyal">🤝 Sosyal Beceriler</option>
-          <option value="okul">📚 Okul Uyumu</option>
-          <option value="kardes">👶 Kardeş İlişkileri</option>
-          <option value="kaygi">🌿 Kaygı ve Korku</option>
-          <option value="farklilik">🌈 Farklılıklara Saygı</option>
-          <option value="yaraticilik">🎨 Yaratıcılık</option>
-        </select>
+        <label>Gelişim Öncelikleri *</label>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:8px">En çok ihtiyaç duyulandan aza doğru sürükleyerek sıralayın</div>
+        <div id="pdRehberlikSira" style="display:flex;flex-direction:column;gap:6px">
+          <div class="ob-sira-item" data-val="duygu" draggable="true">❤️ Duygu Yönetimi</div>
+          <div class="ob-sira-item" data-val="ozguven" draggable="true">⭐ Özgüven Gelişimi</div>
+          <div class="ob-sira-item" data-val="sosyal" draggable="true">🤝 Sosyal Beceriler</div>
+          <div class="ob-sira-item" data-val="okul" draggable="true">📚 Okul Uyumu</div>
+          <div class="ob-sira-item" data-val="kardes" draggable="true">👶 Kardeş İlişkileri</div>
+          <div class="ob-sira-item" data-val="kaygi" draggable="true">🌿 Kaygı ve Korku</div>
+          <div class="ob-sira-item" data-val="farklilik" draggable="true">🌈 Farklılıklara Saygı</div>
+          <div class="ob-sira-item" data-val="yaraticilik" draggable="true">🎨 Yaratıcılık</div>
+        </div>
+        <input type="hidden" id="pdRehberlik" value=""/>
       </div>
       <div class="ob-input-wrap">
         <label>İlgi Alanları</label>
@@ -1547,11 +1563,7 @@ let currentUser = null;
 
 // Sayfa yüklenince oturumu kontrol et
 async function authKontrol() {
-  // onAuthStateChange INITIAL_SESSION eventi her şeyi hallediyor
-  // Bu fonksiyon artık sadece eski overlay'i kapatmak için
-  window._supabaseAktif = true;
-  const oo = document.getElementById('onboardOverlay');
-  if (oo) oo.style.display = 'none';
+  // Boş - onAuthStateChange hallediyor
 }
 
 function authEkraniGoster() {
@@ -1667,19 +1679,26 @@ async function sifreSifirla() {
   authBasariGoster('Şifre sıfırlama e-postası gönderildi!');
 }
 
-// Auth state değişikliğini dinle - INITIAL_SESSION dahil tüm olayları yakala
-_sb.auth.onAuthStateChange((event, session) => {
-  if (event === 'INITIAL_SESSION') {
-    // Sayfa ilk yüklendiğinde mevcut oturumu kontrol et
+// Auth state - tüm olayları dinle
+_sb.auth.onAuthStateChange(async (event, session) => {
+  // Eski onboarding'i her durumda kapat
+  window._supabaseAktif = true;
+  const oo = document.getElementById('onboardOverlay');
+  if (oo) oo.style.display = 'none';
+
+  if (event === 'INITIAL_SESSION' || event === 'SIGNED_IN') {
     if (session) {
       currentUser = session.user;
-      authEkraniGizle();
+      // Auth ekranlarını kapat
+      document.getElementById('authEkran').style.display = 'none';
+      document.getElementById('dogrulamaEkran').style.display = 'none';
+      document.body.style.overflow = '';
+      // Supabase'den profilleri yükle ve uygulamayı başlat
+      await onboardingKontrol();
     } else {
+      // Oturum yok - giriş ekranı göster
       authEkraniGoster();
     }
-  } else if (event === 'SIGNED_IN' && session) {
-    currentUser = session.user;
-    authEkraniGizle();
   } else if (event === 'SIGNED_OUT') {
     currentUser = null;
     authEkraniGoster();
@@ -1701,7 +1720,7 @@ const KITAPLAR = [{"ad": "Çaya Gelen Kaplan", "likes": 0, "tarih": "14.04.2026"
 // ── STATE ──
 let profiles = [];
 let activeChild = null; // index
-let filters = { dil: 'tumu', sirala: 'yeni' };
+let filters = { dil: 'tumu', sirala: 'kisisel' };
 let favs = {};   // { childId: [links] }
 let aktifGelisimFiltre = null; // {alan, alt}
 let okumalar = {};  // { link: {okundu:bool, yildiz:0-5} }
@@ -1938,7 +1957,7 @@ function render() {
   if (filters.sirala === 'begeni') liste.sort((a,b) => b.likes - a.likes);
 
   // Aktif profil varsa, rehberlik alanı + ilgi alanlarına göre önceliklendirme yap
-  if (!filters.sirala || filters.sirala === 'varsayilan') {
+  if (!filters.sirala || filters.sirala === 'varsayilan' || filters.sirala === 'yeni' || filters.sirala === 'kisisel') {
     const profil = profiles[activeChild];
     if (profil && !aktifGelisimFiltre && !q) {
       // Rehberlik alanı → gelisim kodu eşlemesi
@@ -1978,7 +1997,8 @@ function render() {
         'Araçlar':       ['ozelilgi|Tematik İçerikler']
       };
 
-      const rehberlik = profil.priority_guidance || profil.rehberlik || '';
+      // Sıralı rehberlik listesi - ilk alan en yüksek puanı alır
+      const rehberlikSira = (profil.priority_guidance_order || profil.priority_guidance || profil.rehberlik || '').split(',').filter(Boolean);
       const ilgiler = profil.ilgiler || profil.interests || [];
 
       // Her kitaba skor hesapla
@@ -1986,10 +2006,18 @@ function render() {
         const skorHesapla = (k) => {
           let skor = 0;
           const gelisim = k.gelisim || [];
-          // Rehberlik alanı eşleşmesi (+3 puan)
+          // Rehberlik alanları sırayla - 1. alan +5, 2. alan +3, 3. alan +2, sonrakiler +1
+          rehberlikSira.forEach((rh, idx) => {
+            const puan = idx === 0 ? 5 : idx === 1 ? 3 : idx === 2 ? 2 : 1;
+            if (rehberlikMap[rh]) {
+              if (gelisim.some(g => g.startsWith(rehberlikMap[rh] + '|'))) skor += puan;
+            }
+          });
+          // Geriye uyumluluk için tek rehberlik değeri
+          const rehberlik = rehberlikSira[0] || '';
           if (rehberlik && rehberlikMap[rehberlik]) {
             const hedef = rehberlikMap[rehberlik] + '|' + rehberlikAlt[rehberlik];
-            if (gelisim.some(g => g === hedef || g.startsWith(rehberlikMap[rehberlik] + '|'))) skor += 3;
+            if (gelisim.some(g => g === hedef)) skor += 1; // ekstra bonus tam eşleşmeye
           }
           // İlgi alanı eşleşmesi (+2 puan, çoklu eşleşme birikir)
           if (ilgiler.length > 0) {
@@ -2678,7 +2706,7 @@ function oneriPanelToggle() {
 
 
 function filtreleriSifirla() {
-  filters = { dil: 'tumu', sirala: 'yeni' };
+  filters = { dil: 'tumu', sirala: 'kisisel' };
   // Chip butonlarını güncelle
   document.querySelectorAll('.chip').forEach(function(c) {
     var oc = c.getAttribute('onclick') || '';
@@ -4093,6 +4121,8 @@ let obSecilenCinsiyet = '';
 
 async function onboardingKontrol() {
   if (!currentUser) return;
+  if (window._onboardingCalisiyor) return;
+  window._onboardingCalisiyor = true;
   // Supabase'den çocukları çek
   const { data } = await _sb.from('children')
     .select('*')
@@ -4119,6 +4149,8 @@ async function onboardingKontrol() {
       return {
         name: c.name,
         age: yasGrup,
+        birth_year: c.birth_year,
+        birth_date: c.birth_date || null,
         avatar: c.avatar || (c.gender === 'kiz' ? '👧' : c.gender === 'erkek' ? '👦' : '🧒'),
         cinsiyet: c.gender || '',
         supabase_id: c.id,
@@ -4136,10 +4168,12 @@ async function onboardingKontrol() {
     document.body.style.overflow = '';
     if (typeof loadState === 'function') loadState();
     if (typeof buildUI === 'function') buildUI();
+    window._onboardingCalisiyor = false;
   } else {
     // İlk kez giriş, onboarding göster
     document.getElementById('onboardingEkran').style.display = 'flex';
     document.body.style.overflow = 'hidden';
+    window._onboardingCalisiyor = false;
   }
 }
 
@@ -4158,6 +4192,7 @@ function obAdimGec(adim) {
     obMevcutCocuk = 1;
     obCocuklar = [];
     obCocukFormuGuncelle();
+    setTimeout(() => siralamaDragDrop('obRehberlikSira', 'obRehberlik'), 100);
   }
 }
 
@@ -4212,8 +4247,11 @@ async function obCocukKaydet() {
 
   if (!ad) { obHataGoster('Çocuğun adını gir.'); return; }
   if (!dogumTarihi) { obHataGoster('Doğum tarihini gir.'); return; }
+  // Sıralama değerini güncelle
+  const obSiraEl = document.getElementById('obRehberlikSira');
+  if (obSiraEl) { const ilk = obSiraEl.querySelector('.ob-sira-item'); if (ilk) document.getElementById('obRehberlik').value = ilk.dataset.val; }
   const rehberlikKontrol = document.getElementById('obRehberlik').value;
-  if (!rehberlikKontrol) { obHataGoster('Lütfen öncelikli rehberlik alanını seç.'); return; }
+  if (!rehberlikKontrol) { obHataGoster('Lütfen gelişim önceliklerini sırala.'); return; }
 
   const btn = document.getElementById('obCocukIleri');
   btn.disabled = true; btn.textContent = 'Kaydediliyor...';
@@ -4222,42 +4260,56 @@ async function obCocukKaydet() {
   const yas = new Date().getFullYear() - dogumYili;
   const yasGrup = yas <= 2 ? '0' : yas <= 4 ? '2' : yas <= 6 ? '4' : yas <= 9 ? '7' : '10';
   const avatar = obSecilenCinsiyet === 'kiz' ? '👧' : obSecilenCinsiyet === 'erkek' ? '👦' : '🧒';
-
   const rehberlik = document.getElementById('obRehberlik').value;
 
-  // Supabase'e kaydet
-  const { data: cocukData, error } = await _sb.from('children').insert({
-    user_id: currentUser.id,
-    name: ad,
-    birth_year: dogumYili,
-    birth_date: dogumTarihi,
-    gender: obSecilenCinsiyet || 'belirtilmedi',
-    avatar: avatar,
-    priority_guidance: rehberlik || null
-  }).select().single();
+  try {
+    // Supabase'e kaydet - sadece mevcut kolonlar
+    const { data: cocukData, error } = await _sb.from('children').insert({
+      user_id: currentUser.id,
+      name: ad,
+      birth_year: dogumYili,
+      birth_date: dogumTarihi,
+      gender: obSecilenCinsiyet || 'belirtilmedi',
+      avatar: avatar,
+      priority_guidance: rehberlik || null
+    }).select().single();
 
-  // İlgi alanlarını kaydet
-  if (!error && cocukData && obSecilenIlgiler.size > 0) {
-    const ilgiRows = Array.from(obSecilenIlgiler).map(ilgi => ({
-      child_id: cocukData.id,
-      interest_name: ilgi
-    }));
-    await _sb.from('child_interests').insert(ilgiRows);
-  }
+    if (error) {
+      btn.disabled = false; btn.textContent = obMevcutCocuk < obToplamCocuk ? 'Sonraki Çocuk →' : 'Tamamla →';
+      obHataGoster('Kayıt hatası: ' + error.message);
+      return;
+    }
 
-  btn.disabled = false;
+    // İlgi alanlarını kaydet
+    if (cocukData && obSecilenIlgiler.size > 0) {
+      const ilgiRows = Array.from(obSecilenIlgiler).map(ilgi => ({
+        child_id: cocukData.id,
+        interest_name: ilgi
+      }));
+      const { error: ilgiError } = await _sb.from('child_interests').insert(ilgiRows);
+      if (ilgiError) console.warn('İlgi alanı kayıt hatası:', ilgiError.message);
+    }
 
-  if (error) { obHataGoster('Hata: ' + error.message); return; }
+    // Başarılı
+    obCocuklar.push({
+      name: ad, age: yasGrup, avatar,
+      priority_guidance: rehberlik || '',
+      ilgiler: Array.from(obSecilenIlgiler)
+    });
 
-  // localStorage'a da ekle (mevcut sistem için)
-  obCocuklar.push({ name: ad, age: yasGrup, avatar });
+    btn.disabled = false;
+    btn.textContent = obMevcutCocuk < obToplamCocuk ? 'Sonraki Çocuk →' : 'Tamamla →';
 
-  if (obMevcutCocuk < obToplamCocuk) {
-    obMevcutCocuk++;
-    obCocukFormuGuncelle();
-  } else {
-    // Tüm çocuklar eklendi, özet göster
-    obOzetGoster();
+    if (obMevcutCocuk < obToplamCocuk) {
+      obMevcutCocuk++;
+      obCocukFormuGuncelle();
+    } else {
+      obOzetGoster();
+    }
+
+  } catch(e) {
+    btn.disabled = false; btn.textContent = obMevcutCocuk < obToplamCocuk ? 'Sonraki Çocuk →' : 'Tamamla →';
+    obHataGoster('Beklenmeyen hata: ' + e.message);
   }
 }
 
@@ -4285,26 +4337,13 @@ function obHataGoster(msg) {
 }
 
 function obTamamla() {
-  // localStorage'a profilleri yükle
-  if (obCocuklar.length > 0) {
-    localStorage.setItem('sk_profiles', JSON.stringify(obCocuklar));
-    localStorage.setItem('sk_active', '0');
-  }
-
   document.getElementById('onboardingEkran').style.display = 'none';
   document.body.style.overflow = '';
-
-  // Mevcut sistemi başlat
-  if (typeof loadState === 'function') loadState();
-  if (typeof buildUI === 'function') buildUI();
+  // Supabase'den taze veriyle başlat
+  onboardingKontrol();
 }
 
-// authEkraniGizle'yi override et - gizleyince onboarding kontrol et
-const _origAuthGizle = authEkraniGizle;
-authEkraniGizle = async function() {
-  _origAuthGizle();
-  await onboardingKontrol();
-};
+// authEkraniGizle artık override edilmiyor - onAuthStateChange hallediyor
 
 // ── PROFİL PANELİ ──
 function profilPaneliAc() {
@@ -4316,16 +4355,28 @@ function profilPaneliAc() {
   }
   // Çocukları listele
   const liste = document.getElementById('profilCocukListesi');
-  liste.innerHTML = profiles.map((p, i) => `
-    <div style="display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:10px;background:${i===activeChild?'var(--accent-light)':'none'}">
+  liste.innerHTML = profiles.map((p, i) => {
+    // Doğum tarihini formatla
+    let dogumGoster = '';
+    if (p.birth_date) {
+      const d = new Date(p.birth_date);
+      dogumGoster = d.toLocaleDateString('tr-TR', {day:'numeric', month:'long', year:'numeric'});
+    } else if (p.birth_year) {
+      dogumGoster = p.birth_year + ' doğumlu';
+    }
+    const yas = p.birth_year ? (new Date().getFullYear() - p.birth_year) + ' yaşında' : '';
+    return `<div style="display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:10px;background:${i===activeChild?'var(--accent-light)':'none'}">
       <button onclick="switchChild(${i});profilPaneliKapat()" style="flex:1;background:none;border:none;font-family:DM Sans,sans-serif;font-size:13px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:8px;color:${i===activeChild?'var(--accent)':'var(--ink)'}">
         <span style="font-size:18px">${p.avatar||'🧒'}</span>
-        <span>${p.name}</span>
+        <div>
+          <div style="font-weight:600">${p.name} <span style="font-weight:400;color:var(--muted);font-size:12px">${yas}</span></div>
+          ${dogumGoster ? `<div style="font-size:11px;color:var(--muted)">${dogumGoster}</div>` : ''}
+        </div>
         ${i===activeChild?'<span style="margin-left:4px;font-size:11px;background:var(--accent);color:#fff;padding:2px 8px;border-radius:20px">Aktif</span>':''}
       </button>
       <button onclick="profilDuzenleAc('${p.supabase_id||''}','${p.name||''}',${i})" style="background:none;border:1px solid var(--border);border-radius:8px;padding:4px 8px;font-size:11px;color:var(--muted);cursor:pointer;white-space:nowrap">✏️ Düzenle</button>
-    </div>
-  `).join('');
+    </div>`;
+  }).join('');
   
   // Dışarı tıklayınca kapat
   setTimeout(() => {
@@ -4469,6 +4520,102 @@ async function profilDuzenleKaydet() {
   document.body.appendChild(t);
   setTimeout(() => t.remove(), 2500);
 }
+
+
+// ── SIRALAMA DRAG-DROP ──
+function siralamaDragDrop(containerId, hiddenInputId) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  let dragged = null;
+
+  container.querySelectorAll('.ob-sira-item').forEach((item, idx) => {
+    // Numara ekle (yoksa)
+    if (!item.querySelector('.ob-sira-num')) {
+      const num = document.createElement('div');
+      num.className = 'ob-sira-num';
+      num.textContent = idx + 1;
+      item.appendChild(num);
+    } else {
+      item.querySelector('.ob-sira-num').textContent = idx + 1;
+    }
+
+    item.addEventListener('dragstart', () => {
+      dragged = item;
+      setTimeout(() => item.classList.add('dragging'), 0);
+    });
+    item.addEventListener('dragend', () => {
+      item.classList.remove('dragging');
+      container.querySelectorAll('.ob-sira-item').forEach((el, i) => {
+        el.querySelector('.ob-sira-num').textContent = i + 1;
+      });
+      // Hidden input'a ilk sıradaki değeri yaz
+      const ilk = container.querySelector('.ob-sira-item');
+      if (ilk && hiddenInputId) {
+        document.getElementById(hiddenInputId).value = ilk.dataset.val;
+      }
+      // Tüm sırayı kaydet
+      const sira = Array.from(container.querySelectorAll('.ob-sira-item')).map(el => el.dataset.val);
+      container.dataset.sira = sira.join(',');
+    });
+    item.addEventListener('dragover', e => {
+      e.preventDefault();
+      item.classList.add('drag-over');
+      if (dragged && dragged !== item) {
+        const rect = item.getBoundingClientRect();
+        const mid = rect.top + rect.height / 2;
+        if (e.clientY < mid) {
+          container.insertBefore(dragged, item);
+        } else {
+          container.insertBefore(dragged, item.nextSibling);
+        }
+      }
+    });
+    item.addEventListener('dragleave', () => item.classList.remove('drag-over'));
+    item.addEventListener('drop', e => {
+      e.preventDefault();
+      item.classList.remove('drag-over');
+    });
+  });
+
+  // İlk hidden input değerini set et
+  const ilk = container.querySelector('.ob-sira-item');
+  if (ilk && hiddenInputId) {
+    document.getElementById(hiddenInputId).value = ilk.dataset.val;
+  }
+  container.dataset.sira = Array.from(container.querySelectorAll('.ob-sira-item')).map(el => el.dataset.val).join(',');
+}
+
+// Onboarding formu render olunca drag-drop başlat
+const _origObCocukFormuGuncelle = obCocukFormuGuncelle;
+obCocukFormuGuncelle = function() {
+  _origObCocukFormuGuncelle();
+  setTimeout(() => siralamaDragDrop('obRehberlikSira', 'obRehberlik'), 50);
+};
+
+// Profil düzenleme açılınca da başlat
+const _origProfilDuzenleAc = profilDuzenleAc;
+profilDuzenleAc = async function(supabaseId, ad, idx) {
+  await _origProfilDuzenleAc(supabaseId, ad, idx);
+  setTimeout(() => {
+    siralamaDragDrop('pdRehberlikSira', 'pdRehberlik');
+    // Mevcut sırayı Supabase'den yükle
+    const profil = profiles[idx];
+    if (profil && profil.priority_guidance) {
+      // İlk sırayı mevcut rehberlik değerine göre ayarla
+      const container = document.getElementById('pdRehberlikSira');
+      if (container) {
+        const hedef = container.querySelector('[data-val="' + profil.priority_guidance + '"]');
+        if (hedef) {
+          container.insertBefore(hedef, container.firstChild);
+          container.querySelectorAll('.ob-sira-item').forEach((el, i) => {
+            el.querySelector('.ob-sira-num').textContent = i + 1;
+          });
+          document.getElementById('pdRehberlik').value = profil.priority_guidance;
+        }
+      }
+    }
+  }, 100);
+};
 
 </script>
 </body>
