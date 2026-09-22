@@ -23,6 +23,7 @@
     "db:seed": "tsx scripts/db-seed.ts",
     "db:export": "tsx scripts/db-export.ts",
     "book:add": "tsx scripts/book-add.ts",
+    "skill:paket": "tsx scripts/build-skill.ts",
     "db:types": "tsx scripts/generate-db-types.ts",
     "test:e2e": "node scripts/e2e/local-smoke.mjs",
     "db:seed:local": "DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres tsx scripts/db-seed.ts",

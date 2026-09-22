@@ -93,7 +93,8 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
   kelimeler; silmeden önce kaç kitap / çocuk profili / modda kullanıldığı
 - Keşif modu düzenleyici: ad, açıklama, yapay zekâya not, konu eğilimleri
 - Toplu ekleme: Claude'a kitap listesi verilir, `npm run book:add` ile eklenir
-  (ileride Instagram gönderilerinden Chrome ile liste çıkarılarak)
+- Instagram'dan aktarım: Claude in Chrome skill'i gönderiden kitap bilgisini
+  ve kapağı çıkarır, Claude Code ekler
 - Geri bildirim ve bağış taleplerini görme
 
 Buradaki her değişiklik doğrudan veritabanına yazılır ve hemen görünür;
@@ -156,6 +157,10 @@ yayın gerekmez (ADR 0008).
 3. Kapak yüklenir → sitede hemen görünür.
 4. Çok kitap için: Claude'a liste verilir ("bunları ekle"); betik önce hepsini
    dener, sorun yoksa tek seferde ekler, eksik bilgileri raporlar.
+5. Instagram'dan: Chrome'da gönderi açıkken Claude'a "bu kitabı aktar" denir
+   (skill: `sesli-kutuphanem-instagram`). Çıkan blok Claude Code'a
+   yapıştırılır; kitap, kapağı ve gönderi bağlantısıyla eklenir. Daha önce
+   eklenmiş gönderi tekrar eklenmez.
 
 ### 6.5 Kapak tarama
 

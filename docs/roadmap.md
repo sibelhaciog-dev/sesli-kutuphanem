@@ -124,7 +124,10 @@ Supabase projesi: **kutuphanem** (`ygaxtmuzhnntzdcltmgn`).
 - [ ] `SUPABASE_SECRET_KEY`'i yerel `.env.local`'e ekle (betikle kapak yüklemek için)
 - [ ] Var olan 196 kitabın kapaklarını ekle — Instagram'dan Chrome ile liste
       çıkarıp `book:add --sadece-kapak`
-- [ ] Instagram'dan yeni gönderileri liste hâlinde çekip `book:add` ile ekleme akışı
+- [x] Claude in Chrome skill'i: Instagram gönderisi → `book:add` JSON'u
+      (`skills/sesli-kutuphanem-instagram`, `npm run skill:paket`)
+- [x] `book:add`: Instagram gönderisiyle eşleştirme, `--kapak-hatasi-gec`
+- [ ] Skill'i claude.ai'ye yükle ve gerçek bir gönderide dene
 - [ ] `db:export`'u düzenli çalıştırıp `content/`'i commit'leme alışkanlığı
 - [x] Supabase projesini Frankfurt'a taşı (`xhjgyxlerccxopbjtbzl`): şema,
       veri, kullanıcılar, kapaklar; birebir doğrulandı (operations §10)

@@ -172,6 +172,7 @@ supabase/
   migrations/              Veritabanı şeması (sıralı, 0001 → 0023)
   tests/schema_test.sql    Şema ve RLS testleri
 scripts/book-add.ts        Kitap ekleme betiği (tek kitap ya da liste)
+skills/                    Claude in Chrome skill'i (Instagram → kitap JSON'u); npm run skill:paket
 docs/                      PRD, mimari, veri modeli, kararlar, yol haritası
   examples/kitap-ekleme.json   book:add girdi örneği
 legacy/index.html          Eski tek dosyalık sürüm — sadece referans
@@ -227,10 +228,30 @@ düzenlenmez. Yol `npm run book:add`:
 de; kullanıcı istersen yönetim panelinden de ekleyebilir (Yönetim → Kitaplar →
 Yeni kitap).
 
-**Instagram'dan:** Kullanıcı yalnızca bağlantı verdiyse ya da gönderilerden
-liste çıkarılacaksa (Chrome ile), her gönderiden ad, yazar, özet, yaş ve
-paylaşım tarihini çıkar; kapak için gönderinin görselini `cover` olarak ver.
-Eksik alanları kendin tamamla ve sonunda hangilerini tahmin ettiğini belirt.
+**Instagram'dan (Claude in Chrome skill'i):** Kullanıcı
+`📚 Sesli Kütüphanem · Instagram aktarımı` diye başlayan bir blok
+yapıştırırsa, bu `skills/sesli-kutuphanem-instagram` skill'inin çıktısıdır ve
+biçimi `book:add` girdisiyle aynıdır:
+
+1. JSON bloğunu olduğu gibi scratchpad'e kaydet, `--deneme` ile dene.
+2. Konu/ilgi adresi hatası varsa (liste eskimiş olabilir) en yakın geçerli
+   adrese çevir, ne değiştirdiğini söyle.
+3. Kapak hatası çıkarsa (Instagram görsel adresleri birkaç günde geçersizleşir)
+   `--kapak-hatasi-gec` ile kitapları ekle, kullanıcıdan o gönderiler için
+   kapağı tekrar çıkarmasını iste; sonra `--sadece-kapak`.
+4. Ekle. Çıktıda "Instagram gönderisinden eşleşti" görünen kitaplar zaten
+   vardı (gönderi kodu aynı, başlık farklı çıkmış) — atlanır, `--guncelle` ile
+   üzerine yazılır. "Kapağı yok ama girdide kapak var" uyarısı varsa aynı
+   dosyayla `--sadece-kapak` çalıştır.
+5. Her kitabın `_notlar` alanını (skill'in tahminleri; betik bu alanı yok
+   sayar) sonuçta kullanıcıya ilet.
+
+Kullanıcı yalnızca bir gönderi bağlantısı verdiyse: Instagram sayfası giriş
+yapmadan okunamıyor; Claude in Chrome'da skill'i kullanmasını öner ya da
+verdiği bilgilerle kaydı kendin hazırla ve tahminlerini belirt.
+
+Rehberler yönetimden değişince skill'in konu listesi eskir:
+`npm run skill:paket` ile yeniden üret, zip'i claude.ai'ye tekrar yükle.
 
 Eklemeden sonra ara sıra `npm run db:export` çalıştırıp `content/`
 değişikliğini commit'le (yedek).

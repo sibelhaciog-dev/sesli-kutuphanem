@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { bookInputSchema, instagramShortcode, parseBookInputs, toUpsertPayload } from './input'
+import {
+  bookInputSchema,
+  canonicalInstagramUrl,
+  instagramShortcode,
+  parseBookInputs,
+  toUpsertPayload,
+} from './input'
 
 describe('bookInputSchema', () => {
   it('en az bilgiyle çalışır ve adresi başlıktan üretir', () => {
@@ -111,5 +117,49 @@ describe('parseBookInputs', () => {
       expect(duplicate?.index).toBe(3)
       expect(duplicate?.message).toContain('2. sırada')
     }
+  })
+})
+
+describe('canonicalInstagramUrl', () => {
+  it.each([
+    ['https://www.instagram.com/p/ABC123/?igsh=MWx2', 'https://www.instagram.com/p/ABC123/'],
+    [
+      'https://instagram.com/sesli.kutuphanem/p/XYZ-9/?img_index=2',
+      'https://www.instagram.com/p/XYZ-9/',
+    ],
+    ['https://www.instagram.com/reel/DVs9zmkE_wJ', 'https://www.instagram.com/reel/DVs9zmkE_wJ/'],
+    ['https://www.instagram.com/sesli.kutuphanem/', 'https://www.instagram.com/sesli.kutuphanem/'],
+  ])('%s → %s', (url, expected) => {
+    expect(canonicalInstagramUrl(url)).toBe(expected)
+  })
+
+  it('şema adresi tek biçime indirir', () => {
+    const book = bookInputSchema.parse({
+      title: 'X',
+      instagram: { url: 'https://www.instagram.com/p/ABC123/?igsh=MWx2' },
+    })
+    expect(book.instagram).toMatchObject({
+      url: 'https://www.instagram.com/p/ABC123/',
+      shortcode: 'ABC123',
+    })
+  })
+})
+
+describe('parseBookInputs — Instagram', () => {
+  it('aynı gönderiyi iki kitaba bağlamayı reddeder', () => {
+    const result = parseBookInputs([
+      { title: 'Bir', instagram: { url: 'https://www.instagram.com/p/AAA/' } },
+      { title: 'İki', instagram: { url: 'https://www.instagram.com/p/AAA/?igsh=x' } },
+    ])
+    expect(result.ok).toBe(false)
+    if (!result.ok) {
+      expect(result.issues).toEqual([expect.objectContaining({ index: 2, field: 'instagram.url' })])
+    }
+  })
+
+  it('bilinmeyen alanları (ör. _notlar) sessizce atar', () => {
+    const result = parseBookInputs({ title: 'X', _notlar: ['yaş aralığı tahmin'] })
+    expect(result.ok).toBe(true)
+    if (result.ok) expect(result.books[0]).not.toHaveProperty('_notlar')
   })
 })

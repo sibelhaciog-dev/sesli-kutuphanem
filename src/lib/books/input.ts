@@ -75,6 +75,17 @@ export function instagramShortcode(url: string): string | null {
   return url.match(/instagram\.com\/(?:[^/]+\/)?(?:p|reel|tv)\/([A-Za-z0-9_-]+)/)?.[1] ?? null
 }
 
+/**
+ * Gönderi adresini tek biçime indirir: `https://www.instagram.com/p/<kod>/`.
+ * Tarayıcıdan kopyalanan adreslerde `?igsh=…`, `?img_index=2`, kullanıcı adı
+ * öneki gibi ekler oluyor; aynı gönderi farklı adreslerle iki kez girmesin.
+ * Gönderi kodu bulunamazsa adres olduğu gibi kalır.
+ */
+export function canonicalInstagramUrl(url: string): string {
+  const match = url.match(/instagram\.com\/(?:[^/]+\/)?(p|reel|tv)\/([A-Za-z0-9_-]+)/)
+  return match ? `https://www.instagram.com/${match[1]}/${match[2]}/` : url
+}
+
 const instagramSchema = z
   .object({
     url: z.string().trim().url('Instagram adresi geçerli bir bağlantı olmalı.'),
@@ -92,7 +103,7 @@ const instagramSchema = z
       .optional(),
   })
   .transform((value) => ({
-    url: value.url,
+    url: canonicalInstagramUrl(value.url),
     shortcode: value.shortcode || instagramShortcode(value.url),
     postedAt: value.postedAt ?? null,
     likeCount: value.likeCount ?? 0,
@@ -245,7 +256,9 @@ export function parseBookInputs(
   })
 
   // Listede aynı adres iki kez geçiyorsa ikincisi birincinin üzerine yazar.
+  // Aynı Instagram gönderisi de iki kitaba bağlanamaz (veritabanında benzersiz).
   const seen = new Map<string, number>()
+  const seenPosts = new Map<string, number>()
   for (const { book, index } of parsed) {
     const earlier = seen.get(book.slug)
     if (earlier !== undefined) {
@@ -257,6 +270,20 @@ export function parseBookInputs(
       })
     } else {
       seen.set(book.slug, index)
+    }
+
+    const shortcode = book.instagram?.shortcode
+    if (!shortcode) continue
+    const earlierPost = seenPosts.get(shortcode)
+    if (earlierPost !== undefined) {
+      issues.push({
+        index,
+        title: book.title,
+        field: 'instagram.url',
+        message: `Aynı Instagram gönderisi listede ${earlierPost}. sırada da var; bir gönderi yalnızca bir kitaba bağlanabilir.`,
+      })
+    } else {
+      seenPosts.set(shortcode, index)
     }
   }
 

@@ -9,6 +9,13 @@
  *                                                  var olan kitaplara yalnızca kapak ekle
  *   cat kitap.json | npm run book:add -- -         standart girdiden oku
  *   npm run book:add -- --konular                  geçerli konu ve ilgi adreslerini listele
+ *   npm run book:add -- liste.json --kapak-hatasi-gec
+ *                                                  indirilemeyen kapakları atla, kitapları yine ekle
+ *
+ * INSTAGRAM KİMLİĞİ: Girdide Instagram gönderisi varsa ve o gönderi zaten bir
+ * kitaba bağlıysa, kitap o kitap sayılır (adres ne olursa olsun). Tarayıcıdan
+ * çıkarılan başlık küçük farklarla gelebiliyor ("Aslan ile Kuş" / "Aslan ve
+ * Kuş"); gönderi kodu değişmiyor.
  *
  * Girdi tek bir kitap nesnesi ya da kitap listesi. Biçim:
  * `src/lib/books/input.ts` (yönetim formuyla AYNI şema) ve örnek:
@@ -55,6 +62,7 @@ const DRY_RUN = flags.has('--deneme') || flags.has('--dry-run')
 const COVERS_ONLY = flags.has('--sadece-kapak')
 const NO_AUTO_TAG = flags.has('--etiketleme-yok')
 const LIST_TAXONOMY = flags.has('--konular')
+const SKIP_COVER_ERRORS = flags.has('--kapak-hatasi-gec')
 
 const MAX_COVER_BYTES = 25 * 1024 * 1024
 const FETCH_TIMEOUT_MS = 20_000
@@ -165,7 +173,7 @@ async function main() {
     process.exit(1)
   }
 
-  const books: BookInput[] = parsed.books.map((book) =>
+  let books: BookInput[] = parsed.books.map((book) =>
     NO_AUTO_TAG ? { ...book, autoTag: false } : book,
   )
 
@@ -181,15 +189,41 @@ async function main() {
     const { rows: interestRows } = await client.query<{ slug: string }>(
       'select slug from public.interests',
     )
-    const { rows: existingRows } = await client.query<{ id: string; slug: string }>(
-      'select id, slug from public.books where slug = any($1)',
-      [books.map((book) => book.slug)],
+
+    // Instagram gönderisi zaten bir kitaba bağlıysa o kitabın adresini kullan.
+    const { rows: postRows } = await client.query<{ slug: string; shortcode: string }>(
+      `select slug, instagram_shortcode as shortcode from public.books
+       where instagram_shortcode = any($1)`,
+      [books.map((book) => book.instagram?.shortcode).filter(Boolean)],
     )
+    const slugByPost = new Map(postRows.map((row) => [row.shortcode, row.slug]))
+    const matchedByPost = new Map<string, string>()
+    books = books.map((book) => {
+      const known = book.instagram?.shortcode ? slugByPost.get(book.instagram.shortcode) : undefined
+      if (!known || known === book.slug) return book
+      matchedByPost.set(known, book.slug)
+      return { ...book, slug: known }
+    })
+
+    const { rows: existingRows } = await client.query<{
+      id: string
+      slug: string
+      cover_path: string | null
+    }>('select id, slug, cover_path from public.books where slug = any($1)', [
+      books.map((book) => book.slug),
+    ])
     const topics = new Set(topicRows.map((row) => row.slug))
     const interests = new Set(interestRows.map((row) => row.slug))
     const existing = new Map(existingRows.map((row) => [row.slug, row]))
 
     const problems: string[] = []
+    // Eşleştirmeden sonra iki girdi aynı kitaba düşebilir.
+    const slugCount = new Map<string, number>()
+    for (const book of books) slugCount.set(book.slug, (slugCount.get(book.slug) ?? 0) + 1)
+    for (const [slug, count] of slugCount) {
+      if (count > 1)
+        problems.push(`"${slug}" kitabı listede ${count} kez geçiyor (aynı gönderi ya da aynı ad)`)
+    }
     books.forEach((book, position) => {
       const label = `${position + 1}. kitap "${book.title}"`
       for (const topic of book.topics) {
@@ -234,10 +268,18 @@ async function main() {
         coverProblems.push(`"${book.title}" · ${message}`)
       }
     }
-    if (coverProblems.length > 0) {
+    if (coverProblems.length > 0 && !SKIP_COVER_ERRORS) {
       console.error(`\n✗ ${coverProblems.length} kapak kullanılamıyor, hiçbir kitap yazılmadı:\n`)
       for (const problem of coverProblems) console.error(`  ${problem}`)
+      console.error(
+        '\n  Instagram görsel adresleri birkaç gün içinde geçersizleşir. Kitapları kapaksız' +
+          '\n  eklemek için --kapak-hatasi-gec; kapakları sonra --sadece-kapak ile ekleyin.',
+      )
       process.exit(1)
+    }
+    if (coverProblems.length > 0) {
+      console.warn(`\n⚠ ${coverProblems.length} kapak atlanacak (--kapak-hatasi-gec):`)
+      for (const problem of coverProblems) console.warn(`  ${problem}`)
     }
 
     const secretKey = process.env.SUPABASE_SECRET_KEY
@@ -265,7 +307,10 @@ async function main() {
             : 'ATLANACAK (zaten var)'
           : 'eklenecek'
         const cover = covers.has(book.slug) ? ' · kapak hazır' : ''
-        console.log(`  ${state.padEnd(22)} ${book.slug}${cover}`)
+        const matched = matchedByPost.has(book.slug)
+          ? ` · Instagram gönderisinden eşleşti ("${matchedByPost.get(book.slug)}" yerine)`
+          : ''
+        console.log(`  ${state.padEnd(22)} ${book.slug}${cover}${matched}`)
       }
       return
     }
@@ -334,18 +379,29 @@ async function main() {
       const cover = coverResults.get(book.slug)
       console.log(
         `  ${(LABELS[result?.status ?? ''] ?? result?.status ?? '?').padEnd(24)} ${book.slug}` +
-          (cover ? `  [kapak: ${cover}]` : ''),
+          (cover ? `  [kapak: ${cover}]` : '') +
+          (matchedByPost.has(book.slug) ? '  [Instagram gönderisinden eşleşti]' : ''),
       )
     }
 
-    const skipped = [...results.values()].filter((result) => result.status === 'skipped').length
-    if (skipped > 0) {
-      console.log(`\n  ${skipped} kitap zaten vardı. Üzerine yazmak için: --guncelle`)
+    const skippedBooks = books.filter((book) => results.get(book.slug)?.status === 'skipped')
+    if (skippedBooks.length > 0) {
+      console.log(`\n  ${skippedBooks.length} kitap zaten vardı. Üzerine yazmak için: --guncelle`)
+      // Atlanan kitaba kapak eklenmiyor; kapağı eksikse bunu ayrıca söyle.
+      const missingCover = skippedBooks.filter(
+        (book) => covers.has(book.slug) && !existing.get(book.slug)?.cover_path,
+      )
+      if (missingCover.length > 0) {
+        console.log(
+          `  Bunlardan ${missingCover.length} tanesinin kapağı yok ama girdide kapak var.` +
+            ' Eklemek için aynı dosyayla: --sadece-kapak',
+        )
+      }
     }
     console.log('\nSitede en geç 5 dakika içinde görünür.')
 
     // 3 = kitaplar yazıldı ama kapakların bir kısmı eksik (yeniden: --sadece-kapak)
-    if (coversSkipped) process.exitCode = 3
+    if (coversSkipped || coverProblems.length > 0) process.exitCode = 3
     if (coverFailures > 0) {
       console.error(
         `\n⚠ ${coverFailures} kapak yüklenemedi; kitaplar eklendi. Yalnızca kapakları ` +

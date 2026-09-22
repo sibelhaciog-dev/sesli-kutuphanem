@@ -53,6 +53,7 @@ Veritabanı kurulumu, ortam değişkenleri ve yayına alma:
 | `npm run db:local`            | Yerel şemayı kur ve konteyneri açık bırak |
 | `npm run db:types`            | Veritabanı tiplerini şemadan üret         |
 | `npm run book:add`            | Kitap ekle (tek ya da liste), kapak yükle |
+| `npm run skill:paket`         | Claude in Chrome skill'ini paketle        |
 | `npm run db:seed`             | Boş veritabanını `content/` ile tohumla   |
 | `npm run db:export`           | Veritabanını `content/` altına yedekle    |
 | `npm run content:validate`    | İçerik dosyalarını doğrula                |

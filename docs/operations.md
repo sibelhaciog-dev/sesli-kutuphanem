@@ -123,6 +123,7 @@ npm run book:add -- kitaplar.json --guncelle   # var olanları da güncelle
 npm run book:add -- kapaklar.json --sadece-kapak
 cat kitap.json | npm run book:add -- -         # standart girdiden
 npm run book:add -- --konular                  # geçerli konu/ilgi adresleri
+npm run book:add -- liste.json --kapak-hatasi-gec   # indirilemeyen kapakları atla
 ```
 
 Girdi biçimi yönetim formuyla aynı şema (`src/lib/books/input.ts`); örnek:
@@ -133,6 +134,10 @@ yerel dosya olabilir; görsel o anda indirilip işlenir, adres saklanmaz.
 Kapak için `SUPABASE_SECRET_KEY` gerekir; yoksa kitaplar eklenir, kapaklar
 atlanır. Betiğin eklediği kitaplar önbellek yüzünden en geç 5 dakikada
 görünür.
+
+**Instagram gönderisi kimliktir:** girdideki gönderi zaten bir kitaba bağlıysa
+o kitap sayılır, başlık farklı çıkmış olsa bile ("Instagram gönderisinden
+eşleşti"). Tek listede aynı gönderi iki kez geçemez.
 
 Çıkış kodları: `0` tamam · `1` girdi sorunu (hiçbir şey yazılmadı) · `2`
 veritabanı hatası (hiçbir şey yazılmadı) · `3` kitaplar yazıldı, kapakların
@@ -179,20 +184,21 @@ betikler için.
 
 ## 8. Komut özeti
 
-| Komut                      | Ne yapar                                           |
-| -------------------------- | -------------------------------------------------- |
-| `npm run dev`              | Geliştirme sunucusu                                |
-| `npm run build` / `start`  | Üretim derlemesi / çalıştırma                      |
-| `npm run check`            | Tip kontrolü + lint + testler                      |
-| `npm test`                 | Birim testleri                                     |
-| `npm run db:test`          | Şema + RLS testleri (Docker)                       |
-| `npm run db:local`         | Yerel şemayı kur ve açık bırak                     |
-| `npm run db:types`         | Veritabanı tiplerini üret                          |
-| `npm run book:add`         | Kitap (tek ya da liste) ekle/güncelle, kapak yükle |
-| `npm run db:seed`          | Boş veritabanını `content/` ile tohumla            |
-| `npm run db:export`        | Veritabanını `content/` altına yedekle             |
-| `npm run content:validate` | İçerik dosyalarını doğrula                         |
-| `npm run format`           | Kod biçimlendirme                                  |
+| Komut                      | Ne yapar                                            |
+| -------------------------- | --------------------------------------------------- |
+| `npm run dev`              | Geliştirme sunucusu                                 |
+| `npm run build` / `start`  | Üretim derlemesi / çalıştırma                       |
+| `npm run check`            | Tip kontrolü + lint + testler                       |
+| `npm test`                 | Birim testleri                                      |
+| `npm run db:test`          | Şema + RLS testleri (Docker)                        |
+| `npm run db:local`         | Yerel şemayı kur ve açık bırak                      |
+| `npm run db:types`         | Veritabanı tiplerini üret                           |
+| `npm run book:add`         | Kitap (tek ya da liste) ekle/güncelle, kapak yükle  |
+| `npm run skill:paket`      | Claude in Chrome skill'ini güncel konularla paketle |
+| `npm run db:seed`          | Boş veritabanını `content/` ile tohumla             |
+| `npm run db:export`        | Veritabanını `content/` altına yedekle              |
+| `npm run content:validate` | İçerik dosyalarını doğrula                          |
+| `npm run format`           | Kod biçimlendirme                                   |
 
 ## 9. Sorun giderme
 
@@ -258,3 +264,39 @@ yapılır; hiçbir şey silinmez.
    kaybolmasın), Vercel'deki `NEXT_PUBLIC_SUPABASE_URL` ve
    `NEXT_PUBLIC_SUPABASE_ANON_KEY` değerlerini değiştir, `vercel.json`
    bölgesini güncelle, yayına al. Yerel `.env.local`'i de yeni projeye çevir.
+
+## 11. Instagram'dan aktarım (Claude in Chrome skill'i)
+
+`skills/sesli-kutuphanem-instagram/` bir Claude skill'i: Instagram'da açık bir
+gönderiden (ya da profil ızgarasından en fazla 10 gönderiden) kitap bilgisini
+`book:add` biçiminde JSON olarak çıkarır. Çıktı Claude Code'a yapıştırılır,
+oradaki ajan CLAUDE.md §6'daki adımlarla ekler.
+
+**Kurulum / güncelleme:**
+
+```bash
+npm run skill:paket    # veritabanından taksonomi.md üretir + skills/dist/*.zip
+```
+
+claude.ai → Settings → Capabilities → Skills → **Upload skill** → zip.
+Claude in Chrome yan paneli hesabın skill'lerini kullanır. Rehberler
+yönetimden değiştiğinde paketi yeniden üretip tekrar yükleyin — skill konu
+adreslerini yalnızca `taksonomi.md`'den seçiyor.
+
+**Kullanım:** Chrome'da gönderi açıkken yan panelde "bu kitabı aktar" (ya da
+profil sayfasında "son 5 gönderiyi listele"). Çıkan mesajı olduğu gibi Claude
+Code'a yapıştırın.
+
+**Bilinen sınırlar:**
+
+- Kapak, gönderi görselinin adresinden indiriliyor. Instagram bu adresleri
+  imzalı veriyor ve birkaç gün içinde geçersizleşiyor → çıktıyı aynı gün
+  yapıştırın. Geçersizse `--kapak-hatasi-gec` + kapağı yeniden çıkarıp
+  `--sadece-kapak`.
+- Sunucudan gönderi sayfası okunamıyor (Instagram girişsiz içerik vermiyor);
+  bu yüzden çıkarma işi tarayıcıda, giriş yapılmış oturumda yapılıyor.
+- Birden çok kitabın tanıtıldığı gönderi yalnızca bir kitaba bağlanabilir
+  (`instagram_shortcode` benzersiz); skill bu durumda gönderi bağlantısını
+  kayda değil nota yazıyor.
+- Skill'in tahminleri (yaş aralığı, konu önemleri) her kaydın `_notlar`
+  alanında gelir; betik bu alanı yok sayar, ajan kullanıcıya iletir.
