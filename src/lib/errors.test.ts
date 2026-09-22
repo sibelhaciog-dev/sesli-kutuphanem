@@ -104,6 +104,23 @@ describe('toFriendlyError — kimlik doğrulama', () => {
   })
 })
 
+describe('toFriendlyError — veritabanının Türkçe mesajları', () => {
+  // `upsert_book()` gibi fonksiyonlar kullanıcıya gösterilmek üzere yazılmış
+  // Türkçe hataları işaretliyor; bunlar olduğu gibi geçmeli.
+  it('işaretli mesajı olduğu gibi geçirir', () => {
+    const error = {
+      code: '22023',
+      message: 'Bilinmeyen gelişim konusu: "boyle-konu-yok".',
+      hint: 'kullaniciya-goster',
+    }
+    expect(toFriendlyMessage(error, FALLBACK)).toBe('Bilinmeyen gelişim konusu: "boyle-konu-yok".')
+  })
+
+  it('işaretsiz mesajı geçirmez', () => {
+    expect(toFriendlyMessage({ code: '22023', message: 'invalid input' }, FALLBACK)).toBe(FALLBACK)
+  })
+})
+
 describe('toFriendlyError — genel davranış', () => {
   it('ağ hatasını bağlantı sorunu olarak açıklar', () => {
     expect(toFriendlyMessage(new TypeError('Failed to fetch'), FALLBACK)).toContain(

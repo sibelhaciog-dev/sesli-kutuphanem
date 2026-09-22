@@ -817,4 +817,194 @@ end $$;
 
 delete from auth.users where id = 'a0000000-0000-0000-0000-0000000000b1';
 
+-- ═══ 17. Ortak kitap yazma yolu (0022) ═══════════════════════════════════
+-- Yönetim formu ve Claude'un betiği aynı fonksiyonu çağırıyor; davranış,
+-- yetki ve bütünlük burada sabitleniyor.
+do $$ begin raise notice '── 17. upsert_book ──'; end $$;
+
+-- Önce kritik varsayım: `security definer` içinde oturum rolü okunabiliyor mu?
+-- (Yetki kararı buna dayanıyor.)
+reset role;
+select pg_temp.assert(
+  public.can_manage_content(), 'doğrudan bağlantı içerik yönetebiliyor');
+
+set role authenticated;
+select pg_temp.login_as('a0000000-0000-0000-0000-000000000002');  -- Burak, üye
+select pg_temp.assert(
+  not public.can_manage_content(), 'üye içerik YÖNETEMİYOR (rol definer içinden okunuyor)');
+
+select pg_temp.login_as('a0000000-0000-0000-0000-000000000003');  -- editör
+select pg_temp.assert(public.can_manage_content(), 'editör içerik yönetebiliyor');
+
+-- Editör yeni kitap ekler: katkıda bulunanlar, konu, ilgi, yayınevi, seri.
+select pg_temp.assert(
+  (public.upsert_book(jsonb_build_object(
+     'title', 'Öfke Canavarı',
+     'summary', 'Öfkesiyle baş etmeyi öğrenen bir çocuk.',
+     'language', 'tr', 'ageMin', 3, 'ageMax', 7,
+     'authors', jsonb_build_array('Ayşe Yazar', 'Ali Yazar'),
+     'illustrators', jsonb_build_array('Can Çizer'),
+     'publisher', 'Test Yayınları',
+     'series', jsonb_build_object('title', 'Duygular Dizisi', 'position', 2),
+     'topics', jsonb_build_array(jsonb_build_object('slug', 'paylasma', 'relevance', 4)),
+     'interests', jsonb_build_array('hayvanlar'),
+     'instagram', jsonb_build_object('url', 'https://instagram.com/p/TEST1/',
+                                     'shortcode', 'TEST1', 'postedAt', '2026-09-01')
+   )) ->> 'status') = 'created',
+  'editör yeni kitap ekledi');
+
+reset role;
+select pg_temp.assert_eq(
+  (select count(*)::int from public.book_contributors bc
+   join public.books b on b.id = bc.book_id where b.slug = 'ofke-canavari'),
+  3, 'üç katkıda bulunan yazıldı (2 yazar + 1 çizer)');
+
+select pg_temp.assert(
+  (select string_agg(p.display_name, ',' order by bc.position)
+   from public.book_contributors bc
+   join public.people p on p.id = bc.person_id
+   join public.books b on b.id = bc.book_id
+   where b.slug = 'ofke-canavari' and bc.role = 'author') = 'Ayşe Yazar,Ali Yazar',
+  'yazar sırası korundu');
+
+select pg_temp.assert(
+  (select pub.name = 'Test Yayınları' and s.title = 'Duygular Dizisi' and b.series_position = 2
+   from public.books b
+   join public.publishers pub on pub.id = b.publisher_id
+   join public.series s on s.id = b.series_id
+   where b.slug = 'ofke-canavari'),
+  'yayınevi ve seri oluşturuldu ve bağlandı');
+
+-- Otomatik etiket: özet "öfke" içeriyor → duygu-yonetimi `auto` olarak eklenmeli,
+-- editoryal "paylasma" korunmalı.
+select pg_temp.assert_eq(
+  (select string_agg(dt.slug || ':' || bt.source, ',' order by dt.slug)
+   from public.book_topics bt
+   join public.development_topics dt on dt.id = bt.topic_id
+   join public.books b on b.id = bt.book_id where b.slug = 'ofke-canavari'),
+  'duygu-yonetimi:auto,paylasma:editorial',
+  'editoryal konu korundu, anahtar kelimeden otomatik konu eklendi');
+
+select pg_temp.assert(
+  (select search_vector @@ public.build_search_query('ayşe')
+   from public.books where slug = 'ofke-canavari'),
+  'yazar adı arama vektörüne girdi');
+
+-- Aynı slug, overwrite=false → dokunulmaz.
+select pg_temp.assert_eq(
+  public.upsert_book(jsonb_build_object('title', 'Öfke Canavarı', 'summary', 'DEĞİŞMEMELİ')) ->> 'status',
+  'skipped', 'var olan kitap overwrite olmadan atlanıyor');
+select pg_temp.assert(
+  (select summary <> 'DEĞİŞMEMELİ' from public.books where slug = 'ofke-canavari'),
+  'atlanan kitabın özeti değişmedi');
+
+-- overwrite=true → güncellenir, katkıda bulunanlar BAŞTAN yazılır.
+select pg_temp.assert_eq(
+  public.upsert_book(jsonb_build_object(
+    'title', 'Öfke Canavarı', 'summary', 'Güncel özet.',
+    'authors', jsonb_build_array('Tek Yazar'), 'autoTag', false
+  ), true) ->> 'status',
+  'updated', 'overwrite ile güncellendi');
+select pg_temp.assert_eq(
+  (select count(*)::int from public.book_contributors bc
+   join public.books b on b.id = bc.book_id where b.slug = 'ofke-canavari'),
+  1, 'katkıda bulunanlar baştan yazıldı');
+select pg_temp.assert_eq(
+  (select count(*)::int from public.book_topics bt
+   join public.books b on b.id = bt.book_id where b.slug = 'ofke-canavari'),
+  0, 'autoTag=false ve konu verilmeyince konu kalmadı');
+
+-- Bilinmeyen konu → kullanıcıya gösterilebilir Türkçe hata, hiçbir şey yazılmaz.
+do $$
+begin
+  perform public.upsert_book(jsonb_build_object(
+    'title', 'Hatalı Kitap', 'topics', jsonb_build_array(jsonb_build_object('slug', 'boyle-konu-yok'))));
+  raise exception 'BAŞARISIZ: bilinmeyen konu kabul edildi';
+exception
+  when invalid_parameter_value then
+    raise notice '  ✓ bilinmeyen konu reddedildi';
+end $$;
+select pg_temp.assert_eq(
+  (select count(*)::int from public.books where slug = 'hatali-kitap'), 0,
+  'hata olunca kitap satırı da geri alındı (tek işlem)');
+
+-- Tablo kısıtları yine devrede: yaş aralığı ters.
+do $$
+begin
+  perform public.upsert_book(jsonb_build_object('title', 'Ters Yaş', 'ageMin', 9, 'ageMax', 3));
+  raise exception 'BAŞARISIZ: ters yaş aralığı kabul edildi';
+exception
+  when check_violation then
+    raise notice '  ✓ tablo kısıtı fonksiyon içinden de uygulanıyor';
+end $$;
+
+-- Üye çağıramaz.
+set role authenticated;
+select pg_temp.login_as('a0000000-0000-0000-0000-000000000002');
+do $$
+begin
+  perform public.upsert_book(jsonb_build_object('title', 'Üye Kitabı'));
+  raise exception 'BAŞARISIZ: üye kitap ekledi';
+exception
+  when insufficient_privilege then
+    raise notice '  ✓ üye kitap ekleyemiyor';
+end $$;
+
+reset role;
+select pg_temp.assert(
+  not has_function_privilege('anon', 'public.upsert_book(jsonb, boolean)', 'execute'),
+  'anon upsert_book çağıramaz');
+
+-- Görünümler yeni sütunları taşıyor.
+select pg_temp.assert(
+  (select count(*) = 3 from information_schema.columns
+   where table_name = 'catalog_books'
+     and column_name in ('cover_thumb_path', 'cover_width', 'cover_height')),
+  'catalog_books kapak varyantı sütunlarını taşıyor');
+select pg_temp.assert(
+  (select jsonb_array_length(interests) = 0 from public.book_details where slug = 'ofke-canavari')
+  and (select jsonb_typeof(interests) = 'array' from public.book_details limit 1),
+  'book_details ilgi alanlarını taşıyor');
+select pg_temp.assert(
+  has_table_privilege('anon', 'public.book_details', 'select'),
+  'book_details yeniden kurulduktan sonra da anon okuyabiliyor');
+
+-- ─── save_discovery_mode ─────────────────────────────────────────────────
+set role authenticated;
+select pg_temp.login_as('a0000000-0000-0000-0000-000000000003');
+select public.save_discovery_mode(jsonb_build_object(
+  'name', 'Test Modu', 'emoji', '🧪', 'position', 9,
+  'topics', jsonb_build_array(jsonb_build_object('slug', 'duygu-yonetimi', 'weight', 5)),
+  'interests', jsonb_build_array(jsonb_build_object('slug', 'hayvanlar', 'weight', 2))
+));
+select pg_temp.assert_eq(
+  (select jsonb_array_length(topics) + jsonb_array_length(interests)
+   from public.discovery_mode_details where slug = 'test-modu'),
+  2, 'editör mod ve eğilimlerini tek çağrıda kaydetti');
+
+-- Güncelleme eğilimleri baştan yazar.
+select public.save_discovery_mode(jsonb_build_object(
+  'slug', 'test-modu', 'name', 'Test Modu 2',
+  'topics', jsonb_build_array(jsonb_build_object('slug', 'paylasma', 'weight', 3))
+));
+select pg_temp.assert(
+  (select name = 'Test Modu 2' and topics -> 0 ->> 'slug' = 'paylasma'
+          and jsonb_array_length(interests) = 0
+   from public.discovery_mode_details where slug = 'test-modu'),
+  'mod güncellemesi eğilimleri baştan yazdı');
+
+select pg_temp.login_as('a0000000-0000-0000-0000-000000000002');
+do $$
+begin
+  perform public.save_discovery_mode(jsonb_build_object('name', 'Üye Modu'));
+  raise exception 'BAŞARISIZ: üye mod kaydetti';
+exception
+  when insufficient_privilege then
+    raise notice '  ✓ üye mod kaydedemiyor';
+end $$;
+
+reset role;
+delete from public.discovery_modes where slug = 'test-modu';
+delete from public.books where slug = 'ofke-canavari';
+
 do $$ begin raise notice ''; raise notice 'TÜM ŞEMA TESTLERİ GEÇTİ'; end $$;

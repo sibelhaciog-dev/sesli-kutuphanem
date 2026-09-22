@@ -275,6 +275,9 @@ export interface Database {
           search_vector: unknown | null
           created_at: string
           updated_at: string
+          cover_thumb_path: string | null
+          cover_width: number | null
+          cover_height: number | null
         }
         Insert: {
           id?: string
@@ -303,6 +306,9 @@ export interface Database {
           search_vector?: unknown | null
           created_at?: string
           updated_at?: string
+          cover_thumb_path?: string | null
+          cover_width?: number | null
+          cover_height?: number | null
         }
         Update: {
           id?: string
@@ -331,6 +337,9 @@ export interface Database {
           search_vector?: unknown | null
           created_at?: string
           updated_at?: string
+          cover_thumb_path?: string | null
+          cover_width?: number | null
+          cover_height?: number | null
         }
         Relationships: [
           {
@@ -1363,12 +1372,16 @@ export interface Database {
           search_vector: unknown | null
           created_at: string | null
           updated_at: string | null
+          cover_thumb_path: string | null
+          cover_width: number | null
+          cover_height: number | null
           publisher_name: string | null
           publisher_slug: string | null
           series_title: string | null
           series_slug: string | null
           contributors: Json | null
           topics: Json | null
+          interests: Json | null
         }
         Relationships: []
       }
@@ -1391,6 +1404,9 @@ export interface Database {
           topic_slugs: string[] | null
           area_slugs: string[] | null
           interest_slugs: string[] | null
+          cover_thumb_path: string | null
+          cover_width: number | null
+          cover_height: number | null
         }
         Relationships: []
       }
@@ -1446,6 +1462,10 @@ export interface Database {
         }
         Returns: unknown
       }
+      can_manage_content: {
+        Args: Record<string, never>
+        Returns: boolean
+      }
       child_points: {
         Args: {
           target_child_id: string
@@ -1494,6 +1514,12 @@ export interface Database {
         }
         Returns: unknown
       }
+      save_discovery_mode: {
+        Args: {
+          payload: Json
+        }
+        Returns: string
+      }
       slugify: {
         Args: {
           value: string
@@ -1505,6 +1531,13 @@ export interface Database {
           target_item_id: string
         }
         Returns: unknown
+      }
+      upsert_book: {
+        Args: {
+          payload: Json
+          overwrite: unknown
+        }
+        Returns: Json
       }
     }
     Enums: {

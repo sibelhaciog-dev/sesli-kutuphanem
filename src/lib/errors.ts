@@ -250,8 +250,26 @@ function isNetworkError(error: unknown): boolean {
  *                 Çağıran taraf bağlama uygun bir cümle vermeli
  *                 ("Profil kaydedilemedi." gibi).
  */
+/**
+ * Veritabanı fonksiyonları kullanıcıya gösterilmek üzere yazılmış Türkçe
+ * hataları `hint = 'kullaniciya-goster'` ile işaretliyor (bkz. 0022).
+ * Bunlar ham veritabanı metni değil; olduğu gibi gösterilir.
+ */
+const USER_FACING_HINT = 'kullaniciya-goster'
+
+function isUserFacing(error: unknown): boolean {
+  return (
+    Boolean(error) &&
+    typeof error === 'object' &&
+    (error as { hint?: unknown }).hint === USER_FACING_HINT &&
+    typeof (error as { message?: unknown }).message === 'string'
+  )
+}
+
 export function toFriendlyError(error: unknown, fallback: string): FriendlyError {
   if (!error) return { message: fallback }
+
+  if (isUserFacing(error)) return { message: (error as { message: string }).message }
 
   if (isNetworkError(error)) {
     return { message: 'İnternet bağlantısı kurulamadı. Bağlantınızı kontrol edip tekrar deneyin.' }
