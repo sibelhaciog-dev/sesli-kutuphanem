@@ -17,6 +17,8 @@ export interface CatalogFilters {
   ageBand: AgeBandSlug | null
   /** Aktif çocuğun yaşı — seçiliyse yaşa uymayan kitaplar gizlenir. */
   childAge: number | null
+  /** "Tüm yaşlar" seçiliyse çocuğun yaşına uymayan kitaplar da gizlenmeden listelenir. */
+  showAllAges: boolean
 }
 
 export const DEFAULT_FILTERS: CatalogFilters = {
@@ -27,6 +29,7 @@ export const DEFAULT_FILTERS: CatalogFilters = {
   topicSlug: null,
   ageBand: null,
   childAge: null,
+  showAllAges: false,
 }
 
 function matchesCollection(
@@ -58,7 +61,7 @@ export function filterBooks(
     if (!matchesCollection(book, filters.collection, library)) return false
     if (filters.topicSlug && !book.topicSlugs.includes(filters.topicSlug)) return false
     if (filters.ageBand && !inAgeBand(book, filters.ageBand)) return false
-    if (!suitsAge(book, filters.childAge)) return false
+    if (!filters.showAllAges && !suitsAge(book, filters.childAge)) return false
     return true
   })
 
@@ -84,6 +87,7 @@ export function hasActiveFilters(filters: CatalogFilters): boolean {
     filters.language !== 'all' ||
     filters.collection !== 'all' ||
     filters.topicSlug !== null ||
-    filters.ageBand !== null
+    filters.ageBand !== null ||
+    filters.showAllAges
   )
 }

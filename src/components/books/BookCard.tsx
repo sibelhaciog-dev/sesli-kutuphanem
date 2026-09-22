@@ -14,6 +14,8 @@ interface BookCardProps {
   onToggleFavorite: () => void
   onRate: (rating: number) => void
   index?: number
+  /** "Tüm yaşlar" filtresiyle listelendi ama çocuğun yaşına uygun değil. */
+  ageMismatch?: boolean
 }
 
 export function BookCard({
@@ -23,6 +25,7 @@ export function BookCard({
   onToggleFavorite,
   onRate,
   index = 0,
+  ageMismatch = false,
 }: BookCardProps) {
   const age = ageLabel(book.ageMin, book.ageMax)
   const status = item?.status
@@ -76,6 +79,12 @@ export function BookCard({
       <div className="p-3.5">
         {age && (
           <p className="mb-1 text-[10px] font-bold tracking-wider text-muted uppercase">{age}</p>
+        )}
+
+        {ageMismatch && (
+          <p className="mb-1 text-[10px] font-bold tracking-wider text-danger uppercase">
+            Yaşına uygun değil
+          </p>
         )}
 
         <h3 className="line-clamp-2-serif mb-2 font-serif text-[15px] leading-tight text-ink">

@@ -10,7 +10,7 @@ import { useAppData } from '@/components/providers/AppDataProvider'
 import { Chip } from '@/components/ui/Chip'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { useToast } from '@/components/ui/Toast'
-import { AGE_BANDS, ageOf } from '@/lib/age'
+import { AGE_BANDS, ageOf, suitsAge } from '@/lib/age'
 import type { DiscoveryMode } from '@/lib/data/discovery'
 import type { CatalogBook } from '@/lib/data/types'
 import { DEFAULT_FILTERS, filterBooks, hasActiveFilters, type CatalogFilters } from '@/lib/filters'
@@ -102,11 +102,29 @@ export function CatalogView({ books, modes }: { books: CatalogBook[]; modes: Dis
               <Chip
                 key={band.slug}
                 active={filters.ageBand === band.slug}
-                onClick={() => patch({ ageBand: filters.ageBand === band.slug ? null : band.slug })}
+                onClick={() =>
+                  patch(
+                    filters.ageBand === band.slug
+                      ? { ageBand: null }
+                      : { ageBand: band.slug, showAllAges: false },
+                  )
+                }
               >
                 {band.label}
               </Chip>
             ))}
+            <Chip
+              active={filters.showAllAges}
+              onClick={() =>
+                patch(
+                  filters.showAllAges
+                    ? { showAllAges: false }
+                    : { showAllAges: true, ageBand: null },
+                )
+              }
+            >
+              Tüm yaşlar
+            </Chip>
 
             <span className="mx-1 h-4 w-px shrink-0 bg-line" aria-hidden />
 
@@ -206,6 +224,7 @@ export function CatalogView({ books, modes }: { books: CatalogBook[]; modes: Dis
                 index={index}
                 item={library[book.id]}
                 interactive={Boolean(activeChild)}
+                ageMismatch={childAge !== null && !suitsAge(book, childAge)}
                 onToggleFavorite={() => void safely(() => toggleFavorite(book.id))}
                 onRate={(rating) => void safely(() => setRating(book.id, rating))}
               />

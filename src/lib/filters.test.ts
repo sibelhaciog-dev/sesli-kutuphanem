@@ -86,6 +86,11 @@ describe('filterBooks', () => {
     expect(result.map((book) => book.id)).toEqual(['a'])
   })
 
+  it('Tüm yaşlar açıkken çocuğun yaşına uymayanlar da listelenir', () => {
+    const result = filterBooks(CATALOG, { ...DEFAULT_FILTERS, childAge: 4, showAllAges: true })
+    expect(result.map((book) => book.id)).toEqual(['a', 'c', 'b'])
+  })
+
   it('favorilere göre süzer', () => {
     const library = indexItems([makeItem({ bookId: 'b', isFavorite: true })])
     const result = filterBooks(CATALOG, { ...DEFAULT_FILTERS, collection: 'favorites' }, library)
@@ -130,6 +135,10 @@ describe('hasActiveFilters', () => {
 
   it('konu seçilince açılır', () => {
     expect(hasActiveFilters({ ...DEFAULT_FILTERS, topicSlug: 'paylasma' })).toBe(true)
+  })
+
+  it('Tüm yaşlar seçilince açılır', () => {
+    expect(hasActiveFilters({ ...DEFAULT_FILTERS, showAllAges: true })).toBe(true)
   })
 })
 
