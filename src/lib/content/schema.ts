@@ -35,7 +35,8 @@ export const developmentAreaSchema = z.object({
   emoji: z.string().min(1).max(8),
   color: hexColor,
   position: z.number().int().nonnegative(),
-  topics: z.array(developmentTopicSchema).min(1),
+  // Boş alan olabilir: yönetimden önce alan açılıp sonra konu ekleniyor.
+  topics: z.array(developmentTopicSchema).default([]),
 })
 
 export const interestSchema = z.object({

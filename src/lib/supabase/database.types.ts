@@ -1532,6 +1532,10 @@ export interface Database {
         }
         Returns: unknown
       }
+      taxonomy_usage: {
+        Args: Record<string, never>
+        Returns: unknown
+      }
       upsert_book: {
         Args: {
           payload: Json

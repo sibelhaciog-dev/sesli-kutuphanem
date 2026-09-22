@@ -101,7 +101,10 @@ const CONSTRAINT_MESSAGES: Record<string, FriendlyError> = {
   exchange_listings_age_max_check: { field: 'ageMax', message: 'Yaş 0 ile 18 arasında olmalı.' },
 
   // ─── Katalog (yönetim arayüzü) ───────────────────────────────────────────
-  books_title_check: { field: 'title', message: 'Kitap adı en az 1, en fazla 200 karakter olmalı.' },
+  books_title_check: {
+    field: 'title',
+    message: 'Kitap adı en az 1, en fazla 200 karakter olmalı.',
+  },
   books_age_min_check: { field: 'ageMin', message: 'Yaş 0 ile 18 arasında olmalı.' },
   books_age_max_check: { field: 'ageMax', message: 'Yaş 0 ile 18 arasında olmalı.' },
   books_age_range: {
@@ -137,7 +140,9 @@ const AUTH_MESSAGES: Array<[RegExp, FriendlyError]> = [
   [/invalid login credentials/i, { message: 'E-posta veya şifre hatalı.' }],
   [
     /email not confirmed/i,
-    { message: 'Önce e-posta adresinizi doğrulayın. Gelen kutunuza gönderdiğimiz bağlantıya bakın.' },
+    {
+      message: 'Önce e-posta adresinizi doğrulayın. Gelen kutunuza gönderdiğimiz bağlantıya bakın.',
+    },
   ],
   [
     /user already registered|already been registered/i,
@@ -171,7 +176,10 @@ const AUTH_MESSAGES: Array<[RegExp, FriendlyError]> = [
     /token has expired|jwt expired|invalid.*token|otp.*expired/i,
     { message: 'Bağlantının süresi dolmuş. Yeni bir bağlantı isteyin.' },
   ],
-  [/email address.*invalid|invalid email/i, { field: 'email', message: 'E-posta adresi geçerli görünmüyor.' }],
+  [
+    /email address.*invalid|invalid email/i,
+    { field: 'email', message: 'E-posta adresi geçerli görünmüyor.' },
+  ],
   [/signups not allowed|signup is disabled/i, { message: 'Şu anda yeni kayıt alınmıyor.' }],
   [
     /database error saving new user/i,

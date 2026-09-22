@@ -156,7 +156,10 @@ export const bookInputSchema = z
       .array(z.string().trim().min(1))
       .optional()
       .transform((list) => [...new Set(list ?? [])]),
-    instagram: instagramSchema.nullable().optional().transform((value) => value ?? null),
+    instagram: instagramSchema
+      .nullable()
+      .optional()
+      .transform((value) => value ?? null),
     status: z.enum(['draft', 'published', 'archived']).default('published'),
     /** Anahtar kelimelerden ek konu/ilgi eklensin mi (veritabanında yapılıyor). */
     autoTag: z.boolean().default(true),

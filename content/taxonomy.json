@@ -12,6 +12,7 @@
           "slug": "kardes-iliskileri",
           "name": "Kardeş İlişkileri",
           "label": null,
+          "description": null,
           "keywords": ["kardeş", "bebek", "kıskançl", "ağabey", "abla"],
           "position": 1
         },
@@ -19,6 +20,7 @@
           "slug": "okul-adaptasyonu",
           "name": "Okul Adaptasyonu",
           "label": null,
+          "description": null,
           "keywords": ["okul", "sınıf", "öğretmen", "okula başl", "ilk gün"],
           "position": 2
         },
@@ -26,6 +28,7 @@
           "slug": "tasinma-sureci",
           "name": "Taşınma Süreci",
           "label": null,
+          "description": null,
           "keywords": ["taşın", "yeni ev", "yeni şehir", "veda"],
           "position": 3
         }
@@ -43,6 +46,7 @@
           "slug": "cinsel-gelisim",
           "name": "Cinsel Gelişim",
           "label": null,
+          "description": null,
           "keywords": ["cinsel", "vücut", "doğum", "mahremiyet"],
           "position": 1
         },
@@ -50,13 +54,15 @@
           "slug": "olum-ve-yas",
           "name": "Ölüm ve Yas",
           "label": null,
-          "keywords": ["ölüm", "öldü", "kaybett", "vefat", "\\byas\\b", "cenaze"],
+          "description": null,
+          "keywords": ["ölüm", "öldü", "kaybett", "vefat", "\\yyas\\y", "cenaze"],
           "position": 2
         },
         {
           "slug": "farkliliklar",
           "name": "Farklılıklar",
           "label": null,
+          "description": null,
           "keywords": ["farklı", "engel", "özel", "renk", "kültür", "çeşitlilik"],
           "position": 3
         },
@@ -64,6 +70,7 @@
           "slug": "para-kavrami",
           "name": "Para Kavramı",
           "label": null,
+          "description": null,
           "keywords": ["para", "alışveriş", "market", "harçlık", "birikim"],
           "position": 4
         }
@@ -81,6 +88,7 @@
           "slug": "duygu-yonetimi",
           "name": "Duygu Yönetimi",
           "label": null,
+          "description": null,
           "keywords": ["duygu", "hissed", "his ", "öfke", "sinir", "ağla", "üzgün", "mutlu"],
           "position": 1
         },
@@ -88,6 +96,7 @@
           "slug": "korku-ve-kaygi",
           "name": "Korku ve Kaygı",
           "label": null,
+          "description": null,
           "keywords": ["korku", "kaygı", "endişe", "tedirgin", "karanlık", "canavar"],
           "position": 2
         },
@@ -95,6 +104,7 @@
           "slug": "yemek-seciciligi",
           "name": "Yemek Seçiciliği",
           "label": null,
+          "description": null,
           "keywords": ["yemek", "yiyor", "beslen", "sebze", "meyve", "iştah"],
           "position": 3
         },
@@ -102,6 +112,7 @@
           "slug": "ozguven-gelisimi",
           "name": "Özgüven Gelişimi",
           "label": null,
+          "description": null,
           "keywords": ["özgüven", "cesaret", "güven", "ben yapab", "kendine inan"],
           "position": 4
         }
@@ -119,6 +130,7 @@
           "slug": "arkadaslik-becerileri",
           "name": "Arkadaşlık Becerileri",
           "label": null,
+          "description": null,
           "keywords": ["arkadaş", "dostluk", "birlikte", "beraber", "takım"],
           "position": 1
         },
@@ -126,6 +138,7 @@
           "slug": "akran-zorbaligi",
           "name": "Akran Zorbalığı",
           "label": null,
+          "description": null,
           "keywords": ["zorbal", "bully", "zulüm", "kötü davranış"],
           "position": 2
         },
@@ -133,6 +146,7 @@
           "slug": "sosyal-sinirlar",
           "name": "Sosyal Sınırlar",
           "label": null,
+          "description": null,
           "keywords": ["sınır", "hayır de", "istemiyorum", "kural"],
           "position": 3
         },
@@ -140,6 +154,7 @@
           "slug": "paylasma",
           "name": "Paylaşma",
           "label": null,
+          "description": null,
           "keywords": ["paylaş", "bölüş", "sırayla"],
           "position": 4
         }
@@ -157,6 +172,7 @@
           "slug": "ustun-yetenek",
           "name": "Üstün Yetenek",
           "label": "Üstün Yetenek / Dehalar",
+          "description": null,
           "keywords": ["deha", "yetenek", "üstün", "zeka"],
           "position": 1
         },
@@ -164,6 +180,7 @@
           "slug": "brans-kitaplari",
           "name": "Branş Kitapları",
           "label": null,
+          "description": null,
           "keywords": ["bilim", "uzay", "hayvan", "doğa", "tarih", "coğrafya", "sanat"],
           "position": 2
         },
@@ -171,6 +188,7 @@
           "slug": "tematik-icerikler",
           "name": "Tematik İçerikler",
           "label": null,
+          "description": null,
           "keywords": ["tema", "seri", "koleksiyon"],
           "position": 3
         }
@@ -188,6 +206,7 @@
           "slug": "interaktif-kitaplar",
           "name": "İnteraktif Kitaplar",
           "label": null,
+          "description": null,
           "keywords": ["interaktif", "dokun", "bul", "sakla", "katıl"],
           "position": 1
         },
@@ -195,6 +214,7 @@
           "slug": "macera-hikayeleri",
           "name": "Macera Hikayeleri",
           "label": null,
+          "description": null,
           "keywords": ["macera", "kahraman", "sihir", "büyü", "yolculuk", "ejderha"],
           "position": 2
         }
@@ -212,6 +232,7 @@
           "slug": "matematik-becerileri",
           "name": "Matematik Becerileri",
           "label": null,
+          "description": null,
           "keywords": ["sayı", "matematik", "hesap", "geometri", "rakam"],
           "position": 1
         },
@@ -219,6 +240,7 @@
           "slug": "dil-ve-okuryazarlik",
           "name": "Dil ve Okuryazarlık",
           "label": null,
+          "description": null,
           "keywords": ["harf", "alfabe", "okuma", "yazma", "kelime", "okuryazar"],
           "position": 2
         },
@@ -226,6 +248,7 @@
           "slug": "mantik-ve-dikkat",
           "name": "Mantık ve Dikkat",
           "label": null,
+          "description": null,
           "keywords": ["mantık", "dikkat", "hafıza", "bulmaca", "strateji"],
           "position": 3
         },
@@ -233,6 +256,7 @@
           "slug": "ritmik-okumalar",
           "name": "Ritmik Okumalar",
           "label": null,
+          "description": null,
           "keywords": ["tekerleme", "ritim", "uyak", "şiir", "kafiye", "şarkı"],
           "position": 4
         }
@@ -250,6 +274,7 @@
           "slug": "sanat-ve-yaraticilik",
           "name": "Sanat ve Yaratıcılık",
           "label": null,
+          "description": null,
           "keywords": ["sanat", "resim", "boya", "çiz", "yaratıcı"],
           "position": 1
         },
@@ -257,6 +282,7 @@
           "slug": "doga-ve-gozlem",
           "name": "Doğa ve Gözlem",
           "label": null,
+          "description": null,
           "keywords": ["doğa", "orman", "bahçe", "gözlem", "mevsim", "ağaç"],
           "position": 2
         },
@@ -264,6 +290,7 @@
           "slug": "muzik-ve-ritim",
           "name": "Müzik ve Ritim",
           "label": null,
+          "description": null,
           "keywords": ["müzik", "şarkı", "ritim", "dans", "enstrüman"],
           "position": 3
         },
@@ -271,6 +298,7 @@
           "slug": "oyun-ve-hareket",
           "name": "Oyun ve Hareket",
           "label": null,
+          "description": null,
           "keywords": ["oyun", "hareket", "spor", "koş", "zıpla"],
           "position": 4
         }
@@ -289,7 +317,7 @@
       "slug": "uzay",
       "name": "Uzay",
       "emoji": "🚀",
-      "keywords": ["uzay", "gezegen", "yıldız", "astronot", "\\bay\\b", "roket"],
+      "keywords": ["uzay", "gezegen", "yıldız", "astronot", "\\yay\\y", "roket"],
       "position": 2
     },
     {

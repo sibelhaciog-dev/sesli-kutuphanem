@@ -59,11 +59,11 @@ describe('toFriendlyError — veritabanı kısıtları', () => {
   })
 
   it('tanımadığı kısıtta koda göre genel mesaj verir', () => {
-    const error = pgError(
-      'new row for relation "x" violates check constraint "x_bilinmeyen_check"',
-    )
+    const error = pgError('new row for relation "x" violates check constraint "x_bilinmeyen_check"')
     const result = toFriendlyError(error, FALLBACK)
-    expect(result.message).toBe('Girdiğiniz bilgilerden biri kabul edilmedi. Alanları kontrol edin.')
+    expect(result.message).toBe(
+      'Girdiğiniz bilgilerden biri kabul edilmedi. Alanları kontrol edin.',
+    )
     expect(result.field).toBeUndefined()
   })
 
@@ -80,7 +80,10 @@ describe('toFriendlyError — kimlik doğrulama', () => {
     ['missing email or phone', 'E-posta adresinizi yazın.'],
     ['Anonymous sign-ins are disabled', 'E-posta adresinizi yazın.'],
     ['Unable to validate email address: invalid format', 'E-posta adresi geçerli görünmüyor.'],
-    ['New password should be different from the old password.', 'Yeni şifre eskisiyle aynı olamaz.'],
+    [
+      'New password should be different from the old password.',
+      'Yeni şifre eskisiyle aynı olamaz.',
+    ],
   ]
 
   it.each(cases)('%s → Türkçe', (raw, expected) => {

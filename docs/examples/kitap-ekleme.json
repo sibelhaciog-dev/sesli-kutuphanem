@@ -1,0 +1,41 @@
+[
+  {
+    "title": "Örnek Kitap: Ay'a Giden Kaplumbağa",
+    "summary": "Yavaş ama kararlı bir kaplumbağanın Ay'a ulaşma hayali. Sabır ve azim üzerine sıcak bir hikâye.",
+    "description": "İsteğe bağlı uzun açıklama. Kitap sayfasında özetin altında gösterilir.",
+    "language": "tr",
+    "ageMin": 3,
+    "ageMax": 7,
+    "pageCount": 32,
+    "isbn13": "978-605-000-000-0",
+    "publishedYear": 2024,
+    "publisher": "Örnek Yayınları",
+    "series": {
+      "title": "Küçük Kaşifler",
+      "position": 2
+    },
+    "authors": ["Ayşe Yazar"],
+    "illustrators": "Ali Çizer, Deniz Boyar",
+    "translators": [],
+    "topics": [
+      {
+        "slug": "ozguven-gelisimi",
+        "relevance": 5
+      },
+      "macera-hikayeleri"
+    ],
+    "interests": ["uzay", "hayvanlar"],
+    "instagram": {
+      "url": "https://www.instagram.com/p/DWRv15ojdg-/",
+      "postedAt": "2026-04-14"
+    },
+    "status": "draft"
+  },
+  {
+    "title": "En Az Bilgiyle Eklenen Kitap",
+    "summary": "Yalnızca ad zorunlu; özet ve yaş aralığı doldurulmalı.",
+    "ageMin": 4,
+    "ageMax": 8,
+    "status": "draft"
+  }
+]

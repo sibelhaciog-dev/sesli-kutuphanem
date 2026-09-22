@@ -13,7 +13,10 @@ describe('bookInputSchema', () => {
 
   // Instagram'dan kazınan listeler gevşek biçimli olacak.
   it('virgüllü yazar metnini listeye çevirir, tekrarları atar', () => {
-    const book = bookInputSchema.parse({ title: 'X', authors: 'Judith Kerr, Ali Veli ,Judith Kerr' })
+    const book = bookInputSchema.parse({
+      title: 'X',
+      authors: 'Judith Kerr, Ali Veli ,Judith Kerr',
+    })
     expect(book.authors).toEqual(['Judith Kerr', 'Ali Veli'])
   })
 
@@ -88,7 +91,11 @@ describe('parseBookInputs', () => {
 
   // Yarım aktarılmış liste en kötü sonuç: bir hata varsa hiçbiri yazılmamalı.
   it('herhangi birinde hata varsa HİÇBİRİNİ döndürmez, tüm sorunları sıralı verir', () => {
-    const result = parseBookInputs([{ title: 'Geçerli' }, { title: '' }, { title: 'X', ageMin: 30 }])
+    const result = parseBookInputs([
+      { title: 'Geçerli' },
+      { title: '' },
+      { title: 'X', ageMin: 30 },
+    ])
     expect(result.ok).toBe(false)
     if (!result.ok) {
       expect(result.issues.map((issue) => issue.index)).toEqual([2, 3])

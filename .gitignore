@@ -40,4 +40,3 @@ supabase/.branches
 
 # Üretilmiş SQL tohum dosyaları (npm run content:sql).
 # Depoda tutulmaz: bayatlarsa yapıştıran kişi içerik düzenlemelerini geri alır.
-supabase/seed/

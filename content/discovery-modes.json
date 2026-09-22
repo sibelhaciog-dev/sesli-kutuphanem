@@ -5,7 +5,9 @@
     "emoji": "😴",
     "description": "Uyku öncesi ya da yoğun bir günün sonu için",
     "promptHint": "Ebeveyn sakinleştirici, yumuşak tempolu bir kitap arıyor. Uyku öncesi okunmaya uygun, heyecanı düşük kitapları öne çıkar.",
+    "language": null,
     "position": 1,
+    "isActive": true,
     "topics": [
       { "slug": "duygu-yonetimi", "weight": 5 },
       { "slug": "korku-ve-kaygi", "weight": 4 }
@@ -18,7 +20,9 @@
     "emoji": "💛",
     "description": "Bir duyguyu anlamak ve adlandırmak için",
     "promptHint": "Ebeveyn çocuğuyla bir duyguyu konuşmak istiyor. Duyguyu adlandırmayı ve ifade etmeyi kolaylaştıran kitapları öne çıkar.",
+    "language": null,
     "position": 2,
+    "isActive": true,
     "topics": [
       { "slug": "duygu-yonetimi", "weight": 5 },
       { "slug": "ozguven-gelisimi", "weight": 4 },
@@ -32,7 +36,9 @@
     "emoji": "😄",
     "description": "Kahkaha ve keyifli bir okuma için",
     "promptHint": "Ebeveyn eğlenceli, güldüren bir kitap arıyor. Mizah, sürpriz ve etkileşim içeren kitapları öne çıkar.",
+    "language": null,
     "position": 3,
+    "isActive": true,
     "topics": [
       { "slug": "interaktif-kitaplar", "weight": 5 },
       { "slug": "macera-hikayeleri", "weight": 4 }
@@ -45,7 +51,9 @@
     "emoji": "🔍",
     "description": "Öğrenmek, keşfetmek, soru sormak için",
     "promptHint": "Ebeveyn çocuğunun merakını besleyecek bir kitap arıyor. Bilgi veren, gözlem ve düşünmeyi teşvik eden kitapları öne çıkar.",
+    "language": null,
     "position": 4,
+    "isActive": true,
     "topics": [
       { "slug": "brans-kitaplari", "weight": 5 },
       { "slug": "doga-ve-gozlem", "weight": 4 },
@@ -63,7 +71,9 @@
     "emoji": "🌱",
     "description": "Kardeş, okul, taşınma gibi değişimler için",
     "promptHint": "Ailede bir değişim var ve ebeveyn çocuğunu buna hazırlamak istiyor. Değişimi anlatan ve normalleştiren kitapları öne çıkar.",
+    "language": null,
     "position": 5,
+    "isActive": true,
     "topics": [
       { "slug": "kardes-iliskileri", "weight": 5 },
       { "slug": "okul-adaptasyonu", "weight": 5 },
@@ -77,15 +87,17 @@
     "emoji": "🎨",
     "description": "Okumanın ötesine geçen, etkinliğe dönüşen kitaplar",
     "promptHint": "Ebeveyn çocuğuyla birlikte bir şey yapmak istiyor. Okuduktan sonra etkinliğe dönüşebilecek kitapları öne çıkar.",
+    "language": null,
     "position": 6,
+    "isActive": true,
     "topics": [
       { "slug": "sanat-ve-yaraticilik", "weight": 5 },
-      { "slug": "oyun-ve-hareket", "weight": 4 },
-      { "slug": "muzik-ve-ritim", "weight": 4 }
+      { "slug": "muzik-ve-ritim", "weight": 4 },
+      { "slug": "oyun-ve-hareket", "weight": 4 }
     ],
     "interests": [
-      { "slug": "sanat", "weight": 3 },
-      { "slug": "muzik", "weight": 3 }
+      { "slug": "muzik", "weight": 3 },
+      { "slug": "sanat", "weight": 3 }
     ]
   }
 ]

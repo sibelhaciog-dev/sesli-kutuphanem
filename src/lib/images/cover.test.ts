@@ -50,7 +50,10 @@ describe('processCover', () => {
 
   // Telefon fotoğraflarında konum bilgisi olabilir.
   it('EXIF bilgisini çıktıdan atar', async () => {
-    const tagged = await sharp(await photo(800, 1200)).withMetadata({ orientation: 1 }).jpeg().toBuffer()
+    const tagged = await sharp(await photo(800, 1200))
+      .withMetadata({ orientation: 1 })
+      .jpeg()
+      .toBuffer()
     const result = await processCover(tagged)
     expect((await sharp(result.full.data).metadata()).exif).toBeUndefined()
   })

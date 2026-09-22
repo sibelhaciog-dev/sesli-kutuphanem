@@ -1007,4 +1007,93 @@ reset role;
 delete from public.discovery_modes where slug = 'test-modu';
 delete from public.books where slug = 'ofke-canavari';
 
+-- ═══ 18. Taksonomi yönetimi (0023) ═══════════════════════════════════════
+do $$ begin raise notice '── 18. Taksonomi yönetimi ──'; end $$;
+
+set role authenticated;
+select pg_temp.login_as('a0000000-0000-0000-0000-000000000003');  -- editör
+
+-- Kırpılır, boşlar ve tekrarlar atılır, JS'teki \b Postgres'in \y'sine döner.
+insert into public.development_topics (area_id, slug, name, keywords, position)
+values ('d0000000-0000-0000-0000-000000000001', 'olum-ve-yas', 'Ölüm ve Yas',
+        array['\byas\b', ' vefat ', 'vefat', '', 'cenaze'], 3);
+select pg_temp.assert_eq(
+  (select array_to_string(keywords, ',') from public.development_topics where slug = 'olum-ve-yas'),
+  '\yyas\y,vefat,cenaze',
+  'anahtar kelimeler temizlendi, \b → \y çevrildi, sıra korundu');
+
+-- Bozuk düzenli ifade kayıtta reddedilmeli (yoksa her kitap kaydı düşerdi).
+do $$
+begin
+  update public.development_topics set keywords = array['kıskanç('] where slug = 'olum-ve-yas';
+  raise exception 'BAŞARISIZ: bozuk anahtar kelime kabul edildi';
+exception
+  when invalid_parameter_value then
+    raise notice '  ✓ bozuk anahtar kelime reddedildi';
+end $$;
+
+do $$
+begin
+  insert into public.interests (slug, name, keywords) values ('tek-harf', 'Tek Harf', array['a']);
+  raise exception 'BAŞARISIZ: tek harfli anahtar kelime kabul edildi';
+exception
+  when invalid_parameter_value then
+    raise notice '  ✓ tek harfli anahtar kelime reddedildi';
+end $$;
+
+-- \y gerçekten kelime sınırı: "yas" eşleşir, "yasak" eşleşmez.
+select public.upsert_book(jsonb_build_object(
+  'title', 'Dedemle Veda', 'summary', 'Bir çocuğun yas süreci.'));
+select public.upsert_book(jsonb_build_object(
+  'title', 'Yasak Bölge', 'summary', 'Girmek yasaktı.'));
+reset role;
+select pg_temp.assert_eq(
+  (select string_agg(b.slug, ',' order by b.slug)
+   from public.book_topics bt
+   join public.books b on b.id = bt.book_id
+   join public.development_topics t on t.id = bt.topic_id
+   where t.slug = 'olum-ve-yas' and bt.source = 'auto'),
+  'dedemle-veda',
+  '\y kelime sınırı: "yas" eşleşti, "yasak" eşleşmedi');
+
+-- Kullanım sayıları: kitap, çocuk profili, mod.
+insert into auth.users (id, email)
+values ('a0000000-0000-0000-0000-0000000000f3', 'taksonomi-uye@ornek.com');
+insert into public.children (id, owner_id, name)
+values ('e0000000-0000-0000-0000-0000000000f3', 'a0000000-0000-0000-0000-0000000000f3', 'Deniz');
+insert into public.child_focus_topics (child_id, topic_id)
+values ('e0000000-0000-0000-0000-0000000000f3', '70000000-0000-0000-0000-000000000001');
+
+set role authenticated;
+select pg_temp.login_as('a0000000-0000-0000-0000-000000000003');
+select pg_temp.assert(
+  (select books >= 1 and children = 1
+   from public.taxonomy_usage() where kind = 'topic' and slug = 'duygu-yonetimi'),
+  'editör konu kullanım sayılarını görüyor (kitap + çocuk)');
+select pg_temp.assert_eq(
+  (select count(*)::int from public.child_focus_topics), 0,
+  'editör çocuk SATIRLARINI yine göremiyor (yalnızca sayı)');
+
+select pg_temp.login_as('a0000000-0000-0000-0000-000000000002');  -- üye
+do $$
+begin
+  perform public.taxonomy_usage();
+  raise exception 'BAŞARISIZ: üye kullanım sayılarını okudu';
+exception
+  when insufficient_privilege then
+    raise notice '  ✓ üye kullanım sayılarını okuyamıyor';
+end $$;
+
+reset role;
+select pg_temp.assert(
+  not has_function_privilege('anon', 'public.taxonomy_usage()', 'execute'),
+  'anon taxonomy_usage çağıramaz');
+select pg_temp.assert(
+  not has_function_privilege('anon', 'public.normalize_keywords()', 'execute'),
+  'anon anahtar kelime tetikleyicisini çağıramaz');
+
+delete from auth.users where id = 'a0000000-0000-0000-0000-0000000000f3';
+delete from public.books where slug in ('dedemle-veda', 'yasak-bolge');
+delete from public.development_topics where slug = 'olum-ve-yas';
+
 do $$ begin raise notice ''; raise notice 'TÜM ŞEMA TESTLERİ GEÇTİ'; end $$;

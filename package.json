@@ -20,12 +20,13 @@
     "db:test": "bash scripts/db-local.sh",
     "db:local": "bash scripts/db-local.sh keep",
     "content:validate": "tsx scripts/validate-content.ts",
-    "db:sync": "tsx scripts/db-sync.ts",
+    "db:seed": "tsx scripts/db-seed.ts",
+    "db:export": "tsx scripts/db-export.ts",
+    "book:add": "tsx scripts/book-add.ts",
     "db:types": "tsx scripts/generate-db-types.ts",
     "test:e2e": "node scripts/e2e/local-smoke.mjs",
-    "db:sync:local": "DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres tsx scripts/db-sync.ts",
-    "db:types:local": "DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres tsx scripts/generate-db-types.ts",
-    "content:sql": "tsx scripts/generate-seed-sql.ts"
+    "db:seed:local": "DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres tsx scripts/db-seed.ts",
+    "db:types:local": "DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres tsx scripts/generate-db-types.ts"
   },
   "dependencies": {
     "@supabase/ssr": "^0.7.0",

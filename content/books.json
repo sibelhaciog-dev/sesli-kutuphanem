@@ -1,77 +1,5 @@
 [
   {
-    "slug": "caya-gelen-kaplan",
-    "title": "Çaya Gelen Kaplan",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "Sınırlar üzerine düşündüren zamansız bir klasik. Kaplan içeri girer, her şeyi yer — nezaket her zaman 'evet' demek midir?",
-    "description": null,
-    "language": "tr",
-    "ageMin": 3,
-    "ageMax": 8,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/p/DWRv15ojdg-/",
-      "shortcode": "DWRv15ojdg-",
-      "postedAt": "2026-04-14",
-      "likeCount": 0
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "sosyal-sinirlar",
-        "relevance": 4
-      },
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "hos-geldim",
-    "title": "Hoş Geldim",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "'Ben nereden geldim?' sorusuna doğru terimlerle cevap veren, beden güvenliğini ve ebeveyne güveni pekiştiren rehber bir kitap.",
-    "description": null,
-    "language": "tr",
-    "ageMin": 4,
-    "ageMax": 8,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/p/DWTTWkSoZkS/",
-      "shortcode": "DWTTWkSoZkS",
-      "postedAt": "2026-04-14",
-      "likeCount": 0
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "cinsel-gelisim",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
     "slug": "a-friend-like-you",
     "title": "A Friend Like You",
     "subtitle": null,
@@ -97,198 +25,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "yagmurlu-gunler-icin-su-gecirmeyen-siirler",
-    "title": "Yağmurlu Günler için Su Geçirmeyen Şiirler",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "Duygulardan doğaya uzanan bir köprü kuran şiir serüveni. Hayvan dostları ve doğanın sesiyle mısraların arasında bir yolculuk.",
-    "description": null,
-    "language": "tr",
-    "ageMin": 5,
-    "ageMax": 10,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/p/DWWvsZEoE9L/",
-      "shortcode": "DWWvsZEoE9L",
-      "postedAt": "2026-04-14",
-      "likeCount": 0
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "ritmik-okumalar",
-        "relevance": 4
-      },
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "bir-kurbaga-gibi-sakin-ve-dikkatli",
-    "title": "Bir Kurbağa Gibi Sakin ve Dikkatli",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "Dikkat süresini artıran, dürtü kontrolü ve özgüven geliştiren 11 farklı mindfulness uygulaması içeren aile rehberi.",
-    "description": null,
-    "language": "tr",
-    "ageMin": 5,
-    "ageMax": 12,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/p/DWYwTbVDXuY/",
-      "shortcode": "DWYwTbVDXuY",
-      "postedAt": "2026-04-14",
-      "likeCount": 0
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      },
-      {
-        "slug": "mantik-ve-dikkat",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "iste-o",
-    "title": "İşte O!",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "Kardeş kıskançlığını ve değişen aile düzenini çocukların dilinden anlatan sıcacık bir rehber. Catherine Leblanc'tan.",
-    "description": null,
-    "language": "tr",
-    "ageMin": 0,
-    "ageMax": 6,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/p/DWZT-edjaNq/",
-      "shortcode": "DWZT-edjaNq",
-      "postedAt": "2026-04-14",
-      "likeCount": 0
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "kardes-iliskileri",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "muzik-atlasi",
-    "title": "Müzik Atlası",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "Ses keşif oyunları ve müzisyen tanıtımlarıyla müziğin uyumuyla bir olmaya davet eden atlas. Mandolin Yayınları.",
-    "description": null,
-    "language": "tr",
-    "ageMin": 5,
-    "ageMax": 10,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/p/DWb58z7jUCY/",
-      "shortcode": "DWb58z7jUCY",
-      "postedAt": "2026-04-14",
-      "likeCount": 0
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      },
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "murdo",
-    "title": "Murdo",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "Şiirden hırkalar ören, yağmuru göğe yağdıran küçük yeti Murdo ile çocukluğun saf şiirine yolculuk. Alex Cousseau.",
-    "description": null,
-    "language": "tr",
-    "ageMin": 5,
-    "ageMax": 10,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/p/DWhB5zxjcSU/",
-      "shortcode": "DWhB5zxjcSU",
-      "postedAt": "2026-04-14",
-      "likeCount": 0
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      },
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -318,200 +55,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      },
-      {
-        "slug": "korku-ve-kaygi",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "sevginin-gucu",
-    "title": "Sevginin Gücü",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "Yolunu şaşıran minik ayıya arkadaşlık eden ateş böcekleri… Mutlu anıların ve sevginin iyileştirici gücü üzerine.",
-    "description": null,
-    "language": "tr",
-    "ageMin": 0,
-    "ageMax": 6,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/p/DWmWfGvjWvp/",
-      "shortcode": "DWmWfGvjWvp",
-      "postedAt": "2026-04-14",
-      "likeCount": 0
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "tutkal-hanim-in-kirik-kalpleri",
-    "title": "Tutkal Hanım'ın Kırık Kalpleri",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "Kalbi onarmanın sadece özür dilemekten fazlası olduğunu anlatan kitap. İlginin, şefkatin ve zamanın iyileştirici gücü.",
-    "description": null,
-    "language": "tr",
-    "ageMin": 5,
-    "ageMax": 10,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/p/DWql5IDjfh6/",
-      "shortcode": "DWql5IDjfh6",
-      "postedAt": "2026-04-14",
-      "likeCount": 0
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      },
-      {
-        "slug": "arkadaslik-becerileri",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "okunmak-istemeyen-kitap",
-    "title": "Okunmak İstemeyen Kitap",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "Ters psikoloji ustası bu kitap okunmamak için elinden geleni yapıyor! Harfler devleşiyor, küçülüyor, karışıyor — kahkahalar garantili.",
-    "description": null,
-    "language": "tr",
-    "ageMin": 3,
-    "ageMax": 8,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/p/DWt10y7k0rM/",
-      "shortcode": "DWt10y7k0rM",
-      "postedAt": "2026-04-14",
-      "likeCount": 0
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "interaktif-kitaplar",
-        "relevance": 4
-      },
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "bu-oda-ikimizin",
-    "title": "Bu Oda İkimizin",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "Güneyli aslan ve kuzeyli kutup ayısı aynı odayı paylaşmak zorunda. Farklılıkları kabul etme ve birbirinin ihtiyacını görme üzerine.",
-    "description": null,
-    "language": "tr",
-    "ageMin": 3,
-    "ageMax": 8,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/p/DWv1IvkDQr1/",
-      "shortcode": "DWv1IvkDQr1",
-      "postedAt": "2026-04-14",
-      "likeCount": 0
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      },
-      {
-        "slug": "sosyal-sinirlar",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "gobeklitepe",
-    "title": "Göbeklitepe",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "Dize ailesiyle Göbeklitepe'yi ziyaret ediyor. Tarih oyun parkına dönüşüyor! Ebelemece, denge ve çember oyunlarıyla tarihi keşif.",
-    "description": null,
-    "language": "tr",
-    "ageMin": 2,
-    "ageMax": 7,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/p/DWyV1Htjb_M/",
-      "shortcode": "DWyV1Htjb_M",
-      "postedAt": "2026-04-14",
-      "likeCount": 0
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "tematik-icerikler",
-        "relevance": 4
-      },
-      {
-        "slug": "interaktif-kitaplar",
-        "relevance": 4
-      }
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "korku-ve-kaygi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -542,15 +87,195 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "arkadaslik-becerileri",
-        "relevance": 4
-      },
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      }
+      { "slug": "arkadaslik-becerileri", "relevance": 4 },
+      { "slug": "farkliliklar", "relevance": 4 }
     ],
+    "interests": []
+  },
+  {
+    "slug": "bir-kurbaga-gibi-sakin-ve-dikkatli",
+    "title": "Bir Kurbağa Gibi Sakin ve Dikkatli",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "Dikkat süresini artıran, dürtü kontrolü ve özgüven geliştiren 11 farklı mindfulness uygulaması içeren aile rehberi.",
+    "description": null,
+    "language": "tr",
+    "ageMin": 5,
+    "ageMax": 12,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/p/DWYwTbVDXuY/",
+      "shortcode": "DWYwTbVDXuY",
+      "postedAt": "2026-04-14",
+      "likeCount": 0
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "mantik-ve-dikkat", "relevance": 4 }
+    ],
+    "interests": []
+  },
+  {
+    "slug": "bu-oda-ikimizin",
+    "title": "Bu Oda İkimizin",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "Güneyli aslan ve kuzeyli kutup ayısı aynı odayı paylaşmak zorunda. Farklılıkları kabul etme ve birbirinin ihtiyacını görme üzerine.",
+    "description": null,
+    "language": "tr",
+    "ageMin": 3,
+    "ageMax": 8,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/p/DWv1IvkDQr1/",
+      "shortcode": "DWv1IvkDQr1",
+      "postedAt": "2026-04-14",
+      "likeCount": 0
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [
+      { "slug": "farkliliklar", "relevance": 4 },
+      { "slug": "sosyal-sinirlar", "relevance": 4 }
+    ],
+    "interests": []
+  },
+  {
+    "slug": "caya-gelen-kaplan",
+    "title": "Çaya Gelen Kaplan",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "Sınırlar üzerine düşündüren zamansız bir klasik. Kaplan içeri girer, her şeyi yer — nezaket her zaman 'evet' demek midir?",
+    "description": null,
+    "language": "tr",
+    "ageMin": 3,
+    "ageMax": 8,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/p/DWRv15ojdg-/",
+      "shortcode": "DWRv15ojdg-",
+      "postedAt": "2026-04-14",
+      "likeCount": 0
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "sosyal-sinirlar", "relevance": 4 }
+    ],
+    "interests": []
+  },
+  {
+    "slug": "gobeklitepe",
+    "title": "Göbeklitepe",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "Dize ailesiyle Göbeklitepe'yi ziyaret ediyor. Tarih oyun parkına dönüşüyor! Ebelemece, denge ve çember oyunlarıyla tarihi keşif.",
+    "description": null,
+    "language": "tr",
+    "ageMin": 2,
+    "ageMax": 7,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/p/DWyV1Htjb_M/",
+      "shortcode": "DWyV1Htjb_M",
+      "postedAt": "2026-04-14",
+      "likeCount": 0
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [
+      { "slug": "interaktif-kitaplar", "relevance": 4 },
+      { "slug": "tematik-icerikler", "relevance": 4 }
+    ],
+    "interests": []
+  },
+  {
+    "slug": "hos-geldim",
+    "title": "Hoş Geldim",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "'Ben nereden geldim?' sorusuna doğru terimlerle cevap veren, beden güvenliğini ve ebeveyne güveni pekiştiren rehber bir kitap.",
+    "description": null,
+    "language": "tr",
+    "ageMin": 4,
+    "ageMax": 8,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/p/DWTTWkSoZkS/",
+      "shortcode": "DWTTWkSoZkS",
+      "postedAt": "2026-04-14",
+      "likeCount": 0
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [{ "slug": "cinsel-gelisim", "relevance": 4 }],
+    "interests": []
+  },
+  {
+    "slug": "iste-o",
+    "title": "İşte O!",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "Kardeş kıskançlığını ve değişen aile düzenini çocukların dilinden anlatan sıcacık bir rehber. Catherine Leblanc'tan.",
+    "description": null,
+    "language": "tr",
+    "ageMin": 0,
+    "ageMax": 6,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/p/DWZT-edjaNq/",
+      "shortcode": "DWZT-edjaNq",
+      "postedAt": "2026-04-14",
+      "likeCount": 0
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [{ "slug": "kardes-iliskileri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -580,14 +305,165 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      },
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      }
+      { "slug": "farkliliklar", "relevance": 4 },
+      { "slug": "ozguven-gelisimi", "relevance": 4 }
+    ],
+    "interests": []
+  },
+  {
+    "slug": "murdo",
+    "title": "Murdo",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "Şiirden hırkalar ören, yağmuru göğe yağdıran küçük yeti Murdo ile çocukluğun saf şiirine yolculuk. Alex Cousseau.",
+    "description": null,
+    "language": "tr",
+    "ageMin": 5,
+    "ageMax": 10,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/p/DWhB5zxjcSU/",
+      "shortcode": "DWhB5zxjcSU",
+      "postedAt": "2026-04-14",
+      "likeCount": 0
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [
+      { "slug": "macera-hikayeleri", "relevance": 4 },
+      { "slug": "ozguven-gelisimi", "relevance": 4 }
+    ],
+    "interests": []
+  },
+  {
+    "slug": "muzik-atlasi",
+    "title": "Müzik Atlası",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "Ses keşif oyunları ve müzisyen tanıtımlarıyla müziğin uyumuyla bir olmaya davet eden atlas. Mandolin Yayınları.",
+    "description": null,
+    "language": "tr",
+    "ageMin": 5,
+    "ageMax": 10,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/p/DWb58z7jUCY/",
+      "shortcode": "DWb58z7jUCY",
+      "postedAt": "2026-04-14",
+      "likeCount": 0
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [
+      { "slug": "brans-kitaplari", "relevance": 4 },
+      { "slug": "macera-hikayeleri", "relevance": 4 }
+    ],
+    "interests": []
+  },
+  {
+    "slug": "okunmak-istemeyen-kitap",
+    "title": "Okunmak İstemeyen Kitap",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "Ters psikoloji ustası bu kitap okunmamak için elinden geleni yapıyor! Harfler devleşiyor, küçülüyor, karışıyor — kahkahalar garantili.",
+    "description": null,
+    "language": "tr",
+    "ageMin": 3,
+    "ageMax": 8,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/p/DWt10y7k0rM/",
+      "shortcode": "DWt10y7k0rM",
+      "postedAt": "2026-04-14",
+      "likeCount": 0
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [
+      { "slug": "interaktif-kitaplar", "relevance": 4 },
+      { "slug": "macera-hikayeleri", "relevance": 4 }
+    ],
+    "interests": []
+  },
+  {
+    "slug": "sevginin-gucu",
+    "title": "Sevginin Gücü",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "Yolunu şaşıran minik ayıya arkadaşlık eden ateş böcekleri… Mutlu anıların ve sevginin iyileştirici gücü üzerine.",
+    "description": null,
+    "language": "tr",
+    "ageMin": 0,
+    "ageMax": 6,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/p/DWmWfGvjWvp/",
+      "shortcode": "DWmWfGvjWvp",
+      "postedAt": "2026-04-14",
+      "likeCount": 0
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
+    "interests": []
+  },
+  {
+    "slug": "tutkal-hanim-in-kirik-kalpleri",
+    "title": "Tutkal Hanım'ın Kırık Kalpleri",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "Kalbi onarmanın sadece özür dilemekten fazlası olduğunu anlatan kitap. İlginin, şefkatin ve zamanın iyileştirici gücü.",
+    "description": null,
+    "language": "tr",
+    "ageMin": 5,
+    "ageMax": 10,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/p/DWql5IDjfh6/",
+      "shortcode": "DWql5IDjfh6",
+      "postedAt": "2026-04-14",
+      "likeCount": 0
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "arkadaslik-becerileri", "relevance": 4 }
     ],
     "interests": []
   },
@@ -618,14 +494,40 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "korku-ve-kaygi",
-        "relevance": 4
-      },
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "korku-ve-kaygi", "relevance": 4 }
+    ],
+    "interests": []
+  },
+  {
+    "slug": "yagmurlu-gunler-icin-su-gecirmeyen-siirler",
+    "title": "Yağmurlu Günler için Su Geçirmeyen Şiirler",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "Duygulardan doğaya uzanan bir köprü kuran şiir serüveni. Hayvan dostları ve doğanın sesiyle mısraların arasında bir yolculuk.",
+    "description": null,
+    "language": "tr",
+    "ageMin": 5,
+    "ageMax": 10,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/p/DWWvsZEoE9L/",
+      "shortcode": "DWWvsZEoE9L",
+      "postedAt": "2026-04-14",
+      "likeCount": 0
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [
+      { "slug": "brans-kitaplari", "relevance": 4 },
+      { "slug": "ritmik-okumalar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -656,14 +558,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      },
-      {
-        "slug": "paylasma",
-        "relevance": 4
-      }
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "paylasma", "relevance": 4 }
     ],
     "interests": []
   },
@@ -693,12 +589,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -728,14 +619,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      },
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      }
+      { "slug": "farkliliklar", "relevance": 4 },
+      { "slug": "ozguven-gelisimi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -765,12 +650,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "brans-kitaplari", "relevance": 4 }],
     "interests": []
   },
   {
@@ -800,14 +680,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "sosyal-sinirlar",
-        "relevance": 4
-      },
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "sosyal-sinirlar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -837,12 +711,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "macera-hikayeleri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -872,14 +741,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "dil-ve-okuryazarlik",
-        "relevance": 4
-      },
-      {
-        "slug": "ritmik-okumalar",
-        "relevance": 4
-      }
+      { "slug": "dil-ve-okuryazarlik", "relevance": 4 },
+      { "slug": "ritmik-okumalar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -909,12 +772,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -943,12 +801,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "interaktif-kitaplar",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "interaktif-kitaplar", "relevance": 4 }],
     "interests": []
   },
   {
@@ -978,14 +831,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "sosyal-sinirlar",
-        "relevance": 4
-      },
-      {
-        "slug": "tematik-icerikler",
-        "relevance": 4
-      }
+      { "slug": "sosyal-sinirlar", "relevance": 4 },
+      { "slug": "tematik-icerikler", "relevance": 4 }
     ],
     "interests": []
   },
@@ -1015,12 +862,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "arkadaslik-becerileri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "arkadaslik-becerileri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -1049,12 +891,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "dil-ve-okuryazarlik",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "dil-ve-okuryazarlik", "relevance": 4 }],
     "interests": []
   },
   {
@@ -1083,12 +920,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "farkliliklar", "relevance": 4 }],
     "interests": []
   },
   {
@@ -1117,12 +949,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -1151,12 +978,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "macera-hikayeleri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -1186,14 +1008,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      },
-      {
-        "slug": "mantik-ve-dikkat",
-        "relevance": 4
-      }
+      { "slug": "macera-hikayeleri", "relevance": 4 },
+      { "slug": "mantik-ve-dikkat", "relevance": 4 }
     ],
     "interests": []
   },
@@ -1223,12 +1039,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "macera-hikayeleri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -1257,12 +1068,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "brans-kitaplari", "relevance": 4 }],
     "interests": []
   },
   {
@@ -1292,14 +1098,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      },
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      }
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "farkliliklar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -1330,14 +1130,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      },
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      }
+      { "slug": "farkliliklar", "relevance": 4 },
+      { "slug": "ozguven-gelisimi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -1367,12 +1161,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "brans-kitaplari", "relevance": 4 }],
     "interests": []
   },
   {
@@ -1401,12 +1190,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "paylasma",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "paylasma", "relevance": 4 }],
     "interests": []
   },
   {
@@ -1435,12 +1219,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -1469,12 +1248,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "olum-ve-yas",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "olum-ve-yas", "relevance": 4 }],
     "interests": []
   },
   {
@@ -1503,12 +1277,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "macera-hikayeleri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -1537,12 +1306,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -1572,14 +1336,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      },
-      {
-        "slug": "sosyal-sinirlar",
-        "relevance": 4
-      }
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "sosyal-sinirlar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -1610,14 +1368,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "sosyal-sinirlar",
-        "relevance": 4
-      },
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      }
+      { "slug": "sosyal-sinirlar", "relevance": 4 },
+      { "slug": "ozguven-gelisimi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -1647,12 +1399,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "brans-kitaplari", "relevance": 4 }],
     "interests": []
   },
   {
@@ -1681,12 +1428,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "akran-zorbaligi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "akran-zorbaligi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -1715,12 +1457,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -1750,14 +1487,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "mantik-ve-dikkat",
-        "relevance": 4
-      },
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
+      { "slug": "brans-kitaplari", "relevance": 4 },
+      { "slug": "mantik-ve-dikkat", "relevance": 4 }
     ],
     "interests": []
   },
@@ -1788,14 +1519,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "arkadaslik-becerileri",
-        "relevance": 4
-      },
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      }
+      { "slug": "arkadaslik-becerileri", "relevance": 4 },
+      { "slug": "ozguven-gelisimi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -1825,12 +1550,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "brans-kitaplari", "relevance": 4 }],
     "interests": []
   },
   {
@@ -1860,14 +1580,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      },
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
+      { "slug": "macera-hikayeleri", "relevance": 4 },
+      { "slug": "ozguven-gelisimi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -1897,12 +1611,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "brans-kitaplari", "relevance": 4 }],
     "interests": []
   },
   {
@@ -1932,14 +1641,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      },
-      {
-        "slug": "dil-ve-okuryazarlik",
-        "relevance": 4
-      }
+      { "slug": "brans-kitaplari", "relevance": 4 },
+      { "slug": "dil-ve-okuryazarlik", "relevance": 4 }
     ],
     "interests": []
   },
@@ -1969,12 +1672,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "ritmik-okumalar",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "ritmik-okumalar", "relevance": 4 }],
     "interests": []
   },
   {
@@ -2003,12 +1701,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "macera-hikayeleri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -2037,12 +1730,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "tematik-icerikler",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "tematik-icerikler", "relevance": 4 }],
     "interests": []
   },
   {
@@ -2072,14 +1760,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "tematik-icerikler",
-        "relevance": 4
-      },
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
+      { "slug": "macera-hikayeleri", "relevance": 4 },
+      { "slug": "tematik-icerikler", "relevance": 4 }
     ],
     "interests": []
   },
@@ -2110,14 +1792,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      },
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "farkliliklar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -2148,14 +1824,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      },
-      {
-        "slug": "sosyal-sinirlar",
-        "relevance": 4
-      }
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "sosyal-sinirlar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -2186,14 +1856,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "dil-ve-okuryazarlik",
-        "relevance": 4
-      },
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
+      { "slug": "macera-hikayeleri", "relevance": 4 },
+      { "slug": "dil-ve-okuryazarlik", "relevance": 4 }
     ],
     "interests": []
   },
@@ -2224,14 +1888,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      },
-      {
-        "slug": "interaktif-kitaplar",
-        "relevance": 4
-      }
+      { "slug": "interaktif-kitaplar", "relevance": 4 },
+      { "slug": "farkliliklar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -2262,14 +1920,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      },
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      }
+      { "slug": "farkliliklar", "relevance": 4 },
+      { "slug": "ozguven-gelisimi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -2300,14 +1952,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      },
-      {
-        "slug": "mantik-ve-dikkat",
-        "relevance": 4
-      }
+      { "slug": "brans-kitaplari", "relevance": 4 },
+      { "slug": "mantik-ve-dikkat", "relevance": 4 }
     ],
     "interests": []
   },
@@ -2337,12 +1983,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "dil-ve-okuryazarlik",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "dil-ve-okuryazarlik", "relevance": 4 }],
     "interests": []
   },
   {
@@ -2371,12 +2012,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -2384,7 +2020,7 @@
     "title": "Dedemin Adası",
     "subtitle": null,
     "originalTitle": null,
-    "summary": "Sid ve dedesi birlikte çok güzel zaman geçiriyorlar. Bir gün dedesi onu uzaklara, uzun bir yolculuğa çıkarıyor. Ve sonunda dedesi artık orada kalmak istediğini söylüyor… Vedalaşıyo...",
+    "summary": "Sid ve dedesi birlikte çok güzel zaman geçiriyorlar. Bir gün dedesi onu uzaklara, uzun bir yolculuğa çıkarıyor. Ve sonunda dedesi artık orada kalmak istediğini söylüyor… Vedalaşıyor",
     "description": null,
     "language": "tr",
     "ageMin": 2,
@@ -2406,14 +2042,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "olum-ve-yas",
-        "relevance": 4
-      },
-      {
-        "slug": "kardes-iliskileri",
-        "relevance": 4
-      }
+      { "slug": "kardes-iliskileri", "relevance": 4 },
+      { "slug": "olum-ve-yas", "relevance": 4 }
     ],
     "interests": []
   },
@@ -2443,12 +2073,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -2477,12 +2102,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "okul-adaptasyonu",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "okul-adaptasyonu", "relevance": 4 }],
     "interests": []
   },
   {
@@ -2511,12 +2131,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "arkadaslik-becerileri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "arkadaslik-becerileri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -2546,14 +2161,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "kardes-iliskileri",
-        "relevance": 4
-      },
-      {
-        "slug": "paylasma",
-        "relevance": 4
-      }
+      { "slug": "kardes-iliskileri", "relevance": 4 },
+      { "slug": "paylasma", "relevance": 4 }
     ],
     "interests": []
   },
@@ -2584,14 +2193,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      },
-      {
-        "slug": "sosyal-sinirlar",
-        "relevance": 4
-      }
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "sosyal-sinirlar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -2622,14 +2225,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      },
-      {
-        "slug": "arkadaslik-becerileri",
-        "relevance": 4
-      }
+      { "slug": "arkadaslik-becerileri", "relevance": 4 },
+      { "slug": "farkliliklar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -2659,12 +2256,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "macera-hikayeleri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -2693,12 +2285,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -2727,12 +2314,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -2762,14 +2344,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "paylasma",
-        "relevance": 4
-      },
-      {
-        "slug": "arkadaslik-becerileri",
-        "relevance": 4
-      }
+      { "slug": "arkadaslik-becerileri", "relevance": 4 },
+      { "slug": "paylasma", "relevance": 4 }
     ],
     "interests": []
   },
@@ -2799,12 +2375,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "macera-hikayeleri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -2834,14 +2405,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      },
-      {
-        "slug": "mantik-ve-dikkat",
-        "relevance": 4
-      }
+      { "slug": "brans-kitaplari", "relevance": 4 },
+      { "slug": "mantik-ve-dikkat", "relevance": 4 }
     ],
     "interests": []
   },
@@ -2871,12 +2436,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "brans-kitaplari", "relevance": 4 }],
     "interests": []
   },
   {
@@ -2906,14 +2466,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "korku-ve-kaygi",
-        "relevance": 4
-      },
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      }
+      { "slug": "korku-ve-kaygi", "relevance": 4 },
+      { "slug": "ozguven-gelisimi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -2944,14 +2498,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "matematik-becerileri",
-        "relevance": 4
-      },
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
+      { "slug": "matematik-becerileri", "relevance": 4 },
+      { "slug": "macera-hikayeleri", "relevance": 4 }
     ],
     "interests": []
   },
@@ -2982,14 +2530,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      },
-      {
-        "slug": "tematik-icerikler",
-        "relevance": 4
-      }
+      { "slug": "macera-hikayeleri", "relevance": 4 },
+      { "slug": "tematik-icerikler", "relevance": 4 }
     ],
     "interests": []
   },
@@ -3019,12 +2561,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "macera-hikayeleri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -3053,12 +2590,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "macera-hikayeleri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -3088,14 +2620,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "arkadaslik-becerileri",
-        "relevance": 4
-      },
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      }
+      { "slug": "arkadaslik-becerileri", "relevance": 4 },
+      { "slug": "farkliliklar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -3126,14 +2652,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "dil-ve-okuryazarlik",
-        "relevance": 4
-      },
-      {
-        "slug": "okul-adaptasyonu",
-        "relevance": 4
-      }
+      { "slug": "okul-adaptasyonu", "relevance": 4 },
+      { "slug": "dil-ve-okuryazarlik", "relevance": 4 }
     ],
     "interests": []
   },
@@ -3163,12 +2683,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "ozguven-gelisimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -3197,12 +2712,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -3232,14 +2742,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "interaktif-kitaplar",
-        "relevance": 4
-      },
-      {
-        "slug": "dil-ve-okuryazarlik",
-        "relevance": 4
-      }
+      { "slug": "interaktif-kitaplar", "relevance": 4 },
+      { "slug": "dil-ve-okuryazarlik", "relevance": 4 }
     ],
     "interests": []
   },
@@ -3270,14 +2774,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "arkadaslik-becerileri",
-        "relevance": 4
-      },
-      {
-        "slug": "paylasma",
-        "relevance": 4
-      }
+      { "slug": "arkadaslik-becerileri", "relevance": 4 },
+      { "slug": "paylasma", "relevance": 4 }
     ],
     "interests": []
   },
@@ -3307,12 +2805,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "macera-hikayeleri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -3342,226 +2835,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      },
-      {
-        "slug": "matematik-becerileri",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "arkadasim-korku",
-    "title": "Arkadaşım Korku",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "",
-    "description": null,
-    "language": "tr",
-    "ageMin": 2,
-    "ageMax": 6,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/p/DVydkV0E1pY/",
-      "shortcode": "DVydkV0E1pY",
-      "postedAt": "2025-06-01",
-      "likeCount": 0
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "korku-ve-kaygi",
-        "relevance": 4
-      },
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "uykusuz-koala",
-    "title": "Uykusuz Koala",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "",
-    "description": null,
-    "language": "tr",
-    "ageMin": 4,
-    "ageMax": 8,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/p/DV0rNduk9ox/",
-      "shortcode": "DV0rNduk9ox",
-      "postedAt": "2025-06-01",
-      "likeCount": 0
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "mine-mine-mine",
-    "title": "Mine Mine Mine",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "",
-    "description": null,
-    "language": "en",
-    "ageMin": 0,
-    "ageMax": 6,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/p/DV8cO3QEwne/",
-      "shortcode": "DV8cO3QEwne",
-      "postedAt": "2025-06-01",
-      "likeCount": 0
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "paylasma",
-        "relevance": 4
-      },
-      {
-        "slug": "sosyal-sinirlar",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "kar-tanesi",
-    "title": "Kar Tanesi",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "",
-    "description": null,
-    "language": "tr",
-    "ageMin": 2,
-    "ageMax": 6,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/p/DV-tD8SoheH/",
-      "shortcode": "DV-tD8SoheH",
-      "postedAt": "2025-06-01",
-      "likeCount": 0
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "kose",
-    "title": "Köşe",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "",
-    "description": null,
-    "language": "tr",
-    "ageMin": 2,
-    "ageMax": 6,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/p/DWB-BRyE43s/",
-      "shortcode": "DWB-BRyE43s",
-      "postedAt": "2025-06-01",
-      "likeCount": 0
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "katie-ve-yildizli-gece",
-    "title": "Katie ve Yıldızlı Gece",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "",
-    "description": null,
-    "language": "tr",
-    "ageMin": 2,
-    "ageMax": 6,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/p/DWEwm0hDWns/",
-      "shortcode": "DWEwm0hDWns",
-      "postedAt": "2025-06-01",
-      "likeCount": 0
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
+      { "slug": "matematik-becerileri", "relevance": 4 },
+      { "slug": "brans-kitaplari", "relevance": 4 }
     ],
     "interests": []
   },
@@ -3591,11 +2866,38 @@
     },
     "coverPath": null,
     "status": "published",
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
+    "interests": []
+  },
+  {
+    "slug": "arkadasim-korku",
+    "title": "Arkadaşım Korku",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "",
+    "description": null,
+    "language": "tr",
+    "ageMin": 2,
+    "ageMax": 6,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/p/DVydkV0E1pY/",
+      "shortcode": "DVydkV0E1pY",
+      "postedAt": "2025-06-01",
+      "likeCount": 0
+    },
+    "coverPath": null,
+    "status": "published",
     "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "korku-ve-kaygi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -3625,12 +2927,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "ozguven-gelisimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -3659,12 +2956,155 @@
     },
     "coverPath": null,
     "status": "published",
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
+    "interests": []
+  },
+  {
+    "slug": "kar-tanesi",
+    "title": "Kar Tanesi",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "",
+    "description": null,
+    "language": "tr",
+    "ageMin": 2,
+    "ageMax": 6,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/p/DV-tD8SoheH/",
+      "shortcode": "DV-tD8SoheH",
+      "postedAt": "2025-06-01",
+      "likeCount": 0
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [{ "slug": "farkliliklar", "relevance": 4 }],
+    "interests": []
+  },
+  {
+    "slug": "katie-ve-yildizli-gece",
+    "title": "Katie ve Yıldızlı Gece",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "",
+    "description": null,
+    "language": "tr",
+    "ageMin": 2,
+    "ageMax": 6,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/p/DWEwm0hDWns/",
+      "shortcode": "DWEwm0hDWns",
+      "postedAt": "2025-06-01",
+      "likeCount": 0
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [{ "slug": "brans-kitaplari", "relevance": 4 }],
+    "interests": []
+  },
+  {
+    "slug": "kose",
+    "title": "Köşe",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "",
+    "description": null,
+    "language": "tr",
+    "ageMin": 2,
+    "ageMax": 6,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/p/DWB-BRyE43s/",
+      "shortcode": "DWB-BRyE43s",
+      "postedAt": "2025-06-01",
+      "likeCount": 0
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
+    "interests": []
+  },
+  {
+    "slug": "mine-mine-mine",
+    "title": "Mine Mine Mine",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "",
+    "description": null,
+    "language": "en",
+    "ageMin": 0,
+    "ageMax": 6,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/p/DV8cO3QEwne/",
+      "shortcode": "DV8cO3QEwne",
+      "postedAt": "2025-06-01",
+      "likeCount": 0
+    },
+    "coverPath": null,
+    "status": "published",
     "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
+      { "slug": "sosyal-sinirlar", "relevance": 4 },
+      { "slug": "paylasma", "relevance": 4 }
     ],
+    "interests": []
+  },
+  {
+    "slug": "uykusuz-koala",
+    "title": "Uykusuz Koala",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "",
+    "description": null,
+    "language": "tr",
+    "ageMin": 4,
+    "ageMax": 8,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/p/DV0rNduk9ox/",
+      "shortcode": "DV0rNduk9ox",
+      "postedAt": "2025-06-01",
+      "likeCount": 0
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -3694,14 +3134,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      },
-      {
-        "slug": "arkadaslik-becerileri",
-        "relevance": 4
-      }
+      { "slug": "arkadaslik-becerileri", "relevance": 4 },
+      { "slug": "farkliliklar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -3731,12 +3165,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "brans-kitaplari", "relevance": 4 }],
     "interests": []
   },
   {
@@ -3766,14 +3195,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      },
-      {
-        "slug": "dil-ve-okuryazarlik",
-        "relevance": 4
-      }
+      { "slug": "brans-kitaplari", "relevance": 4 },
+      { "slug": "dil-ve-okuryazarlik", "relevance": 4 }
     ],
     "interests": []
   },
@@ -3803,12 +3226,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -3837,12 +3255,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "brans-kitaplari", "relevance": 4 }],
     "interests": []
   },
   {
@@ -3871,12 +3284,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "korku-ve-kaygi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "korku-ve-kaygi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -3905,12 +3313,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "brans-kitaplari", "relevance": 4 }],
     "interests": []
   },
   {
@@ -3939,12 +3342,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "macera-hikayeleri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -3973,12 +3371,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -4007,12 +3400,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "arkadaslik-becerileri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "arkadaslik-becerileri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -4042,14 +3430,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "kardes-iliskileri",
-        "relevance": 4
-      },
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
+      { "slug": "kardes-iliskileri", "relevance": 4 },
+      { "slug": "duygu-yonetimi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -4080,14 +3462,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "korku-ve-kaygi",
-        "relevance": 4
-      },
-      {
-        "slug": "tasinma-sureci",
-        "relevance": 4
-      }
+      { "slug": "korku-ve-kaygi", "relevance": 4 },
+      { "slug": "tasinma-sureci", "relevance": 4 }
     ],
     "interests": []
   },
@@ -4117,12 +3493,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -4151,12 +3522,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -4185,12 +3551,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "ozguven-gelisimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -4220,14 +3581,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "korku-ve-kaygi",
-        "relevance": 4
-      },
-      {
-        "slug": "okul-adaptasyonu",
-        "relevance": 4
-      }
+      { "slug": "okul-adaptasyonu", "relevance": 4 },
+      { "slug": "korku-ve-kaygi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -4257,12 +3612,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "kardes-iliskileri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "kardes-iliskileri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -4291,12 +3641,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "dil-ve-okuryazarlik",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "dil-ve-okuryazarlik", "relevance": 4 }],
     "interests": []
   },
   {
@@ -4325,12 +3670,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "brans-kitaplari", "relevance": 4 }],
     "interests": []
   },
   {
@@ -4360,14 +3700,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      },
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
+      { "slug": "brans-kitaplari", "relevance": 4 },
+      { "slug": "farkliliklar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -4398,14 +3732,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      },
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
+      { "slug": "brans-kitaplari", "relevance": 4 },
+      { "slug": "macera-hikayeleri", "relevance": 4 }
     ],
     "interests": []
   },
@@ -4435,12 +3763,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "brans-kitaplari", "relevance": 4 }],
     "interests": []
   },
   {
@@ -4470,14 +3793,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      },
-      {
-        "slug": "okul-adaptasyonu",
-        "relevance": 4
-      }
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "okul-adaptasyonu", "relevance": 4 }
     ],
     "interests": []
   },
@@ -4507,12 +3824,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "arkadaslik-becerileri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "arkadaslik-becerileri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -4541,12 +3853,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "olum-ve-yas",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "olum-ve-yas", "relevance": 4 }],
     "interests": []
   },
   {
@@ -4575,12 +3882,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "brans-kitaplari", "relevance": 4 }],
     "interests": []
   },
   {
@@ -4609,12 +3911,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "brans-kitaplari", "relevance": 4 }],
     "interests": []
   },
   {
@@ -4644,14 +3941,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      },
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      }
+      { "slug": "farkliliklar", "relevance": 4 },
+      { "slug": "ozguven-gelisimi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -4682,14 +3973,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "dil-ve-okuryazarlik",
-        "relevance": 4
-      },
-      {
-        "slug": "okul-adaptasyonu",
-        "relevance": 4
-      }
+      { "slug": "okul-adaptasyonu", "relevance": 4 },
+      { "slug": "dil-ve-okuryazarlik", "relevance": 4 }
     ],
     "interests": []
   },
@@ -4720,14 +4005,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      },
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "macera-hikayeleri", "relevance": 4 }
     ],
     "interests": []
   },
@@ -4757,12 +4036,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "arkadaslik-becerileri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "arkadaslik-becerileri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -4792,14 +4066,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      },
-      {
-        "slug": "dil-ve-okuryazarlik",
-        "relevance": 4
-      }
+      { "slug": "dil-ve-okuryazarlik", "relevance": 4 },
+      { "slug": "ozguven-gelisimi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -4830,14 +4098,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "arkadaslik-becerileri",
-        "relevance": 4
-      },
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "arkadaslik-becerileri", "relevance": 4 }
     ],
     "interests": []
   },
@@ -4868,14 +4130,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      },
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
+      { "slug": "macera-hikayeleri", "relevance": 4 },
+      { "slug": "farkliliklar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -4906,14 +4162,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      },
-      {
-        "slug": "paylasma",
-        "relevance": 4
-      }
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "paylasma", "relevance": 4 }
     ],
     "interests": []
   },
@@ -4943,12 +4193,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "brans-kitaplari", "relevance": 4 }],
     "interests": []
   },
   {
@@ -4977,12 +4222,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "farkliliklar", "relevance": 4 }],
     "interests": []
   },
   {
@@ -5011,12 +4251,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "macera-hikayeleri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -5046,14 +4281,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "dil-ve-okuryazarlik",
-        "relevance": 4
-      },
-      {
-        "slug": "ritmik-okumalar",
-        "relevance": 4
-      }
+      { "slug": "dil-ve-okuryazarlik", "relevance": 4 },
+      { "slug": "ritmik-okumalar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -5084,14 +4313,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      },
-      {
-        "slug": "tematik-icerikler",
-        "relevance": 4
-      }
+      { "slug": "farkliliklar", "relevance": 4 },
+      { "slug": "tematik-icerikler", "relevance": 4 }
     ],
     "interests": []
   },
@@ -5122,14 +4345,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      },
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
+      { "slug": "macera-hikayeleri", "relevance": 4 },
+      { "slug": "ozguven-gelisimi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -5160,14 +4377,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      },
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      }
+      { "slug": "farkliliklar", "relevance": 4 },
+      { "slug": "ozguven-gelisimi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -5198,14 +4409,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      },
-      {
-        "slug": "akran-zorbaligi",
-        "relevance": 4
-      }
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "akran-zorbaligi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -5235,12 +4440,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "macera-hikayeleri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -5270,14 +4470,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "kardes-iliskileri",
-        "relevance": 4
-      },
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      }
+      { "slug": "kardes-iliskileri", "relevance": 4 },
+      { "slug": "farkliliklar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -5308,14 +4502,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      },
-      {
-        "slug": "akran-zorbaligi",
-        "relevance": 4
-      }
+      { "slug": "akran-zorbaligi", "relevance": 4 },
+      { "slug": "ozguven-gelisimi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -5345,12 +4533,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "ozguven-gelisimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -5380,14 +4563,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "arkadaslik-becerileri",
-        "relevance": 4
-      },
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      }
+      { "slug": "arkadaslik-becerileri", "relevance": 4 },
+      { "slug": "ozguven-gelisimi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -5417,12 +4594,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "ozguven-gelisimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -5451,12 +4623,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -5486,52 +4653,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "tasinma-sureci",
-        "relevance": 4
-      },
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "the-secret-aggrement",
-    "title": "The Secret Agreement 🏅",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "Olimpita Ormanı’nda büyük kaykay yarışları başlıyor! 🛹 Üç arkadaş, her zaman sonuncu oldukları için hile yapmaya karar veriyor. Ama ne mi oluyor? Seyirciler yavaş yavaş onları izle...",
-    "description": null,
-    "language": "tr",
-    "ageMin": 4,
-    "ageMax": 8,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/reel/DGWMpHwtV7P/",
-      "shortcode": "DGWMpHwtV7P",
-      "postedAt": "2025-02-21",
-      "likeCount": 54
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "sosyal-sinirlar",
-        "relevance": 4
-      },
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      }
+      { "slug": "tasinma-sureci", "relevance": 4 },
+      { "slug": "farkliliklar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -5562,14 +4685,40 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "arkadaslik-becerileri",
-        "relevance": 4
-      },
-      {
-        "slug": "korku-ve-kaygi",
-        "relevance": 4
-      }
+      { "slug": "arkadaslik-becerileri", "relevance": 4 },
+      { "slug": "korku-ve-kaygi", "relevance": 4 }
+    ],
+    "interests": []
+  },
+  {
+    "slug": "the-secret-aggrement",
+    "title": "The Secret Agreement 🏅",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "Olimpita Ormanı’nda büyük kaykay yarışları başlıyor! 🛹 Üç arkadaş, her zaman sonuncu oldukları için hile yapmaya karar veriyor. Ama ne mi oluyor? Seyirciler yavaş yavaş onları izle...",
+    "description": null,
+    "language": "tr",
+    "ageMin": 4,
+    "ageMax": 8,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/reel/DGWMpHwtV7P/",
+      "shortcode": "DGWMpHwtV7P",
+      "postedAt": "2025-02-21",
+      "likeCount": 54
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [
+      { "slug": "sosyal-sinirlar", "relevance": 4 },
+      { "slug": "ozguven-gelisimi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -5599,12 +4748,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "olum-ve-yas",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "olum-ve-yas", "relevance": 4 }],
     "interests": []
   },
   {
@@ -5634,52 +4778,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      },
-      {
-        "slug": "mantik-ve-dikkat",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "the-heart-and-the-bottle",
-    "title": "The Heart and the Bottle",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "Dünyaya büyük bir merakla bakan bir çocuk… Her şeyi keşfetmek isteyen, cesur ve canlı. Ama zamanla, kalbini cam bir şişeye koyarak korumayı seçiyor. Kimse kıramaz, kimse canını acı...",
-    "description": null,
-    "language": "tr",
-    "ageMin": 2,
-    "ageMax": 6,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/reel/DGL_bo6Nwor/",
-      "shortcode": "DGL_bo6Nwor",
-      "postedAt": "2025-02-17",
-      "likeCount": 59
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "olum-ve-yas",
-        "relevance": 4
-      },
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
+      { "slug": "macera-hikayeleri", "relevance": 4 },
+      { "slug": "mantik-ve-dikkat", "relevance": 4 }
     ],
     "interests": []
   },
@@ -5709,11 +4809,38 @@
     },
     "coverPath": null,
     "status": "published",
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
+    "interests": []
+  },
+  {
+    "slug": "the-heart-and-the-bottle",
+    "title": "The Heart and the Bottle",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "Dünyaya büyük bir merakla bakan bir çocuk… Her şeyi keşfetmek isteyen, cesur ve canlı. Ama zamanla, kalbini cam bir şişeye koyarak korumayı seçiyor. Kimse kıramaz, kimse canını acı...",
+    "description": null,
+    "language": "tr",
+    "ageMin": 2,
+    "ageMax": 6,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/reel/DGL_bo6Nwor/",
+      "shortcode": "DGL_bo6Nwor",
+      "postedAt": "2025-02-17",
+      "likeCount": 59
+    },
+    "coverPath": null,
+    "status": "published",
     "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "olum-ve-yas", "relevance": 4 }
     ],
     "interests": []
   },
@@ -5744,14 +4871,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      },
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "farkliliklar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -5782,14 +4903,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "mantik-ve-dikkat",
-        "relevance": 4
-      },
-      {
-        "slug": "interaktif-kitaplar",
-        "relevance": 4
-      }
+      { "slug": "interaktif-kitaplar", "relevance": 4 },
+      { "slug": "mantik-ve-dikkat", "relevance": 4 }
     ],
     "interests": []
   },
@@ -5819,12 +4934,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -5854,14 +4964,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "matematik-becerileri",
-        "relevance": 4
-      },
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
+      { "slug": "matematik-becerileri", "relevance": 4 },
+      { "slug": "brans-kitaplari", "relevance": 4 }
     ],
     "interests": []
   },
@@ -5891,12 +4995,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "brans-kitaplari", "relevance": 4 }],
     "interests": []
   },
   {
@@ -5925,12 +5024,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -5960,14 +5054,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      },
-      {
-        "slug": "sosyal-sinirlar",
-        "relevance": 4
-      }
+      { "slug": "farkliliklar", "relevance": 4 },
+      { "slug": "sosyal-sinirlar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -5998,14 +5086,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      },
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      }
+      { "slug": "farkliliklar", "relevance": 4 },
+      { "slug": "ozguven-gelisimi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -6035,12 +5117,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "macera-hikayeleri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -6070,14 +5147,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      },
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "macera-hikayeleri", "relevance": 4 }
     ],
     "interests": []
   },
@@ -6108,14 +5179,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      },
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      }
+      { "slug": "brans-kitaplari", "relevance": 4 },
+      { "slug": "ozguven-gelisimi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -6145,12 +5210,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "korku-ve-kaygi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "korku-ve-kaygi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -6179,12 +5239,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -6214,48 +5269,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "arkadaslik-becerileri",
-        "relevance": 4
-      },
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "saklaniyoruuum",
-    "title": "Saklanıyoruuum! 👀🔍",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "Burada bir kahraman saklanıyor! 🫣 İpuçlarını takip ederek onun ne olduğunu bulmaya çalışıyoruz. Ama sürpriz! Meğer bir arkadaşı da varmış. Onu da bulmak için dikkatlice bakmalıyız!",
-    "description": null,
-    "language": "tr",
-    "ageMin": 2,
-    "ageMax": 4,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/reel/DFiS_5jtlYS/",
-      "shortcode": "DFiS_5jtlYS",
-      "postedAt": "2025-02-01",
-      "likeCount": 45
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "interaktif-kitaplar",
-        "relevance": 4
-      }
+      { "slug": "arkadaslik-becerileri", "relevance": 4 },
+      { "slug": "farkliliklar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -6285,12 +5300,7 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "brans-kitaplari",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "brans-kitaplari", "relevance": 4 }],
     "interests": []
   },
   {
@@ -6319,11 +5329,67 @@
     },
     "coverPath": null,
     "status": "published",
+    "topics": [{ "slug": "arkadaslik-becerileri", "relevance": 4 }],
+    "interests": []
+  },
+  {
+    "slug": "saklaniyoruuum",
+    "title": "Saklanıyoruuum! 👀🔍",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "Burada bir kahraman saklanıyor! 🫣 İpuçlarını takip ederek onun ne olduğunu bulmaya çalışıyoruz. Ama sürpriz! Meğer bir arkadaşı da varmış. Onu da bulmak için dikkatlice bakmalıyız!",
+    "description": null,
+    "language": "tr",
+    "ageMin": 2,
+    "ageMax": 4,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/reel/DFiS_5jtlYS/",
+      "shortcode": "DFiS_5jtlYS",
+      "postedAt": "2025-02-01",
+      "likeCount": 45
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [{ "slug": "interaktif-kitaplar", "relevance": 4 }],
+    "interests": []
+  },
+  {
+    "slug": "gercekten-boyle-mi-oldu",
+    "title": "Gerçekten Böyle Mi Oldu?",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "Defne ve Mısır’ın hikâyeleri, eğlenceli bir “ara bul” kitabının içine gizlenmiş! Kitaplardan çok sıkılıyorum diyen çocuklara bire bir! Bu kitapta farklı olan, “Bu böyle olur mu?” d...",
+    "description": null,
+    "language": "tr",
+    "ageMin": 0,
+    "ageMax": 6,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/reel/DFf58ZfNC8S/",
+      "shortcode": "DFf58ZfNC8S",
+      "postedAt": "2025-01-31",
+      "likeCount": 43
+    },
+    "coverPath": null,
+    "status": "published",
     "topics": [
-      {
-        "slug": "arkadaslik-becerileri",
-        "relevance": 4
-      }
+      { "slug": "interaktif-kitaplar", "relevance": 4 },
+      { "slug": "mantik-ve-dikkat", "relevance": 4 }
     ],
     "interests": []
   },
@@ -6354,14 +5420,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "arkadaslik-becerileri",
-        "relevance": 4
-      },
-      {
-        "slug": "dil-ve-okuryazarlik",
-        "relevance": 4
-      }
+      { "slug": "arkadaslik-becerileri", "relevance": 4 },
+      { "slug": "dil-ve-okuryazarlik", "relevance": 4 }
     ],
     "interests": []
   },
@@ -6392,90 +5452,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "sosyal-sinirlar",
-        "relevance": 4
-      },
-      {
-        "slug": "farkliliklar",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "gercekten-boyle-mi-oldu",
-    "title": "Gerçekten Böyle Mi Oldu?",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "Defne ve Mısır’ın hikâyeleri, eğlenceli bir “ara bul” kitabının içine gizlenmiş! Kitaplardan çok sıkılıyorum diyen çocuklara bire bir! Bu kitapta farklı olan, “Bu böyle olur mu?” d...",
-    "description": null,
-    "language": "tr",
-    "ageMin": 0,
-    "ageMax": 6,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/reel/DFf58ZfNC8S/",
-      "shortcode": "DFf58ZfNC8S",
-      "postedAt": "2025-01-31",
-      "likeCount": 43
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "interaktif-kitaplar",
-        "relevance": 4
-      },
-      {
-        "slug": "mantik-ve-dikkat",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "brown-bear-brown-bear-what-do-you-see",
-    "title": "Brown Bear, Brown Bear, What Do You See?",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "Bill Martin Jr'un  yazdığı, ancak en güzel kısmı üstat Eric Carle’ın görselleriyle hayat bulan bu klasikleşmiş kitap, 2-4 yaş arasındaki çocuklar için eğlenceli bir İngilizce okuma...",
-    "description": null,
-    "language": "en",
-    "ageMin": 2,
-    "ageMax": 4,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/reel/DFdcubytM2z/",
-      "shortcode": "DFdcubytM2z",
-      "postedAt": "2025-01-30",
-      "likeCount": 42
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "dil-ve-okuryazarlik",
-        "relevance": 4
-      },
-      {
-        "slug": "ritmik-okumalar",
-        "relevance": 4
-      }
+      { "slug": "farkliliklar", "relevance": 4 },
+      { "slug": "sosyal-sinirlar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -6505,11 +5483,38 @@
     },
     "coverPath": null,
     "status": "published",
+    "topics": [{ "slug": "korku-ve-kaygi", "relevance": 4 }],
+    "interests": []
+  },
+  {
+    "slug": "brown-bear-brown-bear-what-do-you-see",
+    "title": "Brown Bear, Brown Bear, What Do You See?",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "Bill Martin Jr'un  yazdığı, ancak en güzel kısmı üstat Eric Carle’ın görselleriyle hayat bulan bu klasikleşmiş kitap, 2-4 yaş arasındaki çocuklar için eğlenceli bir İngilizce okuma...",
+    "description": null,
+    "language": "en",
+    "ageMin": 2,
+    "ageMax": 4,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/reel/DFdcubytM2z/",
+      "shortcode": "DFdcubytM2z",
+      "postedAt": "2025-01-30",
+      "likeCount": 42
+    },
+    "coverPath": null,
+    "status": "published",
     "topics": [
-      {
-        "slug": "korku-ve-kaygi",
-        "relevance": 4
-      }
+      { "slug": "dil-ve-okuryazarlik", "relevance": 4 },
+      { "slug": "ritmik-okumalar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -6539,12 +5544,36 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "dil-ve-okuryazarlik",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "dil-ve-okuryazarlik", "relevance": 4 }],
+    "interests": []
+  },
+  {
+    "slug": "canavarlarin-da-duygulari-var",
+    "title": "Canavarların da Duyguları Var!",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "Bu kitap, duygular üzerine yazılmış etkileyici bir hikâye. Ama duyguları anlatmak için alışılmışın dışında bir yol seçiyor: Canavarlar! Daha dikkat çekici bir yöntem olabilir mi?",
+    "description": null,
+    "language": "tr",
+    "ageMin": 3,
+    "ageMax": 6,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/reel/DFaOTcGNgRO/",
+      "shortcode": "DFaOTcGNgRO",
+      "postedAt": "2025-01-29",
+      "likeCount": 62
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
@@ -6574,48 +5603,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      },
-      {
-        "slug": "mantik-ve-dikkat",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "canavarlarin-da-duygulari-var",
-    "title": "Canavarların da Duyguları Var!",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "Bu kitap, duygular üzerine yazılmış etkileyici bir hikâye. Ama duyguları anlatmak için alışılmışın dışında bir yol seçiyor: Canavarlar! Daha dikkat çekici bir yöntem olabilir mi?",
-    "description": null,
-    "language": "tr",
-    "ageMin": 3,
-    "ageMax": 6,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/reel/DFaOTcGNgRO/",
-      "shortcode": "DFaOTcGNgRO",
-      "postedAt": "2025-01-29",
-      "likeCount": 62
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
+      { "slug": "macera-hikayeleri", "relevance": 4 },
+      { "slug": "mantik-ve-dikkat", "relevance": 4 }
     ],
     "interests": []
   },
@@ -6646,48 +5635,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "interaktif-kitaplar",
-        "relevance": 4
-      },
-      {
-        "slug": "mantik-ve-dikkat",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "ucan-supurge-iyi-yurekli-cadi-ve-4-kafadar",
-    "title": "Uçan Süpürge: İyi Yürekli Cadı ve 4 Kafadar",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "Cadı ve iyi yürekli! Bu ikisi bir arada olur mu hiç? Çocuklar bu hikayede, alışılmışın dışındaki bir cadıyla tanışıyor. Süpürgesine atlıyor ve macera başlıyor! Ama yolculuk boyunca...",
-    "description": null,
-    "language": "tr",
-    "ageMin": 4,
-    "ageMax": 6,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/reel/DFYPZH_NABb/",
-      "shortcode": "DFYPZH_NABb",
-      "postedAt": "2025-01-28",
-      "likeCount": 51
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
+      { "slug": "interaktif-kitaplar", "relevance": 4 },
+      { "slug": "mantik-ve-dikkat", "relevance": 4 }
     ],
     "interests": []
   },
@@ -6718,26 +5667,20 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      },
-      {
-        "slug": "tematik-icerikler",
-        "relevance": 4
-      }
+      { "slug": "tematik-icerikler", "relevance": 4 },
+      { "slug": "ozguven-gelisimi", "relevance": 4 }
     ],
     "interests": []
   },
   {
-    "slug": "the-princess-in-black",
-    "title": "The Princess in Black",
+    "slug": "ucan-supurge-iyi-yurekli-cadi-ve-4-kafadar",
+    "title": "Uçan Süpürge: İyi Yürekli Cadı ve 4 Kafadar",
     "subtitle": null,
     "originalTitle": null,
-    "summary": "Magnolia bir prenses… Ama parmağındaki yüzük çaldığında, siyah pelerinini takıp “Blacky” adındaki atıyla cesur bir kahramana dönüşüyor! 🦸‍♀️✨",
+    "summary": "Cadı ve iyi yürekli! Bu ikisi bir arada olur mu hiç? Çocuklar bu hikayede, alışılmışın dışındaki bir cadıyla tanışıyor. Süpürgesine atlıyor ve macera başlıyor! Ama yolculuk boyunca...",
     "description": null,
-    "language": "en",
-    "ageMin": 5,
+    "language": "tr",
+    "ageMin": 4,
     "ageMax": 6,
     "pageCount": null,
     "isbn13": null,
@@ -6748,23 +5691,14 @@
     "illustrators": [],
     "translators": [],
     "instagram": {
-      "url": "https://www.instagram.com/reel/DFVXwddNQwL/",
-      "shortcode": "DFVXwddNQwL",
-      "postedAt": "2025-01-27",
-      "likeCount": 56
+      "url": "https://www.instagram.com/reel/DFYPZH_NABb/",
+      "shortcode": "DFYPZH_NABb",
+      "postedAt": "2025-01-28",
+      "likeCount": 51
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "ozguven-gelisimi",
-        "relevance": 4
-      },
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "macera-hikayeleri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -6794,14 +5728,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "olum-ve-yas",
-        "relevance": 4
-      },
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "olum-ve-yas", "relevance": 4 }
     ],
     "interests": []
   },
@@ -6831,57 +5759,18 @@
     },
     "coverPath": null,
     "status": "published",
-    "topics": [
-      {
-        "slug": "duygu-yonetimi",
-        "relevance": 4
-      }
-    ],
+    "topics": [{ "slug": "duygu-yonetimi", "relevance": 4 }],
     "interests": []
   },
   {
-    "slug": "narwhal-unicorn-of-the-sea",
-    "title": "Narwhal: Unicorn of the Sea",
+    "slug": "the-princess-in-black",
+    "title": "The Princess in Black",
     "subtitle": null,
     "originalTitle": null,
-    "summary": "Komik, eğlenceli ve sıcacık bir hikaye! 🎉",
+    "summary": "Magnolia bir prenses… Ama parmağındaki yüzük çaldığında, siyah pelerinini takıp “Blacky” adındaki atıyla cesur bir kahramana dönüşüyor! 🦸‍♀️✨",
     "description": null,
-    "language": "tr",
+    "language": "en",
     "ageMin": 5,
-    "ageMax": 7,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/reel/DFSHsw4td12/",
-      "shortcode": "DFSHsw4td12",
-      "postedAt": "2025-01-26",
-      "likeCount": 42
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "iki-bana-bir-sana",
-    "title": "İki Bana Bir Sana🍓",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "👥 Yiyecekler nasıl paylaşılmalı?",
-    "description": null,
-    "language": "tr",
-    "ageMin": 3,
     "ageMax": 6,
     "pageCount": null,
     "isbn13": null,
@@ -6892,18 +5781,16 @@
     "illustrators": [],
     "translators": [],
     "instagram": {
-      "url": "https://www.instagram.com/reel/DFSHaj3N0RD/",
-      "shortcode": "DFSHaj3N0RD",
-      "postedAt": "2025-01-26",
-      "likeCount": 42
+      "url": "https://www.instagram.com/reel/DFVXwddNQwL/",
+      "shortcode": "DFVXwddNQwL",
+      "postedAt": "2025-01-27",
+      "likeCount": 56
     },
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "paylasma",
-        "relevance": 4
-      }
+      { "slug": "macera-hikayeleri", "relevance": 4 },
+      { "slug": "ozguven-gelisimi", "relevance": 4 }
     ],
     "interests": []
   },
@@ -6934,15 +5821,67 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "korku-ve-kaygi",
-        "relevance": 4
-      },
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      }
+      { "slug": "korku-ve-kaygi", "relevance": 4 },
+      { "slug": "macera-hikayeleri", "relevance": 4 }
     ],
+    "interests": []
+  },
+  {
+    "slug": "iki-bana-bir-sana",
+    "title": "İki Bana Bir Sana🍓",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "👥 Yiyecekler nasıl paylaşılmalı?",
+    "description": null,
+    "language": "tr",
+    "ageMin": 3,
+    "ageMax": 6,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/reel/DFSHaj3N0RD/",
+      "shortcode": "DFSHaj3N0RD",
+      "postedAt": "2025-01-26",
+      "likeCount": 42
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [{ "slug": "paylasma", "relevance": 4 }],
+    "interests": []
+  },
+  {
+    "slug": "narwhal-unicorn-of-the-sea",
+    "title": "Narwhal: Unicorn of the Sea",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "Komik, eğlenceli ve sıcacık bir hikaye! 🎉",
+    "description": null,
+    "language": "tr",
+    "ageMin": 5,
+    "ageMax": 7,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/reel/DFSHsw4td12/",
+      "shortcode": "DFSHsw4td12",
+      "postedAt": "2025-01-26",
+      "likeCount": 42
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [{ "slug": "macera-hikayeleri", "relevance": 4 }],
     "interests": []
   },
   {
@@ -6972,52 +5911,8 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "dil-ve-okuryazarlik",
-        "relevance": 4
-      },
-      {
-        "slug": "ritmik-okumalar",
-        "relevance": 4
-      }
-    ],
-    "interests": []
-  },
-  {
-    "slug": "misafir-var",
-    "title": "Misafir var!",
-    "subtitle": null,
-    "originalTitle": null,
-    "summary": "Eliz, her şeyden korkmaya başlamış... Ama bir gün gelen özel bir misafir, onun duygularını değiştirmeye ve hayatına yepyeni renkler katmaya başlar. 🌈",
-    "description": null,
-    "language": "tr",
-    "ageMin": 4,
-    "ageMax": 8,
-    "pageCount": null,
-    "isbn13": null,
-    "publishedYear": null,
-    "publisher": null,
-    "series": null,
-    "authors": [],
-    "illustrators": [],
-    "translators": [],
-    "instagram": {
-      "url": "https://www.instagram.com/reel/DFQwlGANCug/",
-      "shortcode": "DFQwlGANCug",
-      "postedAt": "2025-01-25",
-      "likeCount": 48
-    },
-    "coverPath": null,
-    "status": "published",
-    "topics": [
-      {
-        "slug": "korku-ve-kaygi",
-        "relevance": 4
-      },
-      {
-        "slug": "okul-adaptasyonu",
-        "relevance": 4
-      }
+      { "slug": "dil-ve-okuryazarlik", "relevance": 4 },
+      { "slug": "ritmik-okumalar", "relevance": 4 }
     ],
     "interests": []
   },
@@ -7048,14 +5943,40 @@
     "coverPath": null,
     "status": "published",
     "topics": [
-      {
-        "slug": "macera-hikayeleri",
-        "relevance": 4
-      },
-      {
-        "slug": "tematik-icerikler",
-        "relevance": 4
-      }
+      { "slug": "macera-hikayeleri", "relevance": 4 },
+      { "slug": "tematik-icerikler", "relevance": 4 }
+    ],
+    "interests": []
+  },
+  {
+    "slug": "misafir-var",
+    "title": "Misafir var!",
+    "subtitle": null,
+    "originalTitle": null,
+    "summary": "Eliz, her şeyden korkmaya başlamış... Ama bir gün gelen özel bir misafir, onun duygularını değiştirmeye ve hayatına yepyeni renkler katmaya başlar. 🌈",
+    "description": null,
+    "language": "tr",
+    "ageMin": 4,
+    "ageMax": 8,
+    "pageCount": null,
+    "isbn13": null,
+    "publishedYear": null,
+    "publisher": null,
+    "series": null,
+    "authors": [],
+    "illustrators": [],
+    "translators": [],
+    "instagram": {
+      "url": "https://www.instagram.com/reel/DFQwlGANCug/",
+      "shortcode": "DFQwlGANCug",
+      "postedAt": "2025-01-25",
+      "likeCount": 48
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [
+      { "slug": "okul-adaptasyonu", "relevance": 4 },
+      { "slug": "korku-ve-kaygi", "relevance": 4 }
     ],
     "interests": []
   }

@@ -1,0 +1,312 @@
+/**
+ * Kitap ekleme betiği — Claude'un "şu kitabı ekle" dediğinde kullandığı yol
+ * (ADR 0008).
+ *
+ *   npm run book:add -- kitaplar.json              yeni kitapları ekle
+ *   npm run book:add -- kitaplar.json --guncelle   var olanları da güncelle
+ *   npm run book:add -- kitaplar.json --deneme     hiçbir şey yazmadan dene
+ *   npm run book:add -- kapaklar.json --sadece-kapak
+ *                                                  var olan kitaplara yalnızca kapak ekle
+ *   cat kitap.json | npm run book:add -- -         standart girdiden oku
+ *
+ * Girdi tek bir kitap nesnesi ya da kitap listesi. Biçim:
+ * `src/lib/books/input.ts` (yönetim formuyla AYNI şema) ve örnek:
+ * `docs/examples/kitap-ekleme.json`.
+ *
+ * AKIŞ — yarım aktarılmış liste en kötü sonuç olduğu için sıra önemli:
+ *   1. Şema doğrulaması (hepsi)
+ *   2. Konu/ilgi adları veritabanındaki taksonomiye karşı (hepsi)
+ *   3. Kapak görselleri indirilip işleniyor (hepsi) — bozuk bağlantı erken çıksın
+ *   4. Kitap verileri TEK İŞLEMDE yazılıyor (`upsert_book`); biri düşerse hiçbiri yazılmaz
+ *   5. Kapaklar yükleniyor
+ *
+ * Kimlik bilgileri `.env.local`'den okunur:
+ *   DATABASE_URL          kitap verisi için (zorunlu)
+ *   SUPABASE_SECRET_KEY   kapak yüklemek için (yoksa kapaklar atlanır)
+ *
+ * Sitede en geç 5 dakika içinde görünür (katalog önbelleği).
+ */
+import { readFileSync } from 'node:fs'
+import { resolve } from 'node:path'
+import { createClient } from '@supabase/supabase-js'
+import { Client } from 'pg'
+import { parseBookInputs, toUpsertPayload, type BookInput } from '../src/lib/books/input'
+import { setBookCover, storeCover } from '../src/lib/data/covers'
+import { toFriendlyMessage } from '../src/lib/errors'
+import { CoverError, processCover } from '../src/lib/images/cover'
+import type { Database } from '../src/lib/supabase/database.types'
+import { loadEnvFiles } from './lib/env'
+
+loadEnvFiles()
+
+// ─── Argümanlar ──────────────────────────────────────────────────────────────
+
+const args = process.argv.slice(2)
+const flags = new Set(args.filter((arg) => arg.startsWith('--')))
+const source = args.find((arg) => !arg.startsWith('--'))
+
+const OVERWRITE = flags.has('--guncelle') || flags.has('--update')
+const DRY_RUN = flags.has('--deneme') || flags.has('--dry-run')
+const COVERS_ONLY = flags.has('--sadece-kapak')
+const NO_AUTO_TAG = flags.has('--etiketleme-yok')
+
+const MAX_COVER_BYTES = 25 * 1024 * 1024
+const FETCH_TIMEOUT_MS = 20_000
+
+function fail(message: string, code = 1): never {
+  console.error(`\n✗ ${message}`)
+  process.exit(code)
+}
+
+function readSource(): unknown {
+  if (!source) {
+    fail(
+      'Kitap dosyası verilmedi.\n' +
+        '  Kullanım: npm run book:add -- kitaplar.json [--guncelle] [--deneme] [--sadece-kapak]',
+    )
+  }
+  const text = source === '-' ? readFileSync(0, 'utf8') : readFileSync(resolve(source), 'utf8')
+  try {
+    return JSON.parse(text)
+  } catch (error) {
+    fail(`Dosya geçerli JSON değil: ${(error as Error).message}`)
+  }
+}
+
+/** Kapak adresi ya da yerel dosya → ham bayt. */
+async function loadCoverSource(cover: string): Promise<Buffer> {
+  if (/^https?:\/\//i.test(cover)) {
+    const response = await fetch(cover, {
+      signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+      // Başlıklar yalnızca ASCII olabilir.
+      headers: { 'User-Agent': 'SesliKutuphanem/1.0 (book cover import)' },
+    })
+    if (!response.ok) throw new CoverError(`Kapak indirilemedi (HTTP ${response.status}).`)
+    const type = response.headers.get('content-type') ?? ''
+    if (!type.startsWith('image/')) {
+      throw new CoverError(`Bağlantı bir görsele gitmiyor (${type || 'türü bilinmiyor'}).`)
+    }
+    const data = Buffer.from(await response.arrayBuffer())
+    if (data.length > MAX_COVER_BYTES)
+      throw new CoverError('Kapak dosyası çok büyük (en fazla 25 MB).')
+    return data
+  }
+
+  try {
+    return readFileSync(resolve(cover))
+  } catch {
+    throw new CoverError(`Kapak dosyası bulunamadı: ${cover}`)
+  }
+}
+
+const kb = (bytes: number) => `${Math.round(bytes / 1024)} KB`
+
+// ─── Ana akış ────────────────────────────────────────────────────────────────
+
+async function main() {
+  const connectionString = process.env.DATABASE_URL
+  if (!connectionString) {
+    fail('DATABASE_URL tanımlı değil. `.env.local` dosyasına ekleyin (bkz. docs/operations.md).')
+  }
+
+  // [1] Şema
+  const parsed = parseBookInputs(readSource())
+  if (!parsed.ok) {
+    console.error(`\n✗ ${parsed.issues.length} sorun bulundu, hiçbir kitap yazılmadı:\n`)
+    for (const issue of parsed.issues) {
+      const label = issue.title ? `"${issue.title}"` : '(adsız)'
+      console.error(`  ${issue.index}. kitap ${label} · ${issue.field}: ${issue.message}`)
+    }
+    process.exit(1)
+  }
+
+  const books: BookInput[] = parsed.books.map((book) =>
+    NO_AUTO_TAG ? { ...book, autoTag: false } : book,
+  )
+
+  const client = new Client({
+    connectionString,
+    ssl: connectionString.includes('supabase.') ? { rejectUnauthorized: false } : undefined,
+  })
+  await client.connect()
+
+  try {
+    // [2] Taksonomi ve var olan kitaplar
+    // Tek bağlantı üzerinde sorgular sırayla gitmeli (pg eşzamanlıyı desteklemiyor).
+    const { rows: topicRows } = await client.query<{ slug: string }>(
+      'select slug from public.development_topics',
+    )
+    const { rows: interestRows } = await client.query<{ slug: string }>(
+      'select slug from public.interests',
+    )
+    const { rows: existingRows } = await client.query<{ id: string; slug: string }>(
+      'select id, slug from public.books where slug = any($1)',
+      [books.map((book) => book.slug)],
+    )
+    const topics = new Set(topicRows.map((row) => row.slug))
+    const interests = new Set(interestRows.map((row) => row.slug))
+    const existing = new Map(existingRows.map((row) => [row.slug, row]))
+
+    const problems: string[] = []
+    books.forEach((book, position) => {
+      const label = `${position + 1}. kitap "${book.title}"`
+      for (const topic of book.topics) {
+        if (!topics.has(topic.slug))
+          problems.push(`${label} · bilinmeyen gelişim konusu: ${topic.slug}`)
+      }
+      for (const interest of book.interests) {
+        if (!interests.has(interest)) problems.push(`${label} · bilinmeyen ilgi alanı: ${interest}`)
+      }
+      if (COVERS_ONLY && !existing.has(book.slug)) {
+        problems.push(
+          `${label} · bu adreste kitap yok (${book.slug}); --sadece-kapak var olan kitaplar içindir`,
+        )
+      }
+      if (COVERS_ONLY && !book.cover) problems.push(`${label} · kapak verilmemiş`)
+    })
+
+    if (problems.length > 0) {
+      console.error(`\n✗ ${problems.length} sorun bulundu, hiçbir kitap yazılmadı:\n`)
+      for (const problem of problems) console.error(`  ${problem}`)
+      console.error(
+        `\n  Geçerli konular: ${[...topics].sort().join(', ')}` +
+          `\n  Geçerli ilgi alanları: ${[...interests].sort().join(', ')}`,
+      )
+      process.exit(1)
+    }
+
+    // [3] Kapakları önceden indir ve işle — bozuk bağlantı yazmadan önce çıksın.
+    const covers = new Map<string, Buffer>()
+    const coverProblems: string[] = []
+    for (const book of books) {
+      if (!book.cover) continue
+      try {
+        const data = await loadCoverSource(book.cover)
+        await processCover(data) // yalnızca doğrulama; yükleme sonra
+        covers.set(book.slug, data)
+      } catch (error) {
+        const message =
+          error instanceof CoverError
+            ? error.message
+            : `Kapak alınamadı (${(error as Error).message}).`
+        coverProblems.push(`"${book.title}" · ${message}`)
+      }
+    }
+    if (coverProblems.length > 0) {
+      console.error(`\n✗ ${coverProblems.length} kapak kullanılamıyor, hiçbir kitap yazılmadı:\n`)
+      for (const problem of coverProblems) console.error(`  ${problem}`)
+      process.exit(1)
+    }
+
+    const secretKey = process.env.SUPABASE_SECRET_KEY
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+    if (covers.size > 0 && (!secretKey || !supabaseUrl)) {
+      console.warn(
+        '\n⚠ SUPABASE_SECRET_KEY tanımlı değil: kitaplar eklenecek ama kapaklar ATLANACAK.' +
+          '\n  Supabase → Project Settings → API Keys → Secret key değerini `.env.local`e ekleyin.',
+      )
+    }
+
+    if (DRY_RUN) {
+      console.log(`\n◇ Deneme — hiçbir şey yazılmadı. ${books.length} kitap geçerli:\n`)
+      for (const book of books) {
+        const state = existing.has(book.slug)
+          ? OVERWRITE || COVERS_ONLY
+            ? 'güncellenecek'
+            : 'ATLANACAK (zaten var)'
+          : 'eklenecek'
+        const cover = covers.has(book.slug) ? ' · kapak hazır' : ''
+        console.log(`  ${state.padEnd(22)} ${book.slug}${cover}`)
+      }
+      return
+    }
+
+    // [4] Kitap verileri — tek işlem
+    const results = new Map<string, { id: string; status: string }>()
+    if (COVERS_ONLY) {
+      for (const book of books)
+        results.set(book.slug, { id: existing.get(book.slug)!.id, status: 'kapak' })
+    } else {
+      await client.query('begin')
+      try {
+        for (const book of books) {
+          const { rows } = await client.query<{ result: { id: string; status: string } }>(
+            'select public.upsert_book($1::jsonb, $2) as result',
+            [JSON.stringify(toUpsertPayload(book)), OVERWRITE],
+          )
+          results.set(book.slug, rows[0]!.result)
+        }
+        await client.query('commit')
+      } catch (error) {
+        await client.query('rollback')
+        const at = books[results.size]
+        fail(
+          `"${at?.title ?? '?'}" yazılamadı, hiçbir kitap eklenmedi:\n  ` +
+            toFriendlyMessage(error, (error as Error).message),
+          2,
+        )
+      }
+    }
+
+    // [5] Kapaklar
+    const coverResults = new Map<string, string>()
+    let coverFailures = 0
+    if (covers.size > 0 && secretKey && supabaseUrl) {
+      const supabase = createClient<Database>(supabaseUrl, secretKey, {
+        auth: { persistSession: false, autoRefreshToken: false },
+      })
+      for (const book of books) {
+        const data = covers.get(book.slug)
+        const result = results.get(book.slug)
+        if (!data || !result) continue
+        // Atlanan kitaba kapak eklemek, "var olana dokunma" sözünü bozardı.
+        if (result.status === 'skipped') continue
+        try {
+          const stored = await storeCover(supabase, book.slug, data)
+          await setBookCover(supabase, result.id, stored)
+          coverResults.set(book.slug, `${kb(stored.bytes)} + ${kb(stored.thumbBytes)}`)
+        } catch (error) {
+          coverFailures += 1
+          coverResults.set(book.slug, `HATA: ${toFriendlyMessage(error, (error as Error).message)}`)
+        }
+      }
+    }
+
+    // ─── Rapor ───────────────────────────────────────────────────────────
+    const LABELS: Record<string, string> = {
+      created: '✓ eklendi',
+      updated: '✓ güncellendi',
+      skipped: '– atlandı (zaten var)',
+      kapak: '✓ kapak',
+    }
+    console.log(`\n${books.length} kitap işlendi:\n`)
+    for (const book of books) {
+      const result = results.get(book.slug)
+      const cover = coverResults.get(book.slug)
+      console.log(
+        `  ${(LABELS[result?.status ?? ''] ?? result?.status ?? '?').padEnd(24)} ${book.slug}` +
+          (cover ? `  [kapak: ${cover}]` : ''),
+      )
+    }
+
+    const skipped = [...results.values()].filter((result) => result.status === 'skipped').length
+    if (skipped > 0) {
+      console.log(`\n  ${skipped} kitap zaten vardı. Üzerine yazmak için: --guncelle`)
+    }
+    console.log('\nSitede en geç 5 dakika içinde görünür.')
+
+    if (coverFailures > 0) {
+      console.error(
+        `\n⚠ ${coverFailures} kapak yüklenemedi; kitaplar eklendi. Yalnızca kapakları ` +
+          'yeniden denemek için: npm run book:add -- <dosya> --sadece-kapak',
+      )
+      process.exitCode = 3
+    }
+  } finally {
+    await client.end()
+  }
+}
+
+main().catch((error: unknown) => {
+  fail(toFriendlyMessage(error, (error as Error)?.message ?? String(error)), 2)
+})
