@@ -1,6 +1,6 @@
 # Kurulum ve İşletme
 
-**Son güncelleme:** 2026-08-20
+**Son güncelleme:** 2026-09-22
 
 ---
 
@@ -14,46 +14,40 @@ npm run dev                    # http://localhost:3000
 
 ## 2. Ortam değişkenleri
 
-| Değişken                        | Nereden                                       | Nerede kullanılır                |
-| ------------------------------- | --------------------------------------------- | -------------------------------- |
-| `NEXT_PUBLIC_SUPABASE_URL`      | Supabase → Project Settings → API             | istemci + sunucu                 |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | aynı sayfa                                    | istemci + sunucu                 |
-| `NEXT_PUBLIC_SITE_URL`          | sitenin adresi                                | e-posta yönlendirmeleri, sitemap |
-| `DATABASE_URL`                  | Supabase → Database → Connection string (URI) | **yalnızca yerel betikler**      |
-| `AI_*`                          | bkz. [ai.md](ai.md)                           | yalnızca sunucu                  |
+| Değişken                        | Nereden                                             | Nerede kullanılır                       |
+| ------------------------------- | --------------------------------------------------- | --------------------------------------- |
+| `NEXT_PUBLIC_SUPABASE_URL`      | Supabase → Project Settings → API                   | istemci + sunucu                        |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | aynı sayfa                                          | istemci + sunucu                        |
+| `NEXT_PUBLIC_SITE_URL`          | sitenin adresi                                      | e-posta yönlendirmeleri, sitemap        |
+| `DATABASE_URL`                  | Supabase → Database → Connection string (URI)       | **yalnızca yerel betikler**             |
+| `SUPABASE_SECRET_KEY`           | Supabase → Project Settings → API Keys → Secret key | **yalnızca yerel** `book:add` kapakları |
+| `AI_*`                          | bkz. [ai.md](ai.md)                                 | yalnızca sunucu                         |
 
-> `DATABASE_URL` tüm veriye erişir ve RLS'i baypas eder. Vercel'e **eklemeyin**;
-> yalnızca `npm run db:sync` ve `npm run db:types` için yerelde bulunsun.
+> `DATABASE_URL` ve `SUPABASE_SECRET_KEY` tüm veriye erişir ve RLS'i baypas
+> eder. Vercel'e **eklemeyin**, depoya **yazmayın**; yalnızca yerel
+> `.env.local` içinde dursunlar. Yönetim arayüzünün kapak yüklemesi bunlara
+> ihtiyaç duymaz — editörün kendi oturumuyla çalışır.
 
-`db:sync` ve `db:types` betikleri `.env.local` ve `.env` dosyalarını kendisi
-okur — ayrıca `export` etmeye gerek yok. Öncelik sırası Next.js ile aynı:
-komut satırında verilen değişken > `.env.local` > `.env`. Bu sıralama
-bilinçli: `npm run db:sync:local` bağlantıyı satır içinde verdiği için
-`.env.local` üretime bakarken bile yerel veritabanına yazar.
+Betikler (`book:add`, `db:seed`, `db:export`, `db:types`) `.env.local` ve
+`.env` dosyalarını kendisi okur — ayrıca `export` etmeye gerek yok. Öncelik
+sırası Next.js ile aynı: komut satırında verilen değişken > `.env.local` >
+`.env`. Bu sıralama bilinçli: `npm run db:seed:local` bağlantıyı satır içinde
+verdiği için `.env.local` üretime bakarken bile yerel veritabanına yazar.
 
 ## 3. Veritabanını kurma (yeni proje)
 
 1. Supabase'de yeni proje aç.
 2. **SQL Editor** → `supabase/migrations/` altındaki dosyaları **sırayla**
-   (0001 → 0015) yapıştırıp çalıştır.
-3. İçeriği yükle. İki yol var:
-
-   **a) Veritabanı parolası varsa** — tek komut:
+   (0001 → 0023) yapıştırıp çalıştır.
+3. İçeriği yükle (`content/` → veritabanı):
 
    ```bash
-   DATABASE_URL="postgresql://..." npm run db:sync
+   DATABASE_URL="postgresql://..." npm run db:seed
    ```
 
-   **b) Yalnızca SQL çalıştırma yetkisi varsa** (panel, MCP) — önce tohum
-   dosyalarını üret, sonra sırayla yapıştır:
-
-   ```bash
-   npm run content:sql          # supabase/seed/ altına yazar
-   ```
-
-   Üretilen dosyalar idempotenttir; tekrar çalıştırmak zarar vermez. Yükleme
-   sonrası sayıları doğrulayın: 196 kitap, 451 `book_topics`, 141
-   `book_interests`.
+   Tohumlama yalnızca **eksik** kayıtları ekler, var olana dokunmaz
+   (ADR 0008); tekrar çalıştırmak zarar vermez. `content/` dosyalarını
+   üretimle eşitlemek için önce üretimde `npm run db:export`.
 
 4. Yönetici olacak kişileri ön yetki listesine ekle. Bu kişiler kayıt olur
    olmaz yönetici olur; kayıt sırasını beklemek gerekmez:
@@ -74,7 +68,7 @@ Storage:
 
 ```bash
 npx supabase start          # ilk seferde birkaç yüz MB imaj iner
-npm run db:sync:local       # kataloğu yükle
+npm run db:seed:local       # kataloğu yükle
 npm run db:types:local      # tipleri şemadan üret
 npm run test:e2e            # 25 iddia: auth, RLS, tetikleyiciler, arama
 npx supabase stop           # bitince
@@ -82,6 +76,20 @@ npx supabase stop           # bitince
 
 `supabase start` çıktısındaki `PUBLISHABLE_KEY` ve `API_URL` değerlerini
 `.env.local` dosyasına yazarsanız uygulama yerel yığına bağlanır.
+
+Yerel veritabanı eski bir yedekten açılıp migration'larda takılırsa
+(`type "extensions.citext" does not exist` gibi) `npx supabase db reset
+--local` ile sıfırdan kurun — yalnızca yerel veriyi siler.
+
+Betiğin kapak yüklemesini yerelde denemek için anahtarı dosyaya yazmadan,
+çalışma anında verin:
+
+```bash
+SK=$(npx supabase status -o json | node -pe 'JSON.parse(require("fs").readFileSync(0)).SECRET_KEY')
+DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:54322/postgres \
+NEXT_PUBLIC_SUPABASE_URL=http://127.0.0.1:54321 SUPABASE_SECRET_KEY="$SK" \
+npx tsx scripts/book-add.ts kitaplar.json
+```
 
 Bu, birim testlerinin ve SQL şema testlerinin göremediği katmanı doğrular:
 PostgREST üzerinden RLS, gerçek JWT'li oturum, zincirleme silme.
@@ -97,15 +105,42 @@ npm run db:types     # tipleri üret (DATABASE_URL yerel Docker'ı göstermeli)
 `db:test` Docker ister. Supabase'in `auth` ve `storage` şemaları
 `scripts/supabase-stub.sql` ile taklit edilir.
 
-## 6. İçerik güncelleme
+## 6. Kitap ve içerik ekleme (ADR 0008)
+
+Kitapların, rehberlerin ve keşif modlarının doğru kaynağı **veritabanı**.
+İçerik dosyası düzenleyip senkronlamak artık gerekmiyor.
+
+**Yönetim arayüzü** (`/yonetim`): Kitaplar → “+ Yeni kitap” tüm alanları
+içerir; kitap kaydedilince kapak yüklenir. Rehberler ve Keşif modları
+sekmeleri taksonomiyi ve modları düzenler. Değişiklikler hemen görünür.
+
+**Betik** (liste ya da tek kitap, Claude'un kullandığı yol):
 
 ```bash
-npm run content:validate                     # şema + tutarlılık
-DATABASE_URL="postgresql://..." npm run db:sync
-DATABASE_URL="postgresql://..." npm run db:sync -- --prune   # silinenleri arşivle
+npm run book:add -- kitaplar.json --deneme     # önce dene: hiçbir şey yazmaz
+npm run book:add -- kitaplar.json              # yeni kitapları ekle
+npm run book:add -- kitaplar.json --guncelle   # var olanları da güncelle
+npm run book:add -- kapaklar.json --sadece-kapak
+cat kitap.json | npm run book:add -- -         # standart girdiden
+npm run book:add -- --konular                  # geçerli konu/ilgi adresleri
 ```
 
-Senkron idempotenttir; defalarca çalıştırılabilir.
+Girdi biçimi yönetim formuyla aynı şema (`src/lib/books/input.ts`); örnek:
+[`docs/examples/kitap-ekleme.json`](examples/kitap-ekleme.json). Önce
+hepsi doğrulanır (şema, konu adları, kapak görselleri), sonra kitaplar tek
+işlemde yazılır — biri düşerse hiçbiri yazılmaz. `cover` bir adres ya da
+yerel dosya olabilir; görsel o anda indirilip işlenir, adres saklanmaz.
+Kapak için `SUPABASE_SECRET_KEY` gerekir; yoksa kitaplar eklenir, kapaklar
+atlanır. Betiğin eklediği kitaplar önbellek yüzünden en geç 5 dakikada
+görünür.
+
+Çıkış kodları: `0` tamam · `1` girdi sorunu (hiçbir şey yazılmadı) · `2`
+veritabanı hatası (hiçbir şey yazılmadı) · `3` kitaplar yazıldı, kapakların
+bir kısmı eksik.
+
+**Yedek:** ara sıra `npm run db:export` çalıştırıp `content/` değişikliklerini
+commit'leyin; git geçmişi katalogun izini tutar ve yeni ortamlar bu
+dosyalardan tohumlanır.
 
 ## 7. Yayına alma (Vercel)
 
@@ -114,7 +149,7 @@ Senkron idempotenttir; defalarca çalıştırılabilir.
    Not: Vercel algılamayı **içe aktarma anında** ve o anki üretim dalına
    bakarak yapar; dal yanlışsa algılama boş kalır ve derleme çıktısını
    statik site sanır.
-2. Ortam değişkenlerini gir (`DATABASE_URL` hariç).
+2. Ortam değişkenlerini gir (`DATABASE_URL` ve `SUPABASE_SECRET_KEY` hariç).
 3. `NEXT_PUBLIC_SITE_URL` gerçek alan adı olsun.
 4. Aynı adresi Supabase Redirect URLs listesine ekle.
 
@@ -131,35 +166,41 @@ Vercel'e girilecek değişkenler: `NEXT_PUBLIC_SUPABASE_URL`,
 publishable key), `NEXT_PUBLIC_SITE_URL`, ve yapay zekâ kullanılacaksa
 `AI_BASE_URL` / `AI_API_KEY` / `AI_TEXT_MODEL` / `AI_VISION_MODEL`.
 
-`DATABASE_URL` **Vercel'e girilmez** — yalnızca yerelde içerik senkronu için.
+`DATABASE_URL` ve `SUPABASE_SECRET_KEY` **Vercel'e girilmez** — yalnızca yerel
+betikler için.
 
 ## 8. Komut özeti
 
-| Komut                      | Ne yapar                                         |
-| -------------------------- | ------------------------------------------------ |
-| `npm run dev`              | Geliştirme sunucusu                              |
-| `npm run build` / `start`  | Üretim derlemesi / çalıştırma                    |
-| `npm run check`            | Tip kontrolü + lint + testler                    |
-| `npm test`                 | Birim testleri                                   |
-| `npm run db:test`          | Şema + RLS testleri (Docker)                     |
-| `npm run db:local`         | Yerel şemayı kur ve açık bırak                   |
-| `npm run db:types`         | Veritabanı tiplerini üret                        |
-| `npm run db:sync`          | İçeriği veritabanına aktar                       |
-| `npm run content:validate` | İçerik dosyalarını doğrula                       |
-| `npm run content:sql`      | `supabase/seed/` altına SQL tohum dosyaları üret |
-| `npm run format`           | Kod biçimlendirme                                |
+| Komut                      | Ne yapar                                           |
+| -------------------------- | -------------------------------------------------- |
+| `npm run dev`              | Geliştirme sunucusu                                |
+| `npm run build` / `start`  | Üretim derlemesi / çalıştırma                      |
+| `npm run check`            | Tip kontrolü + lint + testler                      |
+| `npm test`                 | Birim testleri                                     |
+| `npm run db:test`          | Şema + RLS testleri (Docker)                       |
+| `npm run db:local`         | Yerel şemayı kur ve açık bırak                     |
+| `npm run db:types`         | Veritabanı tiplerini üret                          |
+| `npm run book:add`         | Kitap (tek ya da liste) ekle/güncelle, kapak yükle |
+| `npm run db:seed`          | Boş veritabanını `content/` ile tohumla            |
+| `npm run db:export`        | Veritabanını `content/` altına yedekle             |
+| `npm run content:validate` | İçerik dosyalarını doğrula                         |
+| `npm run format`           | Kod biçimlendirme                                  |
 
 ## 9. Sorun giderme
 
 | Belirti                                         | Olası sebep                                                                                            |
 | ----------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
 | Tüm sayfalar 500                                | `NEXT_PUBLIC_SUPABASE_*` eksik veya hatalı                                                             |
-| Katalog boş, rehber menüsü yok                  | Migration çalıştırılmamış veya `db:sync` yapılmamış                                                    |
+| Katalog boş, rehber menüsü yok                  | Migration çalıştırılmamış veya `db:seed` yapılmamış                                                    |
 | Rehber menüsü boş ama site açılıyor             | Veritabanına erişilemiyor (taksonomi hatası yutuluyor)                                                 |
 | Kapak tarama 503                                | `AI_API_KEY` tanımlı değil                                                                             |
 | Kapak tarama 429                                | Günlük kota doldu                                                                                      |
 | Yönetim sayfası ana sayfaya atıyor              | Kullanıcının `user_roles` kaydı yok                                                                    |
-| `db:sync` "relation does not exist"             | Migration'lar eksik veya sırasız çalıştırılmış                                                         |
+| `db:seed` "relation does not exist"             | Migration'lar eksik veya sırasız çalıştırılmış                                                         |
+| `book:add` kitabı ekledi ama sitede yok         | Katalog önbelleği; en geç 5 dakika. Durumu `draft` ise sitede zaten görünmez                           |
+| `book:add` "bilinmeyen gelişim konusu"          | Konu adresi yanlış yazılmış; mesajın altında geçerli adresler listelenir                               |
+| Kapak yüklemesi "Dosya çok büyük"               | 4 MB üstü dosyayı tarayıcı küçültür; tarayıcı çözemediyse (HEIC) JPEG olarak kaydedip tekrar deneyin   |
+| Anahtar kelime kaydı "okunamadı"                | Parantez, köşeli parantez, yıldız gibi düzenli ifade işaretleri; kaldırın ya da `\y` kullanın          |
 | Sayfada eski/yanlış veri, veritabanı doğru      | Next.js disk önbelleği. Veritabanı değiştirdiyseniz `rm -rf .next` ve yeniden derleyin                 |
 | Migration yerelde geçip Supabase'de patlıyor    | Uzantı nesnesi nitelenmemiş — `extensions.unaccent` gibi yazılmalı                                     |
 | `permission denied for function ...`            | Fonksiyon `0013`'te REST yüzeyinden çıkarıldı; uygulamadan çağrılıyorsa `grant execute` ekleyin        |

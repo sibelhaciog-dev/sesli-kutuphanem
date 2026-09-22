@@ -1,6 +1,6 @@
 # Sesli Kütüphanem — Ürün Gereksinimleri (PRD)
 
-**Sürüm:** 2.0 · **Durum:** geliştiriliyor · **Son güncelleme:** 2026-08-20
+**Sürüm:** 2.0 · **Durum:** geliştiriliyor · **Son güncelleme:** 2026-09-22
 
 ---
 
@@ -86,8 +86,18 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
 
 **Yönetim**
 
-- Editör arayüzü: kitap ekleme/düzenleme, yayın durumu
+- Kitap ekleme ve düzenleme: tüm alanlar (künye, kişiler, seri, konular ve
+  önemleri, ilgi alanları, Instagram), yayın durumu, taslak silme
+- Kapak yükleme: kaliteden taviz vermeden sıkıştırılıp iki boyutta saklanır
+- Rehberler (kategori) düzenleyici: rehber, alt konu, ilgi alanı; anahtar
+  kelimeler; silmeden önce kaç kitap / çocuk profili / modda kullanıldığı
+- Keşif modu düzenleyici: ad, açıklama, yapay zekâya not, konu eğilimleri
+- Toplu ekleme: Claude'a kitap listesi verilir, `npm run book:add` ile eklenir
+  (ileride Instagram gönderilerinden Chrome ile liste çıkarılarak)
 - Geri bildirim ve bağış taleplerini görme
+
+Buradaki her değişiklik doğrudan veritabanına yazılır ve hemen görünür;
+yayın gerekmez (ADR 0008).
 
 ### 4.2 Sürüm 2'de olmayanlar
 
@@ -138,7 +148,16 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
 5. Çocuk profili yoksa da çalışır; arayüz profille daha isabetli olacağını
    söyler.
 
-### 6.4 Kapak tarama
+### 6.4 Kitap ekleme (editör)
+
+1. Yönetim → Kitaplar → "+ Yeni kitap": ad, özet, yaş, künye, kişiler,
+   konular (önem 1–5), ilgi alanları, Instagram bağlantısı.
+2. "Kitabı ekle" → düzenleme sayfası açılır, kapak bölümü öne çıkar.
+3. Kapak yüklenir → sitede hemen görünür.
+4. Çok kitap için: Claude'a liste verilir ("bunları ekle"); betik önce hepsini
+   dener, sorun yoksa tek seferde ekler, eksik bilgileri raporlar.
+
+### 6.5 Kapak tarama
 
 1. Kütüphanem → "Kapak tara" → fotoğraf.
 2. Sunucu tarafında görsel modeli kitabı tanır.
@@ -157,9 +176,14 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
 
 ## 8. Kısıtlar ve bilinen gerçekler
 
-- **Kitap kapakları yok.** Instagram'ın kapak adresleri süreli imzalıydı, hepsi
-  geçersiz oldu. Kapak yerine başlıktan üretilen tipografik tasarım
-  gösteriliyor; editör ve ebeveyn kendi görselini yükleyebiliyor.
+- **Kitap kapaklarının çoğu henüz yok.** Instagram'ın kapak adresleri süreli
+  imzalıydı, hepsi geçersiz oldu. Artık görselin kendisi Supabase Storage'da
+  saklanıyor (ADR 0009); kapaklar yönetimden ya da betikle yeniden
+  ekleniyor. Kapağı olmayan kitapta başlıktan üretilen tipografik tasarım
+  gösteriliyor.
+- **Kapak alanı 1 GB** (Supabase ücretsiz plan). En ağır taramalarda kitap
+  başı ~600 KB, yani en kötü durumda ~1.700 kitap; tipik kapaklarla birkaç
+  katı.
 - **Katalog ~200 kitap.** Instagram gönderileriyle büyüyor, haftada birkaç
   kitap.
 - **Yapay zekâ maliyeti kullanıcı başına sınırlı tutulmalı.** Kapak tanıma ve
@@ -171,4 +195,5 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
 - Takas ilanlarında telefon yerine uygulama içi mesajlaşma gerekir mi?
 - Çocuk profilleri ebeveynler arasında paylaşılmalı mı (anne + baba aynı
   çocuğu görsün)?
-- Editör kitap eklerken Instagram gönderisinden otomatik içe aktarma ister mi?
+- Instagram'dan toplu çekme (Chrome ile) hangi sıklıkla yapılacak — her yeni
+  gönderide mi, haftalık toplu mu?

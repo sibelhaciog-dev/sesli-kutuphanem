@@ -61,7 +61,12 @@ const topicEntry = z.union([
   z.string().trim().min(1),
   z.object({
     slug: z.string().trim().min(1),
-    relevance: z.number().int().min(1).max(5).optional(),
+    relevance: z
+      .number({ message: 'Önem 1 ile 5 arasında olmalı.' })
+      .int('Önem 1 ile 5 arasında olmalı.')
+      .min(1, 'Önem 1 ile 5 arasında olmalı.')
+      .max(5, 'Önem 1 ile 5 arasında olmalı.')
+      .optional(),
   }),
 ])
 
@@ -80,7 +85,11 @@ const instagramSchema = z
       .regex(/^\d{4}-\d{2}-\d{2}$/, 'Paylaşım tarihi YYYY-AA-GG biçiminde olmalı.')
       .optional()
       .or(z.literal('').transform(() => undefined)),
-    likeCount: z.number().int().min(0).optional(),
+    likeCount: z
+      .number({ message: 'Beğeni sayısı bir sayı olmalı.' })
+      .int('Beğeni sayısı tam sayı olmalı.')
+      .min(0, 'Beğeni sayısı negatif olamaz.')
+      .optional(),
   })
   .transform((value) => ({
     url: value.url,
@@ -134,7 +143,12 @@ export const bookInputSchema = z
     series: z
       .object({
         title: z.string().trim().min(1, 'Seri adı boş olamaz.').max(200),
-        position: z.number().int().min(1).max(999).optional(),
+        position: z
+          .number({ message: 'Seri sırası bir sayı olmalı.' })
+          .int('Seri sırası tam sayı olmalı.')
+          .min(1, 'Seri sırası 1 ile 999 arasında olmalı.')
+          .max(999, 'Seri sırası 1 ile 999 arasında olmalı.')
+          .optional(),
       })
       .nullable()
       .optional()

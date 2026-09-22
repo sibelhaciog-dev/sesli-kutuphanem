@@ -140,7 +140,7 @@ export function LibraryView({ books }: { books: CatalogBook[] }) {
                   className="flex items-center gap-3.5 rounded-panel border border-line bg-white p-3.5"
                 >
                   <div className="h-18 w-12 shrink-0 overflow-hidden rounded-lg">
-                    <BookCover title={book.title} src={book.coverUrl} compact />
+                    <BookCover title={book.title} src={book.coverThumbUrl} compact />
                   </div>
                   <div className="min-w-0 flex-1">
                     <Link
@@ -217,7 +217,7 @@ export function LibraryView({ books }: { books: CatalogBook[] }) {
                   className="flex items-center gap-3.5 rounded-panel border border-line bg-white p-3.5"
                 >
                   <div className="h-18 w-12 shrink-0 overflow-hidden rounded-lg">
-                    <BookCover title={book.title} src={book.coverUrl} compact />
+                    <BookCover title={book.title} src={book.coverThumbUrl} compact />
                   </div>
                   <div className="min-w-0 flex-1">
                     <Link

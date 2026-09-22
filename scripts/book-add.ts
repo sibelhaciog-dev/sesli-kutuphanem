@@ -8,6 +8,7 @@
  *   npm run book:add -- kapaklar.json --sadece-kapak
  *                                                  var olan kitaplara yalnızca kapak ekle
  *   cat kitap.json | npm run book:add -- -         standart girdiden oku
+ *   npm run book:add -- --konular                  geçerli konu ve ilgi adreslerini listele
  *
  * Girdi tek bir kitap nesnesi ya da kitap listesi. Biçim:
  * `src/lib/books/input.ts` (yönetim formuyla AYNI şema) ve örnek:
@@ -25,6 +26,10 @@
  *   SUPABASE_SECRET_KEY   kapak yüklemek için (yoksa kapaklar atlanır)
  *
  * Sitede en geç 5 dakika içinde görünür (katalog önbelleği).
+ *
+ * Çıkış kodları: 0 tamam · 1 girdi sorunu, hiçbir şey yazılmadı ·
+ * 2 veritabanı hatası, hiçbir şey yazılmadı · 3 kitaplar yazıldı, kapakların
+ * bir kısmı eksik (yeniden denemek için `--sadece-kapak`).
  */
 import { readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
@@ -49,6 +54,7 @@ const OVERWRITE = flags.has('--guncelle') || flags.has('--update')
 const DRY_RUN = flags.has('--deneme') || flags.has('--dry-run')
 const COVERS_ONLY = flags.has('--sadece-kapak')
 const NO_AUTO_TAG = flags.has('--etiketleme-yok')
+const LIST_TAXONOMY = flags.has('--konular')
 
 const MAX_COVER_BYTES = 25 * 1024 * 1024
 const FETCH_TIMEOUT_MS = 20_000
@@ -103,10 +109,49 @@ const kb = (bytes: number) => `${Math.round(bytes / 1024)} KB`
 
 // ─── Ana akış ────────────────────────────────────────────────────────────────
 
+function connect(connectionString: string): Client {
+  return new Client({
+    connectionString,
+    ssl: connectionString.includes('supabase.') ? { rejectUnauthorized: false } : undefined,
+  })
+}
+
+/** Liste hazırlarken hangi adreslerin geçerli olduğunu görmek için. */
+async function printTaxonomy(connectionString: string) {
+  const client = connect(connectionString)
+  await client.connect()
+  try {
+    const { rows: topics } = await client.query<{ area: string; slug: string; name: string }>(
+      `select a.name as area, t.slug, t.name
+       from development_topics t join development_areas a on a.id = t.area_id
+       order by a.position, t.position`,
+    )
+    const { rows: interests } = await client.query<{ slug: string; name: string }>(
+      'select slug, name from interests order by position',
+    )
+    let area = ''
+    console.log('\nGelişim konuları (topics[].slug):')
+    for (const topic of topics) {
+      if (topic.area !== area) console.log(`\n  ${(area = topic.area)}`)
+      console.log(`    ${topic.slug.padEnd(26)} ${topic.name}`)
+    }
+    console.log('\nİlgi alanları (interests[]):\n')
+    for (const interest of interests)
+      console.log(`    ${interest.slug.padEnd(26)} ${interest.name}`)
+  } finally {
+    await client.end()
+  }
+}
+
 async function main() {
   const connectionString = process.env.DATABASE_URL
   if (!connectionString) {
     fail('DATABASE_URL tanımlı değil. `.env.local` dosyasına ekleyin (bkz. docs/operations.md).')
+  }
+
+  if (LIST_TAXONOMY) {
+    await printTaxonomy(connectionString)
+    return
   }
 
   // [1] Şema
@@ -124,10 +169,7 @@ async function main() {
     NO_AUTO_TAG ? { ...book, autoTag: false } : book,
   )
 
-  const client = new Client({
-    connectionString,
-    ssl: connectionString.includes('supabase.') ? { rejectUnauthorized: false } : undefined,
-  })
+  const client = connect(connectionString)
   await client.connect()
 
   try {
@@ -200,7 +242,14 @@ async function main() {
 
     const secretKey = process.env.SUPABASE_SECRET_KEY
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-    if (covers.size > 0 && (!secretKey || !supabaseUrl)) {
+    const coversSkipped = covers.size > 0 && (!secretKey || !supabaseUrl)
+    if (coversSkipped && COVERS_ONLY) {
+      fail(
+        'Kapak yüklemek için SUPABASE_SECRET_KEY gerekiyor.\n' +
+          '  Supabase → Project Settings → API Keys → Secret key değerini `.env.local`e ekleyin.',
+      )
+    }
+    if (coversSkipped) {
       console.warn(
         '\n⚠ SUPABASE_SECRET_KEY tanımlı değil: kitaplar eklenecek ama kapaklar ATLANACAK.' +
           '\n  Supabase → Project Settings → API Keys → Secret key değerini `.env.local`e ekleyin.',
@@ -295,6 +344,8 @@ async function main() {
     }
     console.log('\nSitede en geç 5 dakika içinde görünür.')
 
+    // 3 = kitaplar yazıldı ama kapakların bir kısmı eksik (yeniden: --sadece-kapak)
+    if (coversSkipped) process.exitCode = 3
     if (coverFailures > 0) {
       console.error(
         `\n⚠ ${coverFailures} kapak yüklenemedi; kitaplar eklendi. Yalnızca kapakları ` +

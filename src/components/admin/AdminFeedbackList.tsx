@@ -55,9 +55,7 @@ export function AdminFeedbackList({ items }: { items: FeedbackItem[] }) {
             <span className="text-sm font-semibold text-ink">
               {FEEDBACK_TOPIC_LABELS[item.topic] ?? item.topic}
             </span>
-            <span className="text-[11px] text-muted">
-              {formatShortDate(item.created_at)}
-            </span>
+            <span className="text-[11px] text-muted">{formatShortDate(item.created_at)}</span>
           </div>
 
           <p className="mb-3 text-sm leading-relaxed whitespace-pre-wrap text-ink-soft">

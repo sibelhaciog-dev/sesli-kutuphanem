@@ -1,6 +1,8 @@
 # ADR 0002 — Katalog: içerik depoda, çalışma zamanı veritabanında
 
-**Durum:** Kabul edildi · **Tarih:** 2026-08-20
+**Durum:** Kitaplar, taksonomi ve keşif modları için yerini aldı:
+[ADR 0008](0008-veritabani-dogru-kaynak.md) (2026-09-22). Başarımlar ve bağış
+kurumları için geçerli. · **Tarih:** 2026-08-20
 
 ## Bağlam
 

@@ -95,11 +95,12 @@ npm run check              # tip kontrolü + lint + testler — hepsi geçmeli
 
 Neye dokunduysan ek olarak:
 
-| Dokunduğun şey                | Ayrıca çalıştır                      |
-| ----------------------------- | ------------------------------------ |
-| `content/` altındaki dosyalar | `npm run content:validate`           |
-| `supabase/migrations/`        | `npm run db:test`                    |
-| Görsel/arayüz değişikliği     | `npm run dev` ile açıp gerçekten bak |
+| Dokunduğun şey                | Ayrıca çalıştır                             |
+| ----------------------------- | ------------------------------------------- |
+| `content/` altındaki dosyalar | `npm run content:validate`                  |
+| `scripts/book-add.ts` girdisi | önce `npm run book:add -- <dosya> --deneme` |
+| `supabase/migrations/`        | `npm run db:test`                           |
+| Görsel/arayüz değişikliği     | `npm run dev` ile açıp gerçekten bak        |
 
 Bir kontrol başarısız olursa önce kendin düzeltmeye çalış. Düzelttiysen kısaca
 neyi düzelttiğini söyle; ham hata çıktısını paylaşmana gerek yok.
@@ -139,11 +140,12 @@ yorumları Türkçe.
 ## 5. Dosyalar nerede
 
 ```
-content/                   KİTAP VE İÇERİK VERİSİ (yazım kaynağı)
-  books.json               196 kitap
-  taxonomy.json            gelişim rehberleri + ilgi alanları
-  achievements.json        başarımlar
-  organizations.json       bağış kurumları
+content/                   YEDEK VE TOHUM (doğru kaynak veritabanı — ADR 0008)
+  books.json               kitaplar (npm run db:export ile tazelenir)
+  taxonomy.json            gelişim rehberleri + ilgi alanları (aynı)
+  discovery-modes.json     keşif modları (aynı)
+  achievements.json        başarımlar (kaynak hâlâ bu dosya)
+  organizations.json       bağış kurumları (kaynak hâlâ bu dosya)
 
 src/
   app/                     Sayfalar (her klasör bir adres)
@@ -155,18 +157,23 @@ src/
     rapor/ takvim/         Okuma raporu ve takvim
     profil/                Çocuk profilleri ve avatar
     takas/ bagis/ gorus/   Takas, bağış, geri bildirim
-    yonetim/               Editör arayüzü (rol gerektirir)
+    yonetim/               Editör arayüzü: kitaplar, rehberler, modlar (rol gerektirir)
     api/                   Yapay zekâ uçları (sunucu tarafı)
   components/              Arayüz parçaları
   lib/
     data/                  TÜM VERİTABANI SORGULARI burada
     ai/                    Yapay zekâ istemcisi ve özellikleri
     content/               İçerik dosyalarının şemaları
+    books/input.ts         Kitap girdi şeması — yönetim formu + book:add ORTAK
+    images/cover.ts        Kapak işleme (sharp, yalnızca sunucu)
+    admin/                 Rehber ve mod girdi şemaları
     filters · stats · recommendations · age · search   (saf iş mantığı, testli)
 supabase/
-  migrations/              Veritabanı şeması (sıralı, 0001 → 0012)
+  migrations/              Veritabanı şeması (sıralı, 0001 → 0023)
   tests/schema_test.sql    Şema ve RLS testleri
+scripts/book-add.ts        Kitap ekleme betiği (tek kitap ya da liste)
 docs/                      PRD, mimari, veri modeli, kararlar, yol haritası
+  examples/kitap-ekleme.json   book:add girdi örneği
 legacy/index.html          Eski tek dosyalık sürüm — sadece referans
 ```
 
@@ -174,48 +181,67 @@ legacy/index.html          Eski tek dosyalık sürüm — sadece referans
 
 ## 6. Sık istenen işler
 
-### "Şu kitabı ekle" / "kitap listesini güncelle"
+### "Şu kitabı ekle" / "şu listeyi ekle"
 
-Kitaplar `content/books.json` içinde. Yeni kayıt şöyle:
+Kitaplar **doğrudan veritabanına** eklenir (ADR 0008); `content/books.json`
+düzenlenmez. Yol `npm run book:add`:
 
-```json
-{
-  "slug": "caya-gelen-kaplan",
-  "title": "Çaya Gelen Kaplan",
-  "summary": "Kısa tanıtım yazısı.",
-  "language": "tr",
-  "ageMin": 3,
-  "ageMax": 8,
-  "authors": ["Judith Kerr"],
-  "instagram": {
-    "url": "https://www.instagram.com/p/DWRv15ojdg-/",
-    "shortcode": "DWRv15ojdg-",
-    "postedAt": "2026-04-14",
-    "likeCount": 0
-  },
-  "status": "published",
-  "topics": [{ "slug": "sosyal-sinirlar", "relevance": 4 }]
-}
-```
+1. Kitap(lar)ı bir JSON dosyasına yaz — scratchpad'e, depoya değil. Tek nesne
+   ya da liste olabilir. Biçim `src/lib/books/input.ts`, örnek
+   `docs/examples/kitap-ekleme.json`:
 
-- `slug` Türkçe karakterler sadeleştirilmiş ve benzersiz olmalı.
-- `topics[].slug` değerleri `content/taxonomy.json` ile birebir aynı olmalı.
-- Bilinmeyen alanı yazma (varsayılanı devreye girer); `summary` ve yaş
-  aralığını doldur.
-- Sonra `npm run content:validate`, ardından `npm run db:sync` (bunun için
-  `DATABASE_URL` gerekir). Bağlantı bilgisi yoksa kitabı dosyaya ekle ve durumu
-  açıkla: "Kitabı listeye ekledim; sitede görünmesi için veritabanına aktarmam
-  gerekiyor, onun için Supabase bağlantı bilgisi lazım."
+   ```json
+   {
+     "title": "Çaya Gelen Kaplan",
+     "summary": "Kısa tanıtım yazısı.",
+     "ageMin": 3,
+     "ageMax": 8,
+     "authors": ["Judith Kerr"],
+     "topics": [{ "slug": "sosyal-sinirlar", "relevance": 4 }, "duygu-yonetimi"],
+     "interests": ["hayvanlar"],
+     "instagram": { "url": "https://www.instagram.com/p/DWRv15ojdg-/", "postedAt": "2026-04-14" },
+     "cover": "https://… ya da /yerel/dosya.jpg"
+   }
+   ```
 
-Kullanıcı yalnızca Instagram bağlantısı verdiyse eksik alanları bağlantıdan ve
-verdiği bilgiden kendin tamamla. Tahmin ettiğin alanları sonunda belirt ki
-isterse düzeltsin.
+   - `slug` verilmezse addan üretilir; sonradan **değişmez**.
+   - `topics[].slug` ve `interests[]` veritabanındaki adreslerle aynı olmalı.
+     Geçerli adresler: `npm run book:add -- --konular`. Betik yanlış adresi
+     de geçerli listeyle birlikte söyler.
+   - Yazar/çizer virgüllü metin olabilir; ISBN tireli olabilir; konu düz
+     adres olabilir (önem 3). `language` varsayılanı `tr`, `status`
+     varsayılanı `published`.
+   - `cover` adres ya da yerel dosya; görsel o anda indirilip WebP'ye
+     çevrilir, adres saklanmaz. Kapak için `.env.local`'de
+     `SUPABASE_SECRET_KEY` gerekir; yoksa kitap eklenir, kapak atlanır.
+
+2. `npm run book:add -- <dosya> --deneme` — hiçbir şey yazmadan dener.
+3. Sorun yoksa `npm run book:add -- <dosya>`. Var olanları güncellemek için
+   `--guncelle`; yalnızca kapak eklemek için `--sadece-kapak`.
+4. Sonucu anlat: kaç kitap eklendi/atlandı, kapaklar, **tahmin ettiğin
+   alanlar** (yaş aralığı, konular…) ve "sitede en geç 5 dakika içinde
+   görünür".
+
+Çıkış kodu `3`: kitaplar eklendi ama kapakların bir kısmı eksik.
+`DATABASE_URL` yoksa: "Kitabı eklemek için Supabase bağlantı bilgisi lazım"
+de; kullanıcı istersen yönetim panelinden de ekleyebilir (Yönetim → Kitaplar →
+Yeni kitap).
+
+**Instagram'dan:** Kullanıcı yalnızca bağlantı verdiyse ya da gönderilerden
+liste çıkarılacaksa (Chrome ile), her gönderiden ad, yazar, özet, yaş ve
+paylaşım tarihini çıkar; kapak için gönderinin görselini `cover` olarak ver.
+Eksik alanları kendin tamamla ve sonunda hangilerini tahmin ettiğini belirt.
+
+Eklemeden sonra ara sıra `npm run db:export` çalıştırıp `content/`
+değişikliğini commit'le (yedek).
 
 ### "Rehberlere yeni bir başlık ekle"
 
-`content/taxonomy.json` içindeki `developmentAreas` listesini düzenle. Sol menü,
-filtreler ve otomatik etiketleme aynı listeden üretilir. Yeni başlığa
-`keywords` de yaz ki etiketlenmemiş kitaplar da yakalansın. Sonra `db:sync`.
+Yönetim → Rehberler sekmesinden yapılır (kullanıcı kendisi de yapabilir).
+Yeni başlığa anahtar kelime yazılırsa etiketlenmemiş kitaplar da yakalanır:
+kelime parçası yeterli ("kıskanç"), tam kelime için `\y` ile sarılır
+(`\yay\y`). Postgres düzenli ifadesidir; `\b` kelime sınırı DEĞİL (otomatik
+`\y`'ye çevrilir). Keşif modları da Yönetim → Keşif modları'ndan.
 
 ### "Renkleri / yazı tipini değiştir"
 
@@ -284,15 +310,20 @@ dille anlat — kullanıcı genelde belirtiyi tarif eder, sebebi sen bulursun.
 - **Oturuma bağlı sayfalara `revalidate` verilmiyor.** Next.js sayfayı yerleşimle
   birlikte önbelleğe alıyor ve giriş yapmış kullanıcı anonim kabuğu görüyor.
   Önbellek veri katmanında (`unstable_cache`).
-- **Kitap kapakları çoğunlukla yok.** Instagram'ın kapak adresleri süreli
-  imzalıydı ve hepsi geçersiz oldu. Kapak yerine başlıktan üretilen tipografik
-  bir tasarım gösteriliyor. Yeniden Instagram adresi eklemeye çalışma.
+- **Kapaklar dosya olarak saklanıyor, adres olarak değil** (ADR 0009).
+  Instagram'ın görsel adresleri süreli imzalı; eskiden adres saklandığı için
+  hepsi geçersiz oldu. `cover_path`'e dış adres yazma — görseli
+  `book:add`'e ya da yönetimdeki kapak yüklemeye ver, o indirip
+  depolamaya koyar. Kapağı olmayan kitapta tipografik tasarım gösteriliyor.
 - **Türkçe aramada gövdeleme (stemming) kullanılmıyor**, önek eşleştirmesi
   var. Snowball Türkçe gövdeleyicisi aynı kökten kelimeleri farklı gövdelere
   indiriyordu. Ayrıntı: `docs/data-model.md` §3.
 - **Katalog istemciye gönderiliyor** (~60 KB). Anında filtreleme için bilinçli
   tercih. Birkaç bin kitaba çıkarsa sunucu tarafı aramaya geçilmeli.
-- **İçerik iki yerde:** depoda `content/` (yazım kaynağı), veritabanında
-  (çalışma zamanı). Yönetim arayüzünden yapılan düzenleme veritabanına yazar;
-  kalıcı olması için içerik dosyasına da işlenmeli. Gerekçe:
-  `docs/decisions/0002`.
+- **Doğru kaynak veritabanı** (kitaplar, rehberler, keşif modları — ADR
+  0008). `content/` yedek (`db:export`) ve tohum (`db:seed`, yalnızca
+  eksikleri ekler, var olana dokunmaz). Başarımlar ve bağış kurumlarının
+  kaynağı hâlâ dosya.
+- **Tek kitap yazma yolu `upsert_book()`.** Form, betik ve tohumlama onu
+  çağırıyor; kitabı başka yoldan (`insert into books`) yazma — ilişkiler ve
+  otomatik etiketleme atlanır.

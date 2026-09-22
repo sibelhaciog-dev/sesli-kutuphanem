@@ -52,20 +52,22 @@ Veritabanı kurulumu, ortam değişkenleri ve yayına alma:
 | `npm run db:test`             | Şema ve RLS testleri (Docker gerekir)     |
 | `npm run db:local`            | Yerel şemayı kur ve konteyneri açık bırak |
 | `npm run db:types`            | Veritabanı tiplerini şemadan üret         |
-| `npm run db:sync`             | `content/` dosyalarını veritabanına aktar |
+| `npm run book:add`            | Kitap ekle (tek ya da liste), kapak yükle |
+| `npm run db:seed`             | Boş veritabanını `content/` ile tohumla   |
+| `npm run db:export`           | Veritabanını `content/` altına yedekle    |
 | `npm run content:validate`    | İçerik dosyalarını doğrula                |
 | `npm run format`              | Kod biçimlendirme                         |
 
 ## Proje yapısı
 
 ```
-content/            Katalog ve taksonominin yazım kaynağı (JSON, Zod ile doğrulanır)
+content/            Katalogun yedeği ve tohumu (JSON, Zod ile doğrulanır)
 src/app/            Sayfalar ve API uçları
 src/components/     Arayüz bileşenleri
 src/lib/data/       Tüm veritabanı sorguları
 src/lib/ai/         Yapay zekâ istemcisi ve özellikleri
 src/lib/            Saf iş mantığı: filtreleme, öneri, istatistik, arama
-supabase/migrations Veritabanı şeması (0001 → 0010, sıralı)
+supabase/migrations Veritabanı şeması (0001 → 0023, sıralı)
 supabase/tests/     Şema ve RLS testleri
 docs/               PRD, mimari, veri modeli, kararlar, yol haritası
 legacy/             Yeniden yazımdan önceki tek dosyalık sürüm (referans)
@@ -73,13 +75,14 @@ legacy/             Yeniden yazımdan önceki tek dosyalık sürüm (referans)
 
 ## Katalog verisi hakkında
 
-Kitaplar depoda `content/books.json` içinde yazılır, `npm run db:sync` ile
-Supabase'e aktarılır ve uygulama daima veritabanından okur. Gerekçe:
-[ADR 0002](docs/decisions/0002-katalog-kaynagi.md).
+Kitapların, rehberlerin ve keşif modlarının doğru kaynağı **veritabanı**:
+yönetim panelinden ya da `npm run book:add` ile doğrudan oraya yazılır.
+`content/` dosyaları yedek (`db:export`) ve yeni ortamlar için tohumdur
+(`db:seed`). Gerekçe: [ADR 0008](docs/decisions/0008-veritabani-dogru-kaynak.md).
 
-`imageUrl` alanları boş: Instagram'ın kapak adresleri süreli imzalı olduğu için
-hepsi geçersiz hâle geldi. Kapak yerine başlıktan üretilen kararlı bir
-tipografik tasarım gösterilir.
+Kapaklar Supabase Storage'da iki WebP boyutunda saklanır
+([ADR 0009](docs/decisions/0009-kapak-depolama.md)). Kapağı olmayan kitaplarda
+başlıktan üretilen kararlı bir tipografik tasarım gösterilir.
 
 ## Lisans
 

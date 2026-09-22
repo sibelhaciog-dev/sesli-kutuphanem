@@ -1,8 +1,9 @@
 # Veri Modeli
 
-**Son güncelleme:** 2026-08-20 · Kaynak: `supabase/migrations/`
+**Son güncelleme:** 2026-09-22 · Kaynak: `supabase/migrations/`
 İlgili kararlar: [ADR 0004](decisions/0004-kutuphane-modeli.md),
-[ADR 0005](decisions/0005-veritabani-dili.md), [ADR 0006](decisions/0006-eski-surumden-ayrilma.md)
+[ADR 0005](decisions/0005-veritabani-dili.md), [ADR 0006](decisions/0006-eski-surumden-ayrilma.md),
+[ADR 0008](decisions/0008-veritabani-dogru-kaynak.md), [ADR 0009](decisions/0009-kapak-depolama.md)
 
 > Şemayı değiştirdikten sonra bu dosyayı ve `src/lib/supabase/database.types.ts`
 > dosyasını güncelleyin (`npm run db:types`).
@@ -68,6 +69,8 @@ erDiagram
 | `0019_ai_recommendations`   | Yapay zekâ öneri geçmişi (ADR 0007); niyet metni + sonuçlar                                                                                  |
 | `0020_discovery_modes`      | Keşif modları + konu/ilgi eğilimleri; yönetimden düzenlenebilir                                                                              |
 | `0021_recommendation_quota` | `ai_usage_events.feature` kısıtına `recommendation` eklendi                                                                                  |
+| `0022_database_as_source`   | Ortak kitap yazma yolu `upsert_book()`, `save_discovery_mode()`, `can_manage_content()`; kapak varyantı sütunları (ADR 0008, 0009)           |
+| `0023_taxonomy_editing`     | Anahtar kelime denetimi (bozuk ifade reddi, `\b` → `\y`); `taxonomy_usage()` kullanım sayıları                                               |
 
 Sıralı çalıştırılır; hiçbiri kendinden sonrakine atıfta bulunmaz.
 
@@ -92,8 +95,24 @@ Kataloğun merkezi. `slug` URL'de kullanılır ve kalıcıdır.
 | `age_min` / `age_max` | Yaş **aralık** olarak tutulur; "4+ yaş" gibi etiketler arayüzde üretilir                  |
 | `status`              | `draft` / `published` / `archived` — yalnızca `published` herkese görünür                 |
 | `search_vector`       | Tetikleyiciyle bakımı yapılır; başlık (A), yazar + alt başlık (B), özet (C), açıklama (D) |
-| `instagram_shortcode` | Benzersiz; içerik dosyasıyla eşleştirmede anahtar                                         |
-| `cover_path`          | Depolama yolu; boşsa arayüz tipografik kapak üretir                                       |
+| `instagram_shortcode` | Benzersiz; aynı gönderi iki kitaba bağlanamaz                                             |
+| `cover_path`          | Büyük kapak (≤900×1350 WebP) depolama yolu; boşsa arayüz tipografik kapak üretir          |
+| `cover_thumb_path`    | Küçük kapak (≤480×720 WebP); kartlar bunu kullanır (ADR 0009)                             |
+| `cover_width/height`  | Büyük kapağın gerçek boyutu                                                               |
+
+**Yazma yolu tek (ADR 0008):** Kitaplar yönetim formundan, `npm run book:add`
+betiğinden ve tohumlamadan hep `upsert_book(payload jsonb, overwrite boolean)`
+ile yazılır. Fonksiyon `security definer`; yetkiyi `can_manage_content()` ile
+kendisi denetler (editör/yönetici, `service_role` ya da doğrudan veritabanı
+bağlantısı). Yayınevi, seri ve kişileri adla alır, yoksa oluşturur;
+katkıda bulunanları, konuları ve ilgileri baştan yazar; bilinmeyen konu/ilgi
+adresinde Türkçe mesajla düşer ve hiçbir şey yazmaz. Kullanıcıya olduğu gibi
+gösterilecek hatalar `hint = 'kullaniciya-goster'` taşır
+(`src/lib/errors.ts` bunu tanır). Kapak sütunlarına dokunmaz; kapak ayrı
+yüklenir (`src/lib/data/covers.ts`).
+
+Adres (`slug`) oluşturulduktan sonra değişmez: fonksiyon adrese göre
+çalışıyor ve adres dış bağlantılarda kullanılıyor.
 
 ### Arama
 
@@ -113,8 +132,24 @@ gövdelere indiriyordu (`kardeşinin` → `karde`, `kardeşlik` → `kardeslik`)
 
 `book_topics.source` iki değer alır:
 
-- `editorial` — içerik dosyasında elle yazılmış, senkronda yeniden yazılır
-- `auto` — konu anahtar kelimelerinden çıkarılmış, editoryal etiketi ezmez
+- `editorial` — editörün seçtiği (form, betik); kayıtta baştan yazılır
+- `auto` — konu anahtar kelimelerinden çıkarılmış (`upsert_book`, `autoTag`
+  açıksa); editoryal etiketi ezmez, önemi 2
+
+Anahtar kelimeler `development_topics.keywords` ve `interests.keywords`
+içinde, yönetimden düzenlenir. Başlık + alt başlık + özet içinde
+büyük/küçük harf duyarsız **Postgres düzenli ifadesi** (`~*`) olarak aranır.
+Bu yüzden:
+
+- Kelime sınırı `\y`'dir (`\yay\y` "ay"ı yakalar, "ayakkabı"yı yakalamaz).
+  JavaScript'teki `\b` Postgres'te **geri silme** karakteri — 0023'teki
+  tetikleyici `\b`'yi otomatik `\y`'ye çevirir.
+- Bozuk bir ifade her kitap kaydını düşürürdü; tetikleyici onu kayıt anında
+  Türkçe mesajla reddeder. Ayrıca kırpma, boşları atma ve tekrar eleme yapar.
+
+Silmeden önce etkisini görmek için `taxonomy_usage()` her konu/ilgi için kitap,
+çocuk profili ve keşif modu sayısını verir. Yalnızca personel çağırabilir ve
+satır değil sayı döndürür (çocuk tablolarını personel RLS ile göremiyor).
 
 ## 4. Kullanıcı tarafı
 
@@ -240,12 +275,12 @@ gerçek Supabase yığınına karşı 25 iddia çalıştırır.
 
 ## 6. Görünümler
 
-| Görünüm                  | Kullanım                                                 |
-| ------------------------ | -------------------------------------------------------- |
-| `catalog_books`          | Ana sayfa; yazar, konu ve alan slug'ları dizi olarak     |
-| `book_details`           | Kitap sayfası; katkıda bulunanlar ve konular JSON olarak |
-| `child_reading_stats`    | Rapor özetleri                                           |
-| `discovery_mode_details` | Keşif modu + eğilimleri tek satırda (motor için)         |
+| Görünüm                  | Kullanım                                                                                        |
+| ------------------------ | ----------------------------------------------------------------------------------------------- |
+| `catalog_books`          | Ana sayfa; yazar, konu ve alan slug'ları dizi olarak                                            |
+| `book_details`           | Kitap sayfası ve yönetim formu; katkıda bulunanlar, konular (kaynağıyla) ve ilgiler JSON olarak |
+| `child_reading_stats`    | Rapor özetleri                                                                                  |
+| `discovery_mode_details` | Keşif modu + eğilimleri tek satırda (motor için)                                                |
 
 Hepsi `security_invoker = on` ile tanımlıdır — yani çağıran kullanıcının
 yetkisiyle çalışır ve alttaki tabloların RLS'i geçerli kalır. Bu olmadan

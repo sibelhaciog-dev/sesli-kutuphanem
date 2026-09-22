@@ -1,7 +1,8 @@
 # Mimari
 
-**Son güncelleme:** 2026-08-20 · İlgili kararlar: [ADR 0001](decisions/0001-next-supabase.md),
-[ADR 0002](decisions/0002-katalog-kaynagi.md), [ADR 0003](decisions/0003-yapay-zeka-saglayicisi.md)
+**Son güncelleme:** 2026-09-22 · İlgili kararlar: [ADR 0001](decisions/0001-next-supabase.md),
+[ADR 0003](decisions/0003-yapay-zeka-saglayicisi.md), [ADR 0008](decisions/0008-veritabani-dogru-kaynak.md),
+[ADR 0009](decisions/0009-kapak-depolama.md)
 
 ---
 
@@ -10,26 +11,33 @@
 ```mermaid
 flowchart TB
     subgraph repo["Depo (git)"]
-        content["content/*.json<br/>kitaplar · taksonomi · başarımlar"]
+        content["content/*.json<br/>yedek + tohum"]
         migrations["supabase/migrations/*.sql"]
+        bookadd["npm run book:add<br/>(Claude, yerelde)"]
     end
 
     subgraph vercel["Vercel"]
         rsc["Sunucu bileşenleri<br/>katalog · kitap sayfası · yönetim"]
         client["İstemci bileşenleri<br/>filtreler · kütüphane · formlar"]
         api["API uçları<br/>/api/kapak-tani · /api/rapor-yorumu · /api/oneri"]
+        admin["Yönetim<br/>sunucu eylemleri · /api/yonetim/kapak (sharp)"]
         mw["Middleware<br/>oturum tazeleme · rota koruması"]
     end
 
     subgraph supabase["Supabase"]
         auth["Auth"]
         db[("Postgres<br/>RLS her tabloda")]
-        storage["Storage<br/>kapak görselleri"]
+        storage["Storage<br/>kapaklar: büyük + küçük WebP"]
     end
 
     ai["OpenAI uyumlu sağlayıcı<br/>(OpenRouter)"]
 
-    content -->|npm run db:sync| db
+    content -->|db:seed (yalnızca eksikler)| db
+    db -->|db:export| content
+    bookadd -->|upsert_book, tek işlem| db
+    bookadd -->|gizli anahtar| storage
+    admin -->|upsert_book, editör oturumu| db
+    admin -->|editör oturumu| storage
     migrations -->|elle / CLI| db
     rsc -->|anon istemci, önbellekli| db
     client -->|kullanıcı oturumu, RLS| db
@@ -41,15 +49,16 @@ flowchart TB
 
 ## 2. Katmanlar
 
-| Katman       | Yer                                                      | Sorumluluk                                                |
-| ------------ | -------------------------------------------------------- | --------------------------------------------------------- |
-| Sayfalar     | `src/app`                                                | Yönlendirme, sunucuda veri çekme, metadata                |
-| Bileşenler   | `src/components`                                         | Arayüz; iş mantığı barındırmaz                            |
-| Veri erişimi | `src/lib/data`                                           | Tüm Supabase sorguları burada; satır → alan tipi dönüşümü |
-| İş mantığı   | `src/lib` (filters, stats, recommendations, age, search) | Saf fonksiyonlar, testli, React'ten bağımsız              |
-| Yapay zekâ   | `src/lib/ai`                                             | Sağlayıcıdan bağımsız istemci, şema doğrulamalı yanıt     |
-| İçerik       | `content/` + `src/lib/content`                           | Katalog yazım kaynağı ve şemaları                         |
-| Şema         | `supabase/migrations`                                    | Tablolar, RLS, tetikleyiciler, görünümler                 |
+| Katman        | Yer                                                      | Sorumluluk                                                |
+| ------------- | -------------------------------------------------------- | --------------------------------------------------------- |
+| Sayfalar      | `src/app`                                                | Yönlendirme, sunucuda veri çekme, metadata                |
+| Bileşenler    | `src/components`                                         | Arayüz; iş mantığı barındırmaz                            |
+| Veri erişimi  | `src/lib/data`                                           | Tüm Supabase sorguları burada; satır → alan tipi dönüşümü |
+| İş mantığı    | `src/lib` (filters, stats, recommendations, age, search) | Saf fonksiyonlar, testli, React'ten bağımsız              |
+| Yapay zekâ    | `src/lib/ai`                                             | Sağlayıcıdan bağımsız istemci, şema doğrulamalı yanıt     |
+| İçerik        | `content/` + `src/lib/content`                           | Katalogun yedeği ve tohumu, şemaları (ADR 0008)           |
+| Kitap girdisi | `src/lib/books`, `src/lib/images`                        | Form ile betiğin ortak doğrulaması; kapak işleme (sharp)  |
+| Şema          | `supabase/migrations`                                    | Tablolar, RLS, tetikleyiciler, görünümler                 |
 
 **Kural:** bileşenler doğrudan Supabase çağırmaz, `src/lib/data` üzerinden geçer.
 Tek istisna basit formlardır (geri bildirim, bağış); onlar tek bir `insert`
@@ -59,16 +68,17 @@ yaptıkları için ara katman gereksiz karmaşıklık olurdu.
 
 ```mermaid
 sequenceDiagram
-    participant E as Editör
-    participant G as git
-    participant S as db:sync
+    participant E as Editör / Claude
+    participant Y as Yönetim formu / book:add
     participant DB as Supabase
     participant N as Next.js
     participant K as Kullanıcı
 
-    E->>G: content/books.json düzenle
-    G->>S: npm run content:validate
-    S->>DB: slug bazlı upsert + otomatik etiketleme
+    E->>Y: kitap bilgileri (tek ya da liste)
+    Y->>Y: ortak şemayla doğrulama (src/lib/books/input.ts)
+    Y->>DB: upsert_book() — ilişkiler + otomatik etiketleme
+    Y->>DB: kapak → sharp → Storage (büyük + küçük WebP)
+    Y->>N: revalidateTag('catalog') (yalnızca form; betik 5 dk bekler)
     K->>N: ana sayfa isteği
     N->>DB: catalog_books görünümü (anon, önbellekli 5 dk)
     DB-->>N: ~200 satır kompakt izdüşüm
@@ -79,6 +89,24 @@ sequenceDiagram
 Ana sayfa kataloğun tamamını bir kez alır; filtreleme ve arama istemcide
 çalışır. Bu, v1'deki "anında tepki" hissini korur ama veri artık depoya gömülü
 değil, veritabanından gelir ve önbelleklenir.
+
+Kartlar küçük kapağı (`coverThumbUrl`, ≤480 px), kitap sayfası büyük kapağı
+(`coverUrl`, ≤1350 px) kullanır. Dosya adları içeriğin özeti olduğu için bir
+yıl önbellekte kalabilirler (ADR 0009).
+
+### Yönetim yazmaları
+
+| Ne                   | Yol                                                                       |
+| -------------------- | ------------------------------------------------------------------------- |
+| Kitap                | `BookForm` → `saveBookAction` → `saveBook` → `upsert_book()`              |
+| Kapak                | `CoverUpload` → `POST /api/yonetim/kapak` → `storeCover` + `setBookCover` |
+| Rehber / konu / ilgi | `TaxonomyEditor` → sunucu eylemi → tablo (personel RLS)                   |
+| Keşif modu           | `ModeEditor` → `saveModeAction` → `save_discovery_mode()`                 |
+
+Sunucu eylemleri `src/app/yonetim/actions.ts` içinde; sorgular
+`src/lib/data/admin.ts` ve `src/lib/data/covers.ts` içinde. Her yönetim
+sayfası `requireStaff()` ile başlar: Next.js yerleşimi ve sayfayı aynı anda
+çalıştırdığı için yerleşimdeki kontrol sayfanın sorgularını durdurmuyor.
 
 ## 4. Veri akışı: okuma kaydı
 

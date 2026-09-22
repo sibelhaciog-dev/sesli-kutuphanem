@@ -33,7 +33,7 @@ export function BookCard({
       style={{ animationDelay: `${Math.min(index, 20) * 25}ms` }}
     >
       <div className="relative aspect-2/3 overflow-hidden bg-cream">
-        <BookCover title={book.title} src={book.coverUrl} />
+        <BookCover title={book.title} src={book.coverThumbUrl} />
 
         <span
           className={cn(

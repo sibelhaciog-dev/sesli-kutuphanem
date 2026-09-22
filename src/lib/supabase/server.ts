@@ -1,4 +1,6 @@
 import { cookies } from 'next/headers'
+import { redirect } from 'next/navigation'
+import { cache } from 'react'
 import { createServerClient } from '@supabase/ssr'
 import { publicEnv } from '@/lib/env'
 import type { Database } from './database.types'
@@ -38,8 +40,13 @@ export async function getSessionUser() {
   return user
 }
 
-/** Giriş yapan kullanıcı ve editör/yönetici yetkisi. */
-export async function getViewer() {
+/**
+ * Giriş yapan kullanıcı ve editör/yönetici yetkisi.
+ *
+ * İstek başına bir kez çalışır (`cache`): yerleşim ve sayfa aynı istekte
+ * ayrı ayrı çağırınca kimlik sunucusuna iki kez gidilmesin.
+ */
+export const getViewer = cache(async () => {
   const supabase = await createClient()
   const {
     data: { user },
@@ -51,4 +58,16 @@ export async function getViewer() {
 
   const isStaff = (roles ?? []).some((row) => row.role === 'editor' || row.role === 'admin')
   return { user, isStaff }
+})
+
+/**
+ * Yönetim sayfalarının ilk satırı. Yerleşimdeki (layout) kontrol TEK BAŞINA
+ * yetmiyor: Next.js yerleşimi ve sayfayı aynı anda çalıştırıyor, yani
+ * yerleşim yönlendirirken sayfa sorgularını çoktan göndermiş oluyor.
+ * Veritabanı yine reddediyor (RLS) ama günlüğe gereksiz hata düşüyor.
+ */
+export async function requireStaff(path = '/yonetim') {
+  const { user, isStaff } = await getViewer()
+  if (!user) redirect(`/giris?devam=${encodeURIComponent(path)}`)
+  if (!isStaff) redirect('/')
 }

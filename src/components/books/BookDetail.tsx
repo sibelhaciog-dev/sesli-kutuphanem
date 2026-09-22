@@ -61,7 +61,7 @@ export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: C
         <div className="flex flex-col gap-5 p-5 sm:flex-row">
           <div className="w-28 shrink-0 overflow-hidden rounded-xl border border-line sm:w-36">
             <div className="aspect-2/3">
-              <BookCover title={book.title} src={book.coverUrl} />
+              <BookCover title={book.title} src={book.coverUrl} priority />
             </div>
           </div>
 

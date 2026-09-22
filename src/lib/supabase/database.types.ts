@@ -1452,7 +1452,7 @@ export interface Database {
       }
       apply_pending_role_grants: {
         Args: {
-          target_user_id: unknown
+          target_user_id?: string
         }
         Returns: number
       }
@@ -1534,12 +1534,12 @@ export interface Database {
       }
       taxonomy_usage: {
         Args: Record<string, never>
-        Returns: unknown
+        Returns: { kind: string; slug: string; books: number; children: number; modes: number }[]
       }
       upsert_book: {
         Args: {
           payload: Json
-          overwrite: unknown
+          overwrite?: boolean
         }
         Returns: Json
       }

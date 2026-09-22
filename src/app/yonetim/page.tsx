@@ -1,9 +1,10 @@
 import Link from 'next/link'
-import { createClient } from '@/lib/supabase/server'
+import { createClient, requireStaff } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
 
 export default async function AdminOverviewPage() {
+  await requireStaff('/yonetim')
   const supabase = await createClient()
 
   // `children` doğrudan sayılamaz: RLS sahiple sınırlı, personel istisnası
@@ -52,10 +53,13 @@ export default async function AdminOverviewPage() {
       <section className="mt-6 rounded-panel border border-line bg-white p-5">
         <h2 className="mb-2 text-sm font-bold text-ink">İçerik nasıl güncellenir?</h2>
         <p className="text-sm leading-relaxed text-ink-soft">
-          Kitaplar depodaki <code className="rounded bg-cream px-1">content/books.json</code>{' '}
-          dosyasından gelir ve <code className="rounded bg-cream px-1">npm run db:sync</code> ile
-          buraya aktarılır. Buradan yapılan düzenlemeler doğrudan veritabanına yazılır; kalıcı
-          olması için içerik dosyasına da işlenmelidir.
+          Kitaplar, rehberler ve keşif modları doğrudan veritabanında tutulur. Buradan yapılan her
+          değişiklik hemen sitede görünür; ayrıca bir dosyayı güncellemeye ya da siteyi yeniden
+          yayına almaya gerek yok.
+        </p>
+        <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+          Çok sayıda kitabı birden eklemek için Claude&apos;a kitap listesini verip “bunları ekle”
+          demeniz yeterli.
         </p>
       </section>
     </div>

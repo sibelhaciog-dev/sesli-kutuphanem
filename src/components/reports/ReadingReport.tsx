@@ -77,9 +77,7 @@ export function ReadingReport({ books }: { books: CatalogBook[] }) {
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
       <h1 className="mb-1 text-3xl">📊 {activeChild.name} okuma raporu</h1>
-      <p className="mb-7 text-sm text-muted">
-        {formatMonth(new Date())} itibarıyla
-      </p>
+      <p className="mb-7 text-sm text-muted">{formatMonth(new Date())} itibarıyla</p>
 
       {summary.booksRead === 0 ? (
         <EmptyState
@@ -180,7 +178,7 @@ export function ReadingReport({ books }: { books: CatalogBook[] }) {
                 {summary.lovedBooks.slice(0, 5).map((book) => (
                   <li key={book.id} className="flex items-center gap-3 py-2">
                     <span className="h-11 w-8 shrink-0 overflow-hidden rounded-md">
-                      <BookCover title={book.title} src={book.coverUrl} compact />
+                      <BookCover title={book.title} src={book.coverThumbUrl} compact />
                     </span>
                     <Link
                       href={`/kitap/${book.slug}`}

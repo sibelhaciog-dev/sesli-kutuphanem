@@ -5,7 +5,7 @@
 
 **Durum:** v2 — veri modeli yeniden tasarımı
 **Dal:** `feat/product-v2`
-**Son güncelleme:** 2026-08-20 (v2 tamamlandı)
+**Son güncelleme:** 2026-09-22 (içerik yönetimi: veritabanı doğru kaynak, kapaklar)
 
 ---
 
@@ -107,7 +107,25 @@ Supabase projesi: **kutuphanem** (`ygaxtmuzhnntzdcltmgn`).
 - [x] İlk yöneticiler ayarlandı — `pending_role_grants` listesinde
       `sibelhaciog@gmail.com` ve `mehmet@nekovix.com`; kayıt olur olmaz
       yönetici olacaklar
-- [ ] Depolama kovalarını ve boyut sınırlarını doğrula
+- [x] Depolama kovalarını ve boyut sınırlarını doğrula — `catalog-covers`
+      üretimde yükleme, değiştirme ve silmeyle denendi (ADR 0009)
+
+## Faz 8 — İçerik yönetimi (ADR 0008, 0009)
+
+- [x] `upsert_book()` — form, betik ve tohumlamanın ortak yazma yolu (`0022`)
+- [x] Ortak kitap girdi şeması (`src/lib/books/input.ts`) + testler
+- [x] `npm run book:add` — tek kitap ya da liste, önce doğrula sonra tek işlem
+- [x] `db:sync` → `db:seed` (yalnızca eksikler) + `db:export` (yedek)
+- [x] Kapak işleme: iki WebP varyantı, kalite ölçümle seçildi
+- [x] Yönetim: tüm alanlı kitap formu, kapak yükleme, taslak silme, sayfalı liste
+- [x] Yönetim: rehber/konu/ilgi düzenleyici, silmeden önce kullanım sayıları (`0023`)
+- [x] Yönetim: keşif modu düzenleyici
+- [x] Anahtar kelime denetimi; `\b` → `\y` düzeltmesi (`0023`)
+- [ ] `SUPABASE_SECRET_KEY`'i yerel `.env.local`'e ekle (betikle kapak yüklemek için)
+- [ ] Var olan 196 kitabın kapaklarını ekle — Instagram'dan Chrome ile liste
+      çıkarıp `book:add --sadece-kapak`
+- [ ] Instagram'dan yeni gönderileri liste hâlinde çekip `book:add` ile ekleme akışı
+- [ ] `db:export`'u düzenli çalıştırıp `content/`'i commit'leme alışkanlığı
 
 ## Sonraki sürüm için fikirler (kapsam dışı)
 

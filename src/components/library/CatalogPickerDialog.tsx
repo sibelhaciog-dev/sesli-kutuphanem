@@ -75,7 +75,7 @@ export function CatalogPickerDialog({
                 )}
               >
                 <span className="h-14 w-10 shrink-0 overflow-hidden rounded-md">
-                  <BookCover title={book.title} src={book.coverUrl} compact />
+                  <BookCover title={book.title} src={book.coverThumbUrl} compact />
                 </span>
                 <span className="min-w-0 flex-1">
                   <span className="block truncate text-[13px] font-semibold text-ink">

@@ -6,15 +6,17 @@ import type { AreaView, BookDetail, CatalogBook, InterestView } from './types'
  * Katalog ve taksonomi okumaları.
  *
  * Bu veriler herkese açık ve nadiren değişiyor; oturumsuz istemciyle okunup
- * önbelleğe alınıyorlar (ADR 0002). İçerik senkronizasyonundan sonra önbellek
- * `revalidateTag('catalog')` ile temizlenir.
+ * önbelleğe alınıyorlar. Yönetimden yapılan her kayıttan sonra önbellek
+ * `revalidateTag('catalog')` ile temizlenir (ADR 0008); `npm run book:add`
+ * betiği önbelleğe erişemediği için onun eklediği kitaplar en geç 5 dakikada
+ * görünür.
  */
 
 export const CATALOG_TAG = 'catalog'
 const CACHE_SECONDS = 300
 
 /** Depolama yolunu tam adrese çevirir. */
-function coverUrl(path: string | null): string | null {
+export function coverUrl(path: string | null): string | null {
   if (!path) return null
   if (path.startsWith('http')) return path
   const bucket = path.startsWith('user-covers/') ? 'user-covers' : 'catalog-covers'
@@ -41,6 +43,8 @@ async function fetchCatalog(): Promise<CatalogBook[]> {
     ageMin: row.age_min,
     ageMax: row.age_max,
     coverUrl: coverUrl(row.cover_path),
+    // Kartlar küçük varyantı kullanıyor (ADR 0009); eski kapaklarda yoksa büyüğe düşülür.
+    coverThumbUrl: coverUrl(row.cover_thumb_path ?? row.cover_path),
     instagramUrl: row.instagram_url,
     likeCount: row.like_count ?? 0,
     postedAt: row.posted_at,
@@ -153,6 +157,7 @@ async function fetchBookBySlug(slug: string): Promise<BookDetail | null> {
     publishedYear: data.published_year,
     isbn13: data.isbn13,
     coverUrl: coverUrl(data.cover_path),
+    coverThumbUrl: coverUrl(data.cover_thumb_path ?? data.cover_path),
     instagramUrl: data.instagram_url,
     likeCount: data.like_count ?? 0,
     postedAt: data.posted_at,

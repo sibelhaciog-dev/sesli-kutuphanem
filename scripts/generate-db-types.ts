@@ -116,10 +116,14 @@ async function main() {
     name: string
     args: string
     returns: string
+    result: string
+    returns_set: boolean
   }>(`
     select p.proname as name,
            pg_get_function_arguments(p.oid) as args,
-           t.typname as returns
+           t.typname as returns,
+           pg_get_function_result(p.oid) as result,
+           p.proretset as returns_set
     from pg_proc p
     join pg_namespace n on n.oid = p.pronamespace
     join pg_type t on t.oid = p.prorettype
@@ -263,8 +267,13 @@ async function main() {
       .map((arg) => arg.trim())
       .filter(Boolean)
       .map((arg) => {
-        const [name, ...typeParts] = arg.split(/\s+/)
-        return { name, type: mapType(normalizeArgType(typeParts.join(' ')), enums) }
+        // "overwrite boolean DEFAULT false" → isteğe bağlı boolean
+        const [declaration = '', defaultValue] = arg.split(/\s+DEFAULT\s+/i)
+        const [name, ...typeParts] = declaration.split(/\s+/)
+        return {
+          name: `${name}${defaultValue === undefined ? '' : '?'}`,
+          type: mapType(normalizeArgType(typeParts.join(' ')), enums),
+        }
       })
     lines.push(`      ${fn.name}: {`)
     if (args.length === 0) {
@@ -274,7 +283,7 @@ async function main() {
       for (const arg of args) lines.push(`          ${arg.name}: ${arg.type}`)
       lines.push('        }')
     }
-    lines.push(`        Returns: ${mapType(fn.returns, enums)}`)
+    lines.push(`        Returns: ${renderReturns(fn, enums)}`)
     lines.push('      }')
   }
   lines.push('    }')
@@ -322,6 +331,26 @@ function renderRelationships(keys: ForeignKey[]): string {
 }
 
 /** `character varying`, `integer` gibi SQL tip adlarını udt adına çevirir. */
+/**
+ * `returns table (kind text, ...)` → `{ kind: string; ... }[]`.
+ * Diğerleri tek tip; `setof x` dizi olur.
+ */
+function renderReturns(
+  fn: { returns: string; result: string; returns_set: boolean },
+  enums: Map<string, string[]>,
+): string {
+  const table = fn.result.match(/^TABLE\((.*)\)$/s)
+  if (table) {
+    const fields = table[1]!.split(',').map((part) => {
+      const [name, ...typeParts] = part.trim().split(/\s+/)
+      return `${name}: ${mapType(normalizeArgType(typeParts.join(' ')), enums)}`
+    })
+    return `{ ${fields.join('; ')} }[]`
+  }
+  const single = mapType(fn.returns, enums)
+  return fn.returns_set ? `${single}[]` : single
+}
+
 function normalizeArgType(sqlType: string): string {
   const map: Record<string, string> = {
     integer: 'int4',

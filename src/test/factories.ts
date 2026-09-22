@@ -12,6 +12,7 @@ export function makeBook(overrides: Partial<CatalogBook> & { id: string }): Cata
     ageMin: 3,
     ageMax: 8,
     coverUrl: null,
+    coverThumbUrl: null,
     instagramUrl: null,
     likeCount: 0,
     postedAt: '2025-01-01',

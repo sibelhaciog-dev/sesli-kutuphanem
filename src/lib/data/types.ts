@@ -17,6 +17,8 @@ export interface CatalogBook {
   ageMin: number | null
   ageMax: number | null
   coverUrl: string | null
+  /** Kartlar için küçük kapak (ADR 0009). */
+  coverThumbUrl: string | null
   instagramUrl: string | null
   likeCount: number
   postedAt: string | null

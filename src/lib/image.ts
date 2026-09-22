@@ -45,3 +45,22 @@ export function validateImageFile(file: File): string | null {
   if (!file.type.startsWith('image/')) return 'Lütfen bir fotoğraf seçin.'
   return null
 }
+
+// ─── Yönetim: kitap kapağı ──────────────────────────────────────────────────
+
+/** Sunucunun kabul ettiği en büyük kapak dosyası (Vercel istek sınırının altı). */
+export const COVER_UPLOAD_LIMIT = 4 * 1024 * 1024
+export const COVER_UPLOAD_TYPES = ['image/jpeg', 'image/png', 'image/webp']
+
+/**
+ * Yönetimden yüklenecek kapağı hazırlar. KALİTE ÖNCE: sınırın altındaki
+ * dosya OLDUĞU GİBİ gönderiliyor — asıl sıkıştırmayı sunucu bir kez yapıyor
+ * (ADR 0009). Yalnızca sınırı aşan dosya (telefon fotoğrafı, büyük tarama)
+ * uzun kenarı 2400 piksele indirilip yüksek kaliteli JPEG'e çevriliyor;
+ * sunucunun ürettiği büyük kapak zaten en fazla 1350 piksel.
+ */
+export async function prepareCoverUpload(file: File): Promise<Blob> {
+  if (file.size <= COVER_UPLOAD_LIMIT && COVER_UPLOAD_TYPES.includes(file.type)) return file
+  const { blob } = await resizeImage(file, 2400, 2400, 0.92)
+  return blob
+}

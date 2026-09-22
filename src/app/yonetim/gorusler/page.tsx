@@ -1,9 +1,10 @@
 import { AdminFeedbackList } from '@/components/admin/AdminFeedbackList'
-import { createClient } from '@/lib/supabase/server'
+import { createClient, requireStaff } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
 
 export default async function AdminFeedbackPage() {
+  await requireStaff('/yonetim/gorusler')
   const supabase = await createClient()
   const { data } = await supabase
     .from('feedback')

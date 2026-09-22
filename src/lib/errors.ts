@@ -127,8 +127,36 @@ const CONSTRAINT_MESSAGES: Record<string, FriendlyError> = {
   books_slug_key: { field: 'slug', message: 'Bu adres başka bir kitapta kullanılıyor.' },
   books_isbn13_key: { field: 'isbn13', message: 'Bu ISBN başka bir kitapta kayıtlı.' },
   books_instagram_shortcode_key: {
-    field: 'instagramUrl',
+    field: 'instagram.url',
     message: 'Bu Instagram gönderisi başka bir kitaba bağlı.',
+  },
+
+  // ─── Taksonomi ve keşif modları (yönetim arayüzü) ────────────────────────
+  // Adres addan üretildiği için adres çakışması = aynı ad.
+  development_areas_slug_key: { field: 'name', message: 'Bu adda bir rehber zaten var.' },
+  development_areas_color_check: {
+    field: 'color',
+    message: 'Renk #RRGGBB biçiminde olmalı (ör. #E8602C).',
+  },
+  development_topics_slug_key: {
+    field: 'name',
+    message: 'Bu adda bir konu zaten var (başka bir rehberde olabilir).',
+  },
+  development_topics_area_id_name_key: {
+    field: 'name',
+    message: 'Bu rehberde aynı adda bir konu zaten var.',
+  },
+  interests_slug_key: { field: 'name', message: 'Bu adda bir ilgi alanı zaten var.' },
+  interests_name_key: { field: 'name', message: 'Bu adda bir ilgi alanı zaten var.' },
+  discovery_modes_slug_key: { field: 'name', message: 'Bu adda bir keşif modu zaten var.' },
+  discovery_modes_name_check: { field: 'name', message: 'Mod adı en fazla 60 karakter olabilir.' },
+  discovery_modes_description_check: {
+    field: 'description',
+    message: 'Kısa açıklama en fazla 200 karakter olabilir.',
+  },
+  discovery_modes_prompt_hint_check: {
+    field: 'promptHint',
+    message: 'Yapay zekâya not en fazla 400 karakter olabilir.',
   },
 }
 

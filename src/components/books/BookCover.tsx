@@ -19,13 +19,21 @@ interface BookCoverProps {
   src?: string | null
   className?: string
   compact?: boolean
+  /** Sayfanın ana görseli (kitap sayfası): tembel yükleme yerine hemen çekilir. */
+  priority?: boolean
 }
 
 /**
  * Kapak yoksa (ki çoğu kitapta yok — bkz. docs/prd.md §8) başlıktan üretilen
  * tipografik bir kapak gösterilir. Boş gri kutu yerine kasıtlı bir tasarım.
  */
-export function BookCover({ title, src, className, compact = false }: BookCoverProps) {
+export function BookCover({
+  title,
+  src,
+  className,
+  compact = false,
+  priority = false,
+}: BookCoverProps) {
   const [failed, setFailed] = useState(false)
 
   if (src && !failed) {
@@ -36,7 +44,9 @@ export function BookCover({ title, src, className, compact = false }: BookCoverP
       <img
         src={src}
         alt={`${title} kapağı`}
-        loading="lazy"
+        loading={priority ? 'eager' : 'lazy'}
+        fetchPriority={priority ? 'high' : undefined}
+        decoding="async"
         onError={() => setFailed(true)}
         className={cn('size-full object-cover', className)}
       />
