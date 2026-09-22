@@ -126,6 +126,10 @@ Supabase projesi: **kutuphanem** (`ygaxtmuzhnntzdcltmgn`).
       çıkarıp `book:add --sadece-kapak`
 - [ ] Instagram'dan yeni gönderileri liste hâlinde çekip `book:add` ile ekleme akışı
 - [ ] `db:export`'u düzenli çalıştırıp `content/`'i commit'leme alışkanlığı
+- [x] Supabase projesini Frankfurt'a taşı (`xhjgyxlerccxopbjtbzl`): şema,
+      veri, kullanıcılar, kapaklar; birebir doğrulandı (operations §10)
+- [ ] Yeni projede Auth ayarları: Site URL, Redirect URLs, SMTP, şablonlar
+- [ ] Geçiş: veriyi tazele, Vercel ortam değişkenleri, `fra1`, yayına al
 
 ## Sonraki sürüm için fikirler (kapsam dışı)
 

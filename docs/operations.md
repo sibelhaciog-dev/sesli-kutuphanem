@@ -155,11 +155,19 @@ dosyalardan tohumlanır.
 
 ### Üretim projesi
 
-| Alan          | Değer                                      |
-| ------------- | ------------------------------------------ |
-| Supabase adı  | `kutuphanem`                               |
-| Proje kimliği | `ygaxtmuzhnntzdcltmgn`                     |
-| API adresi    | `https://ygaxtmuzhnntzdcltmgn.supabase.co` |
+| Alan              | Değer                                               |
+| ----------------- | --------------------------------------------------- |
+| Supabase adı      | `sesli-kutuphane`                                   |
+| Proje kimliği     | `xhjgyxlerccxopbjtbzl`                              |
+| Bölge             | `eu-central-1` (Frankfurt)                          |
+| API adresi        | `https://xhjgyxlerccxopbjtbzl.supabase.co`          |
+| Vercel fonksiyonu | `fra1` (Frankfurt) — `vercel.json` içinde `regions` |
+
+Fonksiyon bölgesi veritabanıyla **aynı şehirde** olmalı: bir sayfa sırayla
+3–8 sorgu atıyor, her biri bölgeler arası gidiş-dönüş kadar gecikiyor. İlk
+proje Singapur'daydı (`ygaxtmuzhnntzdcltmgn`, `ap-southeast-1`), fonksiyonlar
+ABD'de (`iad1`); kitap kaydetmek ~8 saniye sürüyordu. 2026-09-22'de §10'daki
+yolla taşındı; eski proje yedek olarak duruyor (silinmedi).
 
 Vercel'e girilecek değişkenler: `NEXT_PUBLIC_SUPABASE_URL`,
 `NEXT_PUBLIC_SUPABASE_ANON_KEY` (panelde Project Settings → API →
@@ -207,3 +215,46 @@ betikler için.
 | Yönetim sayfası açılmıyor, kullanıcı yeni       | `pending_role_grants` listesinde adres yok; ekleyip `apply_pending_role_grants()` çalıştırın           |
 | Vercel derlemesi "Invalid URL" ile düşüyor      | `NEXT_PUBLIC_SITE_URL` şemasız yazılmış. Kod artık `https://` ekliyor ama değeri tam yazmak daha doğru |
 | Vercel "No Output Directory named public" diyor | Framework algılaması boş kalmış. `vercel.json` içindeki `"framework": "nextjs"` bunu çözer             |
+
+## 10. Projeyi başka bir Supabase projesine taşıma
+
+Bölge değişikliği gibi durumlarda (bkz. §7). Eski projeye yalnızca **okuma**
+yapılır; hiçbir şey silinmez.
+
+1. **Şema:** yeni projeye `supabase/migrations/` dosyalarını sırayla uygula.
+   Şemayı `pg_dump` ile taşıma — Supabase'in şema dökümü `auth.users`
+   üzerindeki kayıt tetikleyicisini ve `storage.objects` politikalarını
+   almıyor, migration'lar alıyor.
+2. **Veri:** eski projeden yalnızca veri dökümü (Postgres 17 istemcisi; Supabase
+   imajı `public.ecr.aws/supabase/postgres:17.x` içinde var):
+
+   ```bash
+   pg_dump "$ESKI" --data-only --no-owner --no-privileges \
+     -t 'public.*' -t auth.users -t auth.identities \
+     -t supabase_migrations.schema_migrations -f data.sql
+   ```
+
+   Yeniye TEK İŞLEMDE yükle: `set session_replication_role = replica`
+   (tetikleyici ve yabancı anahtar denetimi kapalı — kayıt tetikleyicisi ikinci
+   profil üretmesin), migration'ların eklediği tohum satırları için public
+   tablolarını `truncate … cascade`, `supabase_migrations.schema_migrations`
+   tablosunu eskisiyle aynı sütunlarla oluştur, `\i data.sql`, `commit`.
+   Oturumlar (`auth.sessions`, `refresh_tokens`) taşınmaz — yeni projenin
+   imza anahtarları farklı; kullanıcılar bir kez yeniden giriş yapar, şifreleri
+   aynı kalır.
+
+3. **Dosyalar:** `storage.objects` satırlarını döküme katma; dosyaları
+   Storage API ile kopyala (eski herkese açık adresten indir, yeniye gizli
+   anahtarla aynı yola yükle — satırı yükleme oluşturur).
+4. **Doğrula:** iki veritabanında tablo tablo satır sayısı ve içerik özeti
+   (`md5(string_agg(satır::text order by satır::text))`), fonksiyon /
+   politika / tetikleyici / yetki imzaları, yeni projede şifreyle giriş ve RLS
+   denemesi.
+5. **Panelden elle:** Auth ayarları veriyle gelmez — Authentication → URL
+   Configuration (Site URL, Redirect URLs), SMTP, e-posta şablonları.
+   Supabase'in hazır e-posta servisi yalnızca ekip üyelerine gönderiyor;
+   özel SMTP yoksa yeni kayıtlar doğrulama e-postası alamaz.
+6. **Geçiş:** 2. ve 3. adımı geçişten hemen önce tekrarla (arada yazılan veri
+   kaybolmasın), Vercel'deki `NEXT_PUBLIC_SUPABASE_URL` ve
+   `NEXT_PUBLIC_SUPABASE_ANON_KEY` değerlerini değiştir, `vercel.json`
+   bölgesini güncelle, yayına al. Yerel `.env.local`'i de yeni projeye çevir.

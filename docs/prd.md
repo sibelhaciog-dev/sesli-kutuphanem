@@ -188,7 +188,8 @@ yayın gerekmez (ADR 0008).
   kitap.
 - **Yapay zekâ maliyeti kullanıcı başına sınırlı tutulmalı.** Kapak tanıma ve
   rapor yorumu hız sınırına tabidir.
-- **Tek bölge.** Supabase ve Vercel Avrupa bölgesinde; kullanıcılar Türkiye'de.
+- **Tek bölge.** Supabase (`eu-central-1`) ve Vercel fonksiyonları (`fra1`)
+  Frankfurt'ta; kullanıcılar Türkiye'de.
 
 ## 9. Açık sorular
 
