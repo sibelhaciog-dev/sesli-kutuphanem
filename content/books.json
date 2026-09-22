@@ -1,5 +1,37 @@
 [
   {
+    "slug": "gulumse",
+    "title": "Gülümse",
+    "subtitle": null,
+    "originalTitle": "A Smile",
+    "summary": "İki çocuğun gülümsemeleriyle çevrelerindeki dünyayı nasıl değiştirdiğini anlatan bu resimli kitap, küçük bir gülümsemenin aslında ne kadar büyük bir değer taşıdığını çocuklara sıcacık bir dille hatırlatıyor.",
+    "description": null,
+    "language": "tr",
+    "ageMin": 3,
+    "ageMax": 8,
+    "pageCount": 32,
+    "isbn13": "9786057099815",
+    "publishedYear": 2022,
+    "publisher": "Meraklı Tilki Kitaplığı",
+    "series": null,
+    "authors": ["Raoul Follereau"],
+    "illustrators": ["Hoda Hadadi"],
+    "translators": ["Sima Özkan"],
+    "instagram": {
+      "url": "https://www.instagram.com/p/DdjhW1RNfcL/",
+      "shortcode": "DdjhW1RNfcL",
+      "postedAt": "2026-09-21",
+      "likeCount": 0
+    },
+    "coverPath": null,
+    "status": "published",
+    "topics": [
+      { "slug": "duygu-yonetimi", "relevance": 4 },
+      { "slug": "arkadaslik-becerileri", "relevance": 3 }
+    ],
+    "interests": []
+  },
+  {
     "slug": "a-friend-like-you",
     "title": "A Friend Like You",
     "subtitle": null,
@@ -52,13 +84,13 @@
       "postedAt": "2026-04-14",
       "likeCount": 0
     },
-    "coverPath": null,
+    "coverPath": "books/aslan-ve-kus/2b025cb6e717.webp",
     "status": "published",
     "topics": [
       { "slug": "duygu-yonetimi", "relevance": 4 },
       { "slug": "korku-ve-kaygi", "relevance": 4 }
     ],
-    "interests": []
+    "interests": ["hayvanlar"]
   },
   {
     "slug": "bicirik-billie-b-futbol-yildizi",
