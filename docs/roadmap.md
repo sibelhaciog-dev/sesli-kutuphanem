@@ -128,8 +128,13 @@ Supabase projesi: **kutuphanem** (`ygaxtmuzhnntzdcltmgn`).
 - [ ] `db:export`'u düzenli çalıştırıp `content/`'i commit'leme alışkanlığı
 - [x] Supabase projesini Frankfurt'a taşı (`xhjgyxlerccxopbjtbzl`): şema,
       veri, kullanıcılar, kapaklar; birebir doğrulandı (operations §10)
-- [ ] Yeni projede Auth ayarları: Site URL, Redirect URLs, SMTP, şablonlar
-- [ ] Geçiş: veriyi tazele, Vercel ortam değişkenleri, `fra1`, yayına al
+- [x] Yeni projede Auth URL ayarları (Site URL, Redirect URLs)
+- [ ] Yeni projede SMTP ve e-posta şablonları (eski projede özel ayar varsa)
+- [x] Geçiş (2026-09-22): veri tazelendi, Vercel ortam değişkenleri yeni
+      projeye, fonksiyonlar `fra1`
+- [ ] Supabase MCP bağlantısını yeni projeye (`xhjgyxlerccxopbjtbzl`) çevir
+- [ ] Duraklatılmış Londra projesini (`ramasnuqdfpgxldifepy`) sil — tam veri
+      kopyası taşıyor
 
 ## Sonraki sürüm için fikirler (kapsam dışı)
 
