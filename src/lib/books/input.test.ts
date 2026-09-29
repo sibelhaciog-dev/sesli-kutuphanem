@@ -127,7 +127,7 @@ describe('canonicalInstagramUrl', () => {
       'https://instagram.com/sesli.kutuphanem/p/XYZ-9/?img_index=2',
       'https://www.instagram.com/p/XYZ-9/',
     ],
-    ['https://www.instagram.com/reel/DVs9zmkE_wJ', 'https://www.instagram.com/reel/DVs9zmkE_wJ/'],
+    ['https://www.instagram.com/reel/DVs9zmkE_wJ', 'https://www.instagram.com/p/DVs9zmkE_wJ/'],
     ['https://www.instagram.com/sesli.kutuphanem/', 'https://www.instagram.com/sesli.kutuphanem/'],
   ])('%s → %s', (url, expected) => {
     expect(canonicalInstagramUrl(url)).toBe(expected)
