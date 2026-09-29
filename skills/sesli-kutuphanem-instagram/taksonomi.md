@@ -19,7 +19,6 @@ konuyu tanımana yardım eder; kitabın açıklamasında geçmeleri şart değil
 - `cinsel-gelisim` — Cinsel Gelişim. anahtar: cinsel, vücut, doğum, mahremiyet
 - `olum-ve-yas` — Ölüm ve Yas. anahtar: ölüm, öldü, kaybett, vefat, yas (tam kelime), cenaze
 - `farkliliklar` — Farklılıklar. anahtar: farklı, engel, özel, renk, kültür, çeşitlilik
-- `para-kavrami` — Para Kavramı. anahtar: para, alışveriş, market, harçlık, birikim
 - `afetler` — Afetler. anahtar: afet, deprem, sel (tam kelime), yangın, felaket, tsunami
 
 ### ❤️ Duygu ve Davranış Rehberi
