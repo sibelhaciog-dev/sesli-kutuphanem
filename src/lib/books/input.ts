@@ -83,7 +83,7 @@ export function instagramShortcode(url: string): string | null {
  */
 export function canonicalInstagramUrl(url: string): string {
   const match = url.match(/instagram\.com\/(?:[^/]+\/)?(p|reel|tv)\/([A-Za-z0-9_-]+)/)
-  return match ? `https://www.instagram.com/${match[1]}/${match[2]}/` : url
+  return match ? `https://www.instagram.com/p/${match[2]}/` : url
 }
 
 const instagramSchema = z
