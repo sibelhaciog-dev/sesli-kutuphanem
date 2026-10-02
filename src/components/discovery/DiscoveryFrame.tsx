@@ -58,7 +58,7 @@ export function DiscoveryFrame({
       </button>
       <h2 className="hidden text-sm font-bold text-ink lg:block">✨ Bugün ne okusak?</h2>
 
-      <div id="kesif-govde" className={open || result ? 'mt-3 lg:mt-0' : 'hidden lg:block'}>
+      <div id="kesif-govde" className={open ? 'mt-3 lg:mt-0' : 'hidden lg:block'}>
         <p className="mt-1 mb-3 text-xs leading-relaxed text-muted">
           {activeChild
             ? `${activeChild.name} için, şu anki ihtiyacınıza göre öneri alın.`
