@@ -31,7 +31,7 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
 | Rol                    | Kim                            | Ne yapar                                                                              |
 | ---------------------- | ------------------------------ | ------------------------------------------------------------------------------------- |
 | **Ebeveyn** (birincil) | 2–12 yaş çocuğu olan anne/baba | Kitap keşfeder, çocuk profili açar, okunanları işaretler ve puanlar, rapor görür      |
-| **Çocuk** (dolaylı)    | 3–12 yaş                       | Kendi avatarını seçer, okudukça aksesuar açar; uygulamayı ebeveynle birlikte kullanır |
+| **Çocuk** (dolaylı)    | 3–12 yaş                       | Kendi hayvan dostunu seçer, okudukça eşya açar; uygulamayı ebeveynle birlikte kullanır |
 | **Editör**             | İçerik sahibi (öğretmen)       | Kitap ekler/günceller, rehber başlıklarını yönetir, geri bildirimleri okur            |
 | **Yönetici**           | Teknik danışman                | Rolleri yönetir, içeriği ve sistemi denetler                                          |
 
@@ -69,7 +69,7 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
 **Oyunlaştırma**
 
 - Yıldız puanı biriktirme
-- Avatar karakteri + okudukça açılan aksesuarlar
+- Avatar: 12 suluboya hayvan dostu; rehberden 3 kitap okununca o rehberin eşyası, mevsim ve özel gün eşyaları, 50. ve 100. kitapta seçilen nesli tükenmekte olan gizli hayvanlar (`src/lib/avatar.ts`)
 - Başarımlar (ilk kitap, 10 kitap, 7 günlük seri, 3 farklı gelişim alanı…)
 
 **Kendi kitapların**
@@ -136,7 +136,7 @@ yayın gerekmez (ADR 0008).
 ### 6.2 Kitap takibi
 
 1. Kitap sayfası → "Okudum" veya "Okuma listeme ekle".
-2. Yıldız puanı → çocuğun puanı artar, aksesuar açılabilir.
+2. Yıldız puanı → çocuğun puanı artar (avatar eşyaları artık puanla değil okunan kitaplarla açılır).
 3. Aynı kitap tekrar okunursa "Tekrar okuduk" → yeni oturum kaydı.
 4. Not eklenir (varsayılan: özel).
 
