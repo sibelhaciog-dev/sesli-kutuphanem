@@ -13,7 +13,7 @@ export default async function NewBookPage() {
   return (
     <div>
       <p className="mb-1 text-xs text-muted">
-        <Link href="/yonetim/kitaplar" className="hover:text-accent">
+        <Link href="/yonetim/kitaplar" className="hover:text-accent-ink">
           Kitaplar
         </Link>{' '}
         › Yeni kitap
