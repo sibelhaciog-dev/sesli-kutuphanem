@@ -75,7 +75,7 @@ export function WeightPicker({
                     aria-pressed={selected}
                     className={cn(
                       'rounded-full px-3 py-1 font-medium',
-                      selected ? 'text-accent-dark' : 'text-ink-soft hover:text-accent',
+                      selected ? 'text-accent-ink' : 'text-ink-soft hover:text-accent-ink',
                     )}
                   >
                     {selected ? '✓ ' : ''}

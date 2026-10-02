@@ -27,8 +27,8 @@ export function AdminTabs() {
             className={cn(
               'shrink-0 border-b-2 px-3 py-2.5 text-sm font-semibold whitespace-nowrap transition-colors',
               active
-                ? 'border-accent text-accent'
-                : 'border-transparent text-ink-soft hover:border-accent hover:text-accent',
+                ? 'border-accent text-accent-ink'
+                : 'border-transparent text-ink-soft hover:border-accent hover:text-accent-ink',
             )}
           >
             {tab.label}

@@ -395,7 +395,7 @@ export function BookForm({ book, areas, interests, justCreated = false }: BookFo
           <Button type="submit" disabled={busy}>
             {busy ? 'Kaydediliyor…' : book ? 'Kaydet' : 'Kitabı ekle'}
           </Button>
-          <Link href="/yonetim/kitaplar" className="px-3 text-sm text-muted hover:text-accent">
+          <Link href="/yonetim/kitaplar" className="px-3 text-sm text-muted hover:text-accent-ink">
             Listeye dön
           </Link>
           {book?.status === 'published' && (
@@ -403,7 +403,7 @@ export function BookForm({ book, areas, interests, justCreated = false }: BookFo
               href={`/kitap/${book.slug}`}
               target="_blank"
               rel="noreferrer"
-              className="px-3 text-sm text-muted hover:text-accent"
+              className="px-3 text-sm text-muted hover:text-accent-ink"
             >
               Sitede gör ↗
             </a>

@@ -73,8 +73,8 @@ export function AdminFeedbackList({ items }: { items: FeedbackItem[] }) {
                 className={cn(
                   'rounded-full border-[1.5px] px-3 py-1 text-[11px] font-semibold transition-colors',
                   item.status === status
-                    ? 'border-accent bg-accent text-white'
-                    : 'border-line text-muted hover:border-accent hover:text-accent',
+                    ? 'border-accent bg-accent text-ink'
+                    : 'border-line text-muted hover:border-accent hover:text-accent-ink',
                 )}
               >
                 {STATUS_LABELS[status]}

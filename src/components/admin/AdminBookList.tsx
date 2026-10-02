@@ -152,7 +152,7 @@ export function AdminBookList({
       {pageCount > 1 && (
         <nav aria-label="Sayfalar" className="mt-4 flex items-center justify-center gap-3 text-sm">
           {page > 1 ? (
-            <Link href={href({ sayfa: page - 1 })} className="text-accent hover:underline">
+            <Link href={href({ sayfa: page - 1 })} className="text-accent-ink hover:underline">
               ‹ Önceki
             </Link>
           ) : (
@@ -162,7 +162,7 @@ export function AdminBookList({
             {page} / {pageCount}
           </span>
           {page < pageCount ? (
-            <Link href={href({ sayfa: page + 1 })} className="text-accent hover:underline">
+            <Link href={href({ sayfa: page + 1 })} className="text-accent-ink hover:underline">
               Sonraki ›
             </Link>
           ) : (
