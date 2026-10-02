@@ -70,7 +70,7 @@ export function SiteHeader() {
             href={INSTAGRAM_URL}
             target="_blank"
             rel="noreferrer noopener"
-            className="hidden items-center gap-1.5 rounded-full border-[1.5px] border-line px-3.5 py-2 text-[13px] font-medium text-ink-soft transition-colors hover:border-accent hover:text-accent md:inline-flex"
+            className="hidden items-center gap-1.5 rounded-full border-[1.5px] border-line px-3.5 py-2 text-[13px] font-medium text-ink-soft transition-colors hover:border-accent hover:text-accent-ink md:inline-flex"
           >
             <InstagramIcon className="size-3.5" />
             Instagram
@@ -89,7 +89,7 @@ export function SiteHeader() {
               onClick={() => setMenuOpen((open) => !open)}
               aria-expanded={menuOpen}
               aria-haspopup="menu"
-              className="w-full rounded-full border-[1.5px] border-line px-3 py-2 text-[13px] font-medium text-ink-soft transition-colors hover:border-accent hover:text-accent"
+              className="w-full rounded-full border-[1.5px] border-line px-3 py-2 text-[13px] font-medium text-ink-soft transition-colors hover:border-accent hover:text-accent-ink"
             >
               ☰ Menü
             </button>
@@ -167,8 +167,8 @@ export function SiteHeader() {
                   className={cn(
                     'flex shrink-0 items-center gap-2 rounded-full px-4 py-1.5 text-sm font-medium whitespace-nowrap transition-colors',
                     active
-                      ? 'bg-accent text-white'
-                      : 'text-muted hover:bg-accent-soft hover:text-accent',
+                      ? 'bg-accent text-ink'
+                      : 'text-muted hover:bg-accent-soft hover:text-accent-ink',
                   )}
                 >
                   <AvatarFigure
@@ -197,8 +197,8 @@ function HeaderLink({ href, children }: { href: string; children: React.ReactNod
       className={cn(
         'rounded-full border-[1.5px] px-3 py-2 text-center text-[13px] font-medium transition-colors',
         active
-          ? 'border-accent bg-accent-soft text-accent'
-          : 'border-line text-ink-soft hover:border-accent hover:text-accent',
+          ? 'border-accent bg-accent-soft text-accent-ink'
+          : 'border-line text-ink-soft hover:border-accent hover:text-accent-ink',
       )}
     >
       {children}
