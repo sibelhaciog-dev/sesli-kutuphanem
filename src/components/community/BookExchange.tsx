@@ -101,7 +101,7 @@ export function BookExchange() {
             className={cn(
               'flex-1 border-b-2 py-3 text-[13px] font-semibold transition-colors',
               tab === value
-                ? 'border-accent text-accent'
+                ? 'border-accent text-accent-ink'
                 : 'border-transparent text-muted hover:text-ink',
             )}
           >

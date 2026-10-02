@@ -119,7 +119,7 @@ export function DonationForm({ organizations }: { organizations: Organization[] 
                 className={cn(
                   'flex cursor-pointer items-start gap-2.5 rounded-xl border-[1.5px] px-3.5 py-3 text-sm transition-colors',
                   values.organizationId === organization.id
-                    ? 'border-accent bg-accent-soft text-accent'
+                    ? 'border-accent bg-accent-soft text-accent-ink'
                     : 'border-line hover:border-accent',
                 )}
               >
