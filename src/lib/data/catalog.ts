@@ -49,6 +49,7 @@ async function fetchCatalog(): Promise<CatalogBook[]> {
     likeCount: row.like_count ?? 0,
     postedAt: row.posted_at,
     authors: row.author_names ?? [],
+    publisherName: (row as { publisher_name?: string | null }).publisher_name ?? null,
     topicSlugs: row.topic_slugs ?? [],
     areaSlugs: row.area_slugs ?? [],
     interestSlugs: row.interest_slugs ?? [],

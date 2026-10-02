@@ -23,6 +23,7 @@ export interface CatalogBook {
   likeCount: number
   postedAt: string | null
   authors: string[]
+  publisherName?: string | null
   topicSlugs: string[]
   areaSlugs: string[]
   interestSlugs: string[]
