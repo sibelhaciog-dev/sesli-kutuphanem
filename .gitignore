@@ -43,3 +43,4 @@ supabase/.branches
 
 # Claude in Chrome skill paketi (npm run skill:paket)
 skills/dist/
+__pycache__/
