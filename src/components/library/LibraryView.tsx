@@ -21,7 +21,7 @@ type Tab = 'read' | 'to_read' | 'achievements'
 const TABS: { value: Tab; label: string }[] = [
   { value: 'read', label: '📖 Okuduklarım' },
   { value: 'to_read', label: '🔖 Okuma listem' },
-  { value: 'achievements', label: '🏅 Başarımlar' },
+  { value: 'achievements', label: '🏅 Başarılarım' },
 ]
 
 export function LibraryView({ books }: { books: CatalogBook[] }) {

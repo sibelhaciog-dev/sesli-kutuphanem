@@ -10,7 +10,7 @@ export function AchievementGrid() {
   const { achievements, points } = useAppData()
 
   if (achievements.length === 0) {
-    return <EmptyState icon="🏅" title="Başarımlar yükleniyor…" />
+    return <EmptyState icon="🏅" title="Başarılarım yükleniyor…" />
   }
 
   const earned = achievements.filter((achievement) => achievement.earnedAt)
@@ -18,7 +18,7 @@ export function AchievementGrid() {
   return (
     <div>
       <p className="mb-4 text-sm text-muted">
-        <strong className="text-ink">{earned.length}</strong> / {achievements.length} başarım
+        <strong className="text-ink">{earned.length}</strong> / {achievements.length} başarı
         kazanıldı · ⭐ {points} puan
       </p>
 
