@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useAppData } from '@/components/providers/AppDataProvider'
 import { cn } from '@/lib/cn'
-import { GuideArt, guideBackground } from './GuideArt'
+import { GuideArt } from './GuideArt'
 
 interface GuidePanelProps {
   value: string | null
@@ -43,16 +43,15 @@ export function GuidePanel({ value, onChange }: GuidePanelProps) {
           Rehberler
         </h2>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-1.5">
           {taxonomy.areas.map((area) => {
             const expanded = openArea === area.slug
             const activeInArea = area.topics.some((topic) => topic.slug === value)
             return (
               <div
                 key={area.slug}
-                style={{ backgroundColor: guideBackground(area.slug) }}
                 className={cn(
-                  'overflow-hidden rounded-2xl',
+                  'overflow-hidden rounded-xl border border-line bg-white',
                   activeInArea && !expanded && 'ring-2 ring-accent',
                 )}
               >
@@ -60,15 +59,15 @@ export function GuidePanel({ value, onChange }: GuidePanelProps) {
                   type="button"
                   onClick={() => setOpenArea(expanded ? null : area.slug)}
                   aria-expanded={expanded}
-                  className="flex w-full items-center gap-3 py-1.5 pr-4 pl-2 text-left"
+                  className="flex w-full items-center gap-3 py-1.5 pr-4 pl-1.5 text-left"
                 >
-                  <span className="w-16 shrink-0">
+                  <span className="shrink-0">
                     <GuideArt slug={area.slug} emoji={area.emoji} />
                   </span>
-                  <span className="flex-1 text-[15px] font-bold text-ink">
+                  <span className="flex-1 text-sm font-semibold text-ink">
                     {area.name.replace(' Rehberi', '')}
                   </span>
-                  <span aria-hidden className="text-lg text-ink-soft">
+                  <span aria-hidden className="text-base text-muted">
                     {expanded ? '⌄' : '›'}
                   </span>
                 </button>
@@ -90,7 +89,7 @@ export function GuidePanel({ value, onChange }: GuidePanelProps) {
                             'rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors',
                             selected
                               ? 'border-accent bg-accent text-white'
-                              : 'border-white bg-white/80 text-ink-soft hover:border-accent hover:text-accent',
+                              : 'border-line bg-cream text-ink-soft hover:border-accent hover:text-accent',
                           )}
                         >
                           {topic.label ?? topic.name}
