@@ -75,7 +75,7 @@ export function LoginForm() {
       footer={
         <>
           Hesabın yok mu?{' '}
-          <Link href="/kayit" className="font-semibold text-accent">
+          <Link href="/kayit" className="font-semibold text-accent-ink">
             Kayıt ol
           </Link>
         </>
@@ -109,7 +109,7 @@ export function LoginForm() {
       </form>
       <p className="mt-4 text-center text-xs text-muted">
         Şifreni mi unuttun?{' '}
-        <Link href="/sifremi-unuttum" className="font-semibold text-accent">
+        <Link href="/sifremi-unuttum" className="font-semibold text-accent-ink">
           Sıfırla
         </Link>
       </p>

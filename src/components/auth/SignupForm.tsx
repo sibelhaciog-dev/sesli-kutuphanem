@@ -74,7 +74,7 @@ export function SignupForm() {
       footer={
         <>
           Zaten hesabın var mı?{' '}
-          <Link href="/giris" className="font-semibold text-accent">
+          <Link href="/giris" className="font-semibold text-accent-ink">
             Giriş yap
           </Link>
         </>

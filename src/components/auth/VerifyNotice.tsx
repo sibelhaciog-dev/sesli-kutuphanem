@@ -50,7 +50,7 @@ export function VerifyNotice() {
         <button
           type="button"
           onClick={() => void resend()}
-          className="text-xs font-semibold text-accent"
+          className="text-xs font-semibold text-accent-ink"
         >
           E-posta gelmedi mi? Tekrar gönder
         </button>
