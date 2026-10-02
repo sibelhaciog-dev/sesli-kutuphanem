@@ -25,7 +25,7 @@ export function GuidePanel({ value, onChange }: GuidePanelProps) {
         aria-expanded={mobileOpen}
         className="mb-2 flex w-full items-center justify-between rounded-xl border-2 border-accent bg-white px-4 py-3 text-base font-extrabold text-ink lg:hidden"
       >
-        <span>📖 Gelişim rehberleri</span>
+        <span>📖 Gelişim Rehberleri</span>
         <span aria-hidden>{mobileOpen ? '⌄' : '›'}</span>
       </button>
 
@@ -34,7 +34,7 @@ export function GuidePanel({ value, onChange }: GuidePanelProps) {
           'w-full shrink-0 overflow-hidden rounded-panel border border-line bg-white lg:sticky lg:top-4 lg:block lg:w-56',
           mobileOpen ? 'block' : 'hidden',
         )}
-        aria-label="Gelişim rehberleri"
+        aria-label="Gelişim Rehberleri"
       >
         <h2 className="border-b-2 border-accent px-4 pt-4 pb-3 text-base font-extrabold tracking-tight text-ink">
           Rehberler
