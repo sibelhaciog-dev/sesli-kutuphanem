@@ -13,11 +13,14 @@ export function DiscoveryResults({
   source,
   note,
   compact = false,
+  covers,
 }: {
   picks: RecommendationPick[]
   source: 'ai' | 'deterministik'
   note?: string | null
   compact?: boolean
+  /** Kitap adresi → küçük kapak. Verilirse kartlarda kapak görünür. */
+  covers?: ReadonlyMap<string, string | null>
 }) {
   if (picks.length === 0) return null
 
@@ -35,13 +38,39 @@ export function DiscoveryResults({
             key={pick.kitapId || pick.slug}
             className="rounded-xl border border-line bg-white p-3 transition-colors hover:border-accent"
           >
-            <Link href={`/kitap/${pick.slug}`} className="block">
-              <p className={cn('font-semibold text-ink', compact ? 'text-sm' : 'text-[15px]')}>
-                {pick.baslik}
-              </p>
-              {pick.gerekce && (
-                <p className="mt-1 text-xs leading-relaxed text-ink-soft">{pick.gerekce}</p>
+            <Link href={`/kitap/${pick.slug}`} className="flex items-start gap-3">
+              {covers && (
+                <span className="w-14 shrink-0 overflow-hidden rounded-md border border-line bg-cream">
+                  {covers.get(pick.slug) ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      src={covers.get(pick.slug)!}
+                      alt=""
+                      loading="lazy"
+                      className="block aspect-[3/4] w-full object-cover"
+                    />
+                  ) : (
+                    <span className="flex aspect-[3/4] items-center justify-center text-xl">
+                      📖
+                    </span>
+                  )}
+                </span>
               )}
+              <span className="block min-w-0">
+                <span
+                  className={cn(
+                    'block font-semibold text-ink',
+                    compact ? 'text-sm' : 'text-[15px]',
+                  )}
+                >
+                  {pick.baslik}
+                </span>
+                {pick.gerekce && (
+                  <span className="mt-1 block text-xs leading-relaxed text-ink-soft">
+                    {pick.gerekce}
+                  </span>
+                )}
+              </span>
             </Link>
           </li>
         ))}
