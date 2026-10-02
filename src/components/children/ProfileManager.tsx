@@ -215,7 +215,6 @@ export function ProfileManager() {
       {avatarChild && (
         <AvatarStudio
           child={avatarChild}
-          points={pointsByChild[avatarChild.id] ?? 0}
           onClose={() => setAvatarChild(null)}
         />
       )}
