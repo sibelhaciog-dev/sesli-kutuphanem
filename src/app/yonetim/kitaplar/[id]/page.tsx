@@ -31,7 +31,7 @@ export default async function EditBookPage({ params, searchParams }: PageProps) 
   return (
     <div>
       <p className="mb-1 text-xs text-muted">
-        <Link href="/yonetim/kitaplar" className="hover:text-accent">
+        <Link href="/yonetim/kitaplar" className="hover:text-accent-ink">
           Kitaplar
         </Link>{' '}
         › Düzenle
