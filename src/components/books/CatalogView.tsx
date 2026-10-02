@@ -7,8 +7,10 @@ import { DiscoveryFrame } from '@/components/discovery/DiscoveryFrame'
 import { BookCard } from '@/components/books/BookCard'
 import { GuidePanel } from '@/components/books/GuidePanel'
 import { useAppData } from '@/components/providers/AppDataProvider'
+import { Button } from '@/components/ui/Button'
 import { Chip } from '@/components/ui/Chip'
 import { EmptyState } from '@/components/ui/EmptyState'
+import { ScrollRow } from '@/components/ui/ScrollRow'
 import { useToast } from '@/components/ui/Toast'
 import { AGE_BANDS, ageOf, suitsAge } from '@/lib/age'
 import type { DiscoveryMode } from '@/lib/data/discovery'
@@ -24,6 +26,14 @@ export function CatalogView({ books, modes }: { books: CatalogBook[]; modes: Dis
   const visible = useMemo(
     () => filterBooks(books, { ...filters, childAge }, library),
     [books, filters, childAge, library],
+  )
+  // Yaş yüzünden gizlenen kitap sayısı — boş sonuçta "tüm yaşları göster" önermek için.
+  const hiddenByAge = useMemo(
+    () =>
+      visible.length === 0 && childAge !== null && !filters.showAllAges
+        ? filterBooks(books, { ...filters, childAge, showAllAges: true }, library).length
+        : 0,
+    [visible.length, books, filters, childAge, library],
   )
 
   function patch(next: Partial<CatalogFilters>) {
@@ -54,7 +64,7 @@ export function CatalogView({ books, modes }: { books: CatalogBook[]; modes: Dis
 
       <div className="min-w-0 flex-1">
         <div className="mb-6">
-          <DiscoveryFrame modes={modes} />
+          <DiscoveryFrame modes={modes} books={books} />
         </div>
 
         <section className="mb-6 rounded-panel border border-line bg-white p-5">
@@ -88,13 +98,13 @@ export function CatalogView({ books, modes }: { books: CatalogBook[]; modes: Dis
               type="search"
               value={filters.query}
               onChange={(event) => patch({ query: event.target.value })}
-              placeholder="Kitap adı, konu veya yazar ara…"
+              placeholder="Kitap, yazar, yayınevi veya konu ara…"
               aria-label="Kitaplarda ara"
               className="w-full rounded-full border-[1.5px] border-line bg-cream py-2.5 pr-4 pl-10 text-sm outline-none transition-colors focus:border-accent"
             />
           </div>
 
-          <div className="scrollbar-none mt-3 flex items-center gap-2 overflow-x-auto pb-1">
+          <ScrollRow className="scrollbar-none mt-3 flex items-center gap-2 overflow-x-auto pb-1">
             <span className="shrink-0 text-[11px] font-bold tracking-wider text-muted uppercase">
               Yaş
             </span>
@@ -191,7 +201,7 @@ export function CatalogView({ books, modes }: { books: CatalogBook[]; modes: Dis
                 </Chip>
               </>
             )}
-          </div>
+          </ScrollRow>
         </section>
 
         <div className="mb-5 flex items-center justify-between gap-3">
@@ -210,11 +220,24 @@ export function CatalogView({ books, modes }: { books: CatalogBook[]; modes: Dis
         </div>
 
         {visible.length === 0 ? (
-          <EmptyState
-            icon="🔍"
-            title="Sonuç bulunamadı"
-            description="Aramayı veya filtreleri değiştirerek tekrar deneyin."
-          />
+          hiddenByAge > 0 ? (
+            <EmptyState
+              icon="🧸"
+              title={`${activeChild?.name ?? 'Çocuğun'} yaşına uygun kitap yok`}
+              description={`Bu seçimde ${hiddenByAge} kitap var ama ${childAge} yaş için önerilen aralığın dışında kalıyor.`}
+              action={
+                <Button onClick={() => patch({ showAllAges: true, ageBand: null })}>
+                  Tüm yaşları göster
+                </Button>
+              }
+            />
+          ) : (
+            <EmptyState
+              icon="🔍"
+              title="Sonuç bulunamadı"
+              description="Aramayı veya filtreleri değiştirerek tekrar deneyin."
+            />
+          )
         ) : (
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-4">
             {visible.map((book, index) => (
