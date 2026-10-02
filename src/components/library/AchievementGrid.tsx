@@ -39,7 +39,7 @@ export function AchievementGrid() {
               <p className="mt-2 text-[13px] font-bold text-ink">{achievement.name}</p>
               <p className="mt-1 text-[11px] leading-snug text-muted">{achievement.description}</p>
               {unlocked && achievement.earnedAt && (
-                <p className="mt-1.5 text-[10px] font-semibold text-accent">
+                <p className="mt-1.5 text-[10px] font-semibold text-accent-ink">
                   {formatShortDate(achievement.earnedAt)} · +
                   {achievement.points} puan
                 </p>

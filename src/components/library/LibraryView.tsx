@@ -105,7 +105,7 @@ export function LibraryView({ books }: { books: CatalogBook[] }) {
             aria-pressed={tab === entry.value}
             className={cn(
               'flex-1 rounded-xl py-2.5 text-[13px] font-bold transition-colors',
-              tab === entry.value ? 'bg-accent text-white' : 'text-muted hover:text-accent',
+              tab === entry.value ? 'bg-accent text-ink' : 'text-muted hover:text-accent-ink',
             )}
           >
             {entry.label}
@@ -145,14 +145,14 @@ export function LibraryView({ books }: { books: CatalogBook[] }) {
                   <div className="min-w-0 flex-1">
                     <Link
                       href={`/kitap/${book.slug}`}
-                      className="block truncate font-serif text-[15px] text-ink hover:text-accent"
+                      className="block truncate font-serif text-[15px] text-ink hover:text-accent-ink"
                     >
                       {book.title}
                     </Link>
                     <div className="mt-1 flex flex-wrap items-center gap-2">
                       <StarRating value={item.rating} size="sm" />
                       {item.timesRead > 1 && (
-                        <span className="rounded-full bg-accent-soft px-2 py-0.5 text-[10px] font-bold text-accent">
+                        <span className="rounded-full bg-accent-soft px-2 py-0.5 text-[10px] font-bold text-accent-ink">
                           {item.timesRead} kez okundu
                         </span>
                       )}
@@ -222,7 +222,7 @@ export function LibraryView({ books }: { books: CatalogBook[] }) {
                   <div className="min-w-0 flex-1">
                     <Link
                       href={`/kitap/${book.slug}`}
-                      className="block truncate font-serif text-[15px] hover:text-accent"
+                      className="block truncate font-serif text-[15px] hover:text-accent-ink"
                     >
                       {book.title}
                     </Link>
@@ -292,7 +292,7 @@ function RemoveButton({ onClick, label }: { onClick: () => void; label: string }
 function Stat({ value, label }: { value: string | number; label: string }) {
   return (
     <div className="rounded-panel border border-line bg-white p-4">
-      <p className="font-serif text-2xl text-accent">{value}</p>
+      <p className="font-serif text-2xl text-accent-ink">{value}</p>
       <p className="mt-0.5 text-xs text-muted">{label}</p>
     </div>
   )
