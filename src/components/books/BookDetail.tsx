@@ -53,7 +53,7 @@ export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: C
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-7">
-      <Link href="/" className="mb-5 inline-block text-sm font-semibold text-accent">
+      <Link href="/" className="mb-5 inline-block text-sm font-semibold text-accent-ink">
         ← Tüm kitaplar
       </Link>
 
@@ -71,7 +71,7 @@ export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: C
               <Badge className="bg-[#E8F4FD] text-[#007AFF]">
                 {LANGUAGE_LABELS[book.language]}
               </Badge>
-              <Badge className="bg-accent-soft text-accent">❤️ {book.likeCount}</Badge>
+              <Badge className="bg-accent-soft text-accent-ink">❤️ {book.likeCount}</Badge>
               {book.pageCount && (
                 <Badge className="bg-[#F2F2F7] text-ink-soft">{book.pageCount} sayfa</Badge>
               )}
@@ -151,8 +151,8 @@ export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: C
                   className={cn(
                     'rounded-full border-[1.5px] px-3.5 py-1.5 text-[13px] font-semibold transition-colors',
                     item?.status === status
-                      ? 'border-accent bg-accent text-white'
-                      : 'border-line text-ink-soft hover:border-accent hover:text-accent',
+                      ? 'border-accent bg-accent text-ink'
+                      : 'border-line text-ink-soft hover:border-accent hover:text-accent-ink',
                   )}
                 >
                   {LIBRARY_STATUS_LABELS[status]}
@@ -217,14 +217,14 @@ export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: C
                 {recommendations.map((entry) => (
                   <li key={entry.book.id} className="py-3">
                     <Link href={`/kitap/${entry.book.slug}`} className="group block">
-                      <p className="text-sm font-semibold text-ink group-hover:text-accent">
+                      <p className="text-sm font-semibold text-ink group-hover:text-accent-ink">
                         {entry.book.language === 'en' ? '🇬🇧' : '🇹🇷'} {entry.book.title}
                       </p>
                       <p className="text-xs text-muted">
                         {ageLabel(entry.book.ageMin, entry.book.ageMax)}
                       </p>
                       {entry.reasons.length > 0 && (
-                        <p className="mt-0.5 text-[11px] text-accent">
+                        <p className="mt-0.5 text-[11px] text-accent-ink">
                           🏷️ {entry.reasons.join(', ')}
                         </p>
                       )}

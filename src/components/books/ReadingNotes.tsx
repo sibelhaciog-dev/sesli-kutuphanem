@@ -102,7 +102,7 @@ export function ReadingNotes({ libraryItemId }: { libraryItemId: string }) {
             visibility === 'public'
               ? 'border-[#4CAF50] bg-success-soft text-success'
               : visibility === 'family'
-                ? 'border-accent bg-accent-soft text-accent'
+                ? 'border-accent bg-accent-soft text-accent-ink'
                 : 'border-[#FF9800] bg-warning-soft text-warning',
           )}
         >

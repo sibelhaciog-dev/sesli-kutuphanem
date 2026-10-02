@@ -212,7 +212,7 @@ export function CatalogView({ books, modes }: { books: CatalogBook[]; modes: Dis
             <button
               type="button"
               onClick={() => setFilters(DEFAULT_FILTERS)}
-              className="text-xs font-semibold text-accent"
+              className="text-xs font-semibold text-accent-ink"
             >
               ✕ Filtreleri temizle
             </button>

@@ -88,8 +88,8 @@ export function GuidePanel({ value, onChange }: GuidePanelProps) {
                           className={cn(
                             'rounded-full border px-3 py-1.5 text-xs font-semibold transition-colors',
                             selected
-                              ? 'border-accent bg-accent text-white'
-                              : 'border-line bg-cream text-ink-soft hover:border-accent hover:text-accent',
+                              ? 'border-accent bg-accent text-ink'
+                              : 'border-line bg-cream text-ink-soft hover:border-accent hover:text-accent-ink',
                           )}
                         >
                           {topic.label ?? topic.name}
@@ -107,7 +107,7 @@ export function GuidePanel({ value, onChange }: GuidePanelProps) {
           <button
             type="button"
             onClick={() => onChange(null)}
-            className="mt-2 w-full px-1 py-1.5 text-left text-xs text-muted transition-colors hover:text-accent"
+            className="mt-2 w-full px-1 py-1.5 text-left text-xs text-muted transition-colors hover:text-accent-ink"
           >
             ✕ Filtreyi temizle
           </button>

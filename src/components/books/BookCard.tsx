@@ -66,7 +66,7 @@ export function BookCard({
               status === 'read'
                 ? 'bg-success-soft text-success'
                 : status === 'reading'
-                  ? 'bg-accent-soft text-accent'
+                  ? 'bg-accent-soft text-accent-ink'
                   : 'bg-warning-soft text-warning',
             )}
           >
@@ -106,7 +106,7 @@ export function BookCard({
 
         <div className="flex items-center justify-between text-[11px]">
           <span className="text-muted">❤️ {book.likeCount}</span>
-          <span className="font-semibold text-accent">İncele →</span>
+          <span className="font-semibold text-accent-ink">İncele →</span>
         </div>
       </div>
     </article>
