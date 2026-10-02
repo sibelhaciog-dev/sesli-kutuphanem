@@ -44,7 +44,7 @@ export default async function AdminOverviewPage() {
             href={card.href}
             className="rounded-panel border border-line bg-white p-4 transition-colors hover:border-accent"
           >
-            <p className="font-serif text-3xl text-accent">{card.value}</p>
+            <p className="font-serif text-3xl text-accent-ink">{card.value}</p>
             <p className="mt-1 text-xs text-muted">{card.label}</p>
           </Link>
         ))}
