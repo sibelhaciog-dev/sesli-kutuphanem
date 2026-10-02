@@ -133,7 +133,7 @@ export function ChildForm({
               className={cn(
                 'flex-1 rounded-xl border-2 px-2 py-2.5 text-[13px] whitespace-nowrap transition-colors',
                 value.gender === gender
-                  ? 'border-accent bg-accent-soft font-semibold text-accent'
+                  ? 'border-accent bg-accent-soft font-semibold text-accent-ink'
                   : 'border-line text-ink-soft hover:border-accent',
               )}
             >
@@ -160,8 +160,8 @@ export function ChildForm({
                 className={cn(
                   'rounded-full border-[1.5px] px-3 py-1.5 text-xs transition-colors',
                   selected
-                    ? 'border-accent bg-accent-soft font-semibold text-accent'
-                    : 'border-line text-ink-soft hover:border-accent hover:text-accent',
+                    ? 'border-accent bg-accent-soft font-semibold text-accent-ink'
+                    : 'border-line text-ink-soft hover:border-accent hover:text-accent-ink',
                 )}
               >
                 {interest.emoji} {interest.name}
@@ -197,7 +197,7 @@ export function ChildForm({
                       className={cn(
                         'rounded-full border px-2.5 py-1 text-[11px] transition-colors',
                         selected
-                          ? 'border-accent bg-accent-soft font-semibold text-accent'
+                          ? 'border-accent bg-accent-soft font-semibold text-accent-ink'
                           : 'border-line text-ink-soft hover:border-accent',
                       )}
                     >

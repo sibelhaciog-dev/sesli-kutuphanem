@@ -84,8 +84,8 @@ export function OnboardingWizard() {
                   className={cn(
                     'rounded-xl border-2 py-4 text-xl font-bold transition-colors',
                     total === count
-                      ? 'border-accent bg-accent-soft text-accent'
-                      : 'border-line text-ink hover:border-accent hover:text-accent',
+                      ? 'border-accent bg-accent-soft text-accent-ink'
+                      : 'border-line text-ink hover:border-accent hover:text-accent-ink',
                   )}
                 >
                   {count}
@@ -137,7 +137,7 @@ export function OnboardingWizard() {
                   setFieldErrors({})
                   setStep('sayi')
                 }}
-                className="mt-3 w-full text-xs font-semibold text-muted hover:text-accent"
+                className="mt-3 w-full text-xs font-semibold text-muted hover:text-accent-ink"
               >
                 ← Geri dön
               </button>

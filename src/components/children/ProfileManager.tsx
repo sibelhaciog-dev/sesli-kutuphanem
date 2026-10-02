@@ -151,7 +151,7 @@ export function ProfileManager() {
                   <p className="flex items-center gap-2 font-serif text-lg">
                     {child.name}
                     {active && (
-                      <span className="rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold text-white">
+                      <span className="rounded-full bg-accent px-2 py-0.5 text-[10px] font-bold text-ink">
                         Aktif
                       </span>
                     )}
