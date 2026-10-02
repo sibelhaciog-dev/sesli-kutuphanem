@@ -325,3 +325,36 @@ export async function loadPointsByChild(
   )
   return Object.fromEntries(results)
 }
+
+/**
+ * Avatar eşyalarının açılması için okuma ilerlemesi: okunan kitap sayısı ve
+ * her rehberden okunan kitap sayısı.
+ */
+export async function loadAvatarProgress(
+  supabase: Client,
+  childId: string,
+): Promise<{ booksRead: number; readByArea: Record<string, number> }> {
+  const { data: items, error } = await supabase
+    .from('library_items')
+    .select('book_id, custom_book_id')
+    .eq('child_id', childId)
+    .eq('status', 'read')
+  if (error) throw error
+
+  const rows = items ?? []
+  const bookIds = rows.map((row) => row.book_id).filter((id): id is string => Boolean(id))
+  const readByArea: Record<string, number> = {}
+
+  if (bookIds.length > 0) {
+    const { data: books, error: bookError } = await supabase
+      .from('catalog_books')
+      .select('id, area_slugs')
+      .in('id', bookIds)
+    if (bookError) throw bookError
+    for (const book of books ?? []) {
+      for (const slug of book.area_slugs ?? []) readByArea[slug] = (readByArea[slug] ?? 0) + 1
+    }
+  }
+
+  return { booksRead: rows.length, readByArea }
+}

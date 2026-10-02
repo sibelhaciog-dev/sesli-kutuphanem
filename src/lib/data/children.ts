@@ -1,4 +1,5 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
+import { DEFAULT_ANIMAL } from '@/lib/avatar'
 import type { Database } from '@/lib/supabase/database.types'
 import type { Gender } from './types'
 
@@ -15,11 +16,6 @@ export interface ChildFormValues {
 
 export function emptyChildForm(): ChildFormValues {
   return { name: '', birthDate: '', gender: 'unspecified', interestSlugs: [], focusTopicSlugs: [] }
-}
-
-/** Cinsiyete göre varsayılan avatar karakteri. */
-function defaultCharacter(gender: Gender): string {
-  return gender === 'boy' ? 'k4' : 'k1'
 }
 
 async function resolveIds(
@@ -90,7 +86,7 @@ export async function createChild(
       name: values.name.trim(),
       birth_date: values.birthDate || null,
       gender: values.gender,
-      avatar_character: defaultCharacter(values.gender),
+      avatar_character: DEFAULT_ANIMAL,
       position,
     })
     .select('id')
