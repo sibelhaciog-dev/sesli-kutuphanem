@@ -18,8 +18,8 @@ export function Chip({ active, onClick, children, className }: ChipProps) {
       className={cn(
         'shrink-0 rounded-full border-[1.5px] px-3.5 py-1 text-[13px] font-medium whitespace-nowrap transition-colors',
         active
-          ? 'border-accent bg-accent text-white'
-          : 'border-line text-ink-soft hover:border-accent hover:text-accent',
+          ? 'border-accent bg-accent text-ink'
+          : 'border-line text-ink-soft hover:border-accent hover:text-accent-ink',
         className,
       )}
     >

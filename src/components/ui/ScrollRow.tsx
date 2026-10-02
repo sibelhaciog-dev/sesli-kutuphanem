@@ -65,7 +65,7 @@ function ArrowButton({
         visible ? 'opacity-100' : 'pointer-events-none opacity-0',
       )}
     >
-      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent text-xl leading-none font-bold text-white shadow-md">
+      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-accent text-xl leading-none font-bold text-ink shadow-md">
         {left ? '‹' : '›'}
       </span>
     </button>
