@@ -45,7 +45,7 @@ export function makeChild(overrides: Partial<Child> = {}): Child {
     name: 'Elif',
     birthDate: '2020-01-01',
     gender: 'girl',
-    avatarCharacter: 'k1',
+    avatarCharacter: 'tilki',
     avatarAccessories: [],
     position: 0,
     interestSlugs: [],
