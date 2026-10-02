@@ -111,7 +111,7 @@ export function ReadingReport({ books }: { books: CatalogBook[] }) {
                 <div>
                   <p className="font-serif text-lg text-ink">{commentary.baslik}</p>
                   <p className="mt-2 text-sm leading-relaxed text-ink-soft">{commentary.metin}</p>
-                  <p className="mt-3 rounded-xl bg-accent-soft p-3 text-sm text-accent">
+                  <p className="mt-3 rounded-xl bg-accent-soft p-3 text-sm text-accent-ink">
                     💡 {commentary.oneri}
                   </p>
                 </div>
@@ -182,7 +182,7 @@ export function ReadingReport({ books }: { books: CatalogBook[] }) {
                     </span>
                     <Link
                       href={`/kitap/${book.slug}`}
-                      className="min-w-0 flex-1 truncate text-xs font-semibold text-ink hover:text-accent"
+                      className="min-w-0 flex-1 truncate text-xs font-semibold text-ink hover:text-accent-ink"
                     >
                       {book.title}
                     </Link>
@@ -206,14 +206,14 @@ export function ReadingReport({ books }: { books: CatalogBook[] }) {
                 {suggestions.map((entry) => (
                   <li key={entry.book.id} className="py-2.5">
                     <Link href={`/kitap/${entry.book.slug}`} className="group block">
-                      <p className="text-sm font-semibold text-ink group-hover:text-accent">
+                      <p className="text-sm font-semibold text-ink group-hover:text-accent-ink">
                         {entry.book.language === 'en' ? '🇬🇧' : '🇹🇷'} {entry.book.title}
                       </p>
                       <p className="text-[11px] text-muted">
                         {ageLabel(entry.book.ageMin, entry.book.ageMax)}
                       </p>
                       {entry.reasons.length > 0 && (
-                        <p className="text-[11px] text-accent">🏷️ {entry.reasons.join(', ')}</p>
+                        <p className="text-[11px] text-accent-ink">🏷️ {entry.reasons.join(', ')}</p>
                       )}
                     </Link>
                   </li>

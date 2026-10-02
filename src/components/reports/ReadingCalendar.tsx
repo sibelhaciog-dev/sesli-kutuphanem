@@ -127,7 +127,7 @@ export function ReadingCalendar({ books }: { books: CatalogBook[] }) {
                 className={cn(
                   'flex aspect-square flex-col items-center justify-center rounded-lg border-[1.5px] p-0.5 text-[13px] transition-colors',
                   dayBooks
-                    ? 'border-accent bg-accent-soft font-bold text-accent hover:bg-accent hover:text-white'
+                    ? 'border-accent bg-accent-soft font-bold text-accent-ink hover:bg-accent hover:text-ink'
                     : 'border-line text-ink-soft',
                   isToday && !dayBooks && 'border-[#185FA5]',
                   selected === date && 'ring-2 ring-accent',
@@ -153,7 +153,7 @@ export function ReadingCalendar({ books }: { books: CatalogBook[] }) {
               <li key={book.id} className="flex items-center justify-between gap-3">
                 <Link
                   href={`/kitap/${book.slug}`}
-                  className="min-w-0 flex-1 truncate text-sm font-semibold hover:text-accent"
+                  className="min-w-0 flex-1 truncate text-sm font-semibold hover:text-accent-ink"
                 >
                   {book.title}
                 </Link>
@@ -170,7 +170,7 @@ export function ReadingCalendar({ books }: { books: CatalogBook[] }) {
 function Stat({ value, label }: { value: number; label: string }) {
   return (
     <div className="rounded-panel border border-line bg-white p-4 text-center">
-      <p className="font-serif text-2xl text-accent">{value}</p>
+      <p className="font-serif text-2xl text-accent-ink">{value}</p>
       <p className="mt-0.5 text-[11px] text-muted">{label}</p>
     </div>
   )
