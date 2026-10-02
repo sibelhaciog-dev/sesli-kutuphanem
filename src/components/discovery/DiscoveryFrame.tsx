@@ -52,7 +52,7 @@ export function DiscoveryFrame({
         className="flex w-full items-center justify-between gap-3 text-left lg:hidden"
       >
         <span className="text-sm font-bold text-ink">✨ Bugün ne okusak?</span>
-        <span className="shrink-0 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-white">
+        <span className="shrink-0 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-ink">
           {open ? 'Kapat' : 'Öneri al'}
         </span>
       </button>
@@ -110,7 +110,7 @@ export function DiscoveryFrame({
             </Button>
             <Link
               href="/kesif"
-              className="shrink-0 text-xs font-semibold text-accent hover:underline"
+              className="shrink-0 text-xs font-semibold text-accent-ink hover:underline"
             >
               Daha detaylı ara →
             </Link>
@@ -128,7 +128,7 @@ export function DiscoveryFrame({
           <p className="mt-2.5 text-[11px] leading-relaxed text-muted">
             💡 Çocuk profili eklerseniz öneriler yaşına, ilgi alanlarına ve okuduğu kitaplara göre
             kişiselleşir.{' '}
-            <Link href="/onboarding" className="font-semibold text-accent">
+            <Link href="/onboarding" className="font-semibold text-accent-ink">
               Profil ekle
             </Link>
           </p>

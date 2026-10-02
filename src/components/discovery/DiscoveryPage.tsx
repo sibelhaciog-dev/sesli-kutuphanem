@@ -145,7 +145,7 @@ export function DiscoveryPage({
           <p className="mt-3 text-xs leading-relaxed text-muted">
             💡 Çocuk profili eklerseniz öneriler yaşına, ilgi alanlarına ve okuduğu kitaplara göre
             kişiselleşir.{' '}
-            <Link href="/onboarding" className="font-semibold text-accent">
+            <Link href="/onboarding" className="font-semibold text-accent-ink">
               Profil ekle
             </Link>
           </p>
