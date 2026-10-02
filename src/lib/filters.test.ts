@@ -57,6 +57,17 @@ describe('filterBooks', () => {
     expect(result.map((book) => book.id)).toEqual(['c'])
   })
 
+  it('yayınevinde de arar', () => {
+    const books = [makeBook({ id: 'y', title: 'Bir Kitap', publisherName: 'Meraklı Tilki' })]
+    const result = filterBooks(books, { ...DEFAULT_FILTERS, query: 'merakli tilki' })
+    expect(result.map((book) => book.id)).toEqual(['y'])
+  })
+
+  it('seçilen yaş kuşağı çocuğun yaşının önüne geçer', () => {
+    const result = filterBooks(CATALOG, { ...DEFAULT_FILTERS, childAge: 0, ageBand: 'okul-oncesi' })
+    expect(result.map((book) => book.id)).toEqual(['a', 'b'])
+  })
+
   it('dile göre süzer', () => {
     const result = filterBooks(CATALOG, { ...DEFAULT_FILTERS, language: 'en' })
     expect(result.map((book) => book.id)).toEqual(['b'])

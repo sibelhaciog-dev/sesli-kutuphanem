@@ -54,14 +54,16 @@ export function filterBooks(
 
   const result = books.filter((book) => {
     if (terms.length > 0) {
-      const haystack = `${book.title} ${book.subtitle ?? ''} ${book.summary} ${book.authors.join(' ')}`
+      const haystack = `${book.title} ${book.subtitle ?? ''} ${book.summary} ${book.authors.join(' ')} ${book.publisherName ?? ''}`
       if (!matchesTerms(haystack, terms)) return false
     }
     if (filters.language !== 'all' && book.language !== filters.language) return false
     if (!matchesCollection(book, filters.collection, library)) return false
     if (filters.topicSlug && !book.topicSlugs.includes(filters.topicSlug)) return false
     if (filters.ageBand && !inAgeBand(book, filters.ageBand)) return false
-    if (!filters.showAllAges && !suitsAge(book, filters.childAge)) return false
+    // Elle seçilen yaş kuşağı çocuğun yaşının önüne geçer; ikisi birlikte
+    // uygulanınca (ör. 0 yaşındaki çocukta "3–5 yaş") hiç sonuç kalmıyordu.
+    if (!filters.showAllAges && !filters.ageBand && !suitsAge(book, filters.childAge)) return false
     return true
   })
 
