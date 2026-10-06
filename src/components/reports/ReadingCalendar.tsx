@@ -145,9 +145,7 @@ export function ReadingCalendar({ books }: { books: CatalogBook[] }) {
 
       {selected && selectedBooks.length > 0 && (
         <section className="mt-4 rounded-panel border border-line bg-white p-5">
-          <h2 className="mb-3 font-serif text-base">
-            {formatWeekday(selected)}
-          </h2>
+          <h2 className="mb-3 font-serif text-base">{formatWeekday(selected)}</h2>
           <ul className="flex flex-col gap-2">
             {selectedBooks.map((book) => (
               <li key={book.id} className="flex items-center justify-between gap-3">

@@ -49,33 +49,34 @@ erDiagram
 
 ## 2. Migration dosyaları
 
-| Dosya                       | Kurduğu                                                                                                                                      |
-| --------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| `0001_foundation`           | Uzantılar, arama yapılandırması, enum'lar, `set_updated_at`, `slugify`, `build_search_query`                                                 |
-| `0002_roles`                | `user_roles`, `is_staff()`, `is_admin()`                                                                                                     |
-| `0003_taxonomy`             | `development_areas`, `development_topics`, `interests`                                                                                       |
-| `0004_catalog`              | `publishers`, `people`, `series`, `books`, ilişki tabloları, arama vektörü tetikleyicileri                                                   |
-| `0005_accounts`             | `profiles`, `children`, `child_interests`, `child_focus_topics`, `owns_child()`                                                              |
-| `0006_library`              | `custom_books`, `library_items`, `reading_sessions`, `reading_notes`, `achievements`, `child_achievements`, türetme ve başarım fonksiyonları |
-| `0007_community`            | `feedback`, `donation_organizations`, `donation_requests`, `exchange_listings`                                                               |
-| `0008_storage`              | `catalog-covers` ve `user-covers` kovaları + politikaları                                                                                    |
-| `0009_views`                | `catalog_books`, `book_details`, `child_reading_stats`                                                                                       |
-| `0010_ai_usage`             | `ai_usage_events`, `ai_quota_remaining()`                                                                                                    |
-| `0011_grants`               | Tablo bazlı `GRANT`'ler (RLS tek başına yetmez — aşağıya bakın)                                                                              |
-| `0012_trigger_privileges`   | Türetilmiş alan tetikleyicilerini `security definer` yapar                                                                                   |
-| `0013_function_hardening`   | `search_path` sabitleme + iç fonksiyonları REST yüzeyinden çıkarma                                                                           |
-| `0014_rls_performance`      | Politikalarda InitPlan optimizasyonu, `FOR ALL` ayrıştırma, FK indeksleri                                                                    |
-| `0015_pending_role_grants`  | E-posta bazlı ön yetki listesi; kayıt olunca rol otomatik verilir                                                                            |
-| `0016_child_birth_date`     | Doğum tarihi kısıtı gevşetildi; 18 yaş kuralı forma taşındı                                                                                  |
-| `0017_reading_stats_lock`   | Okuma sayacı yarış durumu: sayım öncesi `for no key update`                                                                                  |
-| `0018_platform_stats`       | Yönetim panosu sayıları; satır sızdırmadan toplam verir                                                                                      |
-| `0019_ai_recommendations`   | Yapay zekâ öneri geçmişi (ADR 0007); niyet metni + sonuçlar                                                                                  |
-| `0020_discovery_modes`      | Keşif modları + konu/ilgi eğilimleri; yönetimden düzenlenebilir                                                                              |
-| `0021_recommendation_quota` | `ai_usage_events.feature` kısıtına `recommendation` eklendi                                                                                  |
-| `0022_database_as_source`   | Ortak kitap yazma yolu `upsert_book()`, `save_discovery_mode()`, `can_manage_content()`; kapak varyantı sütunları (ADR 0008, 0009)           |
-| `0023_taxonomy_editing`     | Anahtar kelime denetimi (bozuk ifade reddi, `\b` → `\y`); `taxonomy_usage()` kullanım sayıları                                               |
-| `0024_catalog_publisher`    | `catalog_books` görünümüne yayınevi adı (katalog aramasında yayınevi de aranıyor)                                                            |
-| `0025_featured_book`        | Ayın kitabı: `featured_books` (sponsorlu dönemler, çakışma kısıtı), `sponsor_applications`, `book_like_stats()`, `local_today()`             |
+| Dosya                       | Kurduğu                                                                                                                                             |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `0001_foundation`           | Uzantılar, arama yapılandırması, enum'lar, `set_updated_at`, `slugify`, `build_search_query`                                                        |
+| `0002_roles`                | `user_roles`, `is_staff()`, `is_admin()`                                                                                                            |
+| `0003_taxonomy`             | `development_areas`, `development_topics`, `interests`                                                                                              |
+| `0004_catalog`              | `publishers`, `people`, `series`, `books`, ilişki tabloları, arama vektörü tetikleyicileri                                                          |
+| `0005_accounts`             | `profiles`, `children`, `child_interests`, `child_focus_topics`, `owns_child()`                                                                     |
+| `0006_library`              | `custom_books`, `library_items`, `reading_sessions`, `reading_notes`, `achievements`, `child_achievements`, türetme ve başarım fonksiyonları        |
+| `0007_community`            | `feedback`, `donation_organizations`, `donation_requests`, `exchange_listings`                                                                      |
+| `0008_storage`              | `catalog-covers` ve `user-covers` kovaları + politikaları                                                                                           |
+| `0009_views`                | `catalog_books`, `book_details`, `child_reading_stats`                                                                                              |
+| `0010_ai_usage`             | `ai_usage_events`, `ai_quota_remaining()`                                                                                                           |
+| `0011_grants`               | Tablo bazlı `GRANT`'ler (RLS tek başına yetmez — aşağıya bakın)                                                                                     |
+| `0012_trigger_privileges`   | Türetilmiş alan tetikleyicilerini `security definer` yapar                                                                                          |
+| `0013_function_hardening`   | `search_path` sabitleme + iç fonksiyonları REST yüzeyinden çıkarma                                                                                  |
+| `0014_rls_performance`      | Politikalarda InitPlan optimizasyonu, `FOR ALL` ayrıştırma, FK indeksleri                                                                           |
+| `0015_pending_role_grants`  | E-posta bazlı ön yetki listesi; kayıt olunca rol otomatik verilir                                                                                   |
+| `0016_child_birth_date`     | Doğum tarihi kısıtı gevşetildi; 18 yaş kuralı forma taşındı                                                                                         |
+| `0017_reading_stats_lock`   | Okuma sayacı yarış durumu: sayım öncesi `for no key update`                                                                                         |
+| `0018_platform_stats`       | Yönetim panosu sayıları; satır sızdırmadan toplam verir                                                                                             |
+| `0019_ai_recommendations`   | Yapay zekâ öneri geçmişi (ADR 0007); niyet metni + sonuçlar                                                                                         |
+| `0020_discovery_modes`      | Keşif modları + konu/ilgi eğilimleri; yönetimden düzenlenebilir                                                                                     |
+| `0021_recommendation_quota` | `ai_usage_events.feature` kısıtına `recommendation` eklendi                                                                                         |
+| `0022_database_as_source`   | Ortak kitap yazma yolu `upsert_book()`, `save_discovery_mode()`, `can_manage_content()`; kapak varyantı sütunları (ADR 0008, 0009)                  |
+| `0023_taxonomy_editing`     | Anahtar kelime denetimi (bozuk ifade reddi, `\b` → `\y`); `taxonomy_usage()` kullanım sayıları                                                      |
+| `0024_catalog_publisher`    | `catalog_books` görünümüne yayınevi adı (katalog aramasında yayınevi de aranıyor)                                                                   |
+| `0025_public_notes`         | Herkese açık not onayı (`approved_at`), `book_public_notes()`, `moderation_public_notes()`, `moderate_public_note()`; "aile içi" notlar → `private` |
+| `0026_featured_book`        | Ayın kitabı: `featured_books` (sponsorlu dönemler, çakışma kısıtı), `sponsor_applications`, `book_like_stats()`, `local_today()`                    |
 
 Sıralı çalıştırılır; hiçbiri kendinden sonrakine atıfta bulunmaz.
 
@@ -192,7 +193,7 @@ Desteklenen türler: `books_read`, `sessions`, `streak_days`, `ratings`,
 `evaluate_child_achievements(child_id)` her okuma kaydından sonra çağrılır ve
 yalnızca yeni kazanılanları ekler (tekrar çağırmak zararsızdır).
 
-### Ayın kitabı ve sponsorluk (`0025`)
+### Ayın kitabı ve sponsorluk (`0026`)
 
 Ana sayfadaki vitrin önce bugün yayında olan sponsorlu dönemi, yoksa en çok
 beğenilen kitabı, o da yoksa en yeni kitabı gösterir (`src/lib/featured.ts`).

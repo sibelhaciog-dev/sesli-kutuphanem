@@ -121,6 +121,7 @@ Supabase projesi: **kutuphanem** (`ygaxtmuzhnntzdcltmgn`).
 - [x] Yönetim: rehber/konu/ilgi düzenleyici, silmeden önce kullanım sayıları (`0023`)
 - [x] Yönetim: keşif modu düzenleyici
 - [x] Anahtar kelime denetimi; `\b` → `\y` düzeltmesi (`0023`)
+- [x] Herkese açık okuma notları: editör onayı, kitap sayfasında isimsiz gösterim; "Aile içi" seçeneği kaldırıldı (`0025`)
 - [ ] `SUPABASE_SECRET_KEY`'i yerel `.env.local`'e ekle (betikle kapak yüklemek için)
 - [ ] Var olan 196 kitabın kapaklarını ekle — Instagram'dan Chrome ile liste
       çıkarıp `book:add --sadece-kapak`
@@ -141,11 +142,11 @@ Supabase projesi: **kutuphanem** (`ygaxtmuzhnntzdcltmgn`).
 
 ## Faz 9 — Ayın kitabı ve sponsorluk
 
-- [x] `0025`: sponsorlu dönemler (çakışma kısıtı), başvurular, beğeni toplamı
+- [x] `0026`: sponsorlu dönemler (çakışma kısıtı), başvurular, beğeni toplamı
 - [x] Ana sayfa vitrini: sponsor → en çok beğenilen → en yeni
 - [x] “Kitabını paylaş” başvuru sayfası (`/kitabini-paylas`)
 - [x] Yönetim → Ayın kitabı: dönemler + başvurular
-- [ ] `0025`'i üretim veritabanına uygula
+- [ ] `0026`'i üretim veritabanına uygula
 - [ ] Sponsorluk koşulları ve fiyatı (ürün kararı; sayfada henüz yazmıyor)
 
 ## Sonraki sürüm için fikirler (kapsam dışı)

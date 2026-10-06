@@ -212,12 +212,7 @@ export function ProfileManager() {
         />
       </Dialog>
 
-      {avatarChild && (
-        <AvatarStudio
-          child={avatarChild}
-          onClose={() => setAvatarChild(null)}
-        />
-      )}
+      {avatarChild && <AvatarStudio child={avatarChild} onClose={() => setAvatarChild(null)} />}
     </div>
   )
 }

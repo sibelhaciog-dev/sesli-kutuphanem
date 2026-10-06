@@ -6,7 +6,7 @@ import type { Database } from '@/lib/supabase/database.types'
 import { createPublicClient } from '@/lib/supabase/public'
 
 /**
- * "Ayın kitabı" vitrini ve sponsorluk (0025).
+ * "Ayın kitabı" vitrini ve sponsorluk (0026).
  *
  * Vitrin herkese açık; oturumsuz istemciyle okunup 5 dakika önbellekte
  * tutuluyor. Yönetimden dönem eklenip silinince `FEATURED_TAG` temizleniyor.

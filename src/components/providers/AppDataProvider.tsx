@@ -55,6 +55,11 @@ interface AppData {
   points: number
 
   setStatus: (bookId: string, status: LibraryStatus) => Promise<void>
+  /**
+   * Kitabın etkin çocuğun kütüphanesindeki kayıt kimliği. Kayıt yoksa kitabı
+   * okuma listesine ekler. Etkin çocuk yoksa `null`.
+   */
+  ensureInLibrary: (bookId: string) => Promise<{ id: string; added: boolean } | null>
   toggleFavorite: (bookId: string) => Promise<void>
   setRating: (bookId: string, rating: number) => Promise<void>
   logSession: (bookId: string, readOn?: string) => Promise<void>
@@ -168,8 +173,8 @@ export function AppDataProvider({
 
   /** Kaydı iyimser günceller, sunucu hatasında geri alır. */
   const applyPatch = useCallback(
-    async (bookId: string, patch: api.LibraryPatch) => {
-      if (!activeChildId) return
+    async (bookId: string, patch: api.LibraryPatch): Promise<LibraryItem | null> => {
+      if (!activeChildId) return null
       const previous = items
       const existing = items.find((item) => item.bookId === bookId)
 
@@ -208,6 +213,7 @@ export function AppDataProvider({
           return [...without, saved]
         })
         void api.evaluateAchievements(supabase, activeChildId)
+        return saved
       } catch (error) {
         setItems(previous)
         throw error
@@ -217,22 +223,38 @@ export function AppDataProvider({
   )
 
   const setStatus = useCallback(
-    (bookId: string, status: LibraryStatus) => applyPatch(bookId, { status }),
+    async (bookId: string, status: LibraryStatus) => {
+      await applyPatch(bookId, { status })
+    },
     [applyPatch],
   )
 
+  const ensureInLibrary = useCallback(
+    async (bookId: string) => {
+      const existing = items.find((item) => item.bookId === bookId)
+      if (existing && !existing.id.startsWith('optimistic-')) {
+        return { id: existing.id, added: false }
+      }
+      // İyimser kayıt hâlâ yazılıyorsa boş yama aynı satırı döndürür, durumu değiştirmez.
+      const saved = await applyPatch(bookId, existing ? {} : { status: 'to_read' })
+      return saved ? { id: saved.id, added: !existing } : null
+    },
+    [applyPatch, items],
+  )
+
   const toggleFavorite = useCallback(
-    (bookId: string) => {
+    async (bookId: string) => {
       const current = library[bookId]?.isFavorite ?? false
-      return applyPatch(bookId, { isFavorite: !current })
+      await applyPatch(bookId, { isFavorite: !current })
     },
     [applyPatch, library],
   )
 
   const setRating = useCallback(
-    (bookId: string, rating: number) =>
+    async (bookId: string, rating: number) => {
       // Yıldızı geri almak kitabı "okunmadı" yapmamalı.
-      applyPatch(bookId, rating > 0 ? { rating, status: 'read' } : { rating }),
+      await applyPatch(bookId, rating > 0 ? { rating, status: 'read' } : { rating })
+    },
     [applyPatch],
   )
 
@@ -327,6 +349,7 @@ export function AppDataProvider({
       achievements,
       points,
       setStatus,
+      ensureInLibrary,
       toggleFavorite,
       setRating,
       logSession,
@@ -353,6 +376,7 @@ export function AppDataProvider({
       achievements,
       points,
       setStatus,
+      ensureInLibrary,
       toggleFavorite,
       setRating,
       logSession,

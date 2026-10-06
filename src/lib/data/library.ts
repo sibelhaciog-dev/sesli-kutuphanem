@@ -5,6 +5,8 @@ import type {
   Child,
   CustomBook,
   LibraryItem,
+  ModerationNote,
+  PublicNote,
   ReadingNote,
   ReadingSession,
 } from './types'
@@ -201,6 +203,7 @@ export async function loadNotes(supabase: Client, libraryItemId: string): Promis
     body: row.body,
     visibility: row.visibility,
     createdAt: row.created_at,
+    approvedAt: row.approved_at,
   }))
 }
 
@@ -225,11 +228,44 @@ export async function addNote(
     body: data.body,
     visibility: data.visibility,
     createdAt: data.created_at,
+    approvedAt: data.approved_at,
   }
 }
 
 export async function deleteNote(supabase: Client, noteId: string): Promise<void> {
   const { error } = await supabase.from('reading_notes').delete().eq('id', noteId)
+  if (error) throw error
+}
+
+/** Bir kitabın onaylı herkese açık notları (yalnızca giriş yapmış kullanıcılar). */
+export async function loadBookPublicNotes(supabase: Client, bookId: string): Promise<PublicNote[]> {
+  const { data, error } = await supabase.rpc('book_public_notes', { target_book_id: bookId })
+  if (error) throw error
+  return (data ?? []).map((row) => ({ id: row.id, body: row.body, createdAt: row.created_at }))
+}
+
+/** Editör: onay bekleyenler önce, sonra yayındaki herkese açık notlar. */
+export async function loadModerationNotes(supabase: Client): Promise<ModerationNote[]> {
+  const { data, error } = await supabase.rpc('moderation_public_notes')
+  if (error) throw error
+  return (data ?? []).map((row) => ({
+    id: row.id,
+    body: row.body,
+    createdAt: row.created_at,
+    // Üretilen tip sütunları boş olamaz sanıyor; fonksiyon ikisi için de NULL döndürebilir.
+    approvedAt: (row.approved_at as string | null) ?? null,
+    bookTitle: row.book_title,
+    bookSlug: (row.book_slug as string | null) ?? null,
+  }))
+}
+
+/** Editör: notu onaylar ya da "Sadece bana"ya çevirerek yayından kaldırır. */
+export async function moderatePublicNote(
+  supabase: Client,
+  noteId: string,
+  approve: boolean,
+): Promise<void> {
+  const { error } = await supabase.rpc('moderate_public_note', { note_id: noteId, approve })
   if (error) throw error
 }
 

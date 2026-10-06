@@ -1,5 +1,5 @@
 -- ═══════════════════════════════════════════════════════════════════════════
--- 0025 — Ayın kitabı ve sponsorluk başvuruları
+-- 0026 — Ayın kitabı ve sponsorluk başvuruları
 --
 -- Ana sayfanın üstünde bir "Ayın kitabı" vitrini var. İki kaynaktan dolar:
 --

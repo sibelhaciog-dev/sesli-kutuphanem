@@ -8,7 +8,13 @@ import { cn } from '@/lib/cn'
 import type { ChildFormValues } from '@/lib/data/children'
 import type { Child, Gender } from '@/lib/data/types'
 import { GENDER_LABELS } from '@/lib/labels'
-import { earliestBirthDate, LIMITS, todayISO, validateBirthDate, validateText } from '@/lib/validation'
+import {
+  earliestBirthDate,
+  LIMITS,
+  todayISO,
+  validateBirthDate,
+  validateText,
+} from '@/lib/validation'
 
 export function childToForm(child: Child): ChildFormValues {
   return {
