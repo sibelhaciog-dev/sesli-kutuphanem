@@ -4,6 +4,7 @@ import { IconLabel } from '@/components/ui/Icon'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { BookCover } from '@/components/books/BookCover'
+import { PublicBookNotes } from '@/components/books/PublicBookNotes'
 import { ReadingNotes } from '@/components/books/ReadingNotes'
 import { useAppData } from '@/components/providers/AppDataProvider'
 import { Button, ButtonLink } from '@/components/ui/Button'
@@ -11,6 +12,7 @@ import { StarRating } from '@/components/ui/StarRating'
 import { useToast } from '@/components/ui/Toast'
 import { cn } from '@/lib/cn'
 import { formatShortDate } from '@/lib/dates'
+import { publisherSlugOf } from '@/lib/filters'
 import type { BookDetail as BookDetailType, CatalogBook, LibraryStatus } from '@/lib/data/types'
 import {
   ageLabel,
@@ -23,8 +25,16 @@ import { similarBooks, type Recommendation } from '@/lib/recommendations'
 const STATUS_OPTIONS: LibraryStatus[] = ['to_read', 'reading', 'read', 'abandoned']
 
 export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: CatalogBook[] }) {
-  const { activeChild, library, taxonomy, setStatus, toggleFavorite, setRating, logSession } =
-    useAppData()
+  const {
+    activeChild,
+    library,
+    taxonomy,
+    setStatus,
+    ensureInLibrary,
+    toggleFavorite,
+    setRating,
+    logSession,
+  } = useAppData()
   const toast = useToast()
   const [recommendations, setRecommendations] = useState<Recommendation[] | null>(null)
   const [pending, setPending] = useState(false)
@@ -105,7 +115,7 @@ export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: C
 
             {(book.publisherName || book.seriesTitle) && (
               <p className="mt-3 text-xs text-muted">
-                {book.publisherName && <IconLabel name="building">{book.publisherName}</IconLabel>}
+                {book.publisherName && <PublisherLink name={book.publisherName} />}
                 {book.publisherName && book.seriesTitle && ' · '}
                 {book.seriesTitle && <IconLabel name="books">{book.seriesTitle} serisi</IconLabel>}
               </p>
@@ -115,16 +125,17 @@ export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: C
               <ul className="mt-4 flex flex-wrap gap-1.5">
                 {book.topics.slice(0, 6).map((topic) => (
                   <li key={topic.topicSlug}>
-                    <span
-                      className="rounded-full px-2.5 py-1 text-[11px] font-semibold"
+                    <Link
+                      href={`/?konu=${encodeURIComponent(topic.topicSlug)}`}
+                      className="inline-block cursor-pointer rounded-full border border-transparent px-2.5 py-1 text-[11px] font-semibold transition hover:border-current hover:brightness-90 focus-visible:border-current active:brightness-90"
                       style={{
                         backgroundColor: `${topic.color}1a`,
                         color: topic.color,
                       }}
-                      title={topic.areaName}
+                      title={`${topic.areaName} · bu konudaki kitapları gör`}
                     >
                       {topic.emoji} {topic.topicName}
-                    </span>
+                    </Link>
                   </li>
                 ))}
               </ul>
@@ -220,21 +231,36 @@ export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: C
                 Benzer kitap bulunamadı. Birkaç kitabı okundu işaretleyip tekrar deneyin.
               </p>
             ) : (
-              <ul className="mt-3 divide-y divide-line">
+              <ul className="mt-3 flex flex-col gap-2.5">
                 {recommendations.map((entry) => (
-                  <li key={entry.book.id} className="py-3">
-                    <Link href={`/kitap/${entry.book.slug}`} className="group block">
-                      <p className="text-sm font-semibold text-ink group-hover:text-accent-ink">
-                        {entry.book.language === 'en' ? '🇬🇧' : '🇹🇷'} {entry.book.title}
-                      </p>
-                      <p className="text-xs text-muted">
-                        {ageLabel(entry.book.ageMin, entry.book.ageMax)}
-                      </p>
-                      {entry.reasons.length > 0 && (
-                        <p className="mt-0.5 text-[11px] text-accent-ink">
-                          <IconLabel name="tag">{entry.reasons.join(', ')}</IconLabel>
-                        </p>
-                      )}
+                  <li
+                    key={entry.book.id}
+                    className="rounded-xl border border-line bg-white p-3 transition-colors hover:border-accent"
+                  >
+                    <Link
+                      href={`/kitap/${entry.book.slug}`}
+                      className="group flex items-start gap-3"
+                    >
+                      <span className="block aspect-2/3 w-16 shrink-0 overflow-hidden rounded-md border border-line bg-cream">
+                        <BookCover
+                          title={entry.book.title}
+                          src={entry.book.coverThumbUrl}
+                          compact
+                        />
+                      </span>
+                      <span className="block min-w-0">
+                        <span className="block text-[15px] font-semibold text-ink group-hover:text-accent-ink">
+                          {entry.book.language === 'en' ? '🇬🇧' : '🇹🇷'} {entry.book.title}
+                        </span>
+                        <span className="mt-0.5 block text-xs text-muted">
+                          {ageLabel(entry.book.ageMin, entry.book.ageMax)}
+                        </span>
+                        {entry.reasons.length > 0 && (
+                          <span className="mt-1 block text-[11px] text-accent-ink">
+                            <IconLabel name="tag">{entry.reasons.join(', ')}</IconLabel>
+                          </span>
+                        )}
+                      </span>
                     </Link>
                   </li>
                 ))}
@@ -242,7 +268,14 @@ export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: C
             ))}
         </section>
 
-        {item && <ReadingNotes libraryItemId={item.id} />}
+        {activeChild && (
+          <ReadingNotes
+            libraryItemId={item?.id ?? null}
+            ensureLibraryItem={() => ensureInLibrary(book.id)}
+          />
+        )}
+
+        <PublicBookNotes bookId={book.id} />
       </article>
     </div>
   )
@@ -269,5 +302,20 @@ export function InstagramEmbed({ url, title }: { url: string; title: string }) {
       className="h-[480px] w-full border-0"
       allowFullScreen
     />
+  )
+}
+
+/** Yayınevi adı: ana sayfayı o yayınevinin kitaplarıyla açar. */
+function PublisherLink({ name }: { name: string }) {
+  const slug = publisherSlugOf({ publisherName: name })
+  if (!slug) return <IconLabel name="building">{name}</IconLabel>
+  return (
+    <Link
+      href={`/?yayinevi=${encodeURIComponent(slug)}`}
+      className="cursor-pointer underline decoration-dotted underline-offset-2 transition hover:text-accent-ink focus-visible:text-accent-ink"
+      title="Bu yayınevinin tüm kitaplarını gör"
+    >
+      <IconLabel name="building">{name}</IconLabel>
+    </Link>
   )
 }

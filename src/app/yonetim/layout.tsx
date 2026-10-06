@@ -23,7 +23,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
           <IconLabel name="wrench">Yönetim</IconLabel>
         </h1>
         <p className="mt-1 text-sm text-muted">
-          Kitaplar, rehberler, keşif modları ve geri bildirimler
+          Kitaplar, rehberler, keşif modları, ayın kitabı ve geri bildirimler
         </p>
       </header>
 

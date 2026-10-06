@@ -926,6 +926,60 @@ export interface Database {
           },
         ]
       }
+      featured_books: {
+        Row: {
+          id: string
+          book_id: string
+          starts_on: string
+          ends_on: string
+          sponsor_name: string
+          sponsor_url: string | null
+          blurb: string | null
+          created_by: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          book_id: string
+          starts_on: string
+          ends_on: string
+          sponsor_name: string
+          sponsor_url?: string | null
+          blurb?: string | null
+          created_by?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          book_id?: string
+          starts_on?: string
+          ends_on?: string
+          sponsor_name?: string
+          sponsor_url?: string | null
+          blurb?: string | null
+          created_by?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'featured_books_book_id_fkey'
+            columns: ['book_id']
+            isOneToOne: false
+            referencedRelation: 'books'
+            referencedColumns: ['id']
+          },
+          {
+            foreignKeyName: 'featured_books_created_by_fkey'
+            columns: ['created_by']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
+        ]
+      }
       feedback: {
         Row: {
           id: string
@@ -1203,6 +1257,8 @@ export interface Database {
           visibility: 'private' | 'family' | 'public'
           created_at: string
           updated_at: string
+          approved_at: string | null
+          approved_by: string | null
         }
         Insert: {
           id?: string
@@ -1211,6 +1267,8 @@ export interface Database {
           visibility?: 'private' | 'family' | 'public'
           created_at?: string
           updated_at?: string
+          approved_at?: string | null
+          approved_by?: string | null
         }
         Update: {
           id?: string
@@ -1219,8 +1277,17 @@ export interface Database {
           visibility?: 'private' | 'family' | 'public'
           created_at?: string
           updated_at?: string
+          approved_at?: string | null
+          approved_by?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: 'reading_notes_approved_by_fkey'
+            columns: ['approved_by']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
           {
             foreignKeyName: 'reading_notes_library_item_id_fkey'
             columns: ['library_item_id']
@@ -1302,6 +1369,62 @@ export interface Database {
             columns: ['publisher_id']
             isOneToOne: false
             referencedRelation: 'publishers'
+            referencedColumns: ['id']
+          },
+        ]
+      }
+      sponsor_applications: {
+        Row: {
+          id: string
+          user_id: string | null
+          contact_name: string
+          contact_email: string
+          organization: string | null
+          book_title: string
+          book_link: string | null
+          preferred_month: string | null
+          message: string | null
+          status: 'new' | 'in_review' | 'accepted' | 'declined'
+          staff_note: string | null
+          created_at: string
+          updated_at: string
+        }
+        Insert: {
+          id?: string
+          user_id?: string | null
+          contact_name: string
+          contact_email: string
+          organization?: string | null
+          book_title: string
+          book_link?: string | null
+          preferred_month?: string | null
+          message?: string | null
+          status?: 'new' | 'in_review' | 'accepted' | 'declined'
+          staff_note?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string | null
+          contact_name?: string
+          contact_email?: string
+          organization?: string | null
+          book_title?: string
+          book_link?: string | null
+          preferred_month?: string | null
+          message?: string | null
+          status?: 'new' | 'in_review' | 'accepted' | 'declined'
+          staff_note?: string | null
+          created_at?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: 'sponsor_applications_user_id_fkey'
+            columns: ['user_id']
+            isOneToOne: false
+            referencedRelation: 'users'
             referencedColumns: ['id']
           },
         ]
@@ -1407,6 +1530,7 @@ export interface Database {
           cover_thumb_path: string | null
           cover_width: number | null
           cover_height: number | null
+          publisher_name: string | null
         }
         Relationships: []
       }
@@ -1456,6 +1580,21 @@ export interface Database {
         }
         Returns: number
       }
+      book_like_stats: {
+        Args: Record<string, never>
+        Returns: {
+          book_id: string
+          rating_count: number
+          rating_sum: number
+          favorite_count: number
+        }[]
+      }
+      book_public_notes: {
+        Args: {
+          target_book_id: string
+        }
+        Returns: { id: string; body: string; created_at: string }[]
+      }
       build_search_query: {
         Args: {
           input: string
@@ -1491,6 +1630,28 @@ export interface Database {
       is_staff: {
         Args: Record<string, never>
         Returns: boolean
+      }
+      local_today: {
+        Args: Record<string, never>
+        Returns: string
+      }
+      moderate_public_note: {
+        Args: {
+          note_id: string
+          approve: boolean
+        }
+        Returns: unknown
+      }
+      moderation_public_notes: {
+        Args: Record<string, never>
+        Returns: {
+          id: string
+          body: string
+          created_at: string
+          approved_at: string
+          book_title: string
+          book_slug: string
+        }[]
       }
       owns_child: {
         Args: {
@@ -1560,6 +1721,7 @@ export interface Database {
       listing_status: 'active' | 'closed'
       note_visibility: 'private' | 'family' | 'public'
       reading_mood: 'loved' | 'liked' | 'ok' | 'disliked'
+      sponsor_application_status: 'new' | 'in_review' | 'accepted' | 'declined'
       topic_source: 'editorial' | 'auto'
     }
     CompositeTypes: Record<string, never>

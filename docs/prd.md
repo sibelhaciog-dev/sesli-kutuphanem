@@ -28,12 +28,12 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
 
 ## 3. Kullanıcılar
 
-| Rol                    | Kim                            | Ne yapar                                                                              |
-| ---------------------- | ------------------------------ | ------------------------------------------------------------------------------------- |
-| **Ebeveyn** (birincil) | 2–12 yaş çocuğu olan anne/baba | Kitap keşfeder, çocuk profili açar, okunanları işaretler ve puanlar, rapor görür      |
+| Rol                    | Kim                            | Ne yapar                                                                               |
+| ---------------------- | ------------------------------ | -------------------------------------------------------------------------------------- |
+| **Ebeveyn** (birincil) | 2–12 yaş çocuğu olan anne/baba | Kitap keşfeder, çocuk profili açar, okunanları işaretler ve puanlar, rapor görür       |
 | **Çocuk** (dolaylı)    | 3–12 yaş                       | Kendi hayvan dostunu seçer, okudukça eşya açar; uygulamayı ebeveynle birlikte kullanır |
-| **Editör**             | İçerik sahibi (öğretmen)       | Kitap ekler/günceller, rehber başlıklarını yönetir, geri bildirimleri okur            |
-| **Yönetici**           | Teknik danışman                | Rolleri yönetir, içeriği ve sistemi denetler                                          |
+| **Editör**             | İçerik sahibi (öğretmen)       | Kitap ekler/günceller, rehber başlıklarını yönetir, geri bildirimleri okur             |
+| **Yönetici**           | Teknik danışman                | Rolleri yönetir, içeriği ve sistemi denetler                                           |
 
 ## 4. Kapsam
 
@@ -47,6 +47,18 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
   uyumu, akran zorbalığı…)
 - Kitap sayfası: özet, yaş aralığı, yazar/çizer, seri, gelişim etiketleri,
   Instagram tanıtımı
+- Kitap sayfasındaki gelişim etiketleri ve yayınevi adı tıklanabilir: ana
+  sayfayı o konuya (`/?konu=<adres>`) ya da o yayınevinin kitaplarına
+  (`/?yayinevi=<adres>`) süzülmüş olarak açar; adres paylaşılabilir
+
+**Ayın kitabı**
+
+- Ana sayfanın üstünde vitrin. Sponsor varsa sponsorun kitabı, açıkça
+  “Sponsorlu · <sponsor>” etiketiyle; yoksa ailelerin puan ve favorilerine göre
+  en çok beğenilen kitap; hiç beğeni yoksa en yeni kitap
+- “Kitabını paylaş” (`/kitabini-paylas`): yayınevi/yazar başvuru formu (giriş
+  gerekir). Ödeme sitede alınmaz; ekip e-postayla döner, anlaşınca yönetimden
+  tarih aralığı girer
 
 **Kişiselleştirme**
 
@@ -62,7 +74,8 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
 - Yıldız puanı, favori işareti
 - **Okuma oturumları** — aynı kitap birden çok kez okunabilir, her okuma ayrı
   kaydedilir
-- Okuma notları (özel / aile içi / herkese açık)
+- Okuma notları (sadece bana / herkese açık). Herkese açık notlar editör onayından
+  sonra kitap sayfasında, giriş yapmış velilere isimsiz ("Bir veli") görünür
 - Takvim: hangi gün ne okundu, en uzun seri
 - Aylık rapor: gelişim alanı dağılımı, dil dağılımı, en beğenilenler
 
@@ -96,6 +109,8 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
 - Instagram'dan aktarım: Claude in Chrome skill'i gönderiden kitap bilgisini
   ve kapağı çıkarır, Claude Code ekler
 - Geri bildirim ve bağış taleplerini görme
+- Ayın kitabı: sponsorlu dönem ekleme/düzenleme (çakışan tarih reddedilir),
+  sponsor başvurularını görme, durumunu işaretleme, başvurudan dönem açma
 
 Buradaki her değişiklik doğrudan veritabanına yazılır ve hemen görünür;
 yayın gerekmez (ADR 0008).
@@ -138,7 +153,9 @@ yayın gerekmez (ADR 0008).
 1. Kitap sayfası → "Okudum" veya "Okuma listeme ekle".
 2. Yıldız puanı → çocuğun puanı artar (avatar eşyaları artık puanla değil okunan kitaplarla açılır).
 3. Aynı kitap tekrar okunursa "Tekrar okuduk" → yeni oturum kaydı.
-4. Not eklenir (varsayılan: özel).
+4. Not eklenir (varsayılan: sadece bana). Herkese açık not editör onayına düşer
+   (`/yonetim/notlar`); onaylanınca kitap sayfasındaki "Velilerin notları"nda görünür.
+   Not kutusu kitap kütüphanede olmasa da görünür; ilk not kitabı okuma listesine ekler.
 
 ### 6.3 Keşif (yapay zekâ destekli öneri)
 

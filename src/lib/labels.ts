@@ -19,9 +19,12 @@ export const LIBRARY_STATUS_LABELS: Record<LibraryStatus, string> = {
   abandoned: 'Yarım bırakıldı',
 }
 
+// "Aile içi" seçeneği arayüzden kaldırıldı. Veritabanındaki `family` değeri
+// eski notlar için duruyor; bu notlar yalnızca sahibine görünür, bu yüzden
+// "Sadece bana" olarak gösterilir.
 export const NOTE_VISIBILITY_LABELS: Record<NoteVisibility, string> = {
   private: '🔒 Sadece bana',
-  family: '👨‍👩‍👧 Aile içi',
+  family: '🔒 Sadece bana',
   public: '🌍 Herkese açık',
 }
 

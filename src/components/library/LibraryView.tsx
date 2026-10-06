@@ -64,6 +64,13 @@ export function LibraryView({ books }: { books: CatalogBook[] }) {
     [library, booksById],
   )
 
+  // Kitaplıkta "okundu" durumundaki tüm kayıtlar (katalog + kendi eklenen kitaplar).
+  const readCount = useMemo(
+    () =>
+      [...Object.values(library), ...customItems].filter((item) => item.status === 'read').length,
+    [library, customItems],
+  )
+
   const toReadCatalog = useMemo(
     () =>
       Object.values(library)
@@ -122,13 +129,8 @@ export function LibraryView({ books }: { books: CatalogBook[] }) {
 
       {tab === 'read' && (
         <>
-          <div className="mb-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <Stat value={summary.booksRead} label="Okunan kitap" />
-            <Stat value={summary.totalSessions} label="Toplam okuma" />
-            <Stat
-              value={summary.averageRating ? summary.averageRating.toFixed(1) : '—'}
-              label="Ortalama puan"
-            />
+          <div className="mb-7 grid grid-cols-2 gap-3">
+            <Stat value={readCount} label="Okunan kitap" />
             <Stat value={summary.favorites} label="Favori" />
           </div>
 

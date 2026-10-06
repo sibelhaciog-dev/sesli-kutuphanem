@@ -5,7 +5,7 @@
 
 **Durum:** v2 — veri modeli yeniden tasarımı
 **Dal:** `feat/product-v2`
-**Son güncelleme:** 2026-09-22 (içerik yönetimi: veritabanı doğru kaynak, kapaklar)
+**Son güncelleme:** 2026-10-06 (ayın kitabı ve sponsorluk)
 
 ---
 
@@ -121,6 +121,7 @@ Supabase projesi: **kutuphanem** (`ygaxtmuzhnntzdcltmgn`).
 - [x] Yönetim: rehber/konu/ilgi düzenleyici, silmeden önce kullanım sayıları (`0023`)
 - [x] Yönetim: keşif modu düzenleyici
 - [x] Anahtar kelime denetimi; `\b` → `\y` düzeltmesi (`0023`)
+- [x] Herkese açık okuma notları: editör onayı, kitap sayfasında isimsiz gösterim; "Aile içi" seçeneği kaldırıldı (`0025`)
 - [ ] `SUPABASE_SECRET_KEY`'i yerel `.env.local`'e ekle (betikle kapak yüklemek için)
 - [ ] Var olan 196 kitabın kapaklarını ekle — Instagram'dan Chrome ile liste
       çıkarıp `book:add --sadece-kapak`
@@ -138,6 +139,15 @@ Supabase projesi: **kutuphanem** (`ygaxtmuzhnntzdcltmgn`).
 - [ ] Supabase MCP bağlantısını yeni projeye (`xhjgyxlerccxopbjtbzl`) çevir
 - [ ] Duraklatılmış Londra projesini (`ramasnuqdfpgxldifepy`) sil — tam veri
       kopyası taşıyor
+
+## Faz 9 — Ayın kitabı ve sponsorluk
+
+- [x] `0026`: sponsorlu dönemler (çakışma kısıtı), başvurular, beğeni toplamı
+- [x] Ana sayfa vitrini: sponsor → en çok beğenilen → en yeni
+- [x] “Kitabını paylaş” başvuru sayfası (`/kitabini-paylas`)
+- [x] Yönetim → Ayın kitabı: dönemler + başvurular
+- [ ] `0026`'i üretim veritabanına uygula
+- [x] Sponsorluk koşulları ve fiyatı sitede yazılmıyor; başvurudan sonra e-postayla konuşuluyor (ürün kararı, 2026-10-06)
 
 ## Sonraki sürüm için fikirler (kapsam dışı)
 
