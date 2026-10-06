@@ -28,12 +28,12 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
 
 ## 3. Kullanıcılar
 
-| Rol                    | Kim                            | Ne yapar                                                                              |
-| ---------------------- | ------------------------------ | ------------------------------------------------------------------------------------- |
-| **Ebeveyn** (birincil) | 2–12 yaş çocuğu olan anne/baba | Kitap keşfeder, çocuk profili açar, okunanları işaretler ve puanlar, rapor görür      |
+| Rol                    | Kim                            | Ne yapar                                                                               |
+| ---------------------- | ------------------------------ | -------------------------------------------------------------------------------------- |
+| **Ebeveyn** (birincil) | 2–12 yaş çocuğu olan anne/baba | Kitap keşfeder, çocuk profili açar, okunanları işaretler ve puanlar, rapor görür       |
 | **Çocuk** (dolaylı)    | 3–12 yaş                       | Kendi hayvan dostunu seçer, okudukça eşya açar; uygulamayı ebeveynle birlikte kullanır |
-| **Editör**             | İçerik sahibi (öğretmen)       | Kitap ekler/günceller, rehber başlıklarını yönetir, geri bildirimleri okur            |
-| **Yönetici**           | Teknik danışman                | Rolleri yönetir, içeriği ve sistemi denetler                                          |
+| **Editör**             | İçerik sahibi (öğretmen)       | Kitap ekler/günceller, rehber başlıklarını yönetir, geri bildirimleri okur             |
+| **Yönetici**           | Teknik danışman                | Rolleri yönetir, içeriği ve sistemi denetler                                           |
 
 ## 4. Kapsam
 
@@ -141,6 +141,7 @@ yayın gerekmez (ADR 0008).
 3. Aynı kitap tekrar okunursa "Tekrar okuduk" → yeni oturum kaydı.
 4. Not eklenir (varsayılan: sadece bana). Herkese açık not editör onayına düşer
    (`/yonetim/notlar`); onaylanınca kitap sayfasındaki "Velilerin notları"nda görünür.
+   Not kutusu kitap kütüphanede olmasa da görünür; ilk not kitabı okuma listesine ekler.
 
 ### 6.3 Keşif (yapay zekâ destekli öneri)
 

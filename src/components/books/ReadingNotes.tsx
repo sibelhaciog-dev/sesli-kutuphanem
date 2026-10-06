@@ -12,8 +12,20 @@ import { createClient } from '@/lib/supabase/client'
 
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
-/** Kitap notları. Varsayılan gizlilik "özel" (PRD ilke 2). */
-export function ReadingNotes({ libraryItemId }: { libraryItemId: string }) {
+/**
+ * Kitap notları. Varsayılan gizlilik "özel" (PRD ilke 2).
+ *
+ * Not, çocuğun kütüphane kaydına bağlıdır. Kitap henüz kütüphanede yoksa
+ * kutu yine görünür; ilk not kaydedilirken `ensureLibraryItem` kitabı
+ * okuma listesine ekler.
+ */
+export function ReadingNotes({
+  libraryItemId,
+  ensureLibraryItem,
+}: {
+  libraryItemId: string | null
+  ensureLibraryItem: () => Promise<{ id: string; added: boolean } | null>
+}) {
   const supabase = createClient()
   const toast = useToast()
   const [notes, setNotes] = useState<ReadingNote[]>([])
@@ -27,7 +39,7 @@ export function ReadingNotes({ libraryItemId }: { libraryItemId: string }) {
     // Sorgulamak PostgREST'ten 400 döndürüyor ve her seferinde konsola
     // başarısız bir istek düşüyordu. Gerçek kimlik gelince efekt yeniden
     // çalışıyor ve notlar yükleniyor.
-    if (!UUID_PATTERN.test(libraryItemId)) {
+    if (!libraryItemId || !UUID_PATTERN.test(libraryItemId)) {
       setNotes([])
       return
     }
@@ -48,12 +60,18 @@ export function ReadingNotes({ libraryItemId }: { libraryItemId: string }) {
     if (!trimmed) return
     setSaving(true)
     try {
-      const note = await addNote(supabase, { libraryItemId, body: trimmed, visibility })
+      const target = await ensureLibraryItem()
+      if (!target) throw new Error('Kütüphane kaydı yok')
+      const note = await addNote(supabase, { libraryItemId: target.id, body: trimmed, visibility })
       setNotes((current) => [note, ...current])
       setBody('')
-      if (note.visibility === 'public' && !note.approvedAt) {
-        toast.show('Notun kaydedildi. Onaylandıktan sonra diğer velilere görünecek.')
-      }
+      const messages = [
+        target.added && 'Kitap okuma listesine eklendi.',
+        note.visibility === 'public' &&
+          !note.approvedAt &&
+          'Notun onaylandıktan sonra diğer velilere görünecek.',
+      ].filter(Boolean)
+      if (messages.length > 0) toast.show(`Notun kaydedildi. ${messages.join(' ')}`)
     } catch {
       toast.show('Not kaydedilemedi.', 'error')
     } finally {

@@ -23,8 +23,16 @@ import { similarBooks, type Recommendation } from '@/lib/recommendations'
 const STATUS_OPTIONS: LibraryStatus[] = ['to_read', 'reading', 'read', 'abandoned']
 
 export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: CatalogBook[] }) {
-  const { activeChild, library, taxonomy, setStatus, toggleFavorite, setRating, logSession } =
-    useAppData()
+  const {
+    activeChild,
+    library,
+    taxonomy,
+    setStatus,
+    ensureInLibrary,
+    toggleFavorite,
+    setRating,
+    logSession,
+  } = useAppData()
   const toast = useToast()
   const [recommendations, setRecommendations] = useState<Recommendation[] | null>(null)
   const [pending, setPending] = useState(false)
@@ -236,7 +244,12 @@ export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: C
             ))}
         </section>
 
-        {item && <ReadingNotes libraryItemId={item.id} />}
+        {activeChild && (
+          <ReadingNotes
+            libraryItemId={item?.id ?? null}
+            ensureLibraryItem={() => ensureInLibrary(book.id)}
+          />
+        )}
 
         <PublicBookNotes bookId={book.id} />
       </article>
