@@ -10,6 +10,7 @@ import { StarRating } from '@/components/ui/StarRating'
 import { useToast } from '@/components/ui/Toast'
 import { cn } from '@/lib/cn'
 import { formatShortDate } from '@/lib/dates'
+import { publisherSlugOf } from '@/lib/filters'
 import type { BookDetail as BookDetailType, CatalogBook, LibraryStatus } from '@/lib/data/types'
 import {
   ageLabel,
@@ -100,7 +101,7 @@ export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: C
 
             {(book.publisherName || book.seriesTitle) && (
               <p className="mt-3 text-xs text-muted">
-                {book.publisherName && <span>🏢 {book.publisherName}</span>}
+                {book.publisherName && <PublisherLink name={book.publisherName} />}
                 {book.publisherName && book.seriesTitle && ' · '}
                 {book.seriesTitle && <span>📚 {book.seriesTitle} serisi</span>}
               </p>
@@ -263,5 +264,20 @@ export function InstagramEmbed({ url, title }: { url: string; title: string }) {
       className="h-[480px] w-full border-0"
       allowFullScreen
     />
+  )
+}
+
+/** Yayınevi adı: ana sayfayı o yayınevinin kitaplarıyla açar. */
+function PublisherLink({ name }: { name: string }) {
+  const slug = publisherSlugOf({ publisherName: name })
+  if (!slug) return <span>🏢 {name}</span>
+  return (
+    <Link
+      href={`/?yayinevi=${encodeURIComponent(slug)}`}
+      className="cursor-pointer underline decoration-dotted underline-offset-2 transition hover:text-accent-ink focus-visible:text-accent-ink"
+      title="Bu yayınevinin tüm kitaplarını gör"
+    >
+      🏢 {name}
+    </Link>
   )
 }

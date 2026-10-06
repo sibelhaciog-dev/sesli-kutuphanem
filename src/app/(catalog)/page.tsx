@@ -4,17 +4,17 @@ import { loadDiscoveryModes } from '@/lib/data/discovery'
 import { createPublicClient } from '@/lib/supabase/public'
 
 interface PageProps {
-  searchParams: Promise<{ konu?: string | string[] }>
+  searchParams: Promise<{ konu?: string | string[]; yayinevi?: string | string[] }>
 }
 
 export default async function HomePage({ searchParams }: PageProps) {
   // Modlar herkese açık (aktif olanlar); oturumsuz istemci yeterli ve
   // katalogla birlikte önbelleğe alınabiliyor.
-  const [books, modes, { konu }] = await Promise.all([
+  const [books, modes, { konu, yayinevi }] = await Promise.all([
     getCatalog(),
     loadDiscoveryModes(createPublicClient()),
     searchParams,
   ])
-  // `?konu=` doğrulaması rehberleri bilen istemci tarafında yapılıyor.
-  return <CatalogView books={books} modes={modes} topicParam={konu} />
+  // `?konu=` ve `?yayinevi=` doğrulaması istemci tarafında yapılıyor.
+  return <CatalogView books={books} modes={modes} topicParam={konu} publisherParam={yayinevi} />
 }

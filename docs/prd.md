@@ -47,6 +47,9 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
   uyumu, akran zorbalığı…)
 - Kitap sayfası: özet, yaş aralığı, yazar/çizer, seri, gelişim etiketleri,
   Instagram tanıtımı
+- Kitap sayfasındaki gelişim etiketleri ve yayınevi adı tıklanabilir: ana
+  sayfayı o konuya (`/?konu=<adres>`) ya da o yayınevinin kitaplarına
+  (`/?yayinevi=<adres>`) süzülmüş olarak açar; adres paylaşılabilir
 
 **Kişiselleştirme**
 

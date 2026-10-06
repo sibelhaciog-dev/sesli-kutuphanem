@@ -1,6 +1,7 @@
 import { inAgeBand, suitsAge, type AgeBandSlug } from './age'
 import type { AreaView, CatalogBook, Language, LibraryIndex } from './data/types'
 import { matchesTerms, searchTerms } from './search'
+import { slugify } from './slug'
 
 export type LanguageFilter = 'all' | Language
 export type CollectionFilter = 'all' | 'favorites' | 'read' | 'unread' | 'to_read'
@@ -13,6 +14,8 @@ export interface CatalogFilters {
   sort: SortOrder
   /** Sol menüden seçilen gelişim konusu. */
   topicSlug: string | null
+  /** Kitap sayfasındaki yayınevi bağlantısından gelen yayınevi adresi (ör. `domingo-cocuk`). */
+  publisherSlug: string | null
   /** Filtre çubuğundan seçilen yaş kuşağı. */
   ageBand: AgeBandSlug | null
   /** Aktif çocuğun yaşı — seçiliyse yaşa uymayan kitaplar gizlenir. */
@@ -27,6 +30,7 @@ export const DEFAULT_FILTERS: CatalogFilters = {
   collection: 'all',
   sort: 'newest',
   topicSlug: null,
+  publisherSlug: null,
   ageBand: null,
   childAge: null,
   showAllAges: false,
@@ -60,6 +64,7 @@ export function filterBooks(
     if (filters.language !== 'all' && book.language !== filters.language) return false
     if (!matchesCollection(book, filters.collection, library)) return false
     if (filters.topicSlug && !book.topicSlugs.includes(filters.topicSlug)) return false
+    if (filters.publisherSlug && publisherSlugOf(book) !== filters.publisherSlug) return false
     if (filters.ageBand && !inAgeBand(book, filters.ageBand)) return false
     // Elle seçilen yaş kuşağı çocuğun yaşının önüne geçer; ikisi birlikte
     // uygulanınca (ör. 0 yaşındaki çocukta "3–5 yaş") hiç sonuç kalmıyordu.
@@ -89,6 +94,7 @@ export function hasActiveFilters(filters: CatalogFilters): boolean {
     filters.language !== 'all' ||
     filters.collection !== 'all' ||
     filters.topicSlug !== null ||
+    filters.publisherSlug !== null ||
     filters.ageBand !== null ||
     filters.showAllAges
   )
@@ -106,4 +112,28 @@ export function topicSlugFromParam(
   if (typeof param !== 'string' || param === '') return null
   const known = areas.some((area) => area.topics.some((topic) => topic.slug === param))
   return known ? param : null
+}
+
+/**
+ * Kitabın yayınevi adresi. Katalog görünümünde yalnızca yayınevi adı var;
+ * adresi veritabanıyla aynı kuralla (`slugify`) addan türetiyoruz, böylece
+ * kitap sayfasındaki bağlantı ile katalogdaki eşleştirme aynı değeri kullanıyor.
+ */
+export function publisherSlugOf(book: Pick<CatalogBook, 'publisherName'>): string | null {
+  if (!book.publisherName) return null
+  return slugify(book.publisherName) || null
+}
+
+/**
+ * Adresteki `?yayinevi=` değerini doğrular: katalogda bu yayınevinden en az
+ * bir kitap varsa adresi ve görünen adı döner; aksi hâlde `null`
+ * (katalog filtresiz açılır).
+ */
+export function publisherFromParam(
+  param: string | string[] | undefined,
+  books: readonly CatalogBook[],
+): { slug: string; name: string } | null {
+  if (typeof param !== 'string' || param === '') return null
+  const match = books.find((book) => publisherSlugOf(book) === param)
+  return match?.publisherName ? { slug: param, name: match.publisherName } : null
 }

@@ -4,6 +4,8 @@ import {
   DEFAULT_FILTERS,
   filterBooks,
   hasActiveFilters,
+  publisherFromParam,
+  publisherSlugOf,
   sortBooks,
   topicSlugFromParam,
 } from './filters'
@@ -175,5 +177,39 @@ describe('topicSlugFromParam', () => {
     expect(topicSlugFromParam('', AREAS)).toBeNull()
     expect(topicSlugFromParam(undefined, AREAS)).toBeNull()
     expect(topicSlugFromParam(['korku-ve-kaygi', 'duygu-yonetimi'], AREAS)).toBeNull()
+  })
+})
+
+describe('yayınevi filtresi', () => {
+  const books = [
+    makeBook({ id: 'd1', title: 'Bir Artı Bir', publisherName: 'Domingo Çocuk' }),
+    makeBook({ id: 'd2', title: 'Zor Balık', publisherName: 'Domingo Çocuk' }),
+    makeBook({ id: 'k1', title: 'Başka Kitap', publisherName: 'Kırmızı Kedi' }),
+    makeBook({ id: 'n1', title: 'Yayınevsiz', publisherName: null }),
+  ]
+
+  it('yayınevi adını veritabanıyla aynı kuralla adrese çevirir', () => {
+    expect(publisherSlugOf(books[0]!)).toBe('domingo-cocuk')
+    expect(publisherSlugOf(books[3]!)).toBeNull()
+  })
+
+  it('yalnızca o yayınevinin kitaplarını listeler', () => {
+    const result = filterBooks(books, { ...DEFAULT_FILTERS, publisherSlug: 'domingo-cocuk' })
+    expect(result.map((book) => book.id).sort()).toEqual(['d1', 'd2'])
+  })
+
+  it('aktif filtre sayılır', () => {
+    expect(hasActiveFilters({ ...DEFAULT_FILTERS, publisherSlug: 'domingo-cocuk' })).toBe(true)
+  })
+
+  it('adresteki değeri doğrular ve görünen adı bulur', () => {
+    expect(publisherFromParam('domingo-cocuk', books)).toEqual({
+      slug: 'domingo-cocuk',
+      name: 'Domingo Çocuk',
+    })
+    expect(publisherFromParam('olmayan-yayinevi', books)).toBeNull()
+    expect(publisherFromParam('', books)).toBeNull()
+    expect(publisherFromParam(undefined, books)).toBeNull()
+    expect(publisherFromParam(['domingo-cocuk', 'kirmizi-kedi'], books)).toBeNull()
   })
 })
