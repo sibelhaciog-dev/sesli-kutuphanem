@@ -1,5 +1,6 @@
 'use client'
 
+import { Icon, IconLabel } from '@/components/ui/Icon'
 import { useState, type FormEvent } from 'react'
 import { useAppData } from '@/components/providers/AppDataProvider'
 import { Button, ButtonLink } from '@/components/ui/Button'
@@ -83,8 +84,8 @@ export function DonationForm({ organizations }: { organizations: Organization[] 
   if (done) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-16 text-center">
-        <p className="mb-4 text-5xl" aria-hidden>
-          💚
+        <p className="mb-4 text-5xl text-success">
+          <Icon name="heart" filled className="size-14" />
         </p>
         <h1 className="mb-2 text-3xl">Talebiniz alındı</h1>
         <p className="mb-6 text-sm leading-relaxed text-muted">
@@ -99,7 +100,9 @@ export function DonationForm({ organizations }: { organizations: Organization[] 
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
-      <h1 className="mb-1 text-3xl">📚 Kitap bağışı</h1>
+      <h1 className="mb-1 text-3xl">
+        <IconLabel name="books">Kitap bağışı</IconLabel>
+      </h1>
       <p className="mb-6 text-sm leading-relaxed text-muted">
         Evinizdeki kitapları bağışlamak mı istiyorsunuz? Seçtiğiniz kurum sizi arayıp kitapları
         almaya gelsin.

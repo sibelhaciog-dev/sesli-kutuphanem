@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <div className="mx-auto max-w-2xl px-4 py-20">
       <EmptyState
-        icon="🧭"
+        icon="compass"
         title="Bu sayfayı bulamadık"
         description="Aradığınız sayfa taşınmış veya hiç var olmamış olabilir."
         action={<ButtonLink href="/">Kitaplara dön</ButtonLink>}

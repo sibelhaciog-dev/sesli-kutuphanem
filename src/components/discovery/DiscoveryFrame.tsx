@@ -1,5 +1,6 @@
 'use client'
 
+import { Icon, IconLabel } from '@/components/ui/Icon'
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { useAppData } from '@/components/providers/AppDataProvider'
@@ -51,12 +52,16 @@ export function DiscoveryFrame({
         aria-controls="kesif-govde"
         className="flex w-full items-center justify-between gap-3 text-left lg:hidden"
       >
-        <span className="text-sm font-bold text-ink">✨ Bugün ne okusak?</span>
+        <span className="text-sm font-bold text-ink">
+          <IconLabel name="sparkles">Bugün ne okusak?</IconLabel>
+        </span>
         <span className="shrink-0 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-ink">
           {open ? 'Kapat' : 'Öneri al'}
         </span>
       </button>
-      <h2 className="hidden text-sm font-bold text-ink lg:block">✨ Bugün ne okusak?</h2>
+      <h2 className="hidden text-sm font-bold text-ink lg:block">
+        <IconLabel name="sparkles">Bugün ne okusak?</IconLabel>
+      </h2>
 
       <div id="kesif-govde" className={open ? 'mt-3 lg:mt-0' : 'hidden lg:block'}>
         <p className="mt-1 mb-3 text-xs leading-relaxed text-muted">
@@ -126,8 +131,8 @@ export function DiscoveryFrame({
         {/* Profil olmadan da çalışıyor; ama daha iyisi mümkün. */}
         {isAuthenticated && children.length === 0 && (
           <p className="mt-2.5 text-[11px] leading-relaxed text-muted">
-            💡 Çocuk profili eklerseniz öneriler yaşına, ilgi alanlarına ve okuduğu kitaplara göre
-            kişiselleşir.{' '}
+            <Icon name="lightbulb" className="mr-1" /> Çocuk profili eklerseniz öneriler yaşına,
+            ilgi alanlarına ve okuduğu kitaplara göre kişiselleşir.{' '}
             <Link href="/onboarding" className="font-semibold text-accent-ink">
               Profil ekle
             </Link>

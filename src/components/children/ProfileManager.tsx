@@ -1,5 +1,6 @@
 'use client'
 
+import { IconLabel } from '@/components/ui/Icon'
 import { useEffect, useState } from 'react'
 import { AvatarFigure } from '@/components/avatar/AvatarFigure'
 import { AvatarStudio } from '@/components/children/AvatarStudio'
@@ -115,7 +116,7 @@ export function ProfileManager() {
 
       {children.length === 0 ? (
         <EmptyState
-          icon="👶"
+          icon="user"
           title="Henüz profil yok"
           description="Kitap önerilerinin kişiselleşmesi için bir çocuk profili ekleyin."
           action={<Button onClick={openNew}>+ Çocuk ekle</Button>}
@@ -158,7 +159,10 @@ export function ProfileManager() {
                   </p>
                   <p className="text-xs text-muted">
                     {child.birthDate ? `${ageFromBirthDate(child.birthDate)} yaşında` : 'Yaş yok'}
-                    {` · ⭐ ${pointsByChild[child.id] ?? 0} puan`}
+                    {' · '}
+                    <IconLabel name="star" filled>
+                      {pointsByChild[child.id] ?? 0} puan
+                    </IconLabel>
                   </p>
                   {child.interestSlugs.length > 0 && (
                     <p className="mt-1 text-xs text-muted">
@@ -178,7 +182,7 @@ export function ProfileManager() {
                     </Button>
                   )}
                   <Button size="sm" variant="secondary" onClick={() => openEdit(child)}>
-                    ✏️ Düzenle
+                    <IconLabel name="pencil">Düzenle</IconLabel>
                   </Button>
                   <Button size="sm" variant="danger" onClick={() => void remove(child)}>
                     Kaldır
@@ -208,16 +212,11 @@ export function ProfileManager() {
           busy={busy}
           error={error}
           fieldErrors={fieldErrors}
-          submitLabel="Kaydet ✓"
+          submitLabel="Kaydet"
         />
       </Dialog>
 
-      {avatarChild && (
-        <AvatarStudio
-          child={avatarChild}
-          onClose={() => setAvatarChild(null)}
-        />
-      )}
+      {avatarChild && <AvatarStudio child={avatarChild} onClose={() => setAvatarChild(null)} />}
     </div>
   )
 }

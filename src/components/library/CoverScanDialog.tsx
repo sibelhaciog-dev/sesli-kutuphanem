@@ -1,5 +1,6 @@
 'use client'
 
+import { Icon, IconLabel } from '@/components/ui/Icon'
 import { useRef, useState } from 'react'
 import { useAppData } from '@/components/providers/AppDataProvider'
 import { Button } from '@/components/ui/Button'
@@ -93,7 +94,7 @@ export function CoverScanDialog({ open, onClose }: { open: boolean; onClose: () 
         reset()
         onClose()
       }}
-      title="📷 Kitap kapağı tara"
+      title={<IconLabel name="camera">Kitap kapağı tara</IconLabel>}
       subtitle="Fotoğraf çekin, kitabı tanıyalım"
       headerClassName="bg-linear-[135deg,#667eea,#764ba2]"
     >
@@ -115,8 +116,8 @@ export function CoverScanDialog({ open, onClose }: { open: boolean; onClose: () 
         onClick={() => inputRef.current?.click()}
         className="mb-4 w-full rounded-2xl border-2 border-dashed border-[#d0c0f0] px-4 py-6 text-center transition-colors hover:border-[#764ba2]"
       >
-        <span className="block text-4xl" aria-hidden>
-          📸
+        <span className="block text-4xl text-[#764ba2]">
+          <Icon name="camera" className="size-10" />
         </span>
         <span className="mt-2 block text-sm font-semibold text-[#764ba2]">
           Fotoğraf çek veya seç
@@ -138,7 +139,7 @@ export function CoverScanDialog({ open, onClose }: { open: boolean; onClose: () 
 
       {busy && (
         <p className="py-4 text-center text-sm font-semibold text-[#764ba2]" role="status">
-          🔍 Kitap tanınıyor…
+          <IconLabel name="search">Kitap tanınıyor…</IconLabel>
         </p>
       )}
 
@@ -146,7 +147,9 @@ export function CoverScanDialog({ open, onClose }: { open: boolean; onClose: () 
 
       {result && (
         <div className="rounded-xl border-[1.5px] border-[#c0a0f0] bg-[#f5f0ff] p-4">
-          <p className="mb-3 text-xs font-bold text-[#764ba2]">✨ Bulunanlar</p>
+          <p className="mb-3 text-xs font-bold text-[#764ba2]">
+            <IconLabel name="sparkles">Bulunanlar</IconLabel>
+          </p>
           <TextField
             label="Kitap adı"
             value={result.kitapAdi}
@@ -164,7 +167,7 @@ export function CoverScanDialog({ open, onClose }: { open: boolean; onClose: () 
             onChange={(event) => setResult({ ...result, ozet: event.target.value })}
           />
           <Button className="w-full" onClick={() => void add()}>
-            📚 Okuma listeme ekle
+            <IconLabel name="books">Okuma listeme ekle</IconLabel>
           </Button>
         </div>
       )}

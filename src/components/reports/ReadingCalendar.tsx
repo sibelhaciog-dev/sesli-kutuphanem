@@ -1,5 +1,6 @@
 'use client'
 
+import { IconLabel } from '@/components/ui/Icon'
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { useAppData } from '@/components/providers/AppDataProvider'
@@ -54,7 +55,7 @@ export function ReadingCalendar({ books }: { books: CatalogBook[] }) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-10">
         <EmptyState
-          icon="👶"
+          icon="user"
           title="Önce bir çocuk profili oluşturun"
           action={<ButtonLink href="/onboarding">Profil oluştur</ButtonLink>}
         />
@@ -78,7 +79,9 @@ export function ReadingCalendar({ books }: { books: CatalogBook[] }) {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
-      <h1 className="mb-1 text-3xl">📅 Okuma takvimi</h1>
+      <h1 className="mb-1 text-3xl">
+        <IconLabel name="calendar">Okuma takvimi</IconLabel>
+      </h1>
       <p className="mb-6 text-sm text-muted">{activeChild.name} hangi gün ne okudu?</p>
 
       <div className="mb-4 grid grid-cols-3 gap-3">
@@ -145,9 +148,7 @@ export function ReadingCalendar({ books }: { books: CatalogBook[] }) {
 
       {selected && selectedBooks.length > 0 && (
         <section className="mt-4 rounded-panel border border-line bg-white p-5">
-          <h2 className="mb-3 font-serif text-base">
-            {formatWeekday(selected)}
-          </h2>
+          <h2 className="mb-3 font-serif text-base">{formatWeekday(selected)}</h2>
           <ul className="flex flex-col gap-2">
             {selectedBooks.map((book) => (
               <li key={book.id} className="flex items-center justify-between gap-3">

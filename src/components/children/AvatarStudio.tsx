@@ -1,5 +1,6 @@
 'use client'
 
+import { Icon } from '@/components/ui/Icon'
 import { useEffect, useMemo, useState } from 'react'
 import { AvatarFigure } from '@/components/avatar/AvatarFigure'
 import { useAppData } from '@/components/providers/AppDataProvider'
@@ -206,7 +207,7 @@ export function AvatarStudio({ child, onClose }: AvatarStudioProps) {
                     />
                   </span>
                   <span className="mt-1 block text-xs font-semibold text-ink">
-                    {!usable && '🔒 '}
+                    {!usable && <Icon name="lock" className="mr-1" />}
                     {item.name}
                   </span>
                   <span className="block text-[10px] leading-snug text-muted">{status.note}</span>

@@ -12,7 +12,7 @@ export default function Error({ error, reset }: { error: Error; reset: () => voi
   return (
     <div className="mx-auto max-w-2xl px-4 py-20">
       <EmptyState
-        icon="🌧️"
+        icon="cloud-rain"
         title="Bir şeyler ters gitti"
         description="Sayfa yüklenirken beklenmedik bir hata oluştu. Tekrar denemek genellikle işe yarar."
         action={<Button onClick={reset}>Tekrar dene</Button>}

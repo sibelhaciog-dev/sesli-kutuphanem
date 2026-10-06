@@ -1,5 +1,6 @@
 'use client'
 
+import { Icon, IconLabel, type IconName } from '@/components/ui/Icon'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
@@ -10,14 +11,19 @@ import { cn } from '@/lib/cn'
 import { createClient } from '@/lib/supabase/client'
 import { INSTAGRAM_URL } from '@/lib/site'
 
-const MENU_ITEMS: { href: string; label: string; external?: boolean }[] = [
-  { href: '/kesif', label: '✨ Kitap keşfi' },
-  { href: '/rapor', label: '📊 Okuma raporu' },
-  { href: '/takvim', label: '📅 Okuma takvimi' },
-  { href: '/takas', label: '🔄 Kitap takası' },
-  { href: '/bagis', label: '📚 Kitap bağışı' },
-  { href: '/gorus', label: '💬 Görüş bildir' },
-  { href: INSTAGRAM_URL, label: '📸 Instagram', external: true },
+const MENU_ITEMS: {
+  href: string
+  label: string
+  icon: IconName | 'instagram'
+  external?: boolean
+}[] = [
+  { href: '/kesif', label: 'Kitap keşfi', icon: 'sparkles' },
+  { href: '/rapor', label: 'Okuma raporu', icon: 'chart' },
+  { href: '/takvim', label: 'Okuma takvimi', icon: 'calendar' },
+  { href: '/takas', label: 'Kitap takası', icon: 'repeat' },
+  { href: '/bagis', label: 'Kitap bağışı', icon: 'books' },
+  { href: '/gorus', label: 'Görüş bildir', icon: 'message' },
+  { href: INSTAGRAM_URL, label: 'Instagram', icon: 'instagram', external: true },
 ]
 
 export function SiteHeader() {
@@ -57,7 +63,7 @@ export function SiteHeader() {
               className="flex size-9 items-center justify-center rounded-[9px] bg-accent text-lg"
               aria-hidden
             >
-              📚
+              <Icon name="books" className="size-5" />
             </span>
             <span>
               <span className="block font-serif text-[17px] leading-none text-ink">
@@ -78,9 +84,11 @@ export function SiteHeader() {
         </div>
 
         <nav className="grid grid-cols-3 gap-1.5 md:flex md:items-center md:gap-3">
-          <HeaderLink href="/kutuphanem">📚 Kitaplığım</HeaderLink>
+          <HeaderLink href="/kutuphanem">
+            <IconLabel name="books">Kitaplığım</IconLabel>
+          </HeaderLink>
           <HeaderLink href={isAuthenticated ? '/profil' : '/giris'}>
-            {isAuthenticated ? '👤 Profiller' : '👤 Giriş'}
+            <IconLabel name="user">{isAuthenticated ? 'Profiller' : 'Giriş'}</IconLabel>
           </HeaderLink>
 
           <div className="relative" ref={menuRef}>
@@ -91,7 +99,7 @@ export function SiteHeader() {
               aria-haspopup="menu"
               className="w-full rounded-full border-[1.5px] border-line px-3 py-2 text-[13px] font-medium text-ink-soft transition-colors hover:border-accent hover:text-accent-ink"
             >
-              ☰ Menü
+              <IconLabel name="menu">Menü</IconLabel>
             </button>
             {menuOpen && (
               <div
@@ -108,7 +116,7 @@ export function SiteHeader() {
                       role="menuitem"
                       className="block px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-cream"
                     >
-                      {item.label}
+                      <MenuLabel icon={item.icon}>{item.label}</MenuLabel>
                     </a>
                   ) : (
                     <Link
@@ -117,7 +125,7 @@ export function SiteHeader() {
                       role="menuitem"
                       className="block px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-cream"
                     >
-                      {item.label}
+                      <MenuLabel icon={item.icon}>{item.label}</MenuLabel>
                     </Link>
                   ),
                 )}
@@ -129,7 +137,7 @@ export function SiteHeader() {
                       role="menuitem"
                       className="block px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-cream"
                     >
-                      🛠️ Yönetim
+                      <IconLabel name="wrench">Yönetim</IconLabel>
                     </Link>
                   </>
                 )}
@@ -143,7 +151,7 @@ export function SiteHeader() {
                       onClick={signOut}
                       className="block w-full px-4 py-2.5 text-left text-sm font-medium text-danger transition-colors hover:bg-danger-soft"
                     >
-                      🚪 Çıkış yap
+                      <IconLabel name="log-out">Çıkış yap</IconLabel>
                     </button>
                   </>
                 )}
@@ -185,6 +193,21 @@ export function SiteHeader() {
         </div>
       )}
     </header>
+  )
+}
+
+function MenuLabel({
+  icon,
+  children,
+}: {
+  icon: IconName | 'instagram'
+  children: React.ReactNode
+}) {
+  return (
+    <span className="inline-flex items-center gap-2.5">
+      {icon === 'instagram' ? <InstagramIcon className="size-[1.1em]" /> : <Icon name={icon} />}
+      {children}
+    </span>
   )
 }
 

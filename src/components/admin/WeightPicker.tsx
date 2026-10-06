@@ -1,5 +1,6 @@
 'use client'
 
+import { Icon } from '@/components/ui/Icon'
 import { cn } from '@/lib/cn'
 
 export interface WeightGroup {
@@ -78,7 +79,7 @@ export function WeightPicker({
                       selected ? 'text-accent-ink' : 'text-ink-soft hover:text-accent-ink',
                     )}
                   >
-                    {selected ? '✓ ' : ''}
+                    {selected && <Icon name="check" className="mr-1" />}
                     {item.name}
                     {badges[item.slug] && (
                       <span className="ml-1.5 rounded bg-white px-1 text-[10px] font-bold text-muted">

@@ -1,5 +1,6 @@
 'use client'
 
+import { Icon, IconLabel } from '@/components/ui/Icon'
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { useToast } from '@/components/ui/Toast'
@@ -78,7 +79,9 @@ export function ReadingNotes({ libraryItemId }: { libraryItemId: string }) {
 
   return (
     <section className="border-t border-line p-5">
-      <h2 className="mb-3 text-xs font-bold tracking-wider text-muted uppercase">💬 Notlarım</h2>
+      <h2 className="mb-3 text-xs font-bold tracking-wider text-muted uppercase">
+        <IconLabel name="message">Notlarım</IconLabel>
+      </h2>
 
       <div className="flex flex-wrap items-center gap-2">
         <input
@@ -128,9 +131,7 @@ export function ReadingNotes({ libraryItemId }: { libraryItemId: string }) {
               )}
             >
               <div className="mb-1.5 flex items-center justify-between gap-2">
-                <span className="text-[11px] text-muted">
-                  {formatShortDate(note.createdAt)}
-                </span>
+                <span className="text-[11px] text-muted">{formatShortDate(note.createdAt)}</span>
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] font-bold text-muted">
                     {NOTE_VISIBILITY_LABELS[note.visibility]}
@@ -141,7 +142,7 @@ export function ReadingNotes({ libraryItemId }: { libraryItemId: string }) {
                     aria-label="Notu sil"
                     className="text-xs text-muted transition-colors hover:text-danger"
                   >
-                    ✕
+                    <Icon name="x" />
                   </button>
                 </div>
               </div>

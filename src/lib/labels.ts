@@ -19,13 +19,6 @@ export const LIBRARY_STATUS_LABELS: Record<LibraryStatus, string> = {
   abandoned: 'Yarım bırakıldı',
 }
 
-export const LIBRARY_STATUS_EMOJI: Record<LibraryStatus, string> = {
-  to_read: '🔖',
-  reading: '📖',
-  read: '✓',
-  abandoned: '⏸️',
-}
-
 export const NOTE_VISIBILITY_LABELS: Record<NoteVisibility, string> = {
   private: '🔒 Sadece bana',
   family: '👨‍👩‍👧 Aile içi',

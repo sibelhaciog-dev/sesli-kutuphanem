@@ -1,5 +1,6 @@
 'use client'
 
+import { Icon, IconLabel } from '@/components/ui/Icon'
 import { useMemo, useState } from 'react'
 import { BookCover } from '@/components/books/BookCover'
 import { useAppData } from '@/components/providers/AppDataProvider'
@@ -37,12 +38,14 @@ export function CatalogPickerDialog({
     <Dialog
       open={open}
       onClose={onClose}
-      title="📚 Kitap seç"
+      title={<IconLabel name="books">Kitap seç</IconLabel>}
       subtitle="Okumak istediğin kitabı seç"
       headerClassName="bg-linear-[135deg,#409fd8,#2060c0]"
     >
       <div className="relative mb-3">
-        <span className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2">🔍</span>
+        <span className="pointer-events-none absolute top-1/2 left-3 -translate-y-1/2">
+          <Icon name="search" />
+        </span>
         <input
           type="search"
           value={query}
@@ -91,7 +94,7 @@ export function CatalogPickerDialog({
                     added ? 'text-muted' : 'text-[#4090d0]',
                   )}
                 >
-                  {added ? '✓ Listede' : '+ Ekle'}
+                  {added ? <IconLabel name="check">Listede</IconLabel> : '+ Ekle'}
                 </span>
               </button>
             </li>

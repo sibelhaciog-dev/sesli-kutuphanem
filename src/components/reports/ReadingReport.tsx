@@ -1,5 +1,6 @@
 'use client'
 
+import { Icon, IconLabel, type IconName } from '@/components/ui/Icon'
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { BookCover } from '@/components/books/BookCover'
@@ -40,7 +41,7 @@ export function ReadingReport({ books }: { books: CatalogBook[] }) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-10">
         <EmptyState
-          icon="👶"
+          icon="user"
           title="Önce bir çocuk profili oluşturun"
           action={<ButtonLink href="/onboarding">Profil oluştur</ButtonLink>}
         />
@@ -76,12 +77,14 @@ export function ReadingReport({ books }: { books: CatalogBook[] }) {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
-      <h1 className="mb-1 text-3xl">📊 {activeChild.name} okuma raporu</h1>
+      <h1 className="mb-1 text-3xl">
+        <IconLabel name="chart">{activeChild.name} okuma raporu</IconLabel>
+      </h1>
       <p className="mb-7 text-sm text-muted">{formatMonth(new Date())} itibarıyla</p>
 
       {summary.booksRead === 0 ? (
         <EmptyState
-          icon="📖"
+          icon="book"
           title="Henüz kitap okunmadı"
           description="Kitapları okundu işaretleyerek başlayın, rapor kendiliğinden dolacak."
           action={<ButtonLink href="/">Kitaplara git</ButtonLink>}
@@ -89,20 +92,22 @@ export function ReadingReport({ books }: { books: CatalogBook[] }) {
       ) : (
         <div className="flex flex-col gap-4">
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <Stat emoji="📚" value={summary.booksRead} label="Kitap okundu" />
-            <Stat emoji="🔁" value={summary.totalSessions} label="Toplam okuma" />
+            <Stat icon="books" value={summary.booksRead} label="Kitap okundu" />
+            <Stat icon="repeat" value={summary.totalSessions} label="Toplam okuma" />
             <Stat
-              emoji="⭐"
+              icon="star"
               value={summary.averageRating ? summary.averageRating.toFixed(1) : '—'}
               label="Ortalama yıldız"
             />
-            <Stat emoji="🔥" value={streak} label="En uzun seri" />
+            <Stat icon="flame" value={streak} label="En uzun seri" />
           </div>
 
           {aiEnabled && (
             <section className="rounded-panel border border-line bg-white p-5">
               <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
-                <h2 className="text-sm font-bold text-ink">✨ Kişisel değerlendirme</h2>
+                <h2 className="text-sm font-bold text-ink">
+                  <IconLabel name="sparkles">Kişisel değerlendirme</IconLabel>
+                </h2>
                 <Button size="sm" onClick={() => void generateCommentary()} disabled={busy}>
                   {busy ? 'Yazılıyor…' : commentary ? 'Yeniden yaz' : 'Değerlendirme al'}
                 </Button>
@@ -112,7 +117,7 @@ export function ReadingReport({ books }: { books: CatalogBook[] }) {
                   <p className="font-serif text-lg text-ink">{commentary.baslik}</p>
                   <p className="mt-2 text-sm leading-relaxed text-ink-soft">{commentary.metin}</p>
                   <p className="mt-3 rounded-xl bg-accent-soft p-3 text-sm text-accent-ink">
-                    💡 {commentary.oneri}
+                    <IconLabel name="lightbulb">{commentary.oneri}</IconLabel>
                   </p>
                 </div>
               ) : (
@@ -173,7 +178,11 @@ export function ReadingReport({ books }: { books: CatalogBook[] }) {
 
           {summary.lovedBooks.length > 0 && (
             <section className="rounded-panel border border-line bg-white p-5">
-              <h2 className="mb-3 text-sm font-bold text-ink">⭐ En çok beğenilenler</h2>
+              <h2 className="mb-3 text-sm font-bold text-ink">
+                <IconLabel name="star" filled>
+                  En çok beğenilenler
+                </IconLabel>
+              </h2>
               <ul className="divide-y divide-line">
                 {summary.lovedBooks.slice(0, 5).map((book) => (
                   <li key={book.id} className="flex items-center gap-3 py-2">
@@ -201,7 +210,9 @@ export function ReadingReport({ books }: { books: CatalogBook[] }) {
 
           {suggestions.length > 0 && (
             <section className="rounded-panel border border-line bg-white p-5">
-              <h2 className="mb-3 text-sm font-bold text-ink">✨ Sırada ne okunabilir?</h2>
+              <h2 className="mb-3 text-sm font-bold text-ink">
+                <IconLabel name="sparkles">Sırada ne okunabilir?</IconLabel>
+              </h2>
               <ul className="divide-y divide-line">
                 {suggestions.map((entry) => (
                   <li key={entry.book.id} className="py-2.5">
@@ -213,7 +224,9 @@ export function ReadingReport({ books }: { books: CatalogBook[] }) {
                         {ageLabel(entry.book.ageMin, entry.book.ageMax)}
                       </p>
                       {entry.reasons.length > 0 && (
-                        <p className="text-[11px] text-accent-ink">🏷️ {entry.reasons.join(', ')}</p>
+                        <p className="text-[11px] text-accent-ink">
+                          <IconLabel name="tag">{entry.reasons.join(', ')}</IconLabel>
+                        </p>
                       )}
                     </Link>
                   </li>
@@ -227,11 +240,11 @@ export function ReadingReport({ books }: { books: CatalogBook[] }) {
   )
 }
 
-function Stat({ emoji, value, label }: { emoji: string; value: string | number; label: string }) {
+function Stat({ icon, value, label }: { icon: IconName; value: string | number; label: string }) {
   return (
     <div className="rounded-panel border border-line bg-white p-4 text-center">
-      <p className="text-xl" aria-hidden>
-        {emoji}
+      <p className="text-xl text-accent-ink">
+        <Icon name={icon} className="size-6" />
       </p>
       <p className="font-serif text-2xl text-ink">{value}</p>
       <p className="mt-0.5 text-[11px] text-muted">{label}</p>

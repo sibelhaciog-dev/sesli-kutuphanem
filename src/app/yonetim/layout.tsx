@@ -1,3 +1,4 @@
+import { IconLabel } from '@/components/ui/Icon'
 import { redirect } from 'next/navigation'
 import type { Metadata } from 'next'
 import { AdminTabs } from '@/components/admin/AdminTabs'
@@ -18,7 +19,9 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <div className="mx-auto max-w-5xl px-4 py-8">
       <header className="mb-6">
-        <h1 className="text-3xl">🛠️ Yönetim</h1>
+        <h1 className="text-3xl">
+          <IconLabel name="wrench">Yönetim</IconLabel>
+        </h1>
         <p className="mt-1 text-sm text-muted">
           Kitaplar, rehberler, keşif modları ve geri bildirimler
         </p>

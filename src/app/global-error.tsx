@@ -34,9 +34,21 @@ export default function GlobalError({ error, reset }: { error: Error; reset: () 
         }}
       >
         <div style={{ maxWidth: '28rem' }}>
-          <p style={{ fontSize: '3rem', margin: '0 0 1rem' }} aria-hidden>
-            🌧️
-          </p>
+          <svg
+            viewBox="0 0 24 24"
+            width="56"
+            height="56"
+            fill="none"
+            stroke="#6b6259"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden
+            style={{ margin: '0 0 1rem' }}
+          >
+            <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
+            <path d="M16 14v6M8 14v6M12 16v6" />
+          </svg>
           <h1 style={{ fontSize: '1.5rem', margin: '0 0 0.75rem' }}>Bir şeyler ters gitti</h1>
           <p style={{ margin: '0 0 1.5rem', lineHeight: 1.6, color: '#6b6259' }}>
             Sayfa yüklenirken beklenmedik bir hata oluştu. Tekrar denemek genellikle işe yarar.
