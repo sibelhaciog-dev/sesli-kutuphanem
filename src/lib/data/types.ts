@@ -122,6 +122,25 @@ export interface ReadingNote {
   body: string
   visibility: NoteVisibility
   createdAt: string
+  /** Herkese açık not editör onayından geçince dolar; onaysız not yalnızca sahibine görünür. */
+  approvedAt: string | null
+}
+
+/** Kitap sayfasında gösterilen, onaylı ve isimsiz herkese açık not. */
+export interface PublicNote {
+  id: string
+  body: string
+  createdAt: string
+}
+
+/** Yönetimde onay bekleyen ya da yayındaki herkese açık not. */
+export interface ModerationNote {
+  id: string
+  body: string
+  createdAt: string
+  approvedAt: string | null
+  bookTitle: string
+  bookSlug: string | null
 }
 
 export interface ReadingSession {

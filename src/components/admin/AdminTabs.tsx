@@ -9,6 +9,7 @@ const TABS = [
   { href: '/yonetim/kitaplar', label: 'Kitaplar' },
   { href: '/yonetim/rehberler', label: 'Rehberler' },
   { href: '/yonetim/modlar', label: 'Keşif modları' },
+  { href: '/yonetim/notlar', label: 'Notlar' },
   { href: '/yonetim/gorusler', label: 'Görüşler' },
 ]
 
