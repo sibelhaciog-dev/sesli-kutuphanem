@@ -28,12 +28,12 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
 
 ## 3. Kullanıcılar
 
-| Rol                    | Kim                            | Ne yapar                                                                              |
-| ---------------------- | ------------------------------ | ------------------------------------------------------------------------------------- |
-| **Ebeveyn** (birincil) | 2–12 yaş çocuğu olan anne/baba | Kitap keşfeder, çocuk profili açar, okunanları işaretler ve puanlar, rapor görür      |
+| Rol                    | Kim                            | Ne yapar                                                                               |
+| ---------------------- | ------------------------------ | -------------------------------------------------------------------------------------- |
+| **Ebeveyn** (birincil) | 2–12 yaş çocuğu olan anne/baba | Kitap keşfeder, çocuk profili açar, okunanları işaretler ve puanlar, rapor görür       |
 | **Çocuk** (dolaylı)    | 3–12 yaş                       | Kendi hayvan dostunu seçer, okudukça eşya açar; uygulamayı ebeveynle birlikte kullanır |
-| **Editör**             | İçerik sahibi (öğretmen)       | Kitap ekler/günceller, rehber başlıklarını yönetir, geri bildirimleri okur            |
-| **Yönetici**           | Teknik danışman                | Rolleri yönetir, içeriği ve sistemi denetler                                          |
+| **Editör**             | İçerik sahibi (öğretmen)       | Kitap ekler/günceller, rehber başlıklarını yönetir, geri bildirimleri okur             |
+| **Yönetici**           | Teknik danışman                | Rolleri yönetir, içeriği ve sistemi denetler                                           |
 
 ## 4. Kapsam
 
@@ -47,6 +47,9 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
   uyumu, akran zorbalığı…)
 - Kitap sayfası: özet, yaş aralığı, yazar/çizer, seri, gelişim etiketleri,
   Instagram tanıtımı
+- Kitap sayfasındaki gelişim etiketleri ve yayınevi adı tıklanabilir: ana
+  sayfayı o konuya (`/?konu=<adres>`) ya da o yayınevinin kitaplarına
+  (`/?yayinevi=<adres>`) süzülmüş olarak açar; adres paylaşılabilir
 
 **Kişiselleştirme**
 

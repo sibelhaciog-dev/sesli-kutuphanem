@@ -115,7 +115,9 @@ export function DiscoveryPage({
               </Chip>
             ))}
           </div>
-          {selected?.description && <p className="mt-2 text-xs text-muted">{selected.description}</p>}
+          {selected?.description && (
+            <p className="mt-2 text-xs text-muted">{selected.description}</p>
+          )}
         </fieldset>
 
         <label

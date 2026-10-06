@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { AvatarFigure } from '@/components/avatar/AvatarFigure'
 import { DiscoveryFrame } from '@/components/discovery/DiscoveryFrame'
@@ -15,12 +15,45 @@ import { useToast } from '@/components/ui/Toast'
 import { AGE_BANDS, ageOf, suitsAge } from '@/lib/age'
 import type { DiscoveryMode } from '@/lib/data/discovery'
 import type { CatalogBook } from '@/lib/data/types'
-import { DEFAULT_FILTERS, filterBooks, hasActiveFilters, type CatalogFilters } from '@/lib/filters'
+import {
+  DEFAULT_FILTERS,
+  filterBooks,
+  hasActiveFilters,
+  publisherFromParam,
+  topicSlugFromParam,
+  type CatalogFilters,
+} from '@/lib/filters'
 
-export function CatalogView({ books, modes }: { books: CatalogBook[]; modes: DiscoveryMode[] }) {
+interface CatalogViewProps {
+  books: CatalogBook[]
+  modes: DiscoveryMode[]
+  /** Adresteki `?konu=` değeri (ör. kitap sayfasındaki konu etiketinden gelince). */
+  topicParam?: string | string[]
+  /** Adresteki `?yayinevi=` değeri (kitap sayfasındaki yayınevi bağlantısından). */
+  publisherParam?: string | string[]
+}
+
+export function CatalogView({ books, modes, topicParam, publisherParam }: CatalogViewProps) {
   const { activeChild, library, taxonomy, toggleFavorite, setRating } = useAppData()
   const toast = useToast()
-  const [filters, setFilters] = useState<CatalogFilters>(DEFAULT_FILTERS)
+  // Yayınevinin görünen adı; seçim yalnızca adresten geliyor, değişmiyor.
+  const [publisher] = useState(() => publisherFromParam(publisherParam, books))
+  const [filters, setFilters] = useState<CatalogFilters>(() => ({
+    ...DEFAULT_FILTERS,
+    topicSlug: topicSlugFromParam(topicParam, taxonomy.areas),
+    publisherSlug: publisher?.slug ?? null,
+  }))
+
+  // Seçili konu ve yayınevi adreste de dursun: sayfa yenilenince ya da bağlantı
+  // paylaşılınca aynı filtreyle açılır. Geçmişe yeni kayıt eklemiyoruz.
+  useEffect(() => {
+    const url = new URL(window.location.href)
+    if (filters.topicSlug) url.searchParams.set('konu', filters.topicSlug)
+    else url.searchParams.delete('konu')
+    if (filters.publisherSlug) url.searchParams.set('yayinevi', filters.publisherSlug)
+    else url.searchParams.delete('yayinevi')
+    if (url.href !== window.location.href) window.history.replaceState(null, '', url)
+  }, [filters.topicSlug, filters.publisherSlug])
 
   const childAge = activeChild ? ageOf(activeChild) : null
   const visible = useMemo(
@@ -52,11 +85,15 @@ export function CatalogView({ books, modes }: { books: CatalogBook[]; modes: Dis
     .flatMap((area) => area.topics)
     .find((topic) => topic.slug === filters.topicSlug)
 
-  const heading = activeTopic
-    ? (activeTopic.label ?? activeTopic.name)
-    : activeChild
-      ? `${activeChild.name} için kitaplar`
-      : 'Kitapları keşfet'
+  const activePublisher = filters.publisherSlug ? publisher : null
+
+  const heading = activePublisher
+    ? `${activePublisher.name} kitapları`
+    : activeTopic
+      ? (activeTopic.label ?? activeTopic.name)
+      : activeChild
+        ? `${activeChild.name} için kitaplar`
+        : 'Kitapları keşfet'
 
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-7 lg:flex-row lg:items-start">
@@ -81,13 +118,25 @@ export function CatalogView({ books, modes }: { books: CatalogBook[]; modes: Dis
             <div className="min-w-40 flex-1">
               <h1 className="text-2xl">{heading}</h1>
               <p className="mt-1 text-sm text-muted">
-                {activeTopic
-                  ? 'Gelişim konusuna göre filtreleniyor'
-                  : activeChild
-                    ? `${childAge ?? '?'} yaşına uygun kitaplar gösteriliyor`
-                    : 'Tüm kitaplar gösteriliyor'}
+                {activePublisher
+                  ? 'Yayınevine göre filtreleniyor'
+                  : activeTopic
+                    ? 'Gelişim konusuna göre filtreleniyor'
+                    : activeChild
+                      ? `${childAge ?? '?'} yaşına uygun kitaplar gösteriliyor`
+                      : 'Tüm kitaplar gösteriliyor'}
               </p>
             </div>
+            {activePublisher && (
+              <button
+                type="button"
+                onClick={() => patch({ publisherSlug: null })}
+                className="shrink-0 rounded-full border-[1.5px] border-accent bg-accent-soft px-3 py-1.5 text-xs font-semibold text-accent-ink"
+                aria-label={`${activePublisher.name} filtresini kaldır`}
+              >
+                🏢 {activePublisher.name} ✕
+              </button>
+            )}
           </div>
 
           <div className="relative mt-4">
