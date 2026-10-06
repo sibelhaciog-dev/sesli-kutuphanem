@@ -128,9 +128,7 @@ export function ReadingNotes({ libraryItemId }: { libraryItemId: string }) {
               )}
             >
               <div className="mb-1.5 flex items-center justify-between gap-2">
-                <span className="text-[11px] text-muted">
-                  {formatShortDate(note.createdAt)}
-                </span>
+                <span className="text-[11px] text-muted">{formatShortDate(note.createdAt)}</span>
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] font-bold text-muted">
                     {NOTE_VISIBILITY_LABELS[note.visibility]}
