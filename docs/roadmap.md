@@ -5,7 +5,7 @@
 
 **Durum:** v2 — veri modeli yeniden tasarımı
 **Dal:** `feat/product-v2`
-**Son güncelleme:** 2026-09-22 (içerik yönetimi: veritabanı doğru kaynak, kapaklar)
+**Son güncelleme:** 2026-10-06 (ayın kitabı ve sponsorluk)
 
 ---
 
@@ -138,6 +138,15 @@ Supabase projesi: **kutuphanem** (`ygaxtmuzhnntzdcltmgn`).
 - [ ] Supabase MCP bağlantısını yeni projeye (`xhjgyxlerccxopbjtbzl`) çevir
 - [ ] Duraklatılmış Londra projesini (`ramasnuqdfpgxldifepy`) sil — tam veri
       kopyası taşıyor
+
+## Faz 9 — Ayın kitabı ve sponsorluk
+
+- [x] `0025`: sponsorlu dönemler (çakışma kısıtı), başvurular, beğeni toplamı
+- [x] Ana sayfa vitrini: sponsor → en çok beğenilen → en yeni
+- [x] “Kitabını paylaş” başvuru sayfası (`/kitabini-paylas`)
+- [x] Yönetim → Ayın kitabı: dönemler + başvurular
+- [ ] `0025`'i üretim veritabanına uygula
+- [ ] Sponsorluk koşulları ve fiyatı (ürün kararı; sayfada henüz yazmıyor)
 
 ## Sonraki sürüm için fikirler (kapsam dışı)
 

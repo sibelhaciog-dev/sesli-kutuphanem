@@ -158,6 +158,32 @@ const CONSTRAINT_MESSAGES: Record<string, FriendlyError> = {
     field: 'promptHint',
     message: 'Yapay zekâya not en fazla 400 karakter olabilir.',
   },
+
+  // ─── Ayın kitabı ve sponsorluk ───────────────────────────────────────────
+  featured_books_no_overlap: {
+    field: 'startsOn',
+    message: 'Bu tarihlerde başka bir sponsorlu kitap var. Dönemler çakışamaz.',
+  },
+  featured_books_date_order: {
+    field: 'endsOn',
+    message: 'Bitiş tarihi başlangıçtan önce olamaz.',
+  },
+  featured_books_sponsor_url_check: {
+    field: 'sponsorUrl',
+    message: 'Sponsor bağlantısı https:// ile başlamalı.',
+  },
+  featured_books_blurb_check: {
+    field: 'blurb',
+    message: 'Sponsor mesajı en fazla 300 karakter olabilir.',
+  },
+  sponsor_applications_contact_email_check: {
+    field: 'contactEmail',
+    message: 'Geçerli bir e-posta adresi yazın.',
+  },
+  sponsor_applications_book_link_check: {
+    field: 'bookLink',
+    message: 'Kitap bağlantısı https:// ile başlamalı.',
+  },
 }
 
 /**

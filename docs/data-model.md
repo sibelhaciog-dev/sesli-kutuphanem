@@ -42,6 +42,9 @@ erDiagram
     library_items ||--o{ reading_sessions : ""
     library_items ||--o{ reading_notes : ""
     achievements ||--o{ child_achievements : ""
+
+    books ||--o{ featured_books : "sponsorlu dönem"
+    auth_users ||--o{ sponsor_applications : "başvuru"
 ```
 
 ## 2. Migration dosyaları
@@ -71,6 +74,8 @@ erDiagram
 | `0021_recommendation_quota` | `ai_usage_events.feature` kısıtına `recommendation` eklendi                                                                                  |
 | `0022_database_as_source`   | Ortak kitap yazma yolu `upsert_book()`, `save_discovery_mode()`, `can_manage_content()`; kapak varyantı sütunları (ADR 0008, 0009)           |
 | `0023_taxonomy_editing`     | Anahtar kelime denetimi (bozuk ifade reddi, `\b` → `\y`); `taxonomy_usage()` kullanım sayıları                                               |
+| `0024_catalog_publisher`    | `catalog_books` görünümüne yayınevi adı (katalog aramasında yayınevi de aranıyor)                                                            |
+| `0025_featured_book`        | Ayın kitabı: `featured_books` (sponsorlu dönemler, çakışma kısıtı), `sponsor_applications`, `book_like_stats()`, `local_today()`             |
 
 Sıralı çalıştırılır; hiçbiri kendinden sonrakine atıfta bulunmaz.
 
@@ -186,6 +191,26 @@ Desteklenen türler: `books_read`, `sessions`, `streak_days`, `ratings`,
 
 `evaluate_child_achievements(child_id)` her okuma kaydından sonra çağrılır ve
 yalnızca yeni kazanılanları ekler (tekrar çağırmak zararsızdır).
+
+### Ayın kitabı ve sponsorluk (`0025`)
+
+Ana sayfadaki vitrin önce bugün yayında olan sponsorlu dönemi, yoksa en çok
+beğenilen kitabı, o da yoksa en yeni kitabı gösterir (`src/lib/featured.ts`).
+
+- **`featured_books`** — kitap, `starts_on`–`ends_on` (iki uç dahil), sponsor
+  adı/bağlantısı, kısa mesaj. `featured_books_no_overlap` dışlama kısıtı aynı
+  güne iki sponsor düşmesini engeller. Ziyaretçi yalnızca **bugün** yayında
+  olan satırı görür (ileri tarihli anlaşmalar sızmaz); "bugün" Türkiye saatiyle
+  (`local_today()`). Yalnızca ekip yazar.
+- **`sponsor_applications`** — "Kitabını paylaş" formu. Giriş yapan kendi
+  adına ve yalnızca `new` durumunda açar; kendi başvurusunu görür, ekip
+  hepsini görür ve durumunu değiştirir. Durumlar:
+  `new / in_review / accepted / declined`.
+- **`book_like_stats()`** — `security definer`; kitap başına puan sayısı,
+  puan toplamı ve favori sayısı. Kimin beğendiği görünmez (0018 ilkesi).
+  Yalnızca yayındaki kitaplar ve arşivlenmemiş profiller sayılır. Skor
+  uygulamada: favori 5 yıldızlık oy sayılır, ortalama 5 adet 3 puanlık
+  hayalî oyla dengelenir (tek oyla zirveye çıkılmasın diye).
 
 ## 5. Satır bazlı güvenlik (RLS)
 

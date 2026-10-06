@@ -24,7 +24,15 @@ import {
   type TaxonomyKind,
 } from '@/lib/data/admin'
 import { CATALOG_TAG } from '@/lib/data/catalog'
+import {
+  deleteFeaturedSlot,
+  FEATURED_TAG,
+  saveFeaturedSlot,
+  setSponsorApplicationStatus,
+  type SponsorApplicationStatus,
+} from '@/lib/data/featured'
 import { toFriendlyError } from '@/lib/errors'
+import { featuredSlotSchema } from '@/lib/sponsorship'
 import { createClient, getViewer } from '@/lib/supabase/server'
 
 /**
@@ -197,5 +205,58 @@ export async function deleteModeAction(id: string): Promise<ActionResult> {
     return { ok: true, data: null }
   } catch (error) {
     return failed(error, 'Mod silinemedi. Biraz sonra tekrar deneyin.')
+  }
+}
+
+// ─── Ayın kitabı ve sponsorluk ───────────────────────────────────────────────
+
+export async function saveFeaturedSlotAction(
+  id: string | null,
+  raw: unknown,
+): Promise<ActionResult> {
+  const supabase = await staffClient()
+  if (!supabase) return FORBIDDEN
+  const parsed = featuredSlotSchema.safeParse(raw)
+  if (!parsed.success) return invalid(parsed.error)
+  try {
+    await saveFeaturedSlot(supabase, id, parsed.data)
+    revalidateTag(FEATURED_TAG)
+    return { ok: true, data: null }
+  } catch (error) {
+    return failed(error, 'Dönem kaydedilemedi. Biraz sonra tekrar deneyin.')
+  }
+}
+
+export async function deleteFeaturedSlotAction(id: string): Promise<ActionResult> {
+  const supabase = await staffClient()
+  if (!supabase) return FORBIDDEN
+  try {
+    await deleteFeaturedSlot(supabase, id)
+    revalidateTag(FEATURED_TAG)
+    return { ok: true, data: null }
+  } catch (error) {
+    return failed(error, 'Dönem silinemedi. Biraz sonra tekrar deneyin.')
+  }
+}
+
+const APPLICATION_STATUSES: SponsorApplicationStatus[] = [
+  'new',
+  'in_review',
+  'accepted',
+  'declined',
+]
+
+export async function setSponsorApplicationStatusAction(
+  id: string,
+  status: SponsorApplicationStatus,
+): Promise<ActionResult> {
+  const supabase = await staffClient()
+  if (!supabase) return FORBIDDEN
+  if (!APPLICATION_STATUSES.includes(status)) return { ok: false, error: 'Geçersiz durum.' }
+  try {
+    await setSponsorApplicationStatus(supabase, id, status)
+    return { ok: true, data: null }
+  } catch (error) {
+    return failed(error, 'Durum güncellenemedi. Biraz sonra tekrar deneyin.')
   }
 }

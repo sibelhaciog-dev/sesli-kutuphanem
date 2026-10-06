@@ -17,6 +17,7 @@ const MENU_ITEMS: { href: string; label: string; external?: boolean }[] = [
   { href: '/takas', label: '🔄 Kitap takası' },
   { href: '/bagis', label: '📚 Kitap bağışı' },
   { href: '/gorus', label: '💬 Görüş bildir' },
+  { href: '/kitabini-paylas', label: '🌟 Kitabını paylaş' },
   { href: INSTAGRAM_URL, label: '📸 Instagram', external: true },
 ]
 

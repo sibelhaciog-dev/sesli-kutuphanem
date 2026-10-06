@@ -20,7 +20,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
       <header className="mb-6">
         <h1 className="text-3xl">🛠️ Yönetim</h1>
         <p className="mt-1 text-sm text-muted">
-          Kitaplar, rehberler, keşif modları ve geri bildirimler
+          Kitaplar, rehberler, keşif modları, ayın kitabı ve geri bildirimler
         </p>
       </header>
 

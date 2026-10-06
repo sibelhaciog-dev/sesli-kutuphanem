@@ -94,6 +94,14 @@ Kartlar küçük kapağı (`coverThumbUrl`, ≤480 px), kitap sayfası büyük k
 (`coverUrl`, ≤1350 px) kullanır. Dosya adları içeriğin özeti olduğu için bir
 yıl önbellekte kalabilirler (ADR 0009).
 
+### Ayın kitabı vitrini
+
+Ana sayfa katalogla birlikte `getFeaturedSource()` çağırır: bugünkü sponsorlu
+dönem (RLS tarihe göre süzer) + `book_like_stats()`. Hangi kitabın
+gösterileceğine `resolveFeatured()` (`src/lib/featured.ts`) karar verir ve
+kitabı zaten yüklenmiş katalogdan bulur — ek sorgu yok, taslak kitap vitrine
+çıkamaz. Okuma hatası ana sayfayı düşürmez; vitrin en yeni kitapla gösterilir.
+
 ### Yönetim yazmaları
 
 | Ne                   | Yol                                                                       |
@@ -102,6 +110,7 @@ yıl önbellekte kalabilirler (ADR 0009).
 | Kapak                | `CoverUpload` → `POST /api/yonetim/kapak` → `storeCover` + `setBookCover` |
 | Rehber / konu / ilgi | `TaxonomyEditor` → sunucu eylemi → tablo (personel RLS)                   |
 | Keşif modu           | `ModeEditor` → `saveModeAction` → `save_discovery_mode()`                 |
+| Ayın kitabı dönemi   | `FeaturedAdmin` → `saveFeaturedSlotAction` → `featured_books`             |
 
 Sunucu eylemleri `src/app/yonetim/actions.ts` içinde; sorgular
 `src/lib/data/admin.ts` ve `src/lib/data/covers.ts` içinde. Her yönetim
@@ -156,6 +165,7 @@ flowchart LR
 | ---------------- | ------------------------------------------------------------ | ------ |
 | Katalog listesi  | `unstable_cache` + `catalog` etiketi                         | 5 dk   |
 | Taksonomi        | `unstable_cache` + `catalog` etiketi                         | 5 dk   |
+| Ayın kitabı      | `unstable_cache` + `featured` etiketi                        | 5 dk   |
 | Kitap sayfası    | `unstable_cache` + `book:<slug>` etiketi, sayfa `revalidate` | 1 saat |
 | Bağış kurumları  | sayfa `revalidate`                                           | 1 saat |
 | Kullanıcı verisi | önbelleklenmez                                               | —      |

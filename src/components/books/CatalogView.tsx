@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useMemo, useState, type ReactNode } from 'react'
 import Link from 'next/link'
 import { AvatarFigure } from '@/components/avatar/AvatarFigure'
 import { DiscoveryFrame } from '@/components/discovery/DiscoveryFrame'
@@ -17,7 +17,16 @@ import type { DiscoveryMode } from '@/lib/data/discovery'
 import type { CatalogBook } from '@/lib/data/types'
 import { DEFAULT_FILTERS, filterBooks, hasActiveFilters, type CatalogFilters } from '@/lib/filters'
 
-export function CatalogView({ books, modes }: { books: CatalogBook[]; modes: DiscoveryMode[] }) {
+export function CatalogView({
+  books,
+  modes,
+  featured,
+}: {
+  books: CatalogBook[]
+  modes: DiscoveryMode[]
+  /** "Ayın kitabı" vitrini — sunucuda hazırlanıp buraya yerleştiriliyor. */
+  featured?: ReactNode
+}) {
   const { activeChild, library, taxonomy, toggleFavorite, setRating } = useAppData()
   const toast = useToast()
   const [filters, setFilters] = useState<CatalogFilters>(DEFAULT_FILTERS)
@@ -63,6 +72,8 @@ export function CatalogView({ books, modes }: { books: CatalogBook[]; modes: Dis
       <GuidePanel value={filters.topicSlug} onChange={(topicSlug) => patch({ topicSlug })} />
 
       <div className="min-w-0 flex-1">
+        {featured && <div className="mb-6">{featured}</div>}
+
         <div className="mb-6">
           <DiscoveryFrame modes={modes} books={books} />
         </div>

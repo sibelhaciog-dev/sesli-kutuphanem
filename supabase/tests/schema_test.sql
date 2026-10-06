@@ -1096,4 +1096,177 @@ delete from auth.users where id = 'a0000000-0000-0000-0000-0000000000f3';
 delete from public.books where slug in ('dedemle-veda', 'yasak-bolge');
 delete from public.development_topics where slug = 'olum-ve-yas';
 
+-- ═══ 19. Ayın kitabı ve sponsorluk (0025) ════════════════════════════════
+-- Vitrin: bugünkü sponsor herkese görünür, ileri tarihli anlaşma görünmez,
+-- dönemler çakışamaz. Beğeni toplamı sayı döndürür, satır değil.
+-- Başvurular geri bildirimle aynı yalıtımda.
+do $$ begin raise notice '── 19. Ayın kitabı ──'; end $$;
+
+reset role;
+set role authenticated;
+select pg_temp.login_as('a0000000-0000-0000-0000-000000000003');  -- editör
+
+insert into public.featured_books (book_id, starts_on, ends_on, sponsor_name)
+values ('b0000000-0000-0000-0000-000000000001',
+        public.local_today() - 3, public.local_today() + 3, 'Bugünün Yayınevi');
+insert into public.featured_books (book_id, starts_on, ends_on, sponsor_name)
+values ('b0000000-0000-0000-0000-000000000002',
+        public.local_today() + 10, public.local_today() + 20, 'Gelecek Yayınevi');
+
+select pg_temp.assert_eq(
+  (select created_by from public.featured_books where sponsor_name = 'Bugünün Yayınevi'),
+  'a0000000-0000-0000-0000-000000000003'::uuid, 'dönemi ekleyen editör kaydediliyor');
+
+do $$
+begin
+  insert into public.featured_books (book_id, starts_on, ends_on, sponsor_name)
+  values ('b0000000-0000-0000-0000-000000000002',
+          public.local_today() + 3, public.local_today() + 5, 'Çakışan');
+  raise exception 'BAŞARISIZ: çakışan sponsor dönemi kabul edildi';
+exception
+  when exclusion_violation then
+    raise notice '  ✓ çakışan sponsor dönemi reddedildi (bitiş günü dahil)';
+end $$;
+
+do $$
+begin
+  insert into public.featured_books (book_id, starts_on, ends_on, sponsor_name)
+  values ('b0000000-0000-0000-0000-000000000002',
+          public.local_today() + 40, public.local_today() + 30, 'Ters');
+  raise exception 'BAŞARISIZ: bitişi başlangıçtan önce olan dönem kabul edildi';
+exception
+  when check_violation then
+    raise notice '  ✓ ters tarih aralığı reddedildi';
+end $$;
+
+select pg_temp.assert_eq(
+  (select count(*)::int from public.featured_books), 2, 'editör tüm dönemleri görüyor');
+
+set role anon;
+select pg_temp.login_as(null);
+select pg_temp.assert_eq(
+  (select string_agg(sponsor_name, ',') from public.featured_books),
+  'Bugünün Yayınevi', 'ziyaretçi yalnızca bugünkü sponsoru görüyor');
+
+do $$
+begin
+  insert into public.featured_books (book_id, starts_on, ends_on, sponsor_name)
+  values ('b0000000-0000-0000-0000-000000000002', '2030-01-01', '2030-01-31', 'Anonim');
+  raise exception 'BAŞARISIZ: anonim sponsor dönemi ekledi';
+exception
+  when insufficient_privilege then
+    raise notice '  ✓ anonim sponsor dönemi ekleyemiyor';
+end $$;
+
+set role authenticated;
+select pg_temp.login_as('a0000000-0000-0000-0000-000000000002');  -- üye
+do $$
+begin
+  insert into public.featured_books (book_id, starts_on, ends_on, sponsor_name)
+  values ('b0000000-0000-0000-0000-000000000002', '2030-01-01', '2030-01-31', 'Üye');
+  raise exception 'BAŞARISIZ: üye sponsor dönemi ekledi';
+exception
+  when insufficient_privilege then
+    raise notice '  ✓ üye sponsor dönemi ekleyemiyor';
+end $$;
+update public.featured_books set sponsor_name = 'Ele geçirildi';
+reset role;
+select pg_temp.assert_eq(
+  (select count(*)::int from public.featured_books where sponsor_name = 'Ele geçirildi'), 0,
+  'üye sponsor dönemini değiştiremiyor');
+
+-- ─── Beğeni toplamı ──────────────────────────────────────────────────────
+insert into auth.users (id, email)
+values ('a0000000-0000-0000-0000-0000000000b1', 'begeni@ornek.com');
+insert into public.children (id, owner_id, name) values
+  ('e0000000-0000-0000-0000-0000000000b1', 'a0000000-0000-0000-0000-0000000000b1', 'Beğeni'),
+  ('e0000000-0000-0000-0000-0000000000b2', 'a0000000-0000-0000-0000-0000000000b1', 'Arşiv');
+update public.children set archived_at = now() where id = 'e0000000-0000-0000-0000-0000000000b2';
+insert into public.library_items (child_id, book_id, rating, is_favorite) values
+  ('e0000000-0000-0000-0000-0000000000b1', 'b0000000-0000-0000-0000-000000000002', 4, true),
+  ('e0000000-0000-0000-0000-0000000000b1', 'b0000000-0000-0000-0000-000000000003', 5, true),
+  ('e0000000-0000-0000-0000-0000000000b1', 'b0000000-0000-0000-0000-000000000001', 0, false),
+  ('e0000000-0000-0000-0000-0000000000b2', 'b0000000-0000-0000-0000-000000000001', 5, true);
+
+set role anon;
+select pg_temp.assert_eq(
+  (select format('%s/%s/%s', rating_count, rating_sum, favorite_count)
+   from public.book_like_stats() where book_id = 'b0000000-0000-0000-0000-000000000002'),
+  '1/4/1', 'ziyaretçi kitap başına beğeni toplamını görüyor (puan sayısı/toplam/favori)');
+select pg_temp.assert_eq(
+  (select count(*)::int from public.book_like_stats()
+   where book_id = 'b0000000-0000-0000-0000-000000000003'), 0,
+  'taslak kitabın beğenileri toplama girmiyor');
+select pg_temp.assert_eq(
+  (select count(*)::int from public.book_like_stats()
+   where book_id = 'b0000000-0000-0000-0000-000000000001'), 0,
+  'arşivlenen profilin ve puansız kaydın beğenisi sayılmıyor');
+select pg_temp.assert(
+  not has_table_privilege('anon', 'public.library_items', 'select'),
+  'ziyaretçi kütüphane satırlarına yine erişemiyor');
+reset role;
+
+-- ─── Başvurular ──────────────────────────────────────────────────────────
+set role authenticated;
+select pg_temp.login_as('a0000000-0000-0000-0000-0000000000b1');
+insert into public.sponsor_applications (user_id, contact_name, contact_email, book_title, preferred_month)
+values ('a0000000-0000-0000-0000-0000000000b1', 'Ayşe Yılmaz', 'ayse@yayinevi.com',
+        'Ormandaki Ses', date_trunc('month', now())::date);
+select pg_temp.assert_eq(
+  (select count(*)::int from public.sponsor_applications), 1, 'başvuran kendi başvurusunu görüyor');
+
+do $$
+begin
+  insert into public.sponsor_applications (user_id, contact_name, contact_email, book_title, status)
+  values ('a0000000-0000-0000-0000-0000000000b1', 'Ayşe', 'ayse@yayinevi.com', 'Kitap', 'accepted');
+  raise exception 'BAŞARISIZ: başvuran kendi başvurusunu kabul edilmiş olarak açtı';
+exception
+  when insufficient_privilege then
+    raise notice '  ✓ başvuru yalnızca "yeni" durumunda açılabiliyor';
+end $$;
+
+do $$
+begin
+  insert into public.sponsor_applications (user_id, contact_name, contact_email, book_title)
+  values ('a0000000-0000-0000-0000-000000000002', 'Burak', 'burak@ornek.com', 'Kitap');
+  raise exception 'BAŞARISIZ: başkası adına başvuru açıldı';
+exception
+  when insufficient_privilege then
+    raise notice '  ✓ başkası adına başvuru açılamıyor';
+end $$;
+
+do $$
+begin
+  insert into public.sponsor_applications (user_id, contact_name, contact_email, book_title)
+  values ('a0000000-0000-0000-0000-0000000000b1', 'Ayşe', 'e-posta-degil', 'Kitap');
+  raise exception 'BAŞARISIZ: geçersiz e-posta kabul edildi';
+exception
+  when check_violation then
+    raise notice '  ✓ geçersiz e-posta reddedildi';
+end $$;
+
+update public.sponsor_applications set status = 'accepted';
+select pg_temp.assert_eq(
+  (select status::text from public.sponsor_applications), 'new',
+  'başvuran kendi başvurusunun durumunu değiştiremiyor');
+
+select pg_temp.login_as('a0000000-0000-0000-0000-000000000002');
+select pg_temp.assert_eq(
+  (select count(*)::int from public.sponsor_applications), 0, 'başkasının başvurusu görünmüyor');
+
+select pg_temp.login_as('a0000000-0000-0000-0000-000000000003');  -- editör
+update public.sponsor_applications set status = 'in_review';
+select pg_temp.assert_eq(
+  (select status::text from public.sponsor_applications), 'in_review',
+  'editör başvuru durumunu değiştirebiliyor');
+
+reset role;
+select pg_temp.assert(
+  not has_table_privilege('anon', 'public.sponsor_applications', 'select'),
+  'anon başvurulara erişemiyor');
+
+delete from public.sponsor_applications;
+delete from public.featured_books;
+delete from auth.users where id = 'a0000000-0000-0000-0000-0000000000b1';
+
 do $$ begin raise notice ''; raise notice 'TÜM ŞEMA TESTLERİ GEÇTİ'; end $$;

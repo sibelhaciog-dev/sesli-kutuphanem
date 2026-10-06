@@ -28,12 +28,12 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
 
 ## 3. Kullanıcılar
 
-| Rol                    | Kim                            | Ne yapar                                                                              |
-| ---------------------- | ------------------------------ | ------------------------------------------------------------------------------------- |
-| **Ebeveyn** (birincil) | 2–12 yaş çocuğu olan anne/baba | Kitap keşfeder, çocuk profili açar, okunanları işaretler ve puanlar, rapor görür      |
+| Rol                    | Kim                            | Ne yapar                                                                               |
+| ---------------------- | ------------------------------ | -------------------------------------------------------------------------------------- |
+| **Ebeveyn** (birincil) | 2–12 yaş çocuğu olan anne/baba | Kitap keşfeder, çocuk profili açar, okunanları işaretler ve puanlar, rapor görür       |
 | **Çocuk** (dolaylı)    | 3–12 yaş                       | Kendi hayvan dostunu seçer, okudukça eşya açar; uygulamayı ebeveynle birlikte kullanır |
-| **Editör**             | İçerik sahibi (öğretmen)       | Kitap ekler/günceller, rehber başlıklarını yönetir, geri bildirimleri okur            |
-| **Yönetici**           | Teknik danışman                | Rolleri yönetir, içeriği ve sistemi denetler                                          |
+| **Editör**             | İçerik sahibi (öğretmen)       | Kitap ekler/günceller, rehber başlıklarını yönetir, geri bildirimleri okur             |
+| **Yönetici**           | Teknik danışman                | Rolleri yönetir, içeriği ve sistemi denetler                                           |
 
 ## 4. Kapsam
 
@@ -47,6 +47,15 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
   uyumu, akran zorbalığı…)
 - Kitap sayfası: özet, yaş aralığı, yazar/çizer, seri, gelişim etiketleri,
   Instagram tanıtımı
+
+**Ayın kitabı**
+
+- Ana sayfanın üstünde vitrin. Sponsor varsa sponsorun kitabı, açıkça
+  “Sponsorlu · <sponsor>” etiketiyle; yoksa ailelerin puan ve favorilerine göre
+  en çok beğenilen kitap; hiç beğeni yoksa en yeni kitap
+- “Kitabını paylaş” (`/kitabini-paylas`): yayınevi/yazar başvuru formu (giriş
+  gerekir). Ödeme sitede alınmaz; ekip e-postayla döner, anlaşınca yönetimden
+  tarih aralığı girer
 
 **Kişiselleştirme**
 
@@ -96,6 +105,8 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
 - Instagram'dan aktarım: Claude in Chrome skill'i gönderiden kitap bilgisini
   ve kapağı çıkarır, Claude Code ekler
 - Geri bildirim ve bağış taleplerini görme
+- Ayın kitabı: sponsorlu dönem ekleme/düzenleme (çakışan tarih reddedilir),
+  sponsor başvurularını görme, durumunu işaretleme, başvurudan dönem açma
 
 Buradaki her değişiklik doğrudan veritabanına yazılır ve hemen görünür;
 yayın gerekmez (ADR 0008).
