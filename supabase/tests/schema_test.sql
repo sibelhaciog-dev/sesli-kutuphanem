@@ -1096,4 +1096,100 @@ delete from auth.users where id = 'a0000000-0000-0000-0000-0000000000f3';
 delete from public.books where slug in ('dedemle-veda', 'yasak-bolge');
 delete from public.development_topics where slug = 'olum-ve-yas';
 
+-- ═══ 19. Herkese açık notlar ══════════════════════════════════════════════
+do $$ begin raise notice '── 19. Herkese açık notlar ──'; end $$;
+
+insert into auth.users (id, email)
+values ('a0000000-0000-0000-0000-0000000000f4', 'not-yazan@ornek.com');
+insert into public.children (id, owner_id, name)
+values ('e0000000-0000-0000-0000-0000000000f4', 'a0000000-0000-0000-0000-0000000000f4', 'Ada');
+insert into public.library_items (id, child_id, book_id, status) values
+  ('f1000000-0000-0000-0000-000000000001', 'e0000000-0000-0000-0000-0000000000f4',
+   'b0000000-0000-0000-0000-000000000002', 'read');
+
+set role authenticated;
+select pg_temp.login_as('a0000000-0000-0000-0000-0000000000f4');  -- notu yazan veli
+
+-- Üye onaylı olarak eklemeye çalışsa da onay düşer.
+insert into public.reading_notes (id, library_item_id, body, visibility, approved_at) values
+  ('f2000000-0000-0000-0000-000000000001', 'f1000000-0000-0000-0000-000000000001',
+   'Çok sevdik!', 'public', now()),
+  ('f2000000-0000-0000-0000-000000000002', 'f1000000-0000-0000-0000-000000000001',
+   'Bu bizim sırrımız.', 'private', null);
+select pg_temp.assert(
+  (select approved_at is null from public.reading_notes
+   where id = 'f2000000-0000-0000-0000-000000000001'),
+  'üye kendi notunu onaylı ekleyemiyor');
+
+update public.reading_notes set approved_at = now()
+  where id = 'f2000000-0000-0000-0000-000000000001';
+select pg_temp.assert(
+  (select approved_at is null from public.reading_notes
+   where id = 'f2000000-0000-0000-0000-000000000001'),
+  'üye kendi notunu sonradan onaylayamıyor');
+
+select pg_temp.login_as('a0000000-0000-0000-0000-000000000002');  -- Burak
+select pg_temp.assert_eq(
+  (select count(*)::int from public.book_public_notes('b0000000-0000-0000-0000-000000000002')), 0,
+  'onaysız not başkasına görünmüyor');
+
+do $$
+begin
+  perform public.moderation_public_notes();
+  raise exception 'BAŞARISIZ: üye onay listesini okudu';
+exception
+  when insufficient_privilege then
+    raise notice '  ✓ üye onay listesini okuyamıyor';
+end $$;
+
+select pg_temp.login_as('a0000000-0000-0000-0000-000000000003');  -- editör
+select pg_temp.assert_eq(
+  (select string_agg(book_title, ',') from public.moderation_public_notes()
+   where approved_at is null),
+  'Paylaşmayı Öğreniyorum',
+  'editör onay bekleyen notu kitap adıyla görüyor');
+select pg_temp.assert_eq(
+  (select count(*)::int from public.moderation_public_notes() where body = 'Bu bizim sırrımız.'), 0,
+  'editör "Sadece bana" notunu görmüyor');
+select pg_temp.assert_eq(
+  (select count(*)::int from public.reading_notes), 0,
+  'editör not tablosunu doğrudan okuyamıyor');
+
+select public.moderate_public_note('f2000000-0000-0000-0000-000000000001', true);
+
+select pg_temp.login_as('a0000000-0000-0000-0000-000000000002');  -- Burak
+select pg_temp.assert_eq(
+  (select string_agg(body, ',') from public.book_public_notes('b0000000-0000-0000-0000-000000000002')),
+  'Çok sevdik!',
+  'onaylı not giriş yapan başka veliye görünüyor (gizli not hariç)');
+
+-- Metin değişirse onay düşer.
+select pg_temp.login_as('a0000000-0000-0000-0000-0000000000f4');
+update public.reading_notes set body = 'Çok çok sevdik!'
+  where id = 'f2000000-0000-0000-0000-000000000001';
+select pg_temp.assert(
+  (select approved_at is null from public.reading_notes
+   where id = 'f2000000-0000-0000-0000-000000000001'),
+  'not düzenlenince yeniden onay gerekiyor');
+
+-- Editör reddederse not silinmez, "Sadece bana" olur.
+select pg_temp.login_as('a0000000-0000-0000-0000-000000000003');
+select public.moderate_public_note('f2000000-0000-0000-0000-000000000001', false);
+select pg_temp.login_as('a0000000-0000-0000-0000-0000000000f4');
+select pg_temp.assert_eq(
+  (select visibility::text from public.reading_notes
+   where id = 'f2000000-0000-0000-0000-000000000001'),
+  'private',
+  'reddedilen not sahibinde "Sadece bana" olarak kalıyor');
+
+reset role;
+select pg_temp.assert(
+  not has_function_privilege('anon', 'public.book_public_notes(uuid)', 'execute'),
+  'anon herkese açık notları okuyamaz (yalnızca giriş yapanlar)');
+select pg_temp.assert(
+  not has_function_privilege('anon', 'public.moderate_public_note(uuid, boolean)', 'execute'),
+  'anon not onaylayamaz');
+
+delete from auth.users where id = 'a0000000-0000-0000-0000-0000000000f4';
+
 do $$ begin raise notice ''; raise notice 'TÜM ŞEMA TESTLERİ GEÇTİ'; end $$;

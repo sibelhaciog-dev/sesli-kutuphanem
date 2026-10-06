@@ -10,12 +10,22 @@ import type { NoteVisibility, ReadingNote } from '@/lib/data/types'
 import { NOTE_VISIBILITY_LABELS } from '@/lib/labels'
 import { createClient } from '@/lib/supabase/client'
 
-const VISIBILITY_ORDER: NoteVisibility[] = ['private', 'family', 'public']
-
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
-/** Kitap notları. Varsayılan gizlilik "özel" (PRD ilke 2). */
-export function ReadingNotes({ libraryItemId }: { libraryItemId: string }) {
+/**
+ * Kitap notları. Varsayılan gizlilik "özel" (PRD ilke 2).
+ *
+ * Not, çocuğun kütüphane kaydına bağlıdır. Kitap henüz kütüphanede yoksa
+ * kutu yine görünür; ilk not kaydedilirken `ensureLibraryItem` kitabı
+ * okuma listesine ekler.
+ */
+export function ReadingNotes({
+  libraryItemId,
+  ensureLibraryItem,
+}: {
+  libraryItemId: string | null
+  ensureLibraryItem: () => Promise<{ id: string; added: boolean } | null>
+}) {
   const supabase = createClient()
   const toast = useToast()
   const [notes, setNotes] = useState<ReadingNote[]>([])
@@ -29,7 +39,7 @@ export function ReadingNotes({ libraryItemId }: { libraryItemId: string }) {
     // Sorgulamak PostgREST'ten 400 döndürüyor ve her seferinde konsola
     // başarısız bir istek düşüyordu. Gerçek kimlik gelince efekt yeniden
     // çalışıyor ve notlar yükleniyor.
-    if (!UUID_PATTERN.test(libraryItemId)) {
+    if (!libraryItemId || !UUID_PATTERN.test(libraryItemId)) {
       setNotes([])
       return
     }
@@ -50,9 +60,18 @@ export function ReadingNotes({ libraryItemId }: { libraryItemId: string }) {
     if (!trimmed) return
     setSaving(true)
     try {
-      const note = await addNote(supabase, { libraryItemId, body: trimmed, visibility })
+      const target = await ensureLibraryItem()
+      if (!target) throw new Error('Kütüphane kaydı yok')
+      const note = await addNote(supabase, { libraryItemId: target.id, body: trimmed, visibility })
       setNotes((current) => [note, ...current])
       setBody('')
+      const messages = [
+        target.added && 'Kitap okuma listesine eklendi.',
+        note.visibility === 'public' &&
+          !note.approvedAt &&
+          'Notun onaylandıktan sonra diğer velilere görünecek.',
+      ].filter(Boolean)
+      if (messages.length > 0) toast.show(`Notun kaydedildi. ${messages.join(' ')}`)
     } catch {
       toast.show('Not kaydedilemedi.', 'error')
     } finally {
@@ -71,9 +90,8 @@ export function ReadingNotes({ libraryItemId }: { libraryItemId: string }) {
     }
   }
 
-  function cycleVisibility() {
-    const index = VISIBILITY_ORDER.indexOf(visibility)
-    setVisibility(VISIBILITY_ORDER[(index + 1) % VISIBILITY_ORDER.length]!)
+  function toggleVisibility() {
+    setVisibility((current) => (current === 'public' ? 'private' : 'public'))
   }
 
   return (
@@ -95,15 +113,13 @@ export function ReadingNotes({ libraryItemId }: { libraryItemId: string }) {
         />
         <button
           type="button"
-          onClick={cycleVisibility}
+          onClick={toggleVisibility}
           title="Gizlilik ayarını değiştir"
           className={cn(
             'rounded-full border-[1.5px] px-3 py-2 text-xs font-semibold transition-colors',
             visibility === 'public'
               ? 'border-[#4CAF50] bg-success-soft text-success'
-              : visibility === 'family'
-                ? 'border-accent bg-accent-soft text-accent-ink'
-                : 'border-[#FF9800] bg-warning-soft text-warning',
+              : 'border-[#FF9800] bg-warning-soft text-warning',
           )}
         >
           {NOTE_VISIBILITY_LABELS[visibility]}
@@ -122,18 +138,17 @@ export function ReadingNotes({ libraryItemId }: { libraryItemId: string }) {
               key={note.id}
               className={cn(
                 'rounded-xl border p-3.5',
-                note.visibility === 'private'
+                note.visibility !== 'public'
                   ? 'border-[#FFE0B2] bg-[#FFF8F0]'
                   : 'border-line bg-cream',
               )}
             >
               <div className="mb-1.5 flex items-center justify-between gap-2">
-                <span className="text-[11px] text-muted">
-                  {formatShortDate(note.createdAt)}
-                </span>
+                <span className="text-[11px] text-muted">{formatShortDate(note.createdAt)}</span>
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] font-bold text-muted">
                     {NOTE_VISIBILITY_LABELS[note.visibility]}
+                    {note.visibility === 'public' && !note.approvedAt && ' · ⏳ Onay bekliyor'}
                   </span>
                   <button
                     type="button"
