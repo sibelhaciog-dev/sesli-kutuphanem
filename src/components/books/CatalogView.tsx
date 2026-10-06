@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { AvatarFigure } from '@/components/avatar/AvatarFigure'
 import { DiscoveryFrame } from '@/components/discovery/DiscoveryFrame'
@@ -15,12 +15,37 @@ import { useToast } from '@/components/ui/Toast'
 import { AGE_BANDS, ageOf, suitsAge } from '@/lib/age'
 import type { DiscoveryMode } from '@/lib/data/discovery'
 import type { CatalogBook } from '@/lib/data/types'
-import { DEFAULT_FILTERS, filterBooks, hasActiveFilters, type CatalogFilters } from '@/lib/filters'
+import {
+  DEFAULT_FILTERS,
+  filterBooks,
+  hasActiveFilters,
+  topicSlugFromParam,
+  type CatalogFilters,
+} from '@/lib/filters'
 
-export function CatalogView({ books, modes }: { books: CatalogBook[]; modes: DiscoveryMode[] }) {
+interface CatalogViewProps {
+  books: CatalogBook[]
+  modes: DiscoveryMode[]
+  /** Adresteki `?konu=` değeri (ör. kitap sayfasındaki konu etiketinden gelince). */
+  topicParam?: string | string[]
+}
+
+export function CatalogView({ books, modes, topicParam }: CatalogViewProps) {
   const { activeChild, library, taxonomy, toggleFavorite, setRating } = useAppData()
   const toast = useToast()
-  const [filters, setFilters] = useState<CatalogFilters>(DEFAULT_FILTERS)
+  const [filters, setFilters] = useState<CatalogFilters>(() => ({
+    ...DEFAULT_FILTERS,
+    topicSlug: topicSlugFromParam(topicParam, taxonomy.areas),
+  }))
+
+  // Seçili konu adreste de dursun: sayfa yenilenince ya da bağlantı
+  // paylaşılınca aynı filtreyle açılır. Geçmişe yeni kayıt eklemiyoruz.
+  useEffect(() => {
+    const url = new URL(window.location.href)
+    if (filters.topicSlug) url.searchParams.set('konu', filters.topicSlug)
+    else url.searchParams.delete('konu')
+    if (url.href !== window.location.href) window.history.replaceState(null, '', url)
+  }, [filters.topicSlug])
 
   const childAge = activeChild ? ageOf(activeChild) : null
   const visible = useMemo(

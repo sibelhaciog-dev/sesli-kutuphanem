@@ -110,16 +110,17 @@ export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: C
               <ul className="mt-4 flex flex-wrap gap-1.5">
                 {book.topics.slice(0, 6).map((topic) => (
                   <li key={topic.topicSlug}>
-                    <span
-                      className="rounded-full px-2.5 py-1 text-[11px] font-semibold"
+                    <Link
+                      href={`/?konu=${encodeURIComponent(topic.topicSlug)}`}
+                      className="inline-block cursor-pointer rounded-full border border-transparent px-2.5 py-1 text-[11px] font-semibold transition hover:border-current hover:brightness-90 focus-visible:border-current active:brightness-90"
                       style={{
                         backgroundColor: `${topic.color}1a`,
                         color: topic.color,
                       }}
-                      title={topic.areaName}
+                      title={`${topic.areaName} · bu konudaki kitapları gör`}
                     >
                       {topic.emoji} {topic.topicName}
-                    </span>
+                    </Link>
                   </li>
                 ))}
               </ul>

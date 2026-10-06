@@ -1,6 +1,12 @@
 import { describe, expect, it } from 'vitest'
 import { AREAS, indexItems, makeBook, makeItem } from '@/test/factories'
-import { DEFAULT_FILTERS, filterBooks, hasActiveFilters, sortBooks } from './filters'
+import {
+  DEFAULT_FILTERS,
+  filterBooks,
+  hasActiveFilters,
+  sortBooks,
+  topicSlugFromParam,
+} from './filters'
 
 const CATALOG = [
   makeBook({
@@ -156,5 +162,18 @@ describe('hasActiveFilters', () => {
 describe('gelişim alanı verisi', () => {
   it('test taksonomisi konuları alanlara bağlar', () => {
     expect(AREAS.flatMap((area) => area.topics)).toHaveLength(3)
+  })
+})
+
+describe('topicSlugFromParam', () => {
+  it('rehberlerde olan konuyu döndürür', () => {
+    expect(topicSlugFromParam('korku-ve-kaygi', AREAS)).toBe('korku-ve-kaygi')
+  })
+
+  it('bilinmeyen, boş ya da çoklu değerde filtresiz açar', () => {
+    expect(topicSlugFromParam('olmayan-konu', AREAS)).toBeNull()
+    expect(topicSlugFromParam('', AREAS)).toBeNull()
+    expect(topicSlugFromParam(undefined, AREAS)).toBeNull()
+    expect(topicSlugFromParam(['korku-ve-kaygi', 'duygu-yonetimi'], AREAS)).toBeNull()
   })
 })

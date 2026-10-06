@@ -1,5 +1,5 @@
 import { inAgeBand, suitsAge, type AgeBandSlug } from './age'
-import type { CatalogBook, Language, LibraryIndex } from './data/types'
+import type { AreaView, CatalogBook, Language, LibraryIndex } from './data/types'
 import { matchesTerms, searchTerms } from './search'
 
 export type LanguageFilter = 'all' | Language
@@ -92,4 +92,18 @@ export function hasActiveFilters(filters: CatalogFilters): boolean {
     filters.ageBand !== null ||
     filters.showAllAges
   )
+}
+
+/**
+ * Adresteki `?konu=` değerini doğrular: yalnızca rehberlerde gerçekten olan
+ * bir konuysa döner; boş, birden çok ya da bilinmeyen değerde `null`
+ * (katalog filtresiz açılır).
+ */
+export function topicSlugFromParam(
+  param: string | string[] | undefined,
+  areas: readonly AreaView[],
+): string | null {
+  if (typeof param !== 'string' || param === '') return null
+  const known = areas.some((area) => area.topics.some((topic) => topic.slug === param))
+  return known ? param : null
 }
