@@ -121,6 +121,7 @@ Supabase projesi: **kutuphanem** (`ygaxtmuzhnntzdcltmgn`).
 - [x] Yönetim: rehber/konu/ilgi düzenleyici, silmeden önce kullanım sayıları (`0023`)
 - [x] Yönetim: keşif modu düzenleyici
 - [x] Anahtar kelime denetimi; `\b` → `\y` düzeltmesi (`0023`)
+- [x] Herkese açık okuma notları: editör onayı, kitap sayfasında isimsiz gösterim; "Aile içi" seçeneği kaldırıldı (`0025`)
 - [ ] `SUPABASE_SECRET_KEY`'i yerel `.env.local`'e ekle (betikle kapak yüklemek için)
 - [ ] Var olan 196 kitabın kapaklarını ekle — Instagram'dan Chrome ile liste
       çıkarıp `book:add --sadece-kapak`

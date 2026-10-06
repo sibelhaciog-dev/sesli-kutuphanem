@@ -62,7 +62,8 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
 - Yıldız puanı, favori işareti
 - **Okuma oturumları** — aynı kitap birden çok kez okunabilir, her okuma ayrı
   kaydedilir
-- Okuma notları (sadece bana / herkese açık)
+- Okuma notları (sadece bana / herkese açık). Herkese açık notlar editör onayından
+  sonra kitap sayfasında, giriş yapmış velilere isimsiz ("Bir veli") görünür
 - Takvim: hangi gün ne okundu, en uzun seri
 - Aylık rapor: gelişim alanı dağılımı, dil dağılımı, en beğenilenler
 
@@ -138,7 +139,8 @@ yayın gerekmez (ADR 0008).
 1. Kitap sayfası → "Okudum" veya "Okuma listeme ekle".
 2. Yıldız puanı → çocuğun puanı artar (avatar eşyaları artık puanla değil okunan kitaplarla açılır).
 3. Aynı kitap tekrar okunursa "Tekrar okuduk" → yeni oturum kaydı.
-4. Not eklenir (varsayılan: özel).
+4. Not eklenir (varsayılan: sadece bana). Herkese açık not editör onayına düşer
+   (`/yonetim/notlar`); onaylanınca kitap sayfasındaki "Velilerin notları"nda görünür.
 
 ### 6.3 Keşif (yapay zekâ destekli öneri)
 

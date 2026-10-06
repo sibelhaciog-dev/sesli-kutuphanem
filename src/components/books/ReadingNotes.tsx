@@ -51,6 +51,9 @@ export function ReadingNotes({ libraryItemId }: { libraryItemId: string }) {
       const note = await addNote(supabase, { libraryItemId, body: trimmed, visibility })
       setNotes((current) => [note, ...current])
       setBody('')
+      if (note.visibility === 'public' && !note.approvedAt) {
+        toast.show('Notun kaydedildi. Onaylandıktan sonra diğer velilere görünecek.')
+      }
     } catch {
       toast.show('Not kaydedilemedi.', 'error')
     } finally {
@@ -123,12 +126,11 @@ export function ReadingNotes({ libraryItemId }: { libraryItemId: string }) {
               )}
             >
               <div className="mb-1.5 flex items-center justify-between gap-2">
-                <span className="text-[11px] text-muted">
-                  {formatShortDate(note.createdAt)}
-                </span>
+                <span className="text-[11px] text-muted">{formatShortDate(note.createdAt)}</span>
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] font-bold text-muted">
                     {NOTE_VISIBILITY_LABELS[note.visibility]}
+                    {note.visibility === 'public' && !note.approvedAt && ' · ⏳ Onay bekliyor'}
                   </span>
                   <button
                     type="button"

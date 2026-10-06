@@ -10,7 +10,7 @@ export default async function AdminOverviewPage() {
   // `children` doğrudan sayılamaz: RLS sahiple sınırlı, personel istisnası
   // bilinçli olarak yok (bkz. 0018). Sayıyı satır döndürmeyen bir fonksiyon
   // veriyor — yönetici kaç profil olduğunu görür, kimin olduğunu görmez.
-  const [books, drafts, feedback, listings, stats] = await Promise.all([
+  const [books, drafts, feedback, listings, stats, notes] = await Promise.all([
     supabase.from('books').select('id', { count: 'exact', head: true }).eq('status', 'published'),
     supabase.from('books').select('id', { count: 'exact', head: true }).eq('status', 'draft'),
     supabase.from('feedback').select('id', { count: 'exact', head: true }).eq('status', 'new'),
@@ -19,6 +19,7 @@ export default async function AdminOverviewPage() {
       .select('id', { count: 'exact', head: true })
       .eq('status', 'active'),
     supabase.rpc('platform_stats'),
+    supabase.rpc('moderation_public_notes'),
   ])
 
   const platform = (stats.data ?? {}) as {
@@ -29,6 +30,11 @@ export default async function AdminOverviewPage() {
   const cards = [
     { label: 'Yayındaki kitap', value: books.count ?? 0, href: '/yonetim/kitaplar' },
     { label: 'Taslak kitap', value: drafts.count ?? 0, href: '/yonetim/kitaplar?durum=draft' },
+    {
+      label: 'Onay bekleyen not',
+      value: (notes.data ?? []).filter((note) => !note.approved_at).length,
+      href: '/yonetim/notlar',
+    },
     { label: 'Yeni görüş', value: feedback.count ?? 0, href: '/yonetim/gorusler' },
     { label: 'Aktif takas ilanı', value: listings.count ?? 0, href: '/takas' },
     { label: 'Çocuk profili', value: platform.children ?? 0, href: '/yonetim' },

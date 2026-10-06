@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { BookCover } from '@/components/books/BookCover'
+import { PublicBookNotes } from '@/components/books/PublicBookNotes'
 import { ReadingNotes } from '@/components/books/ReadingNotes'
 import { useAppData } from '@/components/providers/AppDataProvider'
 import { Button, ButtonLink } from '@/components/ui/Button'
@@ -236,6 +237,8 @@ export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: C
         </section>
 
         {item && <ReadingNotes libraryItemId={item.id} />}
+
+        <PublicBookNotes bookId={book.id} />
       </article>
     </div>
   )

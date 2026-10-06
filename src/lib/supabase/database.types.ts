@@ -1203,6 +1203,8 @@ export interface Database {
           visibility: 'private' | 'family' | 'public'
           created_at: string
           updated_at: string
+          approved_at: string | null
+          approved_by: string | null
         }
         Insert: {
           id?: string
@@ -1211,6 +1213,8 @@ export interface Database {
           visibility?: 'private' | 'family' | 'public'
           created_at?: string
           updated_at?: string
+          approved_at?: string | null
+          approved_by?: string | null
         }
         Update: {
           id?: string
@@ -1219,8 +1223,17 @@ export interface Database {
           visibility?: 'private' | 'family' | 'public'
           created_at?: string
           updated_at?: string
+          approved_at?: string | null
+          approved_by?: string | null
         }
         Relationships: [
+          {
+            foreignKeyName: 'reading_notes_approved_by_fkey'
+            columns: ['approved_by']
+            isOneToOne: false
+            referencedRelation: 'users'
+            referencedColumns: ['id']
+          },
           {
             foreignKeyName: 'reading_notes_library_item_id_fkey'
             columns: ['library_item_id']
@@ -1407,6 +1420,7 @@ export interface Database {
           cover_thumb_path: string | null
           cover_width: number | null
           cover_height: number | null
+          publisher_name: string | null
         }
         Relationships: []
       }
@@ -1456,6 +1470,12 @@ export interface Database {
         }
         Returns: number
       }
+      book_public_notes: {
+        Args: {
+          target_book_id: string
+        }
+        Returns: { id: string; body: string; created_at: string }[]
+      }
       build_search_query: {
         Args: {
           input: string
@@ -1491,6 +1511,24 @@ export interface Database {
       is_staff: {
         Args: Record<string, never>
         Returns: boolean
+      }
+      moderate_public_note: {
+        Args: {
+          note_id: string
+          approve: boolean
+        }
+        Returns: unknown
+      }
+      moderation_public_notes: {
+        Args: Record<string, never>
+        Returns: {
+          id: string
+          body: string
+          created_at: string
+          approved_at: string
+          book_title: string
+          book_slug: string
+        }[]
       }
       owns_child: {
         Args: {
