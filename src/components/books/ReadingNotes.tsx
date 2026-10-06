@@ -10,8 +10,6 @@ import type { NoteVisibility, ReadingNote } from '@/lib/data/types'
 import { NOTE_VISIBILITY_LABELS } from '@/lib/labels'
 import { createClient } from '@/lib/supabase/client'
 
-const VISIBILITY_ORDER: NoteVisibility[] = ['private', 'family', 'public']
-
 const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
 /** Kitap notları. Varsayılan gizlilik "özel" (PRD ilke 2). */
@@ -71,9 +69,8 @@ export function ReadingNotes({ libraryItemId }: { libraryItemId: string }) {
     }
   }
 
-  function cycleVisibility() {
-    const index = VISIBILITY_ORDER.indexOf(visibility)
-    setVisibility(VISIBILITY_ORDER[(index + 1) % VISIBILITY_ORDER.length]!)
+  function toggleVisibility() {
+    setVisibility((current) => (current === 'public' ? 'private' : 'public'))
   }
 
   return (
@@ -95,15 +92,13 @@ export function ReadingNotes({ libraryItemId }: { libraryItemId: string }) {
         />
         <button
           type="button"
-          onClick={cycleVisibility}
+          onClick={toggleVisibility}
           title="Gizlilik ayarını değiştir"
           className={cn(
             'rounded-full border-[1.5px] px-3 py-2 text-xs font-semibold transition-colors',
             visibility === 'public'
               ? 'border-[#4CAF50] bg-success-soft text-success'
-              : visibility === 'family'
-                ? 'border-accent bg-accent-soft text-accent-ink'
-                : 'border-[#FF9800] bg-warning-soft text-warning',
+              : 'border-[#FF9800] bg-warning-soft text-warning',
           )}
         >
           {NOTE_VISIBILITY_LABELS[visibility]}
@@ -122,7 +117,7 @@ export function ReadingNotes({ libraryItemId }: { libraryItemId: string }) {
               key={note.id}
               className={cn(
                 'rounded-xl border p-3.5',
-                note.visibility === 'private'
+                note.visibility !== 'public'
                   ? 'border-[#FFE0B2] bg-[#FFF8F0]'
                   : 'border-line bg-cream',
               )}

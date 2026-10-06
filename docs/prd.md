@@ -62,7 +62,7 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
 - Yıldız puanı, favori işareti
 - **Okuma oturumları** — aynı kitap birden çok kez okunabilir, her okuma ayrı
   kaydedilir
-- Okuma notları (özel / aile içi / herkese açık)
+- Okuma notları (sadece bana / herkese açık)
 - Takvim: hangi gün ne okundu, en uzun seri
 - Aylık rapor: gelişim alanı dağılımı, dil dağılımı, en beğenilenler
 
