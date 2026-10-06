@@ -124,7 +124,11 @@ function planAttempts(
     label: 'json_schema',
     format: {
       type: 'json_schema' as const,
-      json_schema: { name: schemaName, schema: jsonSchema as Record<string, unknown>, strict: true },
+      json_schema: {
+        name: schemaName,
+        schema: jsonSchema as Record<string, unknown>,
+        strict: true,
+      },
     },
   }
   const jsonObjectAttempt = { label: 'json_object', format: { type: 'json_object' as const } }

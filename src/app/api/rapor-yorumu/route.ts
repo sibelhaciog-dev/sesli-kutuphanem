@@ -128,10 +128,7 @@ export async function POST(request: Request) {
     }
     if (error instanceof AiError && error.code === 'unauthorized') {
       // Yapılandırma sorunu: kullanıcının yapabileceği bir şey yok.
-      return NextResponse.json(
-        { hata: 'Bu özellik şu anda kullanılamıyor.' },
-        { status: 503 },
-      )
+      return NextResponse.json({ hata: 'Bu özellik şu anda kullanılamıyor.' }, { status: 503 })
     }
     if (error instanceof AiError && error.code === 'timeout') {
       return NextResponse.json(
