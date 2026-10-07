@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 /**
  * "Bize destek ol" — şimdilik yalnızca yer tutucu. Destek yolları (kahve
- * ısmarla, sponsorluk) açılınca bağlantılar buraya eklenecek.
+ * ısmarla, düzenli destek) açılınca bağlantılar buraya eklenecek.
  */
 export default function SupportPage() {
   return (
@@ -29,7 +29,7 @@ export default function SupportPage() {
         <h2 className="mb-1 text-lg font-bold text-ink">Çok yakında</h2>
         <p className="text-sm leading-relaxed text-muted">
           Destek seçenekleri henüz açılmadı. Hazır olduğunda bu sayfadan bize bir kahve
-          ısmarlayabilir ya da sponsor olabilirsiniz.
+          ısmarlayabilir ya da düzenli destekçimiz olabilirsiniz.
         </p>
       </section>
 

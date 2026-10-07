@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 /**
- * Sponsorluk: "Kitabını paylaş" başvurusu ve yönetimden girilen vitrin
+ * Sponsorluk: "Ayın kitabı sponsorluğu" başvurusu ve yönetimden girilen vitrin
  * dönemi. Sınırlar `0026_featured_book.sql` içindeki CHECK kısıtlarının
  * aynası; kısıtı değiştirirsen burayı da değiştir.
  */

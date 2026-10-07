@@ -12,7 +12,7 @@ import { sponsorApplicationSchema } from '@/lib/sponsorship'
 import { createClient } from '@/lib/supabase/client'
 
 /**
- * "Kitabını paylaş" — yayınevi ya da yazarın "Ayın kitabı" sponsorluğu için
+ * "Ayın kitabı sponsorluğu" — yayınevi ya da yazarın "Ayın kitabı" sponsorluğu için
  * başvurusu. Ödeme sitede alınmıyor; ekip başvuruyu görüp iletişime geçiyor.
  */
 export function SponsorApplicationForm({ months }: { months: string[] }) {
@@ -90,7 +90,7 @@ export function SponsorApplicationForm({ months }: { months: string[] }) {
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
       <h1 className="mb-1 text-3xl">
-        <IconLabel name="star">Kitabını paylaş</IconLabel>
+        <IconLabel name="star">Ayın kitabı sponsorluğu</IconLabel>
       </h1>
       <p className="mb-2 text-sm leading-relaxed text-ink-soft">
         Yayınevi ya da yazar mısınız? Kitabınız bir ay boyunca ana sayfamızda{' '}

@@ -203,7 +203,7 @@ beğenilen kitabı, o da yoksa en yeni kitabı gösterir (`src/lib/featured.ts`)
   güne iki sponsor düşmesini engeller. Ziyaretçi yalnızca **bugün** yayında
   olan satırı görür (ileri tarihli anlaşmalar sızmaz); "bugün" Türkiye saatiyle
   (`local_today()`). Yalnızca ekip yazar.
-- **`sponsor_applications`** — "Kitabını paylaş" formu. Giriş yapan kendi
+- **`sponsor_applications`** — "Ayın kitabı sponsorluğu" formu. Giriş yapan kendi
   adına ve yalnızca `new` durumunda açar; kendi başvurusunu görür, ekip
   hepsini görür ve durumunu değiştirir. Durumlar:
   `new / in_review / accepted / declined`.

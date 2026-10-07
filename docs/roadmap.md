@@ -144,12 +144,12 @@ Supabase projesi: **kutuphanem** (`ygaxtmuzhnntzdcltmgn`).
 
 - [x] `0026`: sponsorlu dönemler (çakışma kısıtı), başvurular, beğeni toplamı
 - [x] Ana sayfa vitrini: sponsor → en çok beğenilen → en yeni
-- [x] “Kitabını paylaş” başvuru sayfası (`/kitabini-paylas`)
+- [x] “Ayın kitabı sponsorluğu” başvuru sayfası (`/kitabini-paylas`; önce “Kitabını paylaş” adıyla açıldı)
 - [x] Yönetim → Ayın kitabı: dönemler + başvurular
 - [x] `0026` üretim veritabanına uygulandı (2026-10-07)
 - [x] Ayın kitabı yalnızca filtresiz ana sayfada (rehber/yayınevi seçilince gizli)
 - [x] “Bize destek ol” menü kaydı ve yer tutucu sayfa (`/destek`)
-- [ ] Destek yolları: kahve ısmarla / sponsorluk bağlantıları (açılınca)
+- [ ] Destek yolları: kahve ısmarla / düzenli destek bağlantıları (açılınca)
 - [x] Sponsorluk koşulları ve fiyatı sitede yazılmıyor; başvurudan sonra e-postayla konuşuluyor (ürün kararı, 2026-10-06)
 
 ## Sonraki sürüm için fikirler (kapsam dışı)

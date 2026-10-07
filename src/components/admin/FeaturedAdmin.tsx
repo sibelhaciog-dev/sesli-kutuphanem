@@ -54,7 +54,7 @@ interface SlotDraft {
 }
 
 /**
- * "Ayın kitabı" yönetimi: sponsorlu dönemler ve "Kitabını paylaş"
+ * "Ayın kitabı" yönetimi: sponsorlu dönemler ve "Ayın kitabı sponsorluğu"
  * başvuruları. Dönem yoksa vitrinde en çok beğenilen kitap görünür.
  */
 export function FeaturedAdmin({
@@ -372,7 +372,7 @@ function ApplicationList({
   return (
     <section>
       <header className="mb-3">
-        <h2 className="text-lg text-ink">“Kitabını paylaş” başvuruları</h2>
+        <h2 className="text-lg text-ink">“Ayın kitabı sponsorluğu” başvuruları</h2>
         <p className="text-xs text-muted">
           Yayınevleri ve yazarlar{' '}
           <Link href="/kitabini-paylas" className="underline hover:text-accent-ink">
