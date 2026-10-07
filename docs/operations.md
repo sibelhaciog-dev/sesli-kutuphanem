@@ -300,3 +300,12 @@ Code'a yapıştırın.
   kayda değil nota yazıyor.
 - Skill'in tahminleri (yaş aralığı, konu önemleri) her kaydın `_notlar`
   alanında gelir; betik bu alanı yok sayar, ajan kullanıcıya iletir.
+
+## 12. Uygulamanın adını değiştirme
+
+Ad kodda tek yerde: `src/lib/site.ts` → `SITE_NAME` (yanındaki kısa tanım
+`SITE_TAGLINE`). Sayfa başlıkları, üst menü, paylaşım önizlemesi, takas
+mesajı ve yapay zekâ isteklerinin başlığı buradan okur. Ayrıca elle
+değiştirilecekler: Supabase e-posta şablonları (Authentication → Email
+Templates), Vercel proje adı / alan adı, Instagram hesabı (`INSTAGRAM_URL`)
+ve `docs/` belgeleri.

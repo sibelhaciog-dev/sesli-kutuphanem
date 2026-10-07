@@ -10,7 +10,7 @@ import { useAppData } from '@/components/providers/AppDataProvider'
 import { InstagramIcon } from '@/components/layout/InstagramIcon'
 import { cn } from '@/lib/cn'
 import { createClient } from '@/lib/supabase/client'
-import { INSTAGRAM_URL } from '@/lib/site'
+import { INSTAGRAM_URL, SITE_NAME, SITE_TAGLINE } from '@/lib/site'
 
 const MENU_ITEMS: {
   href: string
@@ -71,9 +71,9 @@ export function SiteHeader() {
             </span>
             <span>
               <span className="block font-serif text-[17px] leading-none text-ink">
-                Sesli Kütüphanem
+                {SITE_NAME}
               </span>
-              <span className="hidden text-[11px] text-muted md:block">Çocuk kitap rehberi</span>
+              <span className="hidden text-[11px] text-muted md:block">{SITE_TAGLINE}</span>
             </span>
           </Link>
           <a

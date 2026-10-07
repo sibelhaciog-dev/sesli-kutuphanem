@@ -1,6 +1,7 @@
 import OpenAI from 'openai'
 import { z } from 'zod'
 import { siteUrl } from '@/lib/env'
+import { SITE_NAME } from '@/lib/site'
 import { readAiConfig, type AiConfig } from './config'
 
 /**
@@ -77,7 +78,7 @@ function createClient(config: AiConfig): OpenAI {
     // OpenRouter bu başlıkları kullanım panelinde göstermek için kullanır.
     defaultHeaders: {
       'HTTP-Referer': siteUrl(),
-      'X-Title': 'Sesli Kütüphanem',
+      'X-Title': SITE_NAME,
     },
     // Bütçe yönetimini biz yapıyoruz (yukarıdaki nota bakın).
     maxRetries: 0,

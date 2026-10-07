@@ -1,10 +1,11 @@
 import type { Metadata } from 'next'
 import { ButtonLink } from '@/components/ui/Button'
 import { Icon, IconLabel } from '@/components/ui/Icon'
+import { SITE_NAME } from '@/lib/site'
 
 export const metadata: Metadata = {
   title: 'Bize destek ol',
-  description: 'Sesli Kütüphanem’i desteklemek isteyenler için.',
+  description: `${SITE_NAME} projesini desteklemek isteyenler için.`,
 }
 
 /**
@@ -18,8 +19,8 @@ export default function SupportPage() {
         <IconLabel name="coffee">Bize destek ol</IconLabel>
       </h1>
       <p className="mb-6 text-sm leading-relaxed text-ink-soft">
-        Sesli Kütüphanem, çocuklara doğru kitabı bulmak isteyen aileler için gönüllü emekle
-        hazırlanıyor. Bu çalışmaya katkı vermek isteyenler için destek yollarını hazırlıyoruz.
+        {SITE_NAME}, çocuklara doğru kitabı bulmak isteyen aileler için gönüllü emekle hazırlanıyor.
+        Bu çalışmaya katkı vermek isteyenler için destek yollarını hazırlıyoruz.
       </p>
 
       <section className="mb-6 rounded-panel border border-line bg-white p-6 text-center">

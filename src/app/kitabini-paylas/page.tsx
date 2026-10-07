@@ -5,7 +5,7 @@ import { istanbulToday, upcomingMonths } from '@/lib/sponsorship'
 export const metadata: Metadata = {
   title: 'Ayın kitabı sponsorluğu',
   description:
-    'Yayınevi ya da yazar mısınız? Kitabınız Sesli Kütüphanem’de “Ayın kitabı” olarak ailelere ulaşsın.',
+    'Yayınevi ya da yazar mısınız? Kitabınız sitemizde “Ayın kitabı” olarak ailelere ulaşsın.',
 }
 
 export default function ShareYourBookPage() {

@@ -11,6 +11,7 @@ import { cn } from '@/lib/cn'
 import { isValidTurkishPhone, toWhatsAppNumber } from '@/lib/phone'
 import { toFriendlyMessage } from '@/lib/errors'
 import { createClient } from '@/lib/supabase/client'
+import { SITE_NAME } from '@/lib/site'
 import { LIMITS, validateText } from '@/lib/validation'
 import { ageLabel, BOOK_CONDITION_LABELS } from '@/lib/labels'
 
@@ -168,7 +169,7 @@ export function BookExchange() {
                     ) : (
                       <a
                         href={`https://wa.me/${toWhatsAppNumber(listing.phone)}?text=${encodeURIComponent(
-                          `Merhaba! Sesli Kütüphanem üzerinden yazıyorum. "${listing.title}" kitabını takas etmek isterim. 📚`,
+                          `Merhaba! ${SITE_NAME} üzerinden yazıyorum. "${listing.title}" kitabını takas etmek isterim. 📚`,
                         )}`}
                         target="_blank"
                         rel="noreferrer noopener"

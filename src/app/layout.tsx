@@ -6,6 +6,7 @@ import { SiteHeader } from '@/components/layout/SiteHeader'
 import { ToastProvider } from '@/components/ui/Toast'
 import { getTaxonomy } from '@/lib/data/catalog'
 import { siteUrl } from '@/lib/env'
+import { SITE_NAME } from '@/lib/site'
 import { getViewer } from '@/lib/supabase/server'
 import './globals.css'
 
@@ -21,8 +22,8 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl()),
   title: {
-    default: 'Sesli Kütüphanem — Çocuğunuz için kitap keşfedin',
-    template: '%s · Sesli Kütüphanem',
+    default: `${SITE_NAME} — Çocuğunuz için kitap keşfedin`,
+    template: `%s · ${SITE_NAME}`,
   },
   description:
     'Çocuğunuzun yaşına, ilgi alanlarına ve gelişim ihtiyacına göre seçilmiş çocuk kitapları rehberi. Okuduklarınızı takip edin, puanlayın ve yeni kitaplar keşfedin.',
@@ -30,8 +31,8 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'tr_TR',
-    siteName: 'Sesli Kütüphanem',
-    title: 'Sesli Kütüphanem — Çocuğunuz için kitap keşfedin',
+    siteName: SITE_NAME,
+    title: `${SITE_NAME} — Çocuğunuz için kitap keşfedin`,
     description:
       'Yaşa ve gelişim alanına göre seçilmiş çocuk kitapları. Okuma takibi, puanlama ve kişisel öneriler.',
   },
