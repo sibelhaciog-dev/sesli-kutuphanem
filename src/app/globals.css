@@ -20,8 +20,10 @@
   --color-danger: #c04040;
   --color-danger-soft: #fff0f0;
 
-  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-dm-serif), ui-serif, Georgia, serif;
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+  /* Başlık yazı tipi. Adı tarihsel (eskiden tırnaklı DM Serif Display'di);
+     şimdi metinlerle aynı, Poppins. */
+  --font-serif: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 
   --radius-card: 16px;
   --radius-panel: 20px;
@@ -60,7 +62,14 @@
   h2,
   h3 {
     font-family: var(--font-serif);
-    font-weight: 400;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+
+  /* Kitap adları gibi başlık yazı tipiyle yazılan kısa metinler. Tırnaklı yazı
+     tipinin yerini tutsun diye kalın; bileşendeki kalınlık sınıfı bunu ezer. */
+  .font-serif {
+    font-weight: 600;
   }
 
   /* Klavyeyle gezinenler için görünür odak halkası. */

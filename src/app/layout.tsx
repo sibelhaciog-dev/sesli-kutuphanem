@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { DM_Sans, DM_Serif_Display } from 'next/font/google'
+import { Poppins } from 'next/font/google'
 import { AppDataProvider } from '@/components/providers/AppDataProvider'
 import { aiEnabled } from '@/lib/ai/config'
 import { SiteHeader } from '@/components/layout/SiteHeader'
@@ -9,16 +9,12 @@ import { siteUrl } from '@/lib/env'
 import { getViewer } from '@/lib/supabase/server'
 import './globals.css'
 
-const dmSans = DM_Sans({
+// Tek yazı tipi: metinler ve başlıklar Poppins. Değişken yazı tipi olmadığı
+// için kullanılan kalınlıklar tek tek yükleniyor (400–800).
+const poppins = Poppins({
   subsets: ['latin', 'latin-ext'],
-  variable: '--font-dm-sans',
-  display: 'swap',
-})
-
-const dmSerif = DM_Serif_Display({
-  subsets: ['latin', 'latin-ext'],
-  weight: '400',
-  variable: '--font-dm-serif',
+  weight: ['400', '500', '600', '700', '800'],
+  variable: '--font-poppins',
   display: 'swap',
 })
 
@@ -52,7 +48,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const [{ user, isStaff }, taxonomy] = await Promise.all([getViewer(), getTaxonomy()])
 
   return (
-    <html lang="tr" className={`${dmSans.variable} ${dmSerif.variable}`}>
+    <html lang="tr" className={poppins.variable}>
       <body className="min-h-dvh">
         <a
           href="#icerik"

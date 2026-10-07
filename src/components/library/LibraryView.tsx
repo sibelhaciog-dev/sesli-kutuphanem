@@ -110,7 +110,7 @@ export function LibraryView({ books }: { books: CatalogBook[] }) {
         </IconLabel>
       </p>
 
-      <div className="mb-6 flex gap-2 rounded-2xl bg-cream p-1">
+      <div className="mb-6 flex gap-1 rounded-2xl bg-cream p-1 sm:gap-2">
         {TABS.map((entry) => (
           <button
             key={entry.value}
@@ -118,11 +118,18 @@ export function LibraryView({ books }: { books: CatalogBook[] }) {
             onClick={() => setTab(entry.value)}
             aria-pressed={tab === entry.value}
             className={cn(
-              'flex-1 rounded-xl py-2.5 text-[13px] font-bold transition-colors',
+              // Telefonda üç sekme tek satıra sığsın: dar ekranda yazı küçülür, satır kırılmaz.
+              'min-w-0 flex-1 rounded-xl px-1 py-2.5 text-[11.5px] font-bold whitespace-nowrap transition-colors sm:text-[13px]',
               tab === entry.value ? 'bg-accent text-ink' : 'text-muted hover:text-accent-ink',
             )}
           >
-            <IconLabel name={entry.icon}>{entry.label}</IconLabel>
+            <IconLabel
+              name={entry.icon}
+              className="max-[379px]:gap-0"
+              iconClassName="max-[379px]:hidden"
+            >
+              {entry.label}
+            </IconLabel>
           </button>
         ))}
       </div>
