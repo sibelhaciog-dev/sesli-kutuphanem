@@ -146,7 +146,7 @@ Supabase projesi: **kutuphanem** (`ygaxtmuzhnntzdcltmgn`).
 - [x] Ana sayfa vitrini: sponsor → en çok beğenilen → en yeni
 - [x] “Kitabını paylaş” başvuru sayfası (`/kitabini-paylas`)
 - [x] Yönetim → Ayın kitabı: dönemler + başvurular
-- [ ] `0026`'i üretim veritabanına uygula
+- [x] `0026` üretim veritabanına uygulandı (2026-10-07)
 - [x] Sponsorluk koşulları ve fiyatı sitede yazılmıyor; başvurudan sonra e-postayla konuşuluyor (ürün kararı, 2026-10-06)
 
 ## Sonraki sürüm için fikirler (kapsam dışı)
