@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Sesli Kütüphanem</title>
+</head>
+<body style="margin:0;padding:0;background:#faf8f4">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0">Yeni e-posta adresini onayla.</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background:#faf8f4">
+  <tr>
+    <td align="center" style="padding:32px 16px">
+      <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="max-width:520px">
+        <tr>
+          <td style="padding:0 4px 18px">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0">
+              <tr>
+                <td style="width:40px;height:40px;border-radius:12px;background:#eab23a;text-align:center;font-size:20px;line-height:40px">📚</td>
+                <td style="padding-left:12px;font-family:'Poppins', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+                  <div style="font-size:17px;font-weight:700;color:#1c1c1e;line-height:1.2">Sesli Kütüphanem</div>
+                  <div style="font-size:12px;color:#8e8e93">Çocuk kitap rehberi</div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td style="background:#ffffff;border:1px solid #e5e5ea;border-radius:20px;padding:32px 28px">
+            <h1 style="margin:0 0 16px;font-family:'Poppins', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;font-size:22px;font-weight:700;line-height:1.3;color:#1c1c1e">Yeni e-posta adresini onayla</h1>
+<p style="margin:0 0 14px;font-family:'Poppins', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;font-size:15px;line-height:1.6;color:#3a3a3c;color:#1c1c1e;font-weight:600">{{ if .Data.first_name }}Merhaba {{ .Data.first_name }},{{ else if .Data.full_name }}Merhaba {{ .Data.full_name }},{{ else }}Merhaba,{{ end }}</p>
+<p style="margin:0 0 14px;font-family:'Poppins', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;font-size:15px;line-height:1.6;color:#3a3a3c;">E-posta adresini {{ .Email }} yerine <strong>{{ .NewEmail }}</strong> olarak değiştirmek istedin. Değişikliği tamamlamak için aşağıdaki düğmeye bas.</p>
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" style="margin:28px 0 8px">
+  <tr>
+    <td style="border-radius:999px;background:#eab23a">
+      <a href="{{ .ConfirmationURL }}" target="_blank" style="display:inline-block;padding:14px 28px;font-family:'Poppins', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;font-size:15px;font-weight:700;color:#1c1c1e;text-decoration:none;border-radius:999px">Yeni adresimi onayla</a>
+    </td>
+  </tr>
+</table>
+<p style="margin:0 0 14px;font-family:'Poppins', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;font-size:15px;line-height:1.6;color:#3a3a3c;font-size:12px;color:#8e8e93">Düğme çalışmazsa bu bağlantıyı tarayıcına yapıştır:<br><a href="{{ .ConfirmationURL }}" style="color:#8a5f00;word-break:break-all">{{ .ConfirmationURL }}</a></p>
+          </td>
+        </tr>
+        <tr>
+          <td style="padding:18px 8px 0;font-family:'Poppins', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;font-size:12px;line-height:1.6;color:#8e8e93;text-align:center">
+            Bu isteği sen yapmadıysan bu e-postayı yok sayabilirsin; hesabında bir şey değişmez.
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

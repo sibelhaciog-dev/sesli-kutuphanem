@@ -9,6 +9,7 @@ import { FormMessage, TextField } from '@/components/ui/Field'
 import { toFriendlyError } from '@/lib/errors'
 import { createClient } from '@/lib/supabase/client'
 import { LIMITS, validateEmail, validatePassword, validateText } from '@/lib/validation'
+import { firstNameOf } from '@/lib/names'
 
 export function SignupForm() {
   const router = useRouter()
@@ -45,7 +46,8 @@ export function SignupForm() {
       email: email.trim(),
       password,
       options: {
-        data: { full_name: fullName.trim() },
+        // `first_name` e-postalardaki "Merhaba Sibel," hitabı için (bkz. supabase/templates).
+        data: { full_name: fullName.trim(), first_name: firstNameOf(fullName) },
         emailRedirectTo: `${window.location.origin}/auth/callback?next=/onboarding`,
       },
     })

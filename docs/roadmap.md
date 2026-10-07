@@ -133,7 +133,9 @@ Supabase projesi: **kutuphanem** (`ygaxtmuzhnntzdcltmgn`).
 - [x] Supabase projesini Frankfurt'a taşı (`xhjgyxlerccxopbjtbzl`): şema,
       veri, kullanıcılar, kapaklar; birebir doğrulandı (operations §10)
 - [x] Yeni projede Auth URL ayarları (Site URL, Redirect URLs)
-- [ ] Yeni projede SMTP ve e-posta şablonları (eski projede özel ayar varsa)
+- [x] Türkçe e-posta şablonları (`npm run email:sablon`, operations §13)
+- [ ] Şablonları canlı Supabase paneline yapıştır
+- [ ] Özel SMTP (Resend): velilere onay e-postası ulaşsın, gönderen uygulama adı olsun
 - [x] Geçiş (2026-09-22): veri tazelendi, Vercel ortam değişkenleri yeni
       projeye, fonksiyonlar `fra1`
 - [ ] Supabase MCP bağlantısını yeni projeye (`xhjgyxlerccxopbjtbzl`) çevir

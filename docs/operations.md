@@ -309,3 +309,31 @@ mesajı ve yapay zekâ isteklerinin başlığı buradan okur. Ayrıca elle
 değiştirilecekler: Supabase e-posta şablonları (Authentication → Email
 Templates), Vercel proje adı / alan adı, Instagram hesabı (`INSTAGRAM_URL`)
 ve `docs/` belgeleri.
+
+## 13. E-posta şablonları (Supabase Auth)
+
+Kayıt onayı, şifre sıfırlama, e-posta değişikliği ve "şifren değiştirildi"
+e-postaları Türkçe ve uygulamanın görünümünde. Şablonlar
+`src/lib/email/templates.ts`'den, `SITE_NAME` ile üretilir:
+
+```bash
+npm run email:sablon   # supabase/templates/*.html + config.toml (yerel)
+```
+
+Komut, panelde hangi başlığa hangi konu ve dosyanın gideceğini yazdırır.
+Canlı proje için (ad her değiştiğinde de):
+
+1. Supabase → **Authentication → Email Templates**.
+2. **Confirm signup**, **Reset password**, **Change email address** için:
+   konu satırını yapıştır, içerik kutusuna ilgili `.html` dosyasının tamamını
+   yapıştır, **Save**.
+3. "Şifren değiştirildi" için: aynı sayfada **Security notifications →
+   Password changed**'i aç, konu ve içeriği yapıştır.
+
+Hitap: kayıtta saklanan ilk ad ("Merhaba Sibel,"); bu alan eklenmeden önce
+kaydolanlarda tam ad, o da yoksa "Merhaba,".
+
+**Gönderen:** Supabase'in hazır e-posta servisi yalnızca proje ekibindeki
+adreslere gönderir ve gönderen "Supabase Auth" görünür. Velilere ulaşması ve
+gönderenin uygulama adı olması için özel SMTP gerekir (öneri: Resend) —
+Authentication → SMTP Settings.

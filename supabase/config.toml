@@ -254,6 +254,26 @@ otp_expiry = 3600
 # subject = "Your password has been changed"
 # content_path = "./supabase/templates/password_changed_notification.html"
 
+# >>> e-posta şablonları (npm run email:sablon üretir, elle düzenlemeyin)
+[auth.email.template.confirmation]
+subject = "Hesabını onayla · Sesli Kütüphanem"
+content_path = "./supabase/templates/confirmation.html"
+
+[auth.email.template.recovery]
+subject = "Şifreni yenile · Sesli Kütüphanem"
+content_path = "./supabase/templates/recovery.html"
+
+[auth.email.template.email_change]
+subject = "Yeni e-posta adresini onayla · Sesli Kütüphanem"
+content_path = "./supabase/templates/email_change.html"
+
+[auth.email.notification.password_changed]
+enabled = true
+subject = "Şifren değiştirildi · Sesli Kütüphanem"
+content_path = "./supabase/templates/password_changed.html"
+
+# <<< e-posta şablonları
+
 [auth.sms]
 # Allow/disallow new user signups via SMS to your project.
 enable_signup = false
