@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Icon, type IconName } from '@/components/ui/Icon'
 import { cn } from '@/lib/cn'
 
 /** Başlıktan kararlı (her seferinde aynı) bir renk üretir. */
@@ -12,7 +13,7 @@ function hueFromTitle(title: string): number {
   return hash
 }
 
-const SHELF_EMOJI = ['📕', '📗', '📘', '📙', '📖', '📚']
+const SHELF_ICONS: IconName[] = ['book', 'books']
 
 interface BookCoverProps {
   title: string
@@ -54,7 +55,7 @@ export function BookCover({
   }
 
   const hue = hueFromTitle(title)
-  const emoji = SHELF_EMOJI[hue % SHELF_EMOJI.length]
+  const icon = SHELF_ICONS[hue % SHELF_ICONS.length] ?? 'book'
 
   return (
     <div
@@ -74,8 +75,8 @@ export function BookCover({
         style={{ background: `hsl(${hue} 45% 68%)` }}
         aria-hidden
       />
-      <span className={compact ? 'text-2xl' : 'text-5xl'} aria-hidden>
-        {emoji}
+      <span style={{ color: `hsl(${hue} 40% 38%)` }}>
+        <Icon name={icon} className={compact ? 'size-7' : 'size-14'} />
       </span>
     </div>
   )

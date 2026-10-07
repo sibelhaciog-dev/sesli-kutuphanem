@@ -1,5 +1,6 @@
 'use client'
 
+import { IconLabel } from '@/components/ui/Icon'
 import { useSearchParams } from 'next/navigation'
 import { useState } from 'react'
 import { AuthCard } from '@/components/auth/AuthCard'
@@ -45,7 +46,7 @@ export function VerifyNotice() {
         <FormMessage tone="error">{error}</FormMessage>
         <FormMessage tone="success">{message}</FormMessage>
         <Button size="lg" className="mb-3 w-full" onClick={() => void check()}>
-          ✓ Doğruladım, devam et
+          <IconLabel name="check">Doğruladım, devam et</IconLabel>
         </Button>
         <button
           type="button"

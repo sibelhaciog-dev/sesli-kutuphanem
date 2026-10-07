@@ -1,12 +1,13 @@
 'use client'
 
+import { Icon } from '@/components/ui/Icon'
 import { useEffect, useRef, type ReactNode } from 'react'
 import { cn } from '@/lib/cn'
 
 interface DialogProps {
   open: boolean
   onClose: () => void
-  title: string
+  title: ReactNode
   subtitle?: string
   children: ReactNode
   /** Başlık şeridinin arka planı — bölümleri birbirinden ayırmak için. */
@@ -101,7 +102,7 @@ export function Dialog({
                   : 'border-[1.5px] border-line text-muted hover:bg-ink hover:text-white',
               )}
             >
-              ✕
+              <Icon name="x" />
             </button>
           </header>
 

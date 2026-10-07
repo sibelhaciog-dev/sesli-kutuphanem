@@ -1,5 +1,6 @@
 'use client'
 
+import { Icon } from '@/components/ui/Icon'
 import { cn } from '@/lib/cn'
 
 interface StarRatingProps {
@@ -21,8 +22,14 @@ export function StarRating({ value, onChange, size = 'md', label }: StarRatingPr
         className={cn('text-[#F5A623]', size === 'sm' ? 'text-xs' : 'text-base')}
         aria-label={`${value} yıldız`}
       >
-        {'★'.repeat(value)}
-        <span className="opacity-30">{'★'.repeat(5 - value)}</span>
+        {Array.from({ length: 5 }, (_, index) => (
+          <Icon
+            key={index}
+            name="star"
+            filled
+            className={cn('size-[1.15em]', index >= value && 'opacity-30')}
+          />
+        ))}
       </span>
     )
   }
@@ -45,7 +52,7 @@ export function StarRating({ value, onChange, size = 'md', label }: StarRatingPr
             value >= star ? 'opacity-100' : 'opacity-25',
           )}
         >
-          ★
+          <Icon name="star" filled className="size-[1em]" />
         </button>
       ))}
     </div>

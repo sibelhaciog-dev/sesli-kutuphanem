@@ -1,5 +1,6 @@
 'use client'
 
+import { Icon, IconLabel } from '@/components/ui/Icon'
 import Link from 'next/link'
 import { useState } from 'react'
 import { useAppData } from '@/components/providers/AppDataProvider'
@@ -74,7 +75,9 @@ export function DiscoveryPage({
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-7">
-      <h1 className="text-2xl">✨ Kitap keşfi</h1>
+      <h1 className="text-2xl">
+        <IconLabel name="sparkles">Kitap keşfi</IconLabel>
+      </h1>
       <p className="mt-1 mb-6 text-sm leading-relaxed text-muted">
         Nasıl bir kitap aradığınızı anlatın; yaşa uygun kitaplar arasından size en uygun olanları
         seçelim.
@@ -145,8 +148,8 @@ export function DiscoveryPage({
 
         {children.length === 0 && (
           <p className="mt-3 text-xs leading-relaxed text-muted">
-            💡 Çocuk profili eklerseniz öneriler yaşına, ilgi alanlarına ve okuduğu kitaplara göre
-            kişiselleşir.{' '}
+            <Icon name="lightbulb" className="mr-1" /> Çocuk profili eklerseniz öneriler yaşına,
+            ilgi alanlarına ve okuduğu kitaplara göre kişiselleşir.{' '}
             <Link href="/onboarding" className="font-semibold text-accent-ink">
               Profil ekle
             </Link>
@@ -171,7 +174,7 @@ export function DiscoveryPage({
 
         {history.length === 0 ? (
           <EmptyState
-            icon="🔎"
+            icon="search"
             title="Henüz arama yapmadınız"
             description="Yukarıdan bir mod seçip öneri alın; sonuçlar burada birikir."
           />

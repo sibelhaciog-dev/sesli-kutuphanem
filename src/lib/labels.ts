@@ -19,13 +19,6 @@ export const LIBRARY_STATUS_LABELS: Record<LibraryStatus, string> = {
   abandoned: 'Yarım bırakıldı',
 }
 
-export const LIBRARY_STATUS_EMOJI: Record<LibraryStatus, string> = {
-  to_read: '🔖',
-  reading: '📖',
-  read: '✓',
-  abandoned: '⏸️',
-}
-
 // "Aile içi" seçeneği arayüzden kaldırıldı. Veritabanındaki `family` değeri
 // eski notlar için duruyor; bu notlar yalnızca sahibine görünür, bu yüzden
 // "Sadece bana" olarak gösterilir.

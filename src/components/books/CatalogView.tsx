@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useState, type ReactNode } from 'react'
+import { Icon, IconLabel } from '@/components/ui/Icon'
 import Link from 'next/link'
 import { AvatarFigure } from '@/components/avatar/AvatarFigure'
 import { DiscoveryFrame } from '@/components/discovery/DiscoveryFrame'
@@ -144,14 +145,15 @@ export function CatalogView({
                 className="shrink-0 rounded-full border-[1.5px] border-accent bg-accent-soft px-3 py-1.5 text-xs font-semibold text-accent-ink"
                 aria-label={`${activePublisher.name} filtresini kaldır`}
               >
-                🏢 {activePublisher.name} ✕
+                <IconLabel name="building">{activePublisher.name}</IconLabel>
+                <Icon name="x" className="ml-1.5" />
               </button>
             )}
           </div>
 
           <div className="relative mt-4">
             <span className="pointer-events-none absolute top-1/2 left-3.5 -translate-y-1/2 text-muted">
-              🔍
+              <Icon name="search" />
             </span>
             <input
               type="search"
@@ -240,7 +242,9 @@ export function CatalogView({
                     patch({ collection: filters.collection === 'favorites' ? 'all' : 'favorites' })
                   }
                 >
-                  ❤️ Favoriler
+                  <IconLabel name="heart" filled>
+                    Favoriler
+                  </IconLabel>
                 </Chip>
                 <Chip
                   active={filters.collection === 'read'}
@@ -248,7 +252,7 @@ export function CatalogView({
                     patch({ collection: filters.collection === 'read' ? 'all' : 'read' })
                   }
                 >
-                  ✓ Okunanlar
+                  <IconLabel name="check">Okunanlar</IconLabel>
                 </Chip>
                 <Chip
                   active={filters.collection === 'to_read'}
@@ -256,7 +260,7 @@ export function CatalogView({
                     patch({ collection: filters.collection === 'to_read' ? 'all' : 'to_read' })
                   }
                 >
-                  🔖 Okuma listesi
+                  <IconLabel name="bookmark">Okuma listesi</IconLabel>
                 </Chip>
               </>
             )}
@@ -273,7 +277,7 @@ export function CatalogView({
               onClick={() => setFilters(DEFAULT_FILTERS)}
               className="text-xs font-semibold text-accent-ink"
             >
-              ✕ Filtreleri temizle
+              <IconLabel name="x">Filtreleri temizle</IconLabel>
             </button>
           )}
         </div>
@@ -281,7 +285,7 @@ export function CatalogView({
         {visible.length === 0 ? (
           hiddenByAge > 0 ? (
             <EmptyState
-              icon="🧸"
+              icon="smile"
               title={`${activeChild?.name ?? 'Çocuğun'} yaşına uygun kitap yok`}
               description={`Bu seçimde ${hiddenByAge} kitap var ama ${childAge} yaş için önerilen aralığın dışında kalıyor.`}
               action={
@@ -292,7 +296,7 @@ export function CatalogView({
             />
           ) : (
             <EmptyState
-              icon="🔍"
+              icon="search"
               title="Sonuç bulunamadı"
               description="Aramayı veya filtreleri değiştirerek tekrar deneyin."
             />

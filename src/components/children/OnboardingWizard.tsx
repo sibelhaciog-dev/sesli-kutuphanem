@@ -1,5 +1,6 @@
 'use client'
 
+import { Icon, IconLabel } from '@/components/ui/Icon'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { AvatarFigure } from '@/components/avatar/AvatarFigure'
@@ -66,8 +67,8 @@ export function OnboardingWizard() {
       <div className="w-full max-w-lg rounded-3xl border border-line bg-white p-8 shadow-dialog">
         {step === 'sayi' && (
           <>
-            <p className="mb-4 text-center text-5xl" aria-hidden>
-              👨‍👩‍👧‍👦
+            <p className="mb-4 flex justify-center text-accent-ink">
+              <Icon name="users" className="size-14" />
             </p>
             <h1 className="text-center text-2xl">Hoş geldiniz!</h1>
             <p className="mt-2 mb-7 text-center text-sm leading-relaxed text-muted">
@@ -147,8 +148,8 @@ export function OnboardingWizard() {
 
         {step === 'ozet' && (
           <>
-            <p className="mb-4 text-center text-5xl" aria-hidden>
-              🎉
+            <p className="mb-4 flex justify-center text-accent-ink">
+              <Icon name="trophy" className="size-14" />
             </p>
             <h1 className="text-center text-2xl">Harika!</h1>
             <p className="mt-2 mb-6 text-center text-sm text-muted">
@@ -190,7 +191,7 @@ export function OnboardingWizard() {
                 router.push('/')
               }}
             >
-              📚 Kitaplara git →
+              <IconLabel name="books">Kitaplara git →</IconLabel>
             </Button>
           </>
         )}

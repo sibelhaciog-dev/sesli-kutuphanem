@@ -105,7 +105,7 @@ export function FeaturedAdmin({
         {slots.length === 0 ? (
           <div className="rounded-panel border border-line bg-white">
             <EmptyState
-              icon="🌟"
+              icon="star"
               title="Henüz sponsorlu dönem yok"
               description="Bir yayınevi ya da yazarla anlaştığınızda kitabı ve tarihleri buradan girin."
             />
@@ -384,7 +384,7 @@ function ApplicationList({
 
       {applications.length === 0 ? (
         <div className="rounded-panel border border-line bg-white">
-          <EmptyState icon="📮" title="Henüz başvuru yok" />
+          <EmptyState icon="mail" title="Henüz başvuru yok" />
         </div>
       ) : (
         <ul className="flex flex-col gap-3">

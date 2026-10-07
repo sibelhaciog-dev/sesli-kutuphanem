@@ -44,7 +44,7 @@ export function AdminFeedbackList({ items }: { items: FeedbackItem[] }) {
   }
 
   if (items.length === 0) {
-    return <EmptyState icon="💬" title="Henüz görüş yok" />
+    return <EmptyState icon="message" title="Henüz görüş yok" />
   }
 
   return (

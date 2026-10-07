@@ -1,5 +1,6 @@
 'use client'
 
+import { IconLabel } from '@/components/ui/Icon'
 import { useState } from 'react'
 import { useAppData } from '@/components/providers/AppDataProvider'
 import { cn } from '@/lib/cn'
@@ -26,7 +27,7 @@ export function GuidePanel({ value, onChange }: GuidePanelProps) {
         aria-expanded={mobileOpen}
         className="mb-2 flex w-full items-center justify-between rounded-xl border-2 border-accent bg-white px-4 py-3 text-base font-extrabold text-ink lg:hidden"
       >
-        <span>📖 Gelişim Rehberleri</span>
+        <IconLabel name="book">Gelişim Rehberleri</IconLabel>
         <span aria-hidden>{mobileOpen ? '⌄' : '›'}</span>
       </button>
 
@@ -109,7 +110,7 @@ export function GuidePanel({ value, onChange }: GuidePanelProps) {
             onClick={() => onChange(null)}
             className="mt-2 w-full px-1 py-1.5 text-left text-xs text-muted transition-colors hover:text-accent-ink"
           >
-            ✕ Filtreyi temizle
+            <IconLabel name="x">Filtreyi temizle</IconLabel>
           </button>
         )}
       </aside>

@@ -1,5 +1,6 @@
 'use client'
 
+import { IconLabel } from '@/components/ui/Icon'
 import { useEffect, useState } from 'react'
 import { useAppData } from '@/components/providers/AppDataProvider'
 import { formatShortDate } from '@/lib/dates'
@@ -37,7 +38,7 @@ export function PublicBookNotes({ bookId }: { bookId: string }) {
   return (
     <section className="border-t border-line p-5">
       <h2 className="mb-3 text-xs font-bold tracking-wider text-muted uppercase">
-        👨‍👩‍👧 Velilerin notları
+        <IconLabel name="users">Velilerin notları</IconLabel>
       </h2>
       <ul className="flex flex-col gap-2.5">
         {notes.map((note) => (

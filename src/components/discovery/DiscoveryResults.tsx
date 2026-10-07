@@ -1,3 +1,4 @@
+import { Icon, IconLabel } from '@/components/ui/Icon'
 import Link from 'next/link'
 import { cn } from '@/lib/cn'
 import type { RecommendationPick } from '@/lib/data/discovery'
@@ -50,8 +51,8 @@ export function DiscoveryResults({
                       className="block aspect-[3/4] w-full object-cover"
                     />
                   ) : (
-                    <span className="flex aspect-[3/4] items-center justify-center text-xl">
-                      📖
+                    <span className="flex aspect-[3/4] items-center justify-center text-xl text-muted">
+                      <Icon name="book" className="size-6" />
                     </span>
                   )}
                 </span>
@@ -78,9 +79,11 @@ export function DiscoveryResults({
 
       {/* Kullanıcı önerinin nereden geldiğini bilmeli. */}
       <p className="mt-2.5 text-[11px] text-muted">
-        {source === 'ai'
-          ? '✨ Yapay zekâ, yaşına uygun kitaplar arasından seçti.'
-          : '📋 Okuma geçmişine göre sıralandı.'}
+        {source === 'ai' ? (
+          <IconLabel name="sparkles">Yapay zekâ, yaşına uygun kitaplar arasından seçti.</IconLabel>
+        ) : (
+          <IconLabel name="clipboard">Okuma geçmişine göre sıralandı.</IconLabel>
+        )}
       </p>
     </div>
   )

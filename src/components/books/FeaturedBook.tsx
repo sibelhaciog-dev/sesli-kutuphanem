@@ -1,3 +1,4 @@
+import { IconLabel } from '@/components/ui/Icon'
 import Link from 'next/link'
 import { BookCover } from '@/components/books/BookCover'
 import type { CatalogBook } from '@/lib/data/types'
@@ -28,8 +29,8 @@ export function FeaturedBook({ pick, today }: { pick: FeaturedPick<CatalogBook>;
   } else if (reason.kind === 'most-liked') {
     const parts = [
       reason.averageRating !== null &&
-        `⭐ ${reason.averageRating.toLocaleString('tr-TR')} (${reason.ratingCount} puan)`,
-      reason.favoriteCount > 0 && `❤️ ${reason.favoriteCount} favori`,
+        `${reason.averageRating.toLocaleString('tr-TR')} ortalama puan (${reason.ratingCount} oy)`,
+      reason.favoriteCount > 0 && `${reason.favoriteCount} favori`,
     ].filter(Boolean)
     why = `Ailelerin en çok beğendiği kitap · ${parts.join(' · ')}`
   } else {
@@ -57,7 +58,9 @@ export function FeaturedBook({ pick, today }: { pick: FeaturedPick<CatalogBook>;
               id="ayin-kitabi"
               className="rounded-full bg-accent-soft px-2.5 py-0.5 text-[11px] font-bold tracking-wide text-accent-ink uppercase"
             >
-              🌟 {monthName(today)} ayının kitabı
+              <IconLabel name="star" filled>
+                {monthName(today)} ayının kitabı
+              </IconLabel>
             </p>
             {sponsored && (
               <p className="rounded-full border border-line px-2.5 py-0.5 text-[11px] font-semibold text-muted">

@@ -1,3 +1,4 @@
+import { Icon } from '@/components/ui/Icon'
 import type { ReactNode } from 'react'
 import Link from 'next/link'
 
@@ -21,7 +22,7 @@ export function AuthCard({
             className="mx-auto mb-2.5 flex size-14 items-center justify-center rounded-2xl bg-accent text-3xl"
             aria-label="Ana sayfa"
           >
-            📚
+            <Icon name="books" className="size-7" />
           </Link>
           <h1 className="text-2xl">{title}</h1>
           {description && <p className="mt-1 text-sm text-muted">{description}</p>}

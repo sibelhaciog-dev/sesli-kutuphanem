@@ -1,11 +1,19 @@
 'use client'
 
+import { Icon, IconLabel, type IconName } from '@/components/ui/Icon'
 import Link from 'next/link'
 import { BookCover } from '@/components/books/BookCover'
 import { StarRating } from '@/components/ui/StarRating'
 import { cn } from '@/lib/cn'
-import type { CatalogBook, LibraryItem } from '@/lib/data/types'
-import { ageLabel, LIBRARY_STATUS_EMOJI, LIBRARY_STATUS_LABELS } from '@/lib/labels'
+import type { CatalogBook, LibraryItem, LibraryStatus } from '@/lib/data/types'
+import { ageLabel, LIBRARY_STATUS_LABELS } from '@/lib/labels'
+
+const LIBRARY_STATUS_ICON: Record<LibraryStatus, IconName> = {
+  to_read: 'bookmark',
+  reading: 'book',
+  read: 'check',
+  abandoned: 'pause',
+}
 
 interface BookCardProps {
   book: CatalogBook
@@ -55,7 +63,11 @@ export function BookCard({
             aria-pressed={item?.isFavorite ?? false}
             className="absolute top-2 right-2 z-10 flex size-8 items-center justify-center rounded-full bg-white/90 text-sm shadow-card backdrop-blur-sm transition-transform hover:scale-110"
           >
-            {item?.isFavorite ? '❤️' : '🤍'}
+            <Icon
+              name="heart"
+              filled={item?.isFavorite}
+              className={cn('size-4', item?.isFavorite ? 'text-[#e0556b]' : 'text-muted')}
+            />
           </button>
         )}
 
@@ -70,7 +82,9 @@ export function BookCard({
                   : 'bg-warning-soft text-warning',
             )}
           >
-            {LIBRARY_STATUS_EMOJI[status]} {LIBRARY_STATUS_LABELS[status]}
+            <IconLabel name={LIBRARY_STATUS_ICON[status]} className="gap-1">
+              {LIBRARY_STATUS_LABELS[status]}
+            </IconLabel>
             {item && item.timesRead > 1 ? ` ×${item.timesRead}` : ''}
           </span>
         )}
@@ -105,7 +119,11 @@ export function BookCard({
         )}
 
         <div className="flex items-center justify-between text-[11px]">
-          <span className="text-muted">❤️ {book.likeCount}</span>
+          <span className="text-muted">
+            <IconLabel name="heart" filled>
+              {book.likeCount}
+            </IconLabel>
+          </span>
           <span className="font-semibold text-accent-ink">İncele →</span>
         </div>
       </div>

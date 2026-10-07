@@ -1,5 +1,6 @@
 'use client'
 
+import { IconLabel } from '@/components/ui/Icon'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState } from 'react'
@@ -30,7 +31,7 @@ export function AdminNoteList({ items }: { items: ModerationNote[] }) {
   }
 
   if (items.length === 0) {
-    return <EmptyState icon="💬" title="Herkese açık not yok" />
+    return <EmptyState icon="message" title="Herkese açık not yok" />
   }
 
   const waiting = items.filter((item) => !item.approvedAt)
@@ -39,26 +40,26 @@ export function AdminNoteList({ items }: { items: ModerationNote[] }) {
   return (
     <div className="flex flex-col gap-6">
       <NoteGroup
-        title={`⏳ Onay bekleyenler (${waiting.length})`}
+        title={<IconLabel name="clock">Onay bekleyenler ({waiting.length})</IconLabel>}
         items={waiting}
         empty="Onay bekleyen not yok."
         actions={(item) => (
           <>
             <ActionButton disabled={pending === item.id} onClick={() => void decide(item.id, true)}>
-              ✓ Onayla
+              <IconLabel name="check">Onayla</IconLabel>
             </ActionButton>
             <ActionButton
               disabled={pending === item.id}
               onClick={() => void decide(item.id, false)}
               muted
             >
-              ✕ Reddet
+              <IconLabel name="x">Reddet</IconLabel>
             </ActionButton>
           </>
         )}
       />
       <NoteGroup
-        title={`🌍 Yayında (${published.length})`}
+        title={<IconLabel name="globe">Yayında ({published.length})</IconLabel>}
         items={published}
         empty="Yayında not yok."
         actions={(item) => (
@@ -85,7 +86,7 @@ function NoteGroup({
   empty,
   actions,
 }: {
-  title: string
+  title: React.ReactNode
   items: ModerationNote[]
   empty: string
   actions: (item: ModerationNote) => React.ReactNode
@@ -105,10 +106,12 @@ function NoteGroup({
                     href={`/kitap/${item.bookSlug}`}
                     className="text-sm font-semibold text-ink hover:text-accent-ink"
                   >
-                    📖 {item.bookTitle}
+                    <IconLabel name="book">{item.bookTitle}</IconLabel>
                   </Link>
                 ) : (
-                  <span className="text-sm font-semibold text-ink">📖 {item.bookTitle}</span>
+                  <span className="text-sm font-semibold text-ink">
+                    <IconLabel name="book">{item.bookTitle}</IconLabel>
+                  </span>
                 )}
                 <span className="text-[11px] text-muted">{formatShortDate(item.createdAt)}</span>
               </div>

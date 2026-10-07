@@ -1,5 +1,6 @@
 'use client'
 
+import { Icon, IconLabel } from '@/components/ui/Icon'
 import { useAppData } from '@/components/providers/AppDataProvider'
 import { EmptyState } from '@/components/ui/EmptyState'
 import { cn } from '@/lib/cn'
@@ -10,7 +11,7 @@ export function AchievementGrid() {
   const { achievements, points } = useAppData()
 
   if (achievements.length === 0) {
-    return <EmptyState icon="🏅" title="Başarılarım yükleniyor…" />
+    return <EmptyState icon="award" title="Başarılarım yükleniyor…" />
   }
 
   const earned = achievements.filter((achievement) => achievement.earnedAt)
@@ -19,7 +20,10 @@ export function AchievementGrid() {
     <div>
       <p className="mb-4 text-sm text-muted">
         <strong className="text-ink">{earned.length}</strong> / {achievements.length} başarı
-        kazanıldı · ⭐ {points} puan
+        kazanıldı ·{' '}
+        <IconLabel name="star" filled>
+          {points} puan
+        </IconLabel>
       </p>
 
       <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -34,7 +38,7 @@ export function AchievementGrid() {
               )}
             >
               <span className={cn('block text-3xl', !unlocked && 'grayscale')} aria-hidden>
-                {unlocked ? achievement.emoji : '🔒'}
+                {unlocked ? achievement.emoji : <Icon name="lock" className="size-8" />}
               </span>
               <p className="mt-2 text-[13px] font-bold text-ink">{achievement.name}</p>
               <p className="mt-1 text-[11px] leading-snug text-muted">{achievement.description}</p>

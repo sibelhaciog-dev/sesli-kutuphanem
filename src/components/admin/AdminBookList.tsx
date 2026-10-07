@@ -101,7 +101,7 @@ export function AdminBookList({
 
       {books.length === 0 && !error ? (
         <EmptyState
-          icon="📚"
+          icon="books"
           title="Kitap bulunamadı"
           description={query ? 'Aramayı değiştirin.' : 'Henüz kitap yok.'}
         />

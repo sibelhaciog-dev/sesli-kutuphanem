@@ -1,5 +1,6 @@
 'use client'
 
+import { IconLabel } from '@/components/ui/Icon'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { BookCover } from '@/components/books/BookCover'
@@ -81,7 +82,11 @@ export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: C
               <Badge className="bg-[#E8F4FD] text-[#007AFF]">
                 {LANGUAGE_LABELS[book.language]}
               </Badge>
-              <Badge className="bg-accent-soft text-accent-ink">❤️ {book.likeCount}</Badge>
+              <Badge className="bg-accent-soft text-accent-ink">
+                <IconLabel name="heart" filled>
+                  {book.likeCount}
+                </IconLabel>
+              </Badge>
               {book.pageCount && (
                 <Badge className="bg-[#F2F2F7] text-ink-soft">{book.pageCount} sayfa</Badge>
               )}
@@ -112,7 +117,7 @@ export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: C
               <p className="mt-3 text-xs text-muted">
                 {book.publisherName && <PublisherLink name={book.publisherName} />}
                 {book.publisherName && book.seriesTitle && ' · '}
-                {book.seriesTitle && <span>📚 {book.seriesTitle} serisi</span>}
+                {book.seriesTitle && <IconLabel name="books">{book.seriesTitle} serisi</IconLabel>}
               </p>
             )}
 
@@ -149,7 +154,7 @@ export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: C
         {activeChild && (
           <section className="border-t border-line p-5">
             <h2 className="mb-3 text-xs font-bold tracking-wider text-muted uppercase">
-              📖 {activeChild.name} için okuma takibi
+              <IconLabel name="book">{activeChild.name} için okuma takibi</IconLabel>
             </h2>
 
             <div className="mb-4 flex flex-wrap gap-2">
@@ -183,7 +188,9 @@ export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: C
                 onClick={() => void safely(() => toggleFavorite(book.id))}
                 className={cn(item?.isFavorite && 'border-[#ff3b30] bg-danger-soft')}
               >
-                {item?.isFavorite ? '❤️ Favorilerde' : '🤍 Favorilere ekle'}
+                <IconLabel name="heart" filled={item?.isFavorite}>
+                  {item?.isFavorite ? 'Favorilerde' : 'Favorilere ekle'}
+                </IconLabel>
               </Button>
               <Button
                 disabled={pending}
@@ -208,7 +215,7 @@ export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: C
         <section className="border-t border-line p-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <h2 className="text-xs font-bold tracking-wider text-muted uppercase">
-              ✨ Bunu sevdiyseniz
+              <IconLabel name="sparkles">Bunu sevdiyseniz</IconLabel>
             </h2>
             <Button
               size="sm"
@@ -250,7 +257,7 @@ export function BookDetail({ book, catalog }: { book: BookDetailType; catalog: C
                         </span>
                         {entry.reasons.length > 0 && (
                           <span className="mt-1 block text-[11px] text-accent-ink">
-                            🏷️ {entry.reasons.join(', ')}
+                            <IconLabel name="tag">{entry.reasons.join(', ')}</IconLabel>
                           </span>
                         )}
                       </span>
@@ -301,14 +308,14 @@ export function InstagramEmbed({ url, title }: { url: string; title: string }) {
 /** Yayınevi adı: ana sayfayı o yayınevinin kitaplarıyla açar. */
 function PublisherLink({ name }: { name: string }) {
   const slug = publisherSlugOf({ publisherName: name })
-  if (!slug) return <span>🏢 {name}</span>
+  if (!slug) return <IconLabel name="building">{name}</IconLabel>
   return (
     <Link
       href={`/?yayinevi=${encodeURIComponent(slug)}`}
       className="cursor-pointer underline decoration-dotted underline-offset-2 transition hover:text-accent-ink focus-visible:text-accent-ink"
       title="Bu yayınevinin tüm kitaplarını gör"
     >
-      🏢 {name}
+      <IconLabel name="building">{name}</IconLabel>
     </Link>
   )
 }

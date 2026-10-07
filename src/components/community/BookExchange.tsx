@@ -1,5 +1,6 @@
 'use client'
 
+import { IconLabel } from '@/components/ui/Icon'
 import { useCallback, useEffect, useState, type FormEvent } from 'react'
 import { useAppData } from '@/components/providers/AppDataProvider'
 import { Button } from '@/components/ui/Button'
@@ -81,7 +82,9 @@ export function BookExchange() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
-      <h1 className="mb-1 text-3xl">🔄 Kitap takası</h1>
+      <h1 className="mb-1 text-3xl">
+        <IconLabel name="repeat">Kitap takası</IconLabel>
+      </h1>
       <p className="mb-6 text-sm text-muted">
         Çocuğunuzun okuyup bitirdiği kitapları başka ebeveynlerle takas edin.
       </p>
@@ -115,7 +118,7 @@ export function BookExchange() {
           <p className="text-sm text-muted">Yükleniyor…</p>
         ) : listings.length === 0 ? (
           <EmptyState
-            icon="📚"
+            icon="books"
             title="Henüz ilan yok"
             description="İlk ilanı siz verin — “İlan ver” sekmesinden."
           />
@@ -125,7 +128,9 @@ export function BookExchange() {
               <li key={listing.id} className="rounded-panel border border-line bg-white p-4">
                 <div className="flex flex-wrap items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="text-sm font-semibold text-ink">📖 {listing.title}</p>
+                    <p className="text-sm font-semibold text-ink">
+                      <IconLabel name="book">{listing.title}</IconLabel>
+                    </p>
                     <p className="text-[11px] text-muted">
                       {[
                         listing.authorName,
@@ -136,7 +141,9 @@ export function BookExchange() {
                         .join(' · ')}
                     </p>
                     {listing.offer && (
-                      <p className="mt-1 text-xs text-[#764ba2]">🔄 {listing.offer}</p>
+                      <p className="mt-1 text-xs text-[#764ba2]">
+                        <IconLabel name="repeat">{listing.offer}</IconLabel>
+                      </p>
                     )}
                   </div>
                   <div className="shrink-0 text-right">
@@ -167,7 +174,7 @@ export function BookExchange() {
                         rel="noreferrer noopener"
                         className="inline-flex items-center gap-1.5 rounded-full bg-[#25D366] px-3 py-1.5 text-[11px] font-bold text-white"
                       >
-                        💬 İletişime geç
+                        <IconLabel name="message">İletişime geç</IconLabel>
                       </a>
                     )}
                   </div>

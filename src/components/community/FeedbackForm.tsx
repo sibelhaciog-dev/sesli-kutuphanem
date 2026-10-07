@@ -1,5 +1,6 @@
 'use client'
 
+import { Icon, IconLabel } from '@/components/ui/Icon'
 import { useState, type FormEvent } from 'react'
 import { useAppData } from '@/components/providers/AppDataProvider'
 import { Button, ButtonLink } from '@/components/ui/Button'
@@ -9,10 +10,10 @@ import { createClient } from '@/lib/supabase/client'
 import { LIMITS, validateText } from '@/lib/validation'
 
 const TOPICS = [
-  { value: 'feature', label: '💡 Özellik önerisi' },
-  { value: 'bug', label: '🐛 Hata / sorun' },
-  { value: 'book', label: '📖 Kitap önerisi' },
-  { value: 'general', label: '🌟 Genel görüş' },
+  { value: 'feature', label: 'Özellik önerisi' },
+  { value: 'bug', label: 'Hata / sorun' },
+  { value: 'book', label: 'Kitap önerisi' },
+  { value: 'general', label: 'Genel görüş' },
 ] as const
 
 export function FeedbackForm() {
@@ -61,8 +62,8 @@ export function FeedbackForm() {
   if (done) {
     return (
       <div className="mx-auto max-w-2xl px-4 py-16 text-center">
-        <p className="mb-4 text-5xl" aria-hidden>
-          🙏
+        <p className="mb-4 text-5xl text-accent-ink">
+          <Icon name="heart" filled className="size-14" />
         </p>
         <h1 className="mb-2 text-3xl">Teşekkürler!</h1>
         <p className="mb-6 text-sm text-muted">Görüşünüz bize ulaştı.</p>
@@ -73,7 +74,9 @@ export function FeedbackForm() {
 
   return (
     <div className="mx-auto max-w-2xl px-4 py-8">
-      <h1 className="mb-1 text-3xl">💬 Görüş bildir</h1>
+      <h1 className="mb-1 text-3xl">
+        <IconLabel name="message">Görüş bildir</IconLabel>
+      </h1>
       <p className="mb-6 text-sm text-muted">
         Eksik bulduğunuz, beğendiğiniz ya da eklenmesini istediğiniz her şeyi yazın.
       </p>

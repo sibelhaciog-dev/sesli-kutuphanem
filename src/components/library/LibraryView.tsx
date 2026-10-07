@@ -1,5 +1,6 @@
 'use client'
 
+import { Icon, IconLabel, type IconName } from '@/components/ui/Icon'
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { BookCover } from '@/components/books/BookCover'
@@ -18,10 +19,10 @@ import { summarize } from '@/lib/stats'
 
 type Tab = 'read' | 'to_read' | 'achievements'
 
-const TABS: { value: Tab; label: string }[] = [
-  { value: 'read', label: '📖 Okuduklarım' },
-  { value: 'to_read', label: '🔖 Okuma listem' },
-  { value: 'achievements', label: '🏅 Başarılarım' },
+const TABS: { value: Tab; label: string; icon: IconName }[] = [
+  { value: 'read', label: 'Okuduklarım', icon: 'book' },
+  { value: 'to_read', label: 'Okuma listem', icon: 'bookmark' },
+  { value: 'achievements', label: 'Başarılarım', icon: 'award' },
 ]
 
 export function LibraryView({ books }: { books: CatalogBook[] }) {
@@ -63,6 +64,13 @@ export function LibraryView({ books }: { books: CatalogBook[] }) {
     [library, booksById],
   )
 
+  // Kitaplıkta "okundu" durumundaki tüm kayıtlar (katalog + kendi eklenen kitaplar).
+  const readCount = useMemo(
+    () =>
+      [...Object.values(library), ...customItems].filter((item) => item.status === 'read').length,
+    [library, customItems],
+  )
+
   const toReadCatalog = useMemo(
     () =>
       Object.values(library)
@@ -82,7 +90,7 @@ export function LibraryView({ books }: { books: CatalogBook[] }) {
     return (
       <div className="mx-auto max-w-3xl px-4 py-10">
         <EmptyState
-          icon="👶"
+          icon="user"
           title="Önce bir çocuk profili oluşturun"
           description="Okuma kayıtları çocuk profiline bağlı tutulur."
           action={<ButtonLink href="/onboarding">Profil oluştur</ButtonLink>}
@@ -93,8 +101,14 @@ export function LibraryView({ books }: { books: CatalogBook[] }) {
 
   return (
     <div className="mx-auto max-w-3xl px-4 py-8">
-      <h1 className="mb-1 text-3xl">📚 {activeChild.name} kitaplığı</h1>
-      <p className="mb-6 text-sm text-muted">⭐ {points} yıldız puanı</p>
+      <h1 className="mb-1 text-3xl">
+        <IconLabel name="books">{activeChild.name} kitaplığı</IconLabel>
+      </h1>
+      <p className="mb-6 text-sm text-muted">
+        <IconLabel name="star" filled>
+          {points} yıldız puanı
+        </IconLabel>
+      </p>
 
       <div className="mb-6 flex gap-2 rounded-2xl bg-cream p-1">
         {TABS.map((entry) => (
@@ -108,26 +122,21 @@ export function LibraryView({ books }: { books: CatalogBook[] }) {
               tab === entry.value ? 'bg-accent text-ink' : 'text-muted hover:text-accent-ink',
             )}
           >
-            {entry.label}
+            <IconLabel name={entry.icon}>{entry.label}</IconLabel>
           </button>
         ))}
       </div>
 
       {tab === 'read' && (
         <>
-          <div className="mb-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
-            <Stat value={summary.booksRead} label="Okunan kitap" />
-            <Stat value={summary.totalSessions} label="Toplam okuma" />
-            <Stat
-              value={summary.averageRating ? summary.averageRating.toFixed(1) : '—'}
-              label="Ortalama puan"
-            />
+          <div className="mb-7 grid grid-cols-2 gap-3">
+            <Stat value={readCount} label="Okunan kitap" />
             <Stat value={summary.favorites} label="Favori" />
           </div>
 
           {readBooks.length === 0 ? (
             <EmptyState
-              icon="📖"
+              icon="book"
               title="Henüz okunmuş kitap yok"
               description="Kitap sayfasında “Bugün okuduk” diyerek başlayın."
               action={<ButtonLink href="/">Kitaplara git</ButtonLink>}
@@ -179,8 +188,8 @@ export function LibraryView({ books }: { books: CatalogBook[] }) {
                 onClick={() => setScanOpen(true)}
                 className="rounded-2xl border-2 border-dashed border-[#c0a0f0] bg-linear-[135deg,rgba(102,126,234,0.06),rgba(118,75,162,0.06)] px-3 py-6 text-center transition-colors hover:border-[#764ba2]"
               >
-                <span className="block text-4xl" aria-hidden>
-                  📷
+                <span className="block text-4xl text-[#764ba2]">
+                  <Icon name="camera" className="size-10" />
                 </span>
                 <span className="mt-2 block text-[13px] font-bold text-[#764ba2]">Kapak tara</span>
                 <span className="mt-1 block text-[11px] text-muted">
@@ -193,8 +202,8 @@ export function LibraryView({ books }: { books: CatalogBook[] }) {
               onClick={() => setPickerOpen(true)}
               className="rounded-2xl border-2 border-dashed border-[#a0c8f0] bg-linear-[135deg,rgba(64,158,255,0.06),rgba(32,108,200,0.06)] px-3 py-6 text-center transition-colors hover:border-[#4090d0]"
             >
-              <span className="block text-4xl" aria-hidden>
-                📚
+              <span className="block text-4xl text-[#4090d0]">
+                <Icon name="books" className="size-10" />
               </span>
               <span className="mt-2 block text-[13px] font-bold text-[#4090d0]">Listeden seç</span>
               <span className="mt-1 block text-[11px] text-muted">
@@ -205,7 +214,7 @@ export function LibraryView({ books }: { books: CatalogBook[] }) {
 
           {toReadCatalog.length === 0 && customItems.length === 0 ? (
             <EmptyState
-              icon="🔖"
+              icon="bookmark"
               title="Okuma listesi boş"
               description="Yukarıdaki iki yoldan biriyle kitap ekleyin."
             />
@@ -246,10 +255,16 @@ export function LibraryView({ books }: { books: CatalogBook[] }) {
                     <div className="min-w-0 flex-1">
                       <p className="truncate font-serif text-[15px]">{custom.title}</p>
                       {custom.authorName && (
-                        <p className="text-xs text-muted">✍️ {custom.authorName}</p>
+                        <p className="text-xs text-muted">
+                          <IconLabel name="pencil">{custom.authorName}</IconLabel>
+                        </p>
                       )}
                       <p className="text-[11px] text-muted">
-                        {custom.origin === 'camera' ? '📷 Kapaktan eklendi' : '✍️ Elle eklendi'}
+                        {custom.origin === 'camera' ? (
+                          <IconLabel name="camera">Kapaktan eklendi</IconLabel>
+                        ) : (
+                          <IconLabel name="pencil">Elle eklendi</IconLabel>
+                        )}
                       </p>
                     </div>
                     <RemoveButton onClick={() => remove(item.id)} label={custom.title} />
@@ -284,7 +299,7 @@ export function LibraryView({ books }: { books: CatalogBook[] }) {
 function RemoveButton({ onClick, label }: { onClick: () => void; label: string }) {
   return (
     <Button variant="ghost" size="sm" aria-label={`${label} listeden çıkar`} onClick={onClick}>
-      🗑️
+      <Icon name="trash" />
     </Button>
   )
 }

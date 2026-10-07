@@ -1,5 +1,6 @@
 'use client'
 
+import { Icon, IconLabel } from '@/components/ui/Icon'
 import { useEffect, useState } from 'react'
 import { Button } from '@/components/ui/Button'
 import { useToast } from '@/components/ui/Toast'
@@ -96,7 +97,9 @@ export function ReadingNotes({
 
   return (
     <section className="border-t border-line p-5">
-      <h2 className="mb-3 text-xs font-bold tracking-wider text-muted uppercase">💬 Notlarım</h2>
+      <h2 className="mb-3 text-xs font-bold tracking-wider text-muted uppercase">
+        <IconLabel name="message">Notlarım</IconLabel>
+      </h2>
 
       <div className="flex flex-wrap items-center gap-2">
         <input
@@ -156,7 +159,7 @@ export function ReadingNotes({
                     aria-label="Notu sil"
                     className="text-xs text-muted transition-colors hover:text-danger"
                   >
-                    ✕
+                    <Icon name="x" />
                   </button>
                 </div>
               </div>
