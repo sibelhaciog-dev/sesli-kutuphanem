@@ -4,6 +4,7 @@ import { Icon, IconLabel, type IconName } from '@/components/ui/Icon'
 import Link from 'next/link'
 import { useMemo, useState } from 'react'
 import { BookCover } from '@/components/books/BookCover'
+import { RecommendationList } from '@/components/books/RecommendationList'
 import { useAppData } from '@/components/providers/AppDataProvider'
 import { Button, ButtonLink } from '@/components/ui/Button'
 import { EmptyState } from '@/components/ui/EmptyState'
@@ -11,7 +12,6 @@ import { StarRating } from '@/components/ui/StarRating'
 import { useToast } from '@/components/ui/Toast'
 import type { CatalogBook } from '@/lib/data/types'
 import { formatMonth } from '@/lib/dates'
-import { ageLabel } from '@/lib/labels'
 import { recommendForChild } from '@/lib/recommendations'
 import { longestStreak, reportMessage, summarize } from '@/lib/stats'
 
@@ -213,25 +213,7 @@ export function ReadingReport({ books }: { books: CatalogBook[] }) {
               <h2 className="mb-3 text-sm font-bold text-ink">
                 <IconLabel name="sparkles">Sırada ne okunabilir?</IconLabel>
               </h2>
-              <ul className="divide-y divide-line">
-                {suggestions.map((entry) => (
-                  <li key={entry.book.id} className="py-2.5">
-                    <Link href={`/kitap/${entry.book.slug}`} className="group block">
-                      <p className="text-sm font-semibold text-ink group-hover:text-accent-ink">
-                        {entry.book.language === 'en' ? '🇬🇧' : '🇹🇷'} {entry.book.title}
-                      </p>
-                      <p className="text-[11px] text-muted">
-                        {ageLabel(entry.book.ageMin, entry.book.ageMax)}
-                      </p>
-                      {entry.reasons.length > 0 && (
-                        <p className="text-[11px] text-accent-ink">
-                          <IconLabel name="tag">{entry.reasons.join(', ')}</IconLabel>
-                        </p>
-                      )}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
+              <RecommendationList items={suggestions} />
             </section>
           )}
         </div>
