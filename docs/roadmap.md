@@ -147,6 +147,9 @@ Supabase projesi: **kutuphanem** (`ygaxtmuzhnntzdcltmgn`).
 - [x] “Kitabını paylaş” başvuru sayfası (`/kitabini-paylas`)
 - [x] Yönetim → Ayın kitabı: dönemler + başvurular
 - [x] `0026` üretim veritabanına uygulandı (2026-10-07)
+- [x] Ayın kitabı yalnızca filtresiz ana sayfada (rehber/yayınevi seçilince gizli)
+- [x] “Bize destek ol” menü kaydı ve yer tutucu sayfa (`/destek`)
+- [ ] Destek yolları: kahve ısmarla / sponsorluk bağlantıları (açılınca)
 - [x] Sponsorluk koşulları ve fiyatı sitede yazılmıyor; başvurudan sonra e-postayla konuşuluyor (ürün kararı, 2026-10-06)
 
 ## Sonraki sürüm için fikirler (kapsam dışı)

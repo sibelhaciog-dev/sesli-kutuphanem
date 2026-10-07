@@ -113,7 +113,9 @@ export function CatalogView({
       </div>
 
       <div className="min-w-0 flex-1">
-        {featured && <div className="mb-6">{featured}</div>}
+        {/* "Ayın kitabı" yalnızca filtresiz ana sayfada; rehber, yayınevi ya da
+            arama seçilince sayfada yalnızca o seçime uyan kitaplar kalır. */}
+        {featured && !hasActiveFilters(filters) && <div className="mb-6">{featured}</div>}
 
         <section className="mb-6 rounded-panel border border-line bg-white p-5">
           <div className="flex flex-wrap items-center gap-4">

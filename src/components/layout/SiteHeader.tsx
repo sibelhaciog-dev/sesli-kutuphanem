@@ -24,6 +24,7 @@ const MENU_ITEMS: {
   { href: '/bagis', label: 'Kitap bağışı', icon: 'books' },
   { href: '/gorus', label: 'Görüş bildir', icon: 'message' },
   { href: '/kitabini-paylas', label: 'Kitabını paylaş', icon: 'star' },
+  { href: '/destek', label: 'Bize destek ol', icon: 'coffee' },
   { href: INSTAGRAM_URL, label: 'Instagram', icon: 'instagram', external: true },
 ]
 

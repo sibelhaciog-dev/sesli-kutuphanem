@@ -53,12 +53,16 @@ kişiselleştirilebilir bir rehbere dönüştürür; üstüne okuma takibi ekler
 
 **Ayın kitabı**
 
-- Ana sayfanın üstünde vitrin. Sponsor varsa sponsorun kitabı, açıkça
+- Ana sayfanın üstünde vitrin; yalnızca filtresiz ana sayfada görünür (rehber
+  konusu, yayınevi, arama ya da başka bir filtre seçilince gizlenir). Sponsor varsa sponsorun kitabı, açıkça
   “Sponsorlu · <sponsor>” etiketiyle; yoksa ailelerin puan ve favorilerine göre
   en çok beğenilen kitap; hiç beğeni yoksa en yeni kitap
 - “Kitabını paylaş” (`/kitabini-paylas`): yayınevi/yazar başvuru formu (giriş
   gerekir). Ödeme sitede alınmaz; ekip e-postayla döner, anlaşınca yönetimden
   tarih aralığı girer
+- “Bize destek ol” (`/destek`, menüde): bağışçılar için yer tutucu sayfa.
+  Kahve ısmarla / sponsorluk yolları henüz açık değil; IBAN veya ödeme
+  bağlantısı yok
 
 **Kişiselleştirme**
 
