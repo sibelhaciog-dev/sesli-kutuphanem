@@ -337,3 +337,14 @@ kaydolanlarda tam ad, o da yoksa "Merhaba,".
 adreslere gönderir ve gönderen "Supabase Auth" görünür. Velilere ulaşması ve
 gönderenin uygulama adı olması için özel SMTP gerekir (öneri: Resend) —
 Authentication → SMTP Settings.
+
+Supabase, özel SMTP olmadan şablonların düzenlenmesine de izin vermiyor
+("Set up custom SMTP to edit templates").
+
+**Şu anki kurulum (geçici, 2026-10):** Gmail SMTP — `smtp.gmail.com`, port
+`465`, kullanıcı adı Gmail adresi, parola Google **uygulama şifresi**
+(myaccount.google.com/apppasswords; 2 adımlı doğrulama gerekir). Gönderen adı
+`SITE_NAME`. Günlük sınır ~500 e-posta; gönderen adres kişisel Gmail.
+Alan adı alınınca Resend'e geçilecek: alan adı doğrulaması (DNS kayıtları),
+`smtp.resend.com`, port `465`, kullanıcı adı `resend`, parola Resend API
+anahtarı.

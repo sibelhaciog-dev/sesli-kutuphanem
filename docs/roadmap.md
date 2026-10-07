@@ -135,7 +135,8 @@ Supabase projesi: **kutuphanem** (`ygaxtmuzhnntzdcltmgn`).
 - [x] Yeni projede Auth URL ayarları (Site URL, Redirect URLs)
 - [x] Türkçe e-posta şablonları (`npm run email:sablon`, operations §13)
 - [ ] Şablonları canlı Supabase paneline yapıştır
-- [ ] Özel SMTP (Resend): velilere onay e-postası ulaşsın, gönderen uygulama adı olsun
+- [ ] Geçici Gmail SMTP (panelde kullanıcı kuruyor) → şablonlar düzenlenebilir olur
+- [ ] Alan adı alınınca Resend SMTP: gönderen uygulama adresi, daha yüksek sınır
 - [x] Geçiş (2026-09-22): veri tazelendi, Vercel ortam değişkenleri yeni
       projeye, fonksiyonlar `fra1`
 - [ ] Supabase MCP bağlantısını yeni projeye (`xhjgyxlerccxopbjtbzl`) çevir
