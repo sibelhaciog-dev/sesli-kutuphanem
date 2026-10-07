@@ -106,14 +106,14 @@ export function CatalogView({
 
   return (
     <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-7 lg:flex-row lg:items-start">
-      <GuidePanel value={filters.topicSlug} onChange={(topicSlug) => patch({ topicSlug })} />
+      {/* Sol sütun: rehberler ve hemen altında "Bugün ne okusak?" önerisi. */}
+      <div className="flex w-full shrink-0 flex-col gap-2 lg:w-64 lg:gap-4">
+        <GuidePanel value={filters.topicSlug} onChange={(topicSlug) => patch({ topicSlug })} />
+        <DiscoveryFrame modes={modes} books={books} />
+      </div>
 
       <div className="min-w-0 flex-1">
         {featured && <div className="mb-6">{featured}</div>}
-
-        <div className="mb-6">
-          <DiscoveryFrame modes={modes} books={books} />
-        </div>
 
         <section className="mb-6 rounded-panel border border-line bg-white p-5">
           <div className="flex flex-wrap items-center gap-4">

@@ -13,7 +13,8 @@ import { DiscoveryResults } from './DiscoveryResults'
 import { useDiscovery } from './useDiscovery'
 
 /**
- * Ana sayfadaki keşif çerçevesi.
+ * Ana sayfadaki keşif çerçevesi. Sol sütunda, gelişim rehberlerinin
+ * altında durur; dar alana göre küçük düğmeler ve alt alta yerleşim.
  *
  * Amaç üç tıkta işe yarar bir öneri (PRD ilke 1): mod seç, istersen bir
  * cümle yaz, "Öner". Uzun form `/kesif` sayfasında.
@@ -52,14 +53,14 @@ export function DiscoveryFrame({
         aria-controls="kesif-govde"
         className="flex w-full items-center justify-between gap-3 text-left lg:hidden"
       >
-        <span className="text-sm font-bold text-ink">
+        <span className="text-base font-extrabold text-ink">
           <IconLabel name="sparkles">Bugün ne okusak?</IconLabel>
         </span>
         <span className="shrink-0 rounded-full bg-accent px-3 py-1 text-xs font-semibold text-ink">
           {open ? 'Kapat' : 'Öneri al'}
         </span>
       </button>
-      <h2 className="hidden text-sm font-bold text-ink lg:block">
+      <h2 className="hidden text-base font-extrabold tracking-tight text-ink lg:block">
         <IconLabel name="sparkles">Bugün ne okusak?</IconLabel>
       </h2>
 
@@ -70,10 +71,11 @@ export function DiscoveryFrame({
             : 'Nasıl bir kitap aradığınızı söyleyin, size uygun olanları bulalım.'}
         </p>
 
-        <div className="mb-3 flex flex-wrap gap-1.5">
+        <div className="mb-3 flex flex-wrap gap-1">
           {modes.map((entry) => (
             <Chip
               key={entry.slug}
+              className="px-2.5 text-xs"
               active={mode === entry.slug}
               onClick={() => setMode(mode === entry.slug ? null : entry.slug)}
             >
@@ -97,25 +99,25 @@ export function DiscoveryFrame({
               void run({ childId: activeChild?.id ?? null, mode, prompt })
             }
           }}
-          placeholder="Örn: kardeşi olacak, ona hazırlamak istiyorum"
-          className="mb-3 w-full rounded-xl border-[1.5px] border-line bg-white px-3.5 py-2.5 text-sm text-ink outline-none transition-colors focus:border-accent"
+          placeholder="Örn: kardeşi olacak"
+          className="mb-3 w-full rounded-xl border-[1.5px] border-line bg-white px-3 py-2 text-sm text-ink outline-none transition-colors focus:border-accent"
         />
 
         <FormMessage tone="error">{error}</FormMessage>
 
         {isAuthenticated ? (
-          <div className="flex items-center gap-2">
+          <div className="flex flex-col items-stretch gap-1.5">
             <Button
               size="sm"
               disabled={busy}
-              className="flex-1"
+              className="w-full"
               onClick={() => void run({ childId: activeChild?.id ?? null, mode, prompt })}
             >
               {busy ? 'Aranıyor…' : 'Öner'}
             </Button>
             <Link
               href="/kesif"
-              className="shrink-0 text-xs font-semibold text-accent-ink hover:underline"
+              className="text-center text-xs font-semibold text-accent-ink hover:underline"
             >
               Daha detaylı ara →
             </Link>

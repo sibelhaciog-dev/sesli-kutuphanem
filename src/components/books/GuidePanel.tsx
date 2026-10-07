@@ -34,10 +34,7 @@ export function GuidePanel({ value, onChange }: GuidePanelProps) {
       {/* Rehberler: her biri renkli zeminli, resimli yatay bir kutu. Telefonda
           "Gelişim Rehberleri"ne basınca açılır, geniş ekranda hep solda durur. */}
       <aside
-        className={cn(
-          'w-full shrink-0 lg:sticky lg:top-4 lg:block lg:w-64',
-          mobileOpen ? 'mb-2 block' : 'hidden',
-        )}
+        className={cn('w-full shrink-0 lg:block', mobileOpen ? 'mb-2 block' : 'hidden')}
         aria-label="Gelişim Rehberleri"
       >
         <h2 className="mb-2 hidden px-1 text-base font-extrabold tracking-tight text-ink lg:block">
