@@ -152,6 +152,11 @@ create policy "featured_books_staff_delete" on public.featured_books
   for delete to authenticated using ((select public.is_staff()));
 
 -- ═══ İzinler (0011 deseni) ═════════════════════════════════════════════════
+-- Supabase yeni tablolara `anon`'a da varsayılan olarak tam yetki veriyor.
+-- RLS zaten engelliyor ama yerel test ortamıyla aynı olsun diye açıkça geri
+-- alınıyor: ziyaretçi başvurulara hiç dokunamaz, vitrini yalnızca okur.
+revoke all on public.sponsor_applications from anon;
+revoke all on public.featured_books from anon;
 grant select on public.featured_books to anon, authenticated;
 grant insert, update, delete on public.featured_books to authenticated;
 grant select, insert, update, delete on public.sponsor_applications to authenticated;
