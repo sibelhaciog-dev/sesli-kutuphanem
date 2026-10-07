@@ -38,19 +38,35 @@ export function BookCover({
   const [failed, setFailed] = useState(false)
 
   if (src && !failed) {
+    // Kapaklar kare, yatay ya da dikey olabiliyor; kutu ise hep 2:3. Kapak
+    // kırpılmadan sığdırılıyor (`object-contain`), kalan boşluğu aynı görselin
+    // bulanık kopyası dolduruyor. Önceden `object-cover` kenarları kesiyor ve
+    // kutuyu doldurmak için görseli büyütüp bulanıklaştırıyordu.
+    //
+    // Kapaklar kullanıcı yüklemeleri ve harici kaynaklardan geliyor; hata
+    // durumunda yedek tasarıma düşebilmek için düz img kullanılıyor.
     return (
-      // Kapaklar kullanıcı yüklemeleri ve harici kaynaklardan geliyor; hata
-      // durumunda yedek tasarıma düşebilmek için düz img kullanılıyor.
-      // eslint-disable-next-line @next/next/no-img-element
-      <img
-        src={src}
-        alt={`${title} kapağı`}
-        loading={priority ? 'eager' : 'lazy'}
-        fetchPriority={priority ? 'high' : undefined}
-        decoding="async"
-        onError={() => setFailed(true)}
-        className={cn('size-full object-cover', className)}
-      />
+      <div className={cn('relative size-full overflow-hidden bg-cream', className)}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={src}
+          alt=""
+          aria-hidden
+          loading={priority ? 'eager' : 'lazy'}
+          decoding="async"
+          className="absolute inset-0 size-full scale-125 object-cover opacity-60 blur-xl"
+        />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={src}
+          alt={`${title} kapağı`}
+          loading={priority ? 'eager' : 'lazy'}
+          fetchPriority={priority ? 'high' : undefined}
+          decoding="async"
+          onError={() => setFailed(true)}
+          className="relative size-full object-contain"
+        />
+      </div>
     )
   }
 
