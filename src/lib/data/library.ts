@@ -259,6 +259,16 @@ export async function loadModerationNotes(supabase: Client): Promise<ModerationN
   }))
 }
 
+/**
+ * Editör: onay bekleyen herkese açık not sayısı (menüdeki işaret için).
+ * Personel değilse fonksiyon yetki hatası verir; o durumda 0.
+ */
+export async function countPendingNotes(supabase: Client): Promise<number> {
+  const { data, error } = await supabase.rpc('moderation_public_notes')
+  if (error) return 0
+  return (data ?? []).filter((row) => !row.approved_at).length
+}
+
 /** Editör: notu onaylar ya da "Sadece bana"ya çevirerek yayından kaldırır. */
 export async function moderatePublicNote(
   supabase: Client,

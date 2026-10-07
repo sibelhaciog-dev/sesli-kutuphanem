@@ -158,7 +158,8 @@ yayın gerekmez (ADR 0008).
 2. Yıldız puanı → çocuğun puanı artar (avatar eşyaları artık puanla değil okunan kitaplarla açılır).
 3. Aynı kitap tekrar okunursa "Tekrar okuduk" → yeni oturum kaydı.
 4. Not eklenir (varsayılan: sadece bana). Herkese açık not editör onayına düşer
-   (`/yonetim/notlar`); onaylanınca kitap sayfasındaki "Velilerin notları"nda görünür.
+   (`/yonetim/notlar`; editörün menüsünde bekleyen not sayısı kırmızı rozetle görünür,
+   e-posta bildirimi yok); onaylanınca kitap sayfasındaki "Velilerin notları"nda görünür.
    Not kutusu kitap kütüphanede olmasa da görünür; ilk not kitabı okuma listesine ekler.
 
 ### 6.3 Keşif (yapay zekâ destekli öneri)

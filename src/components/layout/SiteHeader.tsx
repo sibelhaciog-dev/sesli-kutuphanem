@@ -4,6 +4,7 @@ import { Icon, IconLabel, type IconName } from '@/components/ui/Icon'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useRef, useState } from 'react'
+import { usePendingNotes } from '@/components/admin/usePendingNotes'
 import { AvatarFigure } from '@/components/avatar/AvatarFigure'
 import { useAppData } from '@/components/providers/AppDataProvider'
 import { InstagramIcon } from '@/components/layout/InstagramIcon'
@@ -32,6 +33,7 @@ export function SiteHeader() {
   const { isAuthenticated, isStaff, userEmail, children, activeChildId, setActiveChildId } =
     useAppData()
   const [menuOpen, setMenuOpen] = useState(false)
+  const pendingNotes = usePendingNotes()
   const menuRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
 
@@ -99,9 +101,15 @@ export function SiteHeader() {
               onClick={() => setMenuOpen((open) => !open)}
               aria-expanded={menuOpen}
               aria-haspopup="menu"
-              className="w-full rounded-full border-[1.5px] border-line px-3 py-2 text-[13px] font-medium text-ink-soft transition-colors hover:border-accent hover:text-accent-ink"
+              className="relative w-full rounded-full border-[1.5px] border-line px-3 py-2 text-[13px] font-medium text-ink-soft transition-colors hover:border-accent hover:text-accent-ink"
             >
               <IconLabel name="menu">Menü</IconLabel>
+              {pendingNotes > 0 && (
+                <>
+                  <CountBadge value={pendingNotes} className="absolute -top-1.5 -right-1.5" />
+                  <span className="sr-only">, {pendingNotes} not onay bekliyor</span>
+                </>
+              )}
             </button>
             {menuOpen && (
               <div
@@ -141,6 +149,16 @@ export function SiteHeader() {
                     >
                       <IconLabel name="wrench">Yönetim</IconLabel>
                     </Link>
+                    {pendingNotes > 0 && (
+                      <Link
+                        href="/yonetim/notlar"
+                        role="menuitem"
+                        className="flex items-center justify-between gap-2 px-4 py-2.5 text-sm font-medium text-ink transition-colors hover:bg-cream"
+                      >
+                        <IconLabel name="message">Onay bekleyen notlar</IconLabel>
+                        <CountBadge value={pendingNotes} />
+                      </Link>
+                    )}
                   </>
                 )}
                 {isAuthenticated && (
@@ -228,5 +246,19 @@ function HeaderLink({ href, children }: { href: string; children: React.ReactNod
     >
       {children}
     </Link>
+  )
+}
+
+/** Menüde onay bekleyen iş sayısı. */
+function CountBadge({ value, className }: { value: number; className?: string }) {
+  return (
+    <span
+      className={cn(
+        'inline-flex min-w-5 items-center justify-center rounded-full bg-danger px-1.5 text-[11px] leading-5 font-bold text-white',
+        className,
+      )}
+    >
+      {value > 99 ? '99+' : value}
+    </span>
   )
 }
