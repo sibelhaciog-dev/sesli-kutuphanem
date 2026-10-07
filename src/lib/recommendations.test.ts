@@ -61,6 +61,16 @@ describe('similarBooks', () => {
     const top = similarBooks(CATALOG[0]!, CATALOG, {}, TAXONOMY)[0]
     expect(top?.reasons).toContain('Duygu Yönetimi')
   })
+
+  it('gerekçede yalnızca konu ve ilgi alanı adları olur, ortak kelime olmaz', () => {
+    const known = new Set([
+      ...TAXONOMY.areas.flatMap((area) => area.topics.map((topic) => topic.name)),
+      ...TAXONOMY.interests.map((interest) => interest.name),
+    ])
+    for (const entry of similarBooks(CATALOG[0]!, CATALOG, {}, TAXONOMY)) {
+      for (const reason of entry.reasons) expect(known).toContain(reason)
+    }
+  })
 })
 
 describe('recommendForChild', () => {
@@ -87,6 +97,17 @@ describe('recommendForChild', () => {
     const toddler = makeChild({ birthDate: '2023-01-01', interestSlugs: ['uzay'] })
     const ids = recommendForChild(toddler, CATALOG, {}, TAXONOMY).map((entry) => entry.book.id)
     expect(ids).not.toContain('uzak')
+  })
+
+  it('gerekçede ortak kelime değil, konu ve ilgi alanı adları olur', () => {
+    const library = indexItems([makeItem({ bookId: 'okunmus', status: 'read', rating: 5 })])
+    const known = new Set([
+      ...TAXONOMY.areas.flatMap((area) => area.topics.map((topic) => topic.name)),
+      ...TAXONOMY.interests.map((interest) => interest.name),
+    ])
+    for (const entry of recommendForChild(child, CATALOG, library, TAXONOMY)) {
+      for (const reason of entry.reasons) expect(known).toContain(reason)
+    }
   })
 
   it('profil yoksa boş liste döner', () => {

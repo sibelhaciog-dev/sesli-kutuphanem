@@ -79,13 +79,15 @@ export function similarBooks(
   source: CatalogBook,
   books: readonly CatalogBook[],
   library: LibraryIndex,
-  taxonomy: { areas: readonly AreaView[] },
+  taxonomy: { areas: readonly AreaView[]; interests?: readonly InterestView[] },
   limit = 5,
 ): Recommendation[] {
   const sourceWords = new Set(themeWords(bookText(source)))
   const sourceTopics = new Set(source.topicSlugs)
   const sourceAreas = new Set(source.areaSlugs)
+  const sourceInterests = new Set(source.interestSlugs)
   const topicNames = topicNameMap(taxonomy.areas)
+  const interestNames = new Map((taxonomy.interests ?? []).map((item) => [item.slug, item.name]))
 
   const scored = unreadBooks(books, library)
     .filter((book) => book.id !== source.id)
@@ -112,10 +114,14 @@ export function similarBooks(
         score += 4
       }
 
-      // Gerekçe olarak önce konu adları; yer kalırsa ortak kelimeler.
+      const sharedInterests = book.interestSlugs.filter((slug) => sourceInterests.has(slug))
+
+      // Gerekçe yalnızca gelişim konusu ve ilgi alanı eşleşmesi. Ortak
+      // kelimeler skora katılıyor ama gösterilmiyor: "kucuk", "kitap" gibi
+      // anlamsız etiketler çıkıyordu.
       const reasons = [
         ...sharedTopics.map((slug) => topicNames.get(slug) ?? slug),
-        ...sharedWords.map(asLabel),
+        ...sharedInterests.map((slug) => interestNames.get(slug) ?? slug),
       ]
 
       return { book, score, reasons: [...new Set(reasons)].slice(0, 3) }
@@ -144,6 +150,7 @@ export function recommendForChild(
   const themeSet = new Set(basis.flatMap((book) => themeWords(bookText(book))))
   const topicWeights = new Map<string, number>()
   const languageWeights = new Map<string, number>()
+  const readInterests = new Set(basis.flatMap((book) => book.interestSlugs))
 
   for (const book of basis) {
     const weight = Math.max(1, library[book.id]?.rating ?? 1)
@@ -168,27 +175,37 @@ export function recommendForChild(
     // Yaşa uymayan kitap önerilmez.
     .filter((book) => suitsAge(book, childAge))
     .map((book) => {
+      // Gerekçe sırası: öncelikli konu → çocuğun ilgi alanı → okuduklarıyla
+      // ortak konu ve ilgi alanı. Ortak kelimeler skora katılıyor ama
+      // gösterilmiyor ("kucuk", "kitap" gibi anlamsız etiketler çıkıyordu).
       const reasons: string[] = []
+      const historyReasons: string[] = []
       let score = 0
 
       for (const topicSlug of book.topicSlugs) {
+        const name = topicNames.get(topicSlug) ?? topicSlug
         if (focusTopics.has(topicSlug)) {
           score += 10
-          reasons.push(topicNames.get(topicSlug) ?? topicSlug)
+          reasons.push(name)
         }
-        score += topicWeights.get(topicSlug) ?? 0
+        const weight = topicWeights.get(topicSlug) ?? 0
+        score += weight
+        if (weight > 0) historyReasons.push(name)
       }
 
       for (const interestSlug of book.interestSlugs) {
+        const name = interestNames.get(interestSlug) ?? interestSlug
         if (childInterests.has(interestSlug)) {
           score += 7
-          reasons.push(interestNames.get(interestSlug) ?? interestSlug)
+          reasons.push(name)
+        } else if (readInterests.has(interestSlug)) {
+          historyReasons.push(name)
         }
       }
+      reasons.push(...historyReasons)
 
-      const shared = [...new Set(themeWords(bookText(book)).filter((word) => themeSet.has(word)))]
-      score += shared.length * 2
-      reasons.push(...shared.slice(0, 1))
+      const shared = new Set(themeWords(bookText(book)).filter((word) => themeSet.has(word)))
+      score += shared.size * 2
 
       score += languageWeights.get(book.language) ?? 0
 
