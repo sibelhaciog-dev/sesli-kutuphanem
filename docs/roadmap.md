@@ -5,7 +5,7 @@
 
 **Durum:** v2 — veri modeli yeniden tasarımı
 **Dal:** `feat/product-v2`
-**Son güncelleme:** 2026-10-06 (ayın kitabı ve sponsorluk)
+**Son güncelleme:** 2026-10-17 (uygulama ikonu ve paylaşım önizlemesi)
 
 ---
 
@@ -123,8 +123,8 @@ Supabase projesi: **kutuphanem** (`ygaxtmuzhnntzdcltmgn`).
 - [x] Anahtar kelime denetimi; `\b` → `\y` düzeltmesi (`0023`)
 - [x] Herkese açık okuma notları: editör onayı, kitap sayfasında isimsiz gösterim; "Aile içi" seçeneği kaldırıldı (`0025`)
 - [ ] `SUPABASE_SECRET_KEY`'i yerel `.env.local`'e ekle (betikle kapak yüklemek için)
-- [ ] Var olan 196 kitabın kapaklarını ekle — Instagram'dan Chrome ile liste
-      çıkarıp `book:add --sadece-kapak`
+- [x] Var olan kitapların kapaklarını ekle — 2026-10-17 itibarıyla 264
+      kitabın hepsinde kapak var
 - [x] Claude in Chrome skill'i: Instagram gönderisi → `book:add` JSON'u
       (`skills/sesli-kutuphanem-instagram`, `npm run skill:paket`)
 - [x] `book:add`: Instagram gönderisiyle eşleştirme, `--kapak-hatasi-gec`
@@ -154,6 +154,17 @@ Supabase projesi: **kutuphanem** (`ygaxtmuzhnntzdcltmgn`).
 - [x] “Bize destek ol” menü kaydı ve yer tutucu sayfa (`/destek`)
 - [ ] Destek yolları: kahve ısmarla / düzenli destek bağlantıları (açılınca)
 - [x] Sponsorluk koşulları ve fiyatı sitede yazılmıyor; başvurudan sonra e-postayla konuşuluyor (ürün kararı, 2026-10-06)
+
+## Faz 10 — Paylaşıma hazırlık
+
+- [x] Uygulama tanımı (manifest) — telefonda "Ana ekrana ekle" ile uygulama
+      gibi kurulum, tam ekran açılış
+- [x] Ana ekran ikonları: iPhone (180) ve Android (192, 512, maskable) —
+      `npm run icons`
+- [x] Paylaşım önizleme görseli: site için markalı kart, kitap sayfaları
+      için kitap kapağı
+- [ ] Gizlilik / KVKK aydınlatma metni ve kayıtta onay
+- [ ] Alan adı (ad değişikliğiyle birlikte)
 
 ## Sonraki sürüm için fikirler (kapsam dışı)
 

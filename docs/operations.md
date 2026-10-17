@@ -198,6 +198,7 @@ betikler için.
 | `npm run db:seed`          | Boş veritabanını `content/` ile tohumla             |
 | `npm run db:export`        | Veritabanını `content/` altına yedekle              |
 | `npm run content:validate` | İçerik dosyalarını doğrula                          |
+| `npm run icons`            | Ana ekran ikonlarını (PNG) logodan yeniden üret     |
 | `npm run format`           | Kod biçimlendirme                                   |
 
 ## 9. Sorun giderme
@@ -348,3 +349,29 @@ Supabase, özel SMTP olmadan şablonların düzenlenmesine de izin vermiyor
 Alan adı alınınca Resend'e geçilecek: alan adı doğrulaması (DNS kayıtları),
 `smtp.resend.com`, port `465`, kullanıcı adı `resend`, parola Resend API
 anahtarı.
+
+## 14. Uygulama ikonu ve paylaşım önizlemesi
+
+Telefonda **Ana ekrana ekle** denince site uygulama gibi kurulur (kendi
+ikonu, tarayıcı çubuğu olmadan tam ekran). Bunu sağlayan parçalar:
+
+| Dosya                                      | Ne işe yarar                                         |
+| ------------------------------------------ | ---------------------------------------------------- |
+| `src/app/manifest.ts`                      | Uygulama tanımı (`/manifest.webmanifest`): ad, renk  |
+| `public/icons/icon-*.png`                  | Android ikonları (192, 512, maskable 512)            |
+| `src/app/apple-icon.png`                   | iPhone/iPad ana ekran ikonu (180)                    |
+| `src/app/icon.svg`                         | Tarayıcı sekmesindeki küçük ikon                     |
+| `src/app/opengraph-image.tsx`              | Site bağlantısı paylaşılınca çıkan görsel (1200×630) |
+| `src/app/kitap/[slug]/opengraph-image.tsx` | Kitap bağlantısında kapak görseli (WebP → PNG)       |
+
+PNG ikonlar `scripts/generate-icons.ts` içindeki logodan `npm run icons` ile
+üretilir ve depoya commit'lenir. Ad ve kısa tanım `SITE_NAME` /
+`SITE_TAGLINE`'dan gelir; ad değişince yalnızca site önizleme görseli değil
+manifest de kendiliğinden güncellenir. Önizleme görselindeki Poppins yazı
+tipi `@fontsource/poppins` paketinden okunur (Türkçe harfler için `latin` +
+`latin-ext`, `src/lib/og-fonts.ts`).
+
+Paylaşım uygulamaları önizlemeyi önbelleğe alır. Görsel değişince eski hâli
+bir süre görünebilir; Facebook/Instagram için
+[Sharing Debugger](https://developers.facebook.com/tools/debug/) ile
+"Scrape Again" denenebilir.

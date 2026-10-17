@@ -36,6 +36,11 @@ export const metadata: Metadata = {
     description:
       'Yaşa ve gelişim alanına göre seçilmiş çocuk kitapları. Okuma takibi, puanlama ve kişisel öneriler.',
   },
+  // Paylaşımda büyük görselli kart (görsel: opengraph-image.tsx)
+  twitter: { card: 'summary_large_image' },
+  // iPhone'da "Ana Ekrana Ekle" ile kurulunca tam ekran açılsın, adı kısa
+  // görünsün. Android aynı bilgiyi manifest.ts'ten alıyor.
+  appleWebApp: { capable: true, title: SITE_NAME, statusBarStyle: 'default' },
   robots: { index: true, follow: true },
 }
 
