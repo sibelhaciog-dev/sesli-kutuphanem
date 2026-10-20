@@ -256,20 +256,20 @@ otp_expiry = 3600
 
 # >>> e-posta şablonları (npm run email:sablon üretir, elle düzenlemeyin)
 [auth.email.template.confirmation]
-subject = "Hesabını onayla · Sesli Kütüphanem"
+subject = "Hesabını onayla · Kitap Rehberi"
 content_path = "./supabase/templates/confirmation.html"
 
 [auth.email.template.recovery]
-subject = "Şifreni yenile · Sesli Kütüphanem"
+subject = "Şifreni yenile · Kitap Rehberi"
 content_path = "./supabase/templates/recovery.html"
 
 [auth.email.template.email_change]
-subject = "Yeni e-posta adresini onayla · Sesli Kütüphanem"
+subject = "Yeni e-posta adresini onayla · Kitap Rehberi"
 content_path = "./supabase/templates/email_change.html"
 
 [auth.email.notification.password_changed]
 enabled = true
-subject = "Şifren değiştirildi · Sesli Kütüphanem"
+subject = "Şifren değiştirildi · Kitap Rehberi"
 content_path = "./supabase/templates/password_changed.html"
 
 # <<< e-posta şablonları

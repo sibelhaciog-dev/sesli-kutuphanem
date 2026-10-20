@@ -1,4 +1,5 @@
 import sharp from 'sharp'
+import { BRAND_BACKGROUND, logoSvg } from '@/lib/brand'
 import { getBookBySlug } from '@/lib/data/catalog'
 
 /**
@@ -13,8 +14,6 @@ export const alt = 'Kitap kapağı'
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
-const CREAM = { r: 250, g: 248, b: 244, alpha: 1 }
-const BRAND = '#E8602C'
 const COVER_HEIGHT = 560
 
 export default async function BookOpengraphImage({
@@ -35,11 +34,11 @@ export default async function BookOpengraphImage({
     layers.push({ input: resized, gravity: 'center' })
   } else {
     // Kapak yoksa (ya da indirilemezse) site logosu
-    layers.push({ input: logoSvg(), gravity: 'center' })
+    layers.push({ input: Buffer.from(logoSvg({ size: 240 })), gravity: 'center' })
   }
 
   const png = await sharp({
-    create: { width: size.width, height: size.height, channels: 4, background: CREAM },
+    create: { width: size.width, height: size.height, channels: 4, background: BRAND_BACKGROUND },
   })
     .composite(layers)
     .png()
@@ -62,12 +61,4 @@ async function fetchImage(url: string): Promise<Buffer | null> {
   } catch {
     return null
   }
-}
-
-function logoSvg(): Buffer {
-  return Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="240" height="240" viewBox="0 0 180 180">
-  <rect width="180" height="180" rx="40" fill="${BRAND}"/>
-  <path d="M45 48h37c5.6 0 10.7 2.9 13.5 7.3C98.3 50.9 103.4 48 109 48h26v84h-26c-5.6 0-10.7 2.9-13.5 7.3-2.8-4.4-7.9-7.3-13.5-7.3H45V48Z" fill="#FFF"/>
-  <path d="M90 55v70" stroke="${BRAND}" stroke-width="7" stroke-linecap="round"/>
-</svg>`)
 }

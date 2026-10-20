@@ -1,4 +1,4 @@
-# Sesli Kütüphanem — Claude Code için çalışma talimatları
+# Kitap Rehberi (eski adı Sesli Kütüphanem) — Claude Code için çalışma talimatları
 
 Bu dosya, bu klasörde çalışan Claude Code oturumları içindir. Aşağıdaki kurallar
 kullanıcı aksini söylemedikçe geçerlidir.

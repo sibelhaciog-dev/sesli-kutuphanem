@@ -304,6 +304,9 @@ Code'a yapıştırın.
 
 ## 12. Uygulamanın adını değiştirme
 
+Şu anki ad **Kitap Rehberi**, kısa tanım **Çocuklara özel** (2026-10'a kadar
+"Sesli Kütüphanem"). Hedef alan adı `kitaprehberi.app`.
+
 Ad kodda tek yerde: `src/lib/site.ts` → `SITE_NAME` (yanındaki kısa tanım
 `SITE_TAGLINE`). Sayfa başlıkları, üst menü, paylaşım önizlemesi, takas
 mesajı ve yapay zekâ isteklerinin başlığı buradan okur. Ayrıca elle
@@ -360,12 +363,14 @@ ikonu, tarayıcı çubuğu olmadan tam ekran). Bunu sağlayan parçalar:
 | `src/app/manifest.ts`                      | Uygulama tanımı (`/manifest.webmanifest`): ad, renk  |
 | `public/icons/icon-*.png`                  | Android ikonları (192, 512, maskable 512)            |
 | `src/app/apple-icon.png`                   | iPhone/iPad ana ekran ikonu (180)                    |
-| `src/app/icon.svg`                         | Tarayıcı sekmesindeki küçük ikon                     |
+| `src/app/icon.svg`                         | Tarayıcı sekmesindeki küçük ikon (betik üretir)      |
 | `src/app/opengraph-image.tsx`              | Site bağlantısı paylaşılınca çıkan görsel (1200×630) |
 | `src/app/kitap/[slug]/opengraph-image.tsx` | Kitap bağlantısında kapak görseli (WebP → PNG)       |
 
-PNG ikonlar `scripts/generate-icons.ts` içindeki logodan `npm run icons` ile
-üretilir ve depoya commit'lenir. Ad ve kısa tanım `SITE_NAME` /
+Logo tek yerde: `src/lib/brand.ts` (üst menüdeki logoyla aynı — sarı zemin,
+kitaplık simgesi; renkler `globals.css` ile aynı). İkonlar ondan
+`npm run icons` ile üretilir ve depoya commit'lenir; paylaşım görselleri ve
+tarayıcı çubuğu rengi de oradan okur. Ad ve kısa tanım `SITE_NAME` /
 `SITE_TAGLINE`'dan gelir; ad değişince yalnızca site önizleme görseli değil
 manifest de kendiliğinden güncellenir. Önizleme görselindeki Poppins yazı
 tipi `@fontsource/poppins` paketinden okunur (Türkçe harfler için `latin` +

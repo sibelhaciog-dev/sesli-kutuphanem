@@ -5,6 +5,7 @@ import { aiEnabled } from '@/lib/ai/config'
 import { SiteHeader } from '@/components/layout/SiteHeader'
 import { ToastProvider } from '@/components/ui/Toast'
 import { getTaxonomy } from '@/lib/data/catalog'
+import { BRAND_COLOR } from '@/lib/brand'
 import { siteUrl } from '@/lib/env'
 import { SITE_NAME } from '@/lib/site'
 import { getViewer } from '@/lib/supabase/server'
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: '#E8602C',
+  themeColor: BRAND_COLOR,
   width: 'device-width',
   initialScale: 1,
 }

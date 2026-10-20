@@ -73,7 +73,7 @@ export function SiteHeader() {
               <span className="block font-serif text-[17px] leading-none text-ink">
                 {SITE_NAME}
               </span>
-              <span className="hidden text-[11px] text-muted md:block">{SITE_TAGLINE}</span>
+              <span className="block text-[11px] text-muted">{SITE_TAGLINE}</span>
             </span>
           </Link>
           <a

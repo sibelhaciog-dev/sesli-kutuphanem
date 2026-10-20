@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next'
+import { BRAND_BACKGROUND, BRAND_COLOR } from '@/lib/brand'
 import { SITE_NAME, SITE_TAGLINE } from '@/lib/site'
 
 /**
@@ -21,9 +22,9 @@ export default function manifest(): MetadataRoute.Manifest {
     start_url: '/',
     scope: '/',
     display: 'standalone',
-    // Açılış ekranının zemini (globals.css → --color-cream) ve üst çubuk rengi.
-    background_color: '#faf8f4',
-    theme_color: '#E8602C',
+    // Açılış ekranının zemini ve üst çubuk rengi (logoyla aynı, brand.ts).
+    background_color: BRAND_BACKGROUND,
+    theme_color: BRAND_COLOR,
     categories: ['books', 'education', 'kids'],
     icons: [
       { src: '/icons/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },

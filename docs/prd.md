@@ -1,12 +1,12 @@
-# Sesli Kütüphanem — Ürün Gereksinimleri (PRD)
+# Kitap Rehberi — Ürün Gereksinimleri (PRD)
 
-**Sürüm:** 2.0 · **Durum:** geliştiriliyor · **Son güncelleme:** 2026-09-22
+**Sürüm:** 2.0 · **Durum:** geliştiriliyor · **Son güncelleme:** 2026-10-20 (ad değişikliği)
 
 ---
 
 ## 1. Tek cümlelik tanım
 
-Sesli Kütüphanem, ebeveynlerin çocuklarına yaşına ve gelişim ihtiyacına uygun
+Kitap Rehberi (eski adıyla Sesli Kütüphanem; alan adı kitaprehberi.app), ebeveynlerin çocuklarına yaşına ve gelişim ihtiyacına uygun
 kitap bulmasını, okuduklarını takip etmesini ve çocuğun okuma yolculuğunu
 görünür kılmasını sağlayan Türkçe bir çocuk kitapları rehberidir.
 

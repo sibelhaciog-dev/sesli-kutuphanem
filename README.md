@@ -1,6 +1,9 @@
-# Sesli Kütüphanem
+# Kitap Rehberi
 
-Çocuk kitapları rehberi. Ebeveynler çocukları için profil oluşturur; uygulama
+> Eski adı **Sesli Kütüphanem** (2026-10'da değişti). Depo, Vercel ve Supabase
+> projelerinin adları ile Instagram hesabı (@sesli.kutuphanem) eski adla duruyor.
+
+Çocuklara özel kitap rehberi. Ebeveynler çocukları için profil oluşturur; uygulama
 yaşa, ilgi alanlarına ve öncelikli gelişim konularına göre kitap önerir,
 okunanları takip eder ve ilerlemeyi rapora dönüştürür.
 

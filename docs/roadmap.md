@@ -164,7 +164,12 @@ Supabase projesi: **kutuphanem** (`ygaxtmuzhnntzdcltmgn`).
 - [x] Paylaşım önizleme görseli: site için markalı kart, kitap sayfaları
       için kitap kapağı
 - [ ] Gizlilik / KVKK aydınlatma metni ve kayıtta onay
-- [ ] Alan adı (ad değişikliğiyle birlikte)
+- [x] Yeni ad: **Kitap Rehberi** · "Çocuklara özel" (2026-10-20)
+- [x] Uygulama ikonları ve paylaşım görselleri sitedeki logoyla aynı (`src/lib/brand.ts`)
+- [ ] `kitaprehberi.app` alan adını al, Vercel'e bağla
+- [ ] Alan adı gelince: Supabase Site URL + Redirect URLs, `NEXT_PUBLIC_SITE_URL`
+- [ ] E-posta şablonlarını (yeni adla) Supabase paneline yapıştır
+- [ ] Instagram hesabının adı (ayrı karar)
 
 ## Sonraki sürüm için fikirler (kapsam dışı)
 

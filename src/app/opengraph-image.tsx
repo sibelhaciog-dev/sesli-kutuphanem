@@ -1,4 +1,5 @@
 import { ImageResponse } from 'next/og'
+import { BRAND_BACKGROUND, BRAND_COLOR, BRAND_INK, logoDataUri } from '@/lib/brand'
 import { OG_FONT_FAMILY, ogFonts } from '@/lib/og-fonts'
 import { SITE_NAME, SITE_TAGLINE } from '@/lib/site'
 
@@ -12,11 +13,10 @@ export const alt = `${SITE_NAME} — ${SITE_TAGLINE}`
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
-const BRAND = '#E8602C'
-const INK = '#1c1c1e'
+const INK = BRAND_INK
 const INK_SOFT = '#3a3a3c'
-const CREAM = '#faf8f4'
-const ACCENT = '#eab23a'
+const CREAM = BRAND_BACKGROUND
+const ACCENT = BRAND_COLOR
 
 export default async function OpengraphImage() {
   return new ImageResponse(
@@ -59,21 +59,7 @@ export default async function OpengraphImage() {
       />
 
       <div style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
-        <svg width="112" height="112" viewBox="0 0 180 180">
-          <rect width="180" height="180" rx="40" fill={BRAND} />
-          <path
-            d="M45 48h37c5.6 0 10.7 2.9 13.5 7.3C98.3 50.9 103.4 48 109 48h26v84h-26c-5.6 0-10.7 2.9-13.5 7.3-2.8-4.4-7.9-7.3-13.5-7.3H45V48Z"
-            fill="#FFF"
-          />
-          <path d="M90 55v70" stroke={BRAND} strokeWidth="7" strokeLinecap="round" />
-          <path
-            d="M58 70h20M58 86h20M102 70h20M102 86h20"
-            stroke={BRAND}
-            strokeWidth="6"
-            strokeLinecap="round"
-            opacity=".55"
-          />
-        </svg>
+        <img src={logoDataUri({ size: 112 })} width={112} height={112} alt="" />
         <div style={{ fontSize: 34, fontWeight: 500, color: INK_SOFT }}>{SITE_TAGLINE}</div>
       </div>
 
